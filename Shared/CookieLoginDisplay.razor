@@ -1,0 +1,18 @@
+﻿<MudPaper Class="pa-1 ma-1" Elevation="0">
+
+    <AuthorizeView>
+        <Authorized>
+            <strong>Hello, @context.User.Identity.Name!</strong>
+            <a href="Account/Logout">Log out</a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="Account/Login">Log in</a>
+        </NotAuthorized>
+    </AuthorizeView>
+
+</MudPaper>
+
+
+@code {
+
+}

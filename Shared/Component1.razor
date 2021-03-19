@@ -1,0 +1,30 @@
+﻿@page "/Component1"
+@inject WebAssemblyLocalStorageService StateContainer
+@implements IDisposable
+
+<h1>Component 1</h1>
+
+<p>Component 1 Property: <b>@StateContainer.Property</b></p>
+
+<p>
+    <button @onclick="ChangePropertyValue">Change Property from Component 1</button>
+</p>
+
+<Component2 />
+
+@code {
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        StateContainer.SetProperty($"New value set in Component 1: {DateTime.Now}");
+    }
+
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}
