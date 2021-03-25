@@ -19,9 +19,11 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.4" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="MudBlazor" Version="5.0.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sufficit-asteriskmanager-core\SufficitAsteriskManagerCore.csproj" />
     <ProjectReference Include="..\sufficit-base\SufficitBase.csproj" />
   </ItemGroup>
 
