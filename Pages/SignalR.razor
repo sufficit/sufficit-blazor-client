@@ -1,4 +1,5 @@
 ﻿@page "/signalr"
+@using AsterNET.Manager.Event
 @using Microsoft.AspNetCore.SignalR.Client
 @using System.Reactive.Subjects
 @using System.Collections.Concurrent
@@ -25,15 +26,28 @@
 }
 <hr>
 <hr>
-<ul id="messagesList">
-    @foreach (var message in Buffer)
-    {
-        <li>@message</li>
-    }
-</ul>
+<MudGrid Spacing="0">    
 
+    @if (IsConnected)
+    {
+        <MudItem xs="12" Class="px-5 pa-1">
+            <MudSkeleton Class="d-flex align-center justify-center mud-width-full blue" Animation="Animation.Wave" SkeletonType="SkeletonType.Rectangle" Style="height: 2px;" />
+        </MudItem>
+    }
+
+    @foreach (var message in Buffer.Reverse())
+    {
+        <MudItem xs="12" Class="px-5 pa-1">
+            <MudPaper Class="d-flex mud-width-full py-2">
+                <MudText Align="Align.Left" Typo="Typo.h6" Class="px-5">@message</MudText>
+                <MudText Align="Align.Center"></MudText>
+            </MudPaper>
+        </MudItem>
+    }
+
+</MudGrid>
 @code {
-    private MessagesBuffer<string> Buffer = new MessagesBuffer<string>(20);
+    private MessagesBuffer<object> Buffer = new MessagesBuffer<object>(20);
     private HubConnection hubConnection;
     private string userInput;
     private string filterInput;
@@ -42,19 +56,16 @@
     {
         //messages.Buffer(20);
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(new Uri("https://localhost:5001/amihub"))
+            .WithUrl(new Uri("https://localhost:26507/amihub"))
             .Build();
 
         hubConnection.On<string>("System", SystemCommunication);
-        hubConnection.On<string, PeerStatusEvent>("Event:PeerStatus", ReceiveEventHandler);
-        hubConnection.On<string, QueueCallerAbandonEvent>("Event:QueueCallerAbandon", ReceiveEventHandler);
+        hubConnection.On<string, object>("Event", ReceiveEventHandler);
         hubConnection.Reconnecting += OnHubReconnecting;
         hubConnection.Reconnected += OnHubReconnected;
         hubConnection.Closed += OnHubClosed;
 
         await hubConnection.StartAsync();
-        //await Send();
-
     }
     
     #region CONECTIONS EVENTS
@@ -110,21 +121,12 @@
         StateHasChanged();
     }
 
-    void ReceiveEventHandler(string sender, QueueCallerAbandonEvent eventObj)
+    void ReceiveEventHandler(string sender, object eventObj)
     {
-        string encodedMsg = $"QueueCallerAbandonEvent :: {sender} :: ";
-        encodedMsg += eventObj.CallerIdNum;
+        //string encodedMsg = $"PeerStatusEvent :: {sender} :: ";
+        //encodedMsg += eventObj.Peer;
                
-        Buffer.Add(encodedMsg);
-        StateHasChanged();   
-    }
-
-    void ReceiveEventHandler(string sender, PeerStatusEvent eventObj)
-    {
-        string encodedMsg = $"PeerStatusEvent :: {sender} :: ";
-        encodedMsg += eventObj.Peer;
-               
-        Buffer.Add(encodedMsg);
+        Buffer.Add(eventObj);
         StateHasChanged();   
     }
 

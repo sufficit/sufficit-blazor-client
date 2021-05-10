@@ -42,22 +42,36 @@ namespace SufficitBlazorClient
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            lock (_lockCollection)
+            {
+                _collection.Clear();
+                _counter = 0;
+            }
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            lock (_lockCollection)
+                return _collection.Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            lock (_lockCollection)
+                _collection.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            lock (_lockCollection)
+            {
+                if(_collection.Remove(item))
+                {
+                    _counter--;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()

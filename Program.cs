@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using MudBlazor.Services;
-
 using System.Net.Http;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Authentication;
 using SufficitBlazorClient.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
