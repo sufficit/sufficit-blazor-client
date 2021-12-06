@@ -1,0 +1,164 @@
+﻿@page "/pages/telephony/webphone"
+<h3>Web Phone</h3>
+
+<div>
+    <h3><span>Estado: </span> @JsSIPService.Status</h3>
+    <h6><span>Session Key: </span> @WebRTCKey</h6>
+</div>
+<hr class="dark horizontal" />
+<div class="card card-frame">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-sm w-100 bg-gradient-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <span style="display: block;" title="entrada de áudio" data-bs-toggle="tooltip">
+                            <span class="material-icons" style="padding-right: 10px;">mic</span> Escolher microfone
+                        </span>
+                    </button>
+                    <div class="dropdown-menu list-group" style="background-color: transparent; padding-bottom: 0;">
+                        @foreach(var device in AudioInputDevices){
+                            @if (device.ID == JsSIPService.Devices.AudioInput)
+                            {
+                                <a class='dropdown-item list-group-item active' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, device.ID)'>@device.Label</a>
+                            } else { 
+                                <a class='dropdown-item list-group-item' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, device.ID)'>@device.Label</a>
+                            }
+                        }                  
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-sm w-100 bg-gradient-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <span style="display: block;" title="saída de áudio" data-bs-toggle="tooltip">
+                            <span class="material-icons" style="padding-right: 10px;">volume_up</span> Escolher auto-falante
+                        </span> 
+                    </button>
+                    <div class="dropdown-menu list-group" style="background-color: transparent; padding-bottom: 0;">
+                        @foreach(var device in AudioOutputDevices){
+                            @if (device.ID == JsSIPService.Devices.AudioOuput)
+                            {
+                                <a class='dropdown-item list-group-item active' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, device.ID)'>@device.Label</a>
+                            } else { 
+                                <a class='dropdown-item list-group-item' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, device.ID)'>@device.Label</a>
+                            }
+                        }                  
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-sm w-100 bg-gradient-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <span style="display: block;" title="entrada de video" data-bs-toggle="tooltip">
+                            <span class="material-icons" style="padding-right: 10px;">videocam</span> Escolher câmera
+                        </span> 
+                    </button>
+                    <div class="dropdown-menu list-group" style="background-color: transparent; padding-bottom: 0;">
+                        @foreach(var device in VideoInputDevices){
+                            @if (device.ID == JsSIPService.Devices.VideoInput)
+                            {
+                                <a class='dropdown-item list-group-item active' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, device.ID)'>@device.Label</a>
+                            } else { 
+                                <a class='dropdown-item list-group-item' @onclick='() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, device.ID)'>@device.Label</a>
+                            }
+                        }                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="dark horizontal" />
+<div class="card card-frame">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <audio style="width: 100%; height: 100%;" id='audio-player-remote' controls autoplay></audio>
+            </div>
+            <div class="col-4">
+                <video style="width: 100%; height: 100%;" id='media-player-self' controls autoplay></video>
+            </div>
+            <div class="col-4">      
+                <video style="width: 100%; height: 100%;" id='media-player-remote' controls autoplay></video>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="dark horizontal" />
+<div class="card" style="padding: 20px;">
+    <InputMaterial class="input-group input-group-outline mb-3">        
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-control" @bind="@Destination" />
+        <button type="button" class="btn btn-icon btn-3 btn-primary" data-bs-toggle="tooltip" title="Chamada de Video" style="margin-bottom: 0px;" @onclick="VideoCall">
+            <span class="btn-inner--icon"><i class="material-icons">videocam</i></span>
+        </button>
+        <button type="button" class="btn btn-icon btn-3 btn-primary" data-bs-toggle="tooltip" title="Chamada de Voz" style="margin-bottom: 0px;" @onclick="VoiceCall">
+            <span class="btn-inner--icon"><i class="material-icons">mic_none</i></span>
+        </button>
+        <span class="btn btn-icon btn-primary disabled" style="margin-bottom: 0px; line-height: 200%;">Ligar</span>        
+    </InputMaterial>
+</div>
+<hr class="dark horizontal" />
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <td>Ações</td>
+                    <td class="center aligned">ID</td>
+                    <td class="center aligned">Direção</td>
+                    <td class="left aligned">Estado</td>
+                    <td class="left aligned">Motivo</td>
+                    <td class="left aligned">Atualização</td>
+                </tr>
+            </thead>                             
+            <tbody>
+                @foreach(var session in JsSIPService.Sessions){
+                    <tr>
+                        <td>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Answer(session, false)"><i class="fas fa-volume-up"></i></button>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Answer(session, true)"><i class="fas fa-video"></i></button>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Terminate(session)"><i class="fas fa-ban"></i></button>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Mute(session)"><i class="fas fa-microphone-alt-slash"></i></button>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.UnMute(session)"><i class="fas fa-microphone"></i></button>
+
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Hold(session)"><i class="fas fa-pause-circle"></i></button>
+                            <button class="button" @onclick="() => JsSIPService.Sessions.UnHold(session)"><i class="fas fa-play-circle"></i></button>
+
+                            <button class="button" @onclick="() => JsSIPService.Sessions.Action(session)">action</button>
+                        </td>
+                        <td><button data-toggle="tooltip" title="@session.ID"><i class="fas fa-key"></i></button></td>
+                        <td>@session.Direction</td>
+                        <td class="center aligned">@session.Status</td>
+                        <td class="center aligned">@session.Cause</td>
+                        <td class="center aligned">@session.Update().ToLocalTime()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr class="dark horizontal" />
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <td class="left aligned">Kind</td>
+                    <td class="center aligned">ID</td>
+                    <td class="center aligned">Label</td>
+                </tr>
+            </thead>                             
+            <tbody>
+                @foreach(var device in MediaDevices){
+                    <tr>
+                        <td>@device.Kind</td>
+                        <td>@device.ID</td>
+                        <td>@device.Label</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

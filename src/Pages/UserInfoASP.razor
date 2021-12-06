@@ -1,0 +1,63 @@
+﻿@page "/userinfobyasp"
+@attribute [Authorize]
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+
+<MudPaper Class="pa-1 ma-1" Elevation="0">
+    <hr />
+    <h3>ClaimsPrincipal data using default "@AuthenticationStateProvider.GetType().Name" </h3>
+    <h5>AuthenticationType: @User?.Identity.AuthenticationType</h5>
+    <hr />
+    <p>@_authMessage</p>
+
+    @if (_claims.Any())
+    {
+        <ul>
+            @foreach (var claim in _claims)
+            {
+                <li>@claim.Type: @claim.Value</li>
+            }
+        </ul>
+    }
+    <hr />
+    <p>TOKEN ::: @accessToken?.Value</p>
+</MudPaper>
+
+@code {
+    [Inject] NavigationManager Navigation { get; set; }
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] IAccessTokenProvider TokenProvider { get; set; }
+    [Inject] IHttpClientFactory ClientFactory { get; set; }
+
+    private ClaimsPrincipal User;
+    private string _authMessage;
+    private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+    private AccessToken accessToken;
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        try
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                _authMessage = $"{User.Identity.Name} is authenticated. ({User.Identity.GetType()})";
+                _claims = User.Claims;                      
+
+                AccessTokenResult tokenResult = await TokenProvider.RequestAccessToken();
+                if(!tokenResult.TryGetToken(out accessToken))
+                {
+                    accessToken = new AccessToken() { Value = $"STATUS: { tokenResult.Status }" };
+                }                  
+            }
+            else
+            {
+                _authMessage = "The user is NOT authenticated.";
+            }
+        }
+        catch(Exception ex)
+        {
+            _authMessage = $"error :: { ex.Message }"; 
+        }
+    }
+}

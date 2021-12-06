@@ -1,0 +1,12 @@
+﻿@using SufficitBlazorClient.Models
+@inherits LayoutComponentBase
+
+<SideBarMaterial />
+<div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    <NavBarMaterial />
+    <div class="container-fluid px-2 px-md-4" style="min-height: 500px">
+        @Body
+    </div>
+    <FooterMaterial />
+</div>
+<MaterialFixedPlugin />

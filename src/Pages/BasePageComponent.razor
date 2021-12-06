@@ -1,0 +1,39 @@
+﻿@using SufficitBlazorClient.Models
+@inject NavigationManager NavigationManager
+@inject IBreadcrumbService BreadcrumbService
+@implements IDisposable
+
+@code {
+    protected virtual string Title { get; }
+
+    protected virtual string Description { get; }
+
+    protected virtual string Keywords { get; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            BreadcrumbService
+            .Set<HomeBreadcrumb>()
+            .Set<PagesBreadcrumb>()
+            .Set<PageBreadcrumb>(new Dictionary<string, object>
+            {
+                ["title"] = Title,
+                ["description"] = Description,
+                ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
+            });
+
+            BreadcrumbService.Description = Description;
+        }
+
+        // continuando o processo na base do componente
+        base.OnAfterRender(firstRender);
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Limpando as informações no menu de navegação
+        BreadcrumbService.Clear();        
+    }
+}

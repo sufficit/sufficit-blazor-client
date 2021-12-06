@@ -1,0 +1,25 @@
+﻿@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<RemoteAuthenticatorView Action="@Action" AuthenticationState="AuthenticationState" OnLogInSucceeded="OnLogInSucceeded" />
+
+@code {
+    [Inject] IAccessTokenProvider TokenProvider { get; set; }
+    [Inject] RemoteAuthenticationState AuthenticationState { get; set; }
+
+    [Parameter]
+    public string Action { get; set; }
+
+    private async void OnLogInSucceeded(RemoteAuthenticationState state)
+    {
+        try
+        {
+            AccessTokenResult tokenResult = await TokenProvider.RequestAccessToken();
+            tokenResult.TryGetToken(out AccessToken accessToken);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("error on get token: " + ex.Message);
+        }
+    }
+}

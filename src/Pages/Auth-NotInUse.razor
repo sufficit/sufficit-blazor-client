@@ -1,0 +1,47 @@
+﻿@page "/auth/{action}"
+@using Microsoft.Extensions.Logging
+@using Models
+@inject RemoteAuthenticationState AuthenticationState
+@inject ILocalStorageService LocalStorage
+@inject ILogger<Authentication> Logger
+
+<h3>@Action</h3>
+<RemoteAuthenticatorViewCore Action="@Action"
+                             TAuthenticationState="RemoteAuthenticationState"
+                             AuthenticationState="AuthenticationState"
+                             OnLogInSucceeded="RestoreState"
+                             OnLogOutSucceeded="RestoreState" />
+
+@code {
+    [Parameter]
+    public string Action { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Logger.LogInformation("OnInitializedAsync");
+        
+        if (RemoteAuthenticationActions.IsAction(RemoteAuthenticationActions.LogIn, Action) ||
+            RemoteAuthenticationActions.IsAction(RemoteAuthenticationActions.LogOut, Action))
+        {
+            //if (string.IsNullOrWhiteSpace(AuthenticationState.Id))
+                //AuthenticationState.Id = Guid.NewGuid().ToString();
+
+            await LocalStorage.SetItemAsync<RemoteAuthenticationState>("sufficituser", AuthenticationState);
+            //await LocalStorage.SetItemAsync<CustomRemoteUserAccount>("user", new CustomRemoteUserAccount() { Id = AuthenticationState.Id });
+        }
+    }
+
+    private async Task RestoreState(RemoteAuthenticationState state)
+    {
+        Logger.LogInformation("RestoreState");
+        
+        //if (!string.IsNullOrWhiteSpace(state.Id))
+        {
+            var fromStorage = await LocalStorage.GetItemAsync<RemoteAuthenticationState>("sufficituser");
+            if(fromStorage != null)
+            {
+                //AuthenticationState.SetStateFromLocalStorage(fromStorage);
+            }
+        }
+    }
+}
