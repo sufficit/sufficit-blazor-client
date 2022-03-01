@@ -449,7 +449,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-HDtYN6Z+O34CfCBia+8uMtL2qdyHnm8oOcS6kNSUa8w=",
+      "hash": "sha256-0qqglzuetbXpJnhmmBfkMPywBMLYy4dhtUoJScYCEzk=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -2349,5 +2349,5 @@
       "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
     }
   ],
-  "version": "RCApVqas"
+  "version": "G6MkRlgB"
 };
