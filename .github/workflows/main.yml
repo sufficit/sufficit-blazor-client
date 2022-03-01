@@ -26,6 +26,11 @@ jobs:
     - name: Copy files
       run: mkdir release && cp -fR src/wwwroot/* release/.
     
+    
+    # changes the base-tag in index.html from '/' to 'SufficitBlazorClient' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in main.js from / to SufficitBlazorClient
+      run: sed -i 's/baseUrl: \'\/assets\/js\'\,/baseUrl: \'\/sufficit-blazor-client\/assets\/js\'\,/g' release/assets/js/main.js
+      
     # changes the base-tag in index.html from '/' to 'SufficitBlazorClient' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to SufficitBlazorClient
       run: sed -i 's/<base href="\/" \/>/<base href="\/sufficit-blazor-client\/" \/>/g' release/index.html
