@@ -1,0 +1,21 @@
+{
+  "short_name": "Sufficit Blazor",
+  "name": "Sufficit Blazor Applications",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/img/icons/icon-sufficit-960.png",
+      "type": "image/png",
+      "sizes": "960x960"
+    },
+    {
+      "src": "/assets/img/logos/sufficit-logotipo.png",
+      "type": "image/png",
+      "sizes": "560x140"
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#03173d",
+  "display": "standalone",
+  "prefer_related_applications": true
+}
