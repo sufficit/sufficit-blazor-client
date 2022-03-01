@@ -1,5 +1,5 @@
 ﻿console.debug("SUFFICIT: Loading from RequireJs");
-let rootPath = "";
+let rootPath = "/sufficit-blazor-client";
 requirejs.config({
     baseUrl: rootPath + '/assets/js',
     paths: {
