@@ -1,6 +1,6 @@
 ﻿console.debug("SUFFICIT: Loading from RequireJs");    
 requirejs.config({
-    baseUrl: '/assets/js',
+    baseUrl: '/sufficit-blazor-client/assets/js',
     paths: {
         'sufficit/blazor-before': 'sufficit-blazor-before',
         'framework': '/_framework/blazor.webassembly',        
