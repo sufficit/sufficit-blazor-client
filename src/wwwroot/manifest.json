@@ -4,12 +4,12 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/assets/img/icons/icon-sufficit-960.png",
+      "src": "assets/img/icons/icon-sufficit-960.png",
       "type": "image/png",
       "sizes": "960x960"
     },
     {
-      "src": "/assets/img/logos/sufficit-logotipo.png",
+      "src": "assets/img/logos/sufficit-logotipo.png",
       "type": "image/png",
       "sizes": "560x140"
     }
