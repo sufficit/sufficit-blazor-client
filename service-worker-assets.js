@@ -421,7 +421,7 @@
       "url": "index.html"
     },
     {
-      "hash": "sha256-TNJdcPFMlilnKNnyR01D+q0yu84XxRx1rzxR6+aPfMw=",
+      "hash": "sha256-RBreZyR+eqIU4t5RS6IVfhzxsLwcmERLj66imuVR6F0=",
       "url": "manifest.json"
     },
     {
@@ -2349,5 +2349,5 @@
       "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
     }
   ],
-  "version": "HSEPDEPZ"
+  "version": "RCApVqas"
 };
