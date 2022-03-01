@@ -1,11 +1,12 @@
-﻿console.debug("SUFFICIT: Loading from RequireJs");    
+﻿console.debug("SUFFICIT: Loading from RequireJs");
+let rootPath = "";
 requirejs.config({
-    baseUrl: '/sufficit-blazor-client/assets/js',
+    baseUrl: rootPath + '/assets/js',
     paths: {
         'sufficit/blazor-before': 'sufficit-blazor-before',
-        'framework': '/_framework/blazor.webassembly',        
-        'content/mudblazor': '/_content/MudBlazor/MudBlazor.min',
-        'content/authentication': '/_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService'
+        'framework': rootPath + '/_framework/blazor.webassembly',
+        'content/mudblazor': rootPath + '/_content/MudBlazor/MudBlazor.min',
+        'content/authentication': rootPath + '/_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService'
     },
     shim: {
         'content/authentication': { init: onAuthenticationLoaded },
