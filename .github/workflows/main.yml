@@ -24,7 +24,7 @@ jobs:
     #  run: dotnet publish src/SufficitBlazorClient.csproj -c Release -o release --nologo
     
     - name: Copy files
-      run: mkdir release && copy -fR src/wwwroot/* release/.
+      run: mkdir release && cp -fR src/wwwroot/* release/.
     
     # changes the base-tag in index.html from '/' to 'SufficitBlazorClient' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to SufficitBlazorClient
