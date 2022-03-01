@@ -417,7 +417,7 @@
       "url": "favicon.ico"
     },
     {
-      "hash": "sha256-gdbMXHOuNaiPHnTtMoyZtiUjdLiLzDYk1bxfmWK4BY0=",
+      "hash": "sha256-Kb1NGmJKwzeuF6WRHEX6RxdWAX0y4097F+uSUcKqJPA=",
       "url": "index.html"
     },
     {
@@ -2349,5 +2349,5 @@
       "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
     }
   ],
-  "version": "8Whgw35K"
+  "version": "HSEPDEPZ"
 };
