@@ -1,10 +1,10 @@
 ﻿@page "/pages/telephony/webphone"
-<h3>Web Phone</h3>
-
+@inherits TelephonyBasePageComponent 
 <div>
     <h3><span>Estado: </span> @JsSIPService.Status</h3>
     <h6><span>Session Key: </span> @WebRTCKey</h6>
 </div>
+
 <hr class="dark horizontal" />
 <div class="card card-frame">
     <div class="card-body">
@@ -133,29 +133,6 @@
                         <td class="center aligned">@session.Status</td>
                         <td class="center aligned">@session.Cause</td>
                         <td class="center aligned">@session.Update().ToLocalTime()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-<hr class="dark horizontal" />
-<div class="card">
-    <div class="table-responsive">
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <td class="left aligned">Kind</td>
-                    <td class="center aligned">ID</td>
-                    <td class="center aligned">Label</td>
-                </tr>
-            </thead>                             
-            <tbody>
-                @foreach(var device in MediaDevices){
-                    <tr>
-                        <td>@device.Kind</td>
-                        <td>@device.ID</td>
-                        <td>@device.Label</td>
                     </tr>
                 }
             </tbody>

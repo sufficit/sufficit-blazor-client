@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Sufficit;
-using Sufficit.APIClient;
-using Sufficit.EndPoints.Configuration;
+using Sufficit.Client;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;

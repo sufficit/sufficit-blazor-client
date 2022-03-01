@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using Sufficit.APIClient;
+using Sufficit.Client;
 using Sufficit.Blazor.UI.Material.Extensions;
 using Sufficit.Telephony.JsSIP;
 using System;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace SufficitBlazorClient.Pages.Telephony
 {
     [Authorize]
-    public partial class WebPhone
+    public partial class WebPhone : TelephonyBasePageComponent
     {
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
@@ -34,6 +34,11 @@ namespace SufficitBlazorClient.Pages.Telephony
 
         [Inject]
         APIClientService APIClient { get; set; }
+
+        protected override string Title => "Telefone Web";
+
+        protected override string Description => "Aplicativo de telefone virtual";
+
 
         protected string Destination { get; set; }
 
@@ -72,6 +77,10 @@ namespace SufficitBlazorClient.Pages.Telephony
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            if (firstRender)
+            {
+                await JsSIPService.TestDevices();
+            }
             await base.OnAfterRenderAsync(firstRender);
         }
 

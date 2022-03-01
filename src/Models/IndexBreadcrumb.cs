@@ -42,6 +42,8 @@ namespace SufficitBlazorClient.Models
         {
             builder.Link(Title, Link, 
                 new KeyValuePair<string, object>("class", "opacity-5 text-dark"),
+                new KeyValuePair<string, object>("data-bs-toggle", "tooltip"),
+                new KeyValuePair<string, object>("data-bs-placement", "bottom"),
                 new KeyValuePair<string, object>("title", Description)
                 );
         }

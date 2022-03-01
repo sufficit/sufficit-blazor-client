@@ -15,15 +15,15 @@ namespace SufficitBlazorClient.Extensions
     {
         public static IServiceCollection AddSufficitAuthentication(this IServiceCollection services)
         {
-            IConfiguration? configuration = services.BuildServiceProvider().GetService<IConfiguration>();
-            if (configuration == null) throw new ArgumentNullException("configuration");
+            var provider = services.BuildServiceProvider();
+            var configuration = provider.GetRequiredService<IConfiguration>();
 
             // Definindo o local da configuração global
             // Importante ser dessa forma para o sistema acompanhar as mudanças no arquivo de configuração em tempo real 
-            services.Configure<OpenIDOptions>(options => configuration.GetSection(OpenIDOptions.SectionName).Bind(options));
+            services.Configure<OpenIDOptions>(options => configuration.GetSection(OpenIDOptions.SECTIONNAME));
 
             // Capturando para uso local
-            var oidOptions = configuration.GetSection(OpenIDOptions.SectionName).Get<OpenIDOptions>();
+            var oidOptions = configuration.GetSection(OpenIDOptions.SECTIONNAME).Get<OpenIDOptions>();
             
             // Usado na página /authentication
             services.AddScoped<RemoteAuthenticationState, CustomRemoteAuthenticationState>();
@@ -37,7 +37,7 @@ namespace SufficitBlazorClient.Extensions
             services.AddOidcAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
                 oidOptions.Bind(options.ProviderOptions);
-
+                // oidOptions.GetClaimsFromUserInfoEndpoint = true;
                 // importante pois o nome padrão normalmente é o endereço completo da microsoft
                 // ex: https://micros...................role
                 options.UserOptions.RoleClaim = "role";

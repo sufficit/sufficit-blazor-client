@@ -8,8 +8,9 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using Microsoft.Extensions.Logging;
+using Sufficit;
+using Sufficit.Identity;
 using SufficitBlazorClient.Models.Identity;
-using SufficitBlazorClient.Services;
 
 namespace SufficitBlazorClient.Services
 {    
@@ -68,11 +69,66 @@ namespace SufficitBlazorClient.Services
             }
         }
 
-        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, RemoteAuthenticationUserOptions options)
+        static IEnumerable<IDirective> Directives => Utils.GetEnumerableOfType<IDirective>();
+
+        static UserPolicy GetPolicy(string id, string value)
         {
+            var directive = Directives.FirstOrDefault(d => d.ClaimType == id);
+            if(directive != null)
+            {
+                if(Guid.TryParse(value, out Guid IDContext))
+                    return new UserPolicy() { IDDirective = directive.ID, IDContext = IDContext };
+            }
+
+            throw new Exception($"could not create policy from values: { id } :: { value }");
+        }
+
+        public void ConvertUserPolicies(CustomRemoteUserAccount account)
+        {
+            if (account != null)
+            {
+                if (account.AdditionalProperties != null)
+                {
+                    var policies = new List<UserPolicy>();
+                    foreach (var pair in account.AdditionalProperties)
+                    {
+                        if (pair.Key.StartsWith("directive_"))
+                        {
+                            if (pair.Value is System.Text.Json.JsonElement element)
+                            {
+                                switch (element.ValueKind)
+                                {
+                                    case JsonValueKind.String:
+                                        {
+                                            policies.Add(GetPolicy(pair.Key, element.GetString())); break;
+                                        }
+                                    case JsonValueKind.Array:
+                                        foreach (var subelement in element.EnumerateArray())
+                                            policies.Add(GetPolicy(pair.Key, subelement.GetString()));
+                                        break;
+                                    default: continue;
+                                }
+                                _logger?.LogDebug($"CreateUserAsync, directive: {element.ValueKind}");
+                            }
+                            account.AdditionalProperties.Remove(pair);
+                        }
+                    }
+                    account.Policies = policies;
+                }
+            }
+        }
+
+        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, RemoteAuthenticationUserOptions options)
+        {     
             CustomRemoteUserAccount userAccount = null;
-            if (account != null) userAccount = await SetCachedUser(account);
+            if (account != null) 
+            {
+                ConvertUserPolicies(account);
+                userAccount = await SetCachedUser(account); 
+            }
             else userAccount = await GetCachedUser();
+                       
+            _logger?.LogDebug($"CreateUserAsync: {JsonSerializer.Serialize(userAccount?.AdditionalProperties)}");
 
             // as claims não são criadas por este método, crie após ...
             var user = await base.CreateUserAsync(userAccount, options);
@@ -80,12 +136,6 @@ namespace SufficitBlazorClient.Services
              
             foreach (var claim in ToClaims(userAccount, options))
                 ((ClaimsIdentity)user.Identity).AddClaim(claim);
-
-            /* // Depuração para encontrar claims não utilizadas pela classe CustomRemoteUserAccount
-            string jsonAdditional = string.Empty;
-            try { jsonAdditional = JsonSerializer.Serialize(userAccount.AdditionalProperties); } catch { }
-            _logger?.LogInformation($"Additional: { jsonAdditional }");
-            */
 
             return user;
         }        

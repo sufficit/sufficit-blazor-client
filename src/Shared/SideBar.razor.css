@@ -1,0 +1,26 @@
+﻿@media (max-width: 640px){
+    .g-sidenav-pinned aside.navbar {
+        margin: 0 !important;
+        max-width: 100% !important;
+        border-radius: 0;
+    }
+}
+
+aside .background {
+    z-index: -1;
+    opacity: 0.05;
+    position: absolute;
+    width: 100%;
+    width: -moz-available; /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+    height: 100%;
+    height: -moz-available; /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    height: fill-available;
+    background-image: url('/assets/img/polygon.jpg'); /* ivancik.jpg */
+}
+
+.g-sidenav-hidden img.navbar-brand-img.logo {
+    filter: contrast(0) brightness(0) invert(1);
+}

@@ -1,0 +1,129 @@
+﻿@using System.Security.Claims
+@inject IJSRuntime JSRuntime
+
+<SideBarMaterial>
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+        <div class="background"></div>
+        <div class="sidenav-header">
+            <a class="navbar-brand m-0" style="text-align: center;">
+                <img src="../../assets/img/logos/logo.png" class="navbar-brand-img h-100 logo" alt="main_logo" />
+                <span class="ms-1 font-weight-bold text-white"><img src="../../assets/img/logos/logo-texto.png" class="navbar-brand-img h-100 textlogo" alt="main_logo" /></span>
+            </a>
+        </div>
+        <hr class="horizontal light mt-0 mb-0" />
+    
+        <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <AuthorizeView>                
+                    <Authorized>
+                        <SideBarMaterialItem Title="@User?.Identity.Name" Image="@Avatar" Link="#ProfileNav">
+                            <SideBarMaterialItem Title="My Profile" Link="#profile"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="Settings" Link="#settings"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="Logout" @onclick="BeginSignOut"></SideBarMaterialItem>
+                        </SideBarMaterialItem>
+                    </Authorized>
+                    <NotAuthorized>
+                        <SideBarMaterialItem Title="Entrar" Link="authentication/login"></SideBarMaterialItem>
+                    </NotAuthorized>
+                </AuthorizeView>
+                <hr class="horizontal light mt-0" />
+
+                <SideBarMaterialItem Title="Material Dashboard" Icon="dashboard">
+                    <SideBarMaterialItem Title="Default" Link="material"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Toast" Link="dashboard/toast"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Not Ready" Link="unready"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Counter" Icon="add" Link="counter"></SideBarMaterialItem>
+                </SideBarMaterialItem>
+
+                <AuthorizeView Roles="manager">
+                    <Authorized>
+                        <hr class="horizontal dark mt-0 mb-0" />
+                        <SideBarMaterialItem Title="Identity" Icon="fingerprint">
+                            <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem>
+                        </SideBarMaterialItem>
+                    </Authorized>
+                </AuthorizeView>
+
+                <AuthorizeView>
+                    <Authorized>
+                        <hr class="horizontal dark mt-0 mb-0" />
+                        <SideBarMaterialItem Title="Authorized" Icon="lock">
+                            <SideBarMaterialItem Title="Fetch BlazorServer" Link="fetchdata"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="Fetch Sufficit" Link="fetchsufficit"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="User info ASP" Link="userinfobyasp"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="User info Test" Link="userinfobytest"></SideBarMaterialItem>
+                        </SideBarMaterialItem>
+                    </Authorized>
+                </AuthorizeView>
+    
+                <hr class="horizontal dark mt-0 mb-0" />
+                <SideBarMaterialItem Title="Development" Icon="api">
+                    <SideBarMaterialItem Title="Estado das Extensões" Link="signalrpeer"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Abandono de Fila" Link="signalrabandon"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Segurança" Link="signalrsecurity"></SideBarMaterialItem>
+                </SideBarMaterialItem>
+
+                <AuthorizeView>
+                    <Authorized>
+                        <hr class="horizontal dark mt-0 mb-0" />
+                        <SideBarMaterialItem Title="Telefonia" Icon="tty">
+                            <SideBarMaterialItem Title="Chamadas" Link="pages/telephony/calls"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="Telefone Web" Link="pages/telephony/webphone"></SideBarMaterialItem>
+                            <SideBarMaterialItem Title="CheckUp" Link="pages/telephony/checkup"></SideBarMaterialItem>
+                        </SideBarMaterialItem>
+                    </Authorized>
+                </AuthorizeView>
+            </ul>
+        </div>
+    </aside>
+
+</SideBarMaterial>
+    
+
+@code{
+    [Inject] NavigationManager Navigation { get; set; }
+    [Inject] SignOutSessionStateManager SignOutManager { get; set; }
+    [Inject] AuthenticationStateProvider StateProvider { get; set; }
+
+    protected ClaimsPrincipal User { get; set; }
+
+    protected async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Yield();
+        if (firstRender)
+        {
+            //await JSRuntime.InvokeVoidAsync("SideBarMaterial");
+        }
+    }
+
+    protected string Avatar
+    {
+        get
+        {
+            string result = "https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto=";
+            if (User != null)
+            {
+                result += User.FindFirst(c => c.Type == "sub")?.Value;
+            }
+            return result;
+        }
+    }
+
+    protected async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        User = (await task).User;
+        this.StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await StateProvider.GetAuthenticationStateAsync()).User;       
+        StateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+}

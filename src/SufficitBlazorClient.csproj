@@ -37,21 +37,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
-    <PackageReference Include="GraphQL.Client" Version="4.0.1" />
-    <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.1" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
+    <PackageReference Include="GraphQL.Client" Version="4.0.2" />
+    <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.2" />
+    <PackageReference Include="MudBlazor" Version="6.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
@@ -59,13 +59,16 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\sufficit-asteriskmanager-core\src\SufficitAsteriskManagerCore.csproj" />
-    <ProjectReference Include="..\..\sufficit-base\src\SufficitBase.csproj" />
-    <ProjectReference Include="..\..\sufficit-telephony-jssip\src\SufficitTelephonyJsSIP.csproj" />
-    <ProjectReference Include="..\..\Sufficit.APIClient\Sufficit.APIClient.csproj" />
-    <ProjectReference Include="..\..\Sufficit.Blazor.UI.Material\Sufficit.Blazor.UI.Material.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\sufficit-asteriskmanager-core\src\SufficitAsteriskManagerCore.csproj" />
+		<ProjectReference Include="..\..\sufficit-base\src\SufficitBase.csproj" />
+		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
+		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
+		<ProjectReference Include="..\..\sufficit-identity-core\src\SufficitIdentityCore.csproj" />
+		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\SufficitTelephonyJsSIP.csproj" />
+		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
+		<ProjectReference Include="..\..\sufficit-utils\src\SufficitUtils.csproj" />
+	</ItemGroup>
   
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
@@ -77,6 +80,4 @@
     <Folder Include="Components\Telephony\" />
   </ItemGroup>
   
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
 </Project>

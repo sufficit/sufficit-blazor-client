@@ -1,5 +1,6 @@
 ﻿@page "/pages/telephony/calls"
 @attribute [Authorize]
+@using Sufficit.Client
 @using Sufficit.Telephony
 @using SufficitBlazorClient.Models
 @inherits TelephonyBasePageComponent 
@@ -52,7 +53,7 @@
 
 
 @code {
-    [Inject] TelephonyService Service { get; set; }
+    [Inject] APIClientService Service { get; set; }
 
     protected override string Title => "Chamadas";
 
@@ -70,7 +71,7 @@
 
         try
         {
-            CallList = await Service.CallSearchAsync(parameters);
+            CallList = await Service.Telephony.CallSearchAsync(parameters);
             error = string.Empty;
         }
         catch (UnauthorizedAccessException)

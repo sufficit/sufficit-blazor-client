@@ -1,0 +1,261 @@
+﻿@page "/pages/identity/policies"
+@using Microsoft.Extensions.Logging
+@using System.Net.Http.Headers
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@attribute [Authorize]
+
+<div>
+    <h3><span>Identity Admin API Status: </span> @Status</h3>
+</div>
+
+<hr class="dark horizontal" />
+<div class="card card-frame">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+
+                <InputMaterial class="input-group input-group-outline mb-3">        
+                    <label class="form-label">Filtro</label>
+                    <input type="tel" class="form-control" @oninput="ValueChanged"  />                            
+                </InputMaterial>
+
+            </div>
+        </div>
+        <div class="row">
+        @if (UsersResponse != null && UsersResponse.Users != null)
+        {
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                            <td>Ações</td>
+                            <td class="center aligned">ID</td>
+                            <td class="center aligned">Direção</td>
+                            <td class="left aligned">Estado</td>
+                        </tr>
+                    </thead>                             
+                    <tbody>
+                        @foreach (var user in UsersResponse.Users)
+                        {
+                            <tr @onclick="async () => await SelectUser(user)">
+                                <td>@user.EMail</td>
+                                <td>@user.EMailConfirmed</td>
+                                <td>@user.UserName</td>
+                                <td>@user.LockoutEnd</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } 
+        else
+        {
+            <h6>@UsersMessage</h6>
+        }
+        </div>
+    </div>
+</div>
+
+
+<hr class="dark horizontal" />
+<div class="card card-frame">
+    <div class="card-body">
+        <h5>@UserSelected?.EMail</h5>
+        <hr class="dark horizontal" />
+        <div class="row">
+            <div class="col-md-6">
+                <InputMaterial class="input-group input-group-outline mb-3">        
+                    <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
+                      <li>
+                        <div class="input-group mt-2 mx-2">
+                          <div class="form-outline">
+                            <input type="search" id="form1" class="form-control-dropdown" />
+                            <label class="form-label" for="form1">Search</label>
+                          </div>
+                        </div>
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    
+                    <label class="form-label" for="search">Diretiva</label>
+                    <input id="search" type="search" class="form-control" />   
+                    
+                </InputMaterial>
+            </div>
+            <div class="col-md-6">
+                <InputMaterial class="input-group input-group-outline mb-3">        
+                    <label class="form-label">Contexto</label>
+                    <input type="tel" class="form-control" />                            
+                </InputMaterial>
+
+            </div>
+        </div>
+        <div class="row">
+        @if (UserClaimsResponse != null && UserClaimsResponse.Claims != null && UserClaimsResponse.Claims.Any())
+        {
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td class="center aligned"></td>
+                            <td class="center aligned"></td>
+                        </tr>
+                    </thead>                             
+                    <tbody>
+                        @foreach (var claim in UserClaimsResponse.Claims)
+                        {
+                            <tr>
+                                <td>@claim.ClaimID</td>
+                                <td>@claim.ClaimType</td>
+                                <td>@claim.ClaimValue</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } 
+        else
+        {
+            <h6>@UserClaimsMessage</h6>
+        }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    private ILogger<Policies> Logger { get; set; }
+
+    [Inject]
+    private IdentityClientService Identity { get; set; }
+
+    [Inject]
+    private IHttpClientFactory Factory { get; set; }
+
+    [Inject]
+    IAccessTokenProvider TokenProvider { get; set; }
+
+    [Inject]
+    AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    private HttpClient http;
+    private ClaimsPrincipal User { get; set; }
+    private string Response { get; set; }
+    private bool Success { get; set; }
+    private string Status { get; set; }
+
+    private GetUsersResponse UsersResponse { get; set; }
+    private string UsersMessage { get; set; }
+    private Sufficit.Identity.Client.User UserSelected;
+
+    private GetUserClaimsResponse UserClaimsResponse { get; set; }
+    private string UserClaimsMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;        
+        if(http == null)
+        {
+            http = Factory.CreateClient();
+            http.BaseAddress = new Uri("https://identity.sufficit.com.br:26602");
+        }
+
+        await Request();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Status = (await Identity.Health())?.Status;
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected async Task Request()
+    {
+        string endpoint = string.Format("/api/Users/{0}/Claims", "095132cd-b1c4-4043-ae87-0a59cf2e0569");
+        try
+        {
+            var accessTokenResult = await TokenProvider.RequestAccessToken(new AccessTokenRequestOptions() { Scopes = new string[] { "skoruba_identity_admin_api" } });
+            if (accessTokenResult.TryGetToken(out AccessToken token))
+            {
+                HttpRequestMessage request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+                request.RequestUri = new Uri(endpoint, UriKind.Relative);
+                var response = await http.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                Response = await response.Content.ReadAsStringAsync();
+                Success = true;
+                StateHasChanged();
+            }
+            else
+            {
+                Response = "não foi possível recuperar o token de autorização";
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            Response = exception.Message;
+            Logger.LogError("erro ao consultar api redirecionando para token", exception);
+            exception.Redirect();
+        }
+        catch (Exception ex)
+        {
+            Response = ex.Message;
+            Logger.LogError($"erro ao consultar api :: { ex.Message }");
+        }        
+    }
+
+    protected async Task ValueChanged(ChangeEventArgs args)
+    {
+        var searchText = args.Value.ToString();
+        if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
+        {
+            Logger.LogInformation("GetUsersAsync");
+            UsersResponse = await Identity.Users.GetUsersAsync(args.Value.ToString());
+            if (UsersResponse == null)
+            {
+                UsersResponse = null;
+                UsersMessage = "Problema na consulta";
+            }
+            else if(UsersResponse.Users == null || !UsersResponse.Users.Any())
+            {
+                UsersResponse = null;
+                UsersMessage = "Nenhum resultado encontrado";
+            }
+        }
+        else
+        {
+            UsersResponse = null;
+            UsersMessage = "Mínimo de 4 caracteres para consultar";
+        }
+    }
+
+    protected async Task SelectUser(User selected)
+    {
+        UserSelected = selected;
+        await GetUserClaims(UserSelected);
+    }
+
+    protected async Task GetUserClaims(User selected)
+    {
+        Logger.LogInformation("GetUserClaims");
+        UserClaimsResponse = await Identity.Users.GetUserClaimsAsync(selected.ID);
+        if (UserClaimsResponse == null)
+        {
+            UserClaimsResponse = null;
+            UserClaimsMessage = "Problema na consulta";
+        }
+        else if(UserClaimsResponse.Claims == null || !UserClaimsResponse.Claims.Any())
+        {
+            UserClaimsResponse = null;
+            UserClaimsMessage = "Nenhum resultado encontrado";
+        }       
+    }
+    
+}

@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Sufficit.Identity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace SufficitBlazorClient.Models.Identity
@@ -29,5 +32,8 @@ namespace SufficitBlazorClient.Models.Identity
 
         [JsonPropertyName("token")]
         public AccessToken Token { get; set; }
+
+        [JsonPropertyName("policies")]
+        public IEnumerable<UserPolicy> Policies { get; set; }
     }
 }

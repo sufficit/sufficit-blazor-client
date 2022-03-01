@@ -23,30 +23,40 @@
     <base href="/" />
     <link href="manifest.json" rel="manifest" />
     <!-- CSS Files -->
+    <link href="SufficitBlazorClient.styles.css" rel="stylesheet" />
     <link href="_content/Sufficit.Blazor.UI.Material/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="_content/Sufficit.Blazor.UI.Material/assets/css/material-dashboard.css?v=3.0.1" rel="stylesheet" />
-    <link href="SufficitBlazorClient.styles.css" rel="stylesheet" />
-    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <!-- <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /> -->
 </head>
 
-<body class="g-sidenav-show bg-gray-200">
-    <component id="app">
-        <!-- Spinner -->
-        <div class="spinner d-flex align-items-center justify-content-center" style="position:absolute; width: 100%; height: 100%; background: #d3d3d39c; left: 0; top: 0; border-radius: 10px;">
-            <div class="spinner-border text-success" role="status">
-                <span class="sr-only">Loading...</span>
+    <body class="g-sidenav-show bg-gray-200">
+        <component id="app">
+            <!-- Spinner -->
+            <div class="spinner d-flex align-items-center justify-content-center" style="position:absolute; width: 100%; height: 100%; background: #d3d3d39c; left: 0; top: 0; border-radius: 10px;">
+                <div class="spinner-border text-success" role="status">
+                    <span class="sr-only">Loading ...</span>
+                </div>
+            </div>
+        </component>
+
+        <div id="blazor-error-ui" style="display: none;">
+            <div class="alert alert-danger alert-dismissible text-white fade show text-center" role="alert">
+                <span class="alert-icon align-middle">
+                    <span class="material-icons text-md">thumb_up_off_alt</span>
+                </span>
+                <span class="alert-text"><strong>Ops !</strong> Algo inesperado que não estava planejado, aconteceu sem que tivéssemos previsto !</span>
+                <button type="button" class="btn text-white reload m-0 p-0 px-5">
+                    <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
+                    <span class="btn-inner--text">Recarregar página</span>
+                </button>
+                <button class="btn-close dismiss" data-bs-dismiss="alert" aria-label="Ignorar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
-    </component>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-
-    <script type="text/javascript" async src="https://requirejs.org/docs/release/2.3.6/minified/require.js" data-main="assets/js/main.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
-</body>
+        <script type="text/javascript" async src="https://requirejs.org/docs/release/2.3.6/minified/require.js" data-main="assets/js/main.js"></script>
+        <script>navigator.serviceWorker.register('service-worker.js');</script>
+    </body>
 
 </html>

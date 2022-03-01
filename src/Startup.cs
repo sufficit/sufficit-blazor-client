@@ -7,7 +7,8 @@ using SufficitBlazorClient.Extensions;
 using SufficitBlazorClient.Models;
 using SufficitBlazorClient.Services;
 using Microsoft.Extensions.Logging;
-using Sufficit.APIClient.Extensions;
+using Sufficit.Client;
+using Sufficit.Identity.Client;
 
 namespace SufficitBlazorClient
 {
@@ -38,10 +39,10 @@ namespace SufficitBlazorClient
 
             services.AddSufficitAuthentication();
             services.AddSufficitEndPointsAPI();
+            services.AddSufficitIdentityClient();
 
             services.AddHttpClient("default");
 
-            services.AddTransient<TelephonyService>();
             services.AddTransient<FetchWeatherForecastService>();
 
             // Incluindo serviço de auxilio a navegação
