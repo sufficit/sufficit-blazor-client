@@ -13,7 +13,6 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <AssemblyName>SufficitBlazorClient</AssemblyName>
     <RootNamespace>SufficitBlazorClient</RootNamespace>
-	<BlazorCacheBootResources>false</BlazorCacheBootResources>
   </PropertyGroup>
 
   <ItemGroup>
