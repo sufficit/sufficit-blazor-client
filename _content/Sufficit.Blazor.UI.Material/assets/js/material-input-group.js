@@ -4,38 +4,6 @@
  */
 export function InputMaterial(element) {
 
-    let classes = element.classList;
-    if (classes !== undefined && classes != null && classes.contains('.input-group')) {
-        setAttributes(element, {
-            "onfocus": "focused(this)",
-            "onfocusout": "defocused(this)"
-        });
-    }
-
-    // Material Design Input function
-    var inputs = element.querySelectorAll('input');
-
-    for (let indexInput = 0; indexInput < inputs.length; indexInput++) {
-        inputs[indexInput].addEventListener('focus', function (e) {
-            this.parentElement.classList.add('is-focused');
-        }, false);
-
-        inputs[indexInput].onkeyup = function (e) {
-            if (this.value != "") {
-                this.parentElement.classList.add('is-filled');
-            } else {
-                this.parentElement.classList.remove('is-filled');
-            }
-        };
-
-        inputs[indexInput].addEventListener('focusout', function (e) {
-            if (this.value != "") {
-                this.parentElement.classList.add('is-filled');
-            }
-            this.parentElement.classList.remove('is-focused');
-        }, false);
-    }
-
     // Ripple Effect
     var ripples = element.querySelectorAll('.btn');
 
