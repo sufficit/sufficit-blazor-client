@@ -18,10 +18,7 @@ async function onInstall(event) {
     const assetsRequests = self.assetsManifest.assets
         .filter(asset => offlineAssetsInclude.some(pattern => pattern.test(asset.url)))
         .filter(asset => !offlineAssetsExclude.some(pattern => pattern.test(asset.url)))
-
-        //removing integrity check
-        //.map(asset => new Request(asset.url, { integrity: asset.hash }));
-        .map(asset => new Request(asset.url));
+        .map(asset => new Request(asset.url, { integrity: asset.hash }));
     await caches.open(cacheName).then(cache => cache.addAll(assetsRequests));
 }
 
@@ -49,4 +46,4 @@ async function onFetch(event) {
 
     return cachedResponse || fetch(event.request);
 }
-/* Manifest version: G6MkRlgB */
+/* Manifest version: iefQ15Gp */
