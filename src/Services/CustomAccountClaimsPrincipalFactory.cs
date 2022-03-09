@@ -71,13 +71,27 @@ namespace SufficitBlazorClient.Services
 
         static IEnumerable<IDirective> Directives => Utils.GetEnumerableOfType<IDirective>();
 
-        static UserPolicy GetPolicy(string id, string value)
+        static UserPolicy GetPolicy(string text)
         {
-            var directive = Directives.FirstOrDefault(d => d.ClaimType == id);
+            var splitted = text.Split(':');
+            var directive = Directives.FirstOrDefault(d => d.Key == splitted[0]);
+
+            if (directive != null)
+            {
+                if (Guid.TryParse(splitted[1], out Guid IDContext))
+                    return new UserPolicy(IDContext, directive);
+            }
+
+            throw new Exception($"could not create policy from values: { text }");
+        }
+
+        static Sufficit.Identity.UserPolicy GetPolicy(string id, string value)
+        {
+            var directive = Directives.FirstOrDefault(d => d.Key == id);
             if(directive != null)
             {
                 if(Guid.TryParse(value, out Guid IDContext))
-                    return new UserPolicy() { IDDirective = directive.ID, IDContext = IDContext };
+                    return new UserPolicy(IDContext, directive);
             }
 
             throw new Exception($"could not create policy from values: { id } :: { value }");
@@ -92,7 +106,7 @@ namespace SufficitBlazorClient.Services
                     var policies = new List<UserPolicy>();
                     foreach (var pair in account.AdditionalProperties)
                     {
-                        if (pair.Key.StartsWith("directive_"))
+                        if (pair.Key == Sufficit.Identity.ClaimTypes.Directive)
                         {
                             if (pair.Value is System.Text.Json.JsonElement element)
                             {
@@ -100,11 +114,11 @@ namespace SufficitBlazorClient.Services
                                 {
                                     case JsonValueKind.String:
                                         {
-                                            policies.Add(GetPolicy(pair.Key, element.GetString())); break;
+                                            policies.Add(GetPolicy(element.GetString())); break;
                                         }
                                     case JsonValueKind.Array:
                                         foreach (var subelement in element.EnumerateArray())
-                                            policies.Add(GetPolicy(pair.Key, subelement.GetString()));
+                                            policies.Add(GetPolicy(subelement.GetString()));
                                         break;
                                     default: continue;
                                 }
@@ -113,7 +127,7 @@ namespace SufficitBlazorClient.Services
                             account.AdditionalProperties.Remove(pair);
                         }
                     }
-                    account.Policies = policies;
+                    //account.Policies = policies;
                 }
             }
         }
@@ -123,21 +137,67 @@ namespace SufficitBlazorClient.Services
             CustomRemoteUserAccount userAccount = null;
             if (account != null) 
             {
-                ConvertUserPolicies(account);
+                // ConvertUserPolicies(account);
                 userAccount = await SetCachedUser(account); 
             }
             else userAccount = await GetCachedUser();
                        
-            _logger?.LogDebug($"CreateUserAsync: {JsonSerializer.Serialize(userAccount?.AdditionalProperties)}");
+            _logger?.LogDebug($"CreateUserAsync: { JsonSerializer.Serialize(userAccount?.AdditionalProperties) }");
 
             // as claims não são criadas por este método, crie após ...
-            var user = await base.CreateUserAsync(userAccount, options);
+            var user = await CreateUserAsyncBase(userAccount, options);
             if (!user.Identity.IsAuthenticated) return user;
              
             foreach (var claim in ToClaims(userAccount, options))
                 ((ClaimsIdentity)user.Identity).AddClaim(claim);
 
-            return user;
-        }        
+            var currentOptions = new AuthenticationUserOptions();
+            currentOptions.AuthenticationType = options.AuthenticationType;
+            currentOptions.NameClaim = options.NameClaim;
+
+            return new UserPrincipal(user, currentOptions);
+        }
+
+        public ValueTask<ClaimsPrincipal> CreateUserAsyncBase(CustomRemoteUserAccount account, RemoteAuthenticationUserOptions options)
+        {
+            ClaimsIdentity claimsIdentity = (account != null) ? new ClaimsIdentity(options.AuthenticationType, options.NameClaim, options.RoleClaim) : new ClaimsIdentity();
+            if (account != null)
+            {
+                foreach (KeyValuePair<string, object> additionalProperty in account.AdditionalProperties)
+                {
+                    string key = additionalProperty.Key;
+                    object value = additionalProperty.Value;
+                    JsonElement jsonElement = (JsonElement)value;
+                    if (value == null)
+                    {
+                        if (!(value is JsonElement))
+                        {
+                            continue;
+                        }
+                                                
+                        if (jsonElement.ValueKind == JsonValueKind.Undefined || jsonElement.ValueKind == JsonValueKind.Null)
+                        {
+                            continue;
+                        }
+                    }
+
+                    switch (jsonElement.ValueKind)
+                    {
+                        case JsonValueKind.String:
+                            {
+                                claimsIdentity.AddClaim(new Claim(key, value.ToString()));
+                                break;
+                            }
+                        case JsonValueKind.Array:
+                            foreach (var subelement in jsonElement.EnumerateArray())
+                                claimsIdentity.AddClaim(new Claim(key, subelement.ToString()));
+                            break;
+                        default: continue;
+                    }
+                }
+            }
+
+            return new ValueTask<ClaimsPrincipal>(new ClaimsPrincipal(claimsIdentity));
+        }
     }
 }

@@ -35,11 +35,14 @@
                     <SideBarMaterialItem Title="Counter" Icon="add" Link="counter"></SideBarMaterialItem>
                 </SideBarMaterialItem>
 
-                <AuthorizeView Roles="manager">
+                <AuthorizeView Context="Authenticated">                
                     <Authorized>
                         <hr class="horizontal dark mt-0 mb-0" />
-                        <SideBarMaterialItem Title="Identity" Icon="fingerprint">
-                            <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Identity" Icon="fingerprint">  
+                            <AuthorizeView Context="Manager" Roles="manager">
+                                <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem>                        
+                            </AuthorizeView>
+                            <SideBarMaterialItem Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
                         </SideBarMaterialItem>
                     </Authorized>
                 </AuthorizeView>

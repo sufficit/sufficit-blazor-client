@@ -3,6 +3,7 @@
 @using System.Net.Http.Headers
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
+@using Sufficit.Identity
 @attribute [Authorize]
 
 <div>
@@ -15,10 +16,10 @@
         <div class="row">
             <div class="col-md-4">
 
-                <InputMaterial class="input-group input-group-outline mb-3">        
-                    <label class="form-label">Filtro</label>
-                    <input type="tel" class="form-control" @oninput="ValueChanged"  />                            
-                </InputMaterial>
+                <InputGroup class="input-group-outline mb-3">        
+                    <Label>Filtro</Label>
+                    <TextInput OnChange="@ValueChanged" />                            
+                </InputGroup>
 
             </div>
         </div>
@@ -65,34 +66,23 @@
         <hr class="dark horizontal" />
         <div class="row">
             <div class="col-md-6">
-                <InputMaterial class="input-group input-group-outline mb-3">        
-                    <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
-                      <li>
-                        <div class="input-group mt-2 mx-2">
-                          <div class="form-outline">
-                            <input type="search" id="form1" class="form-control-dropdown" />
-                            <label class="form-label" for="form1">Search</label>
-                          </div>
-                        </div>
-                      </li>
-                      <li><hr class="dropdown-divider" /></li>
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    
-                    <label class="form-label" for="search">Diretiva</label>
-                    <input id="search" type="search" class="form-control" />   
-                    
-                </InputMaterial>
+                <SearchInput Class="input-group-outline mb-3" Label="Diretiva">
+                </SearchInput>
             </div>
             <div class="col-md-6">
-                <InputMaterial class="input-group input-group-outline mb-3">        
-                    <label class="form-label">Contexto</label>
-                    <input type="tel" class="form-control" />                            
-                </InputMaterial>
-
+                <InputGroup Class="input-group-outline mb-3">        
+                    <Label>Contexto</Label>
+                    <TextInput />                            
+                </InputGroup>
             </div>
+
+            <select class="form-control" name="search" id="search" placeholder="Diretiva">
+                        <option selected="selected"></option>
+                        @foreach(var item in Directives)
+                        {
+                            <option value="@item.Key">@item.Name</option>
+                        }
+                    </select>
         </div>
         <div class="row">
         @if (UserClaimsResponse != null && UserClaimsResponse.Claims != null && UserClaimsResponse.Claims.Any())
@@ -143,11 +133,14 @@
     [Inject]
     AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
-    private HttpClient http;
+    [Inject] APIClientService Service { get; set; }
+
+    private HttpClient http { get; set; }
     private ClaimsPrincipal User { get; set; }
     private string Response { get; set; }
     private bool Success { get; set; }
     private string Status { get; set; }
+    private IEnumerable<IDirective> Directives { get; set; } = new IDirective[] { }; 
 
     private GetUsersResponse UsersResponse { get; set; }
     private string UsersMessage { get; set; }
@@ -166,6 +159,8 @@
         }
 
         await Request();
+
+        Directives = await Service.Identity.GetDirectives(string.Empty);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

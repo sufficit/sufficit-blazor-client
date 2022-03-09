@@ -1,0 +1,68 @@
+﻿@page "/pages/identity/userpolicies"
+@using Microsoft.Extensions.Logging
+@using System.Net.Http.Headers
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using Sufficit.Identity
+@using SufficitBlazorClient.Models.Identity
+@attribute [Authorize]
+
+<div>
+    <span>@User?.GetType()</span>
+</div>
+<div>
+    <span>Policies: </span> (@CurrentUserPolicies?.Count()) @CurrentUserPolicies?.GetType()
+</div>
+
+<hr class="dark horizontal" />    
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+            <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Diretiva</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contexto</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                @if (CurrentUserPolicies != null)
+                {
+                    @foreach (var userpolicy in CurrentUserPolicies)
+                    {
+                        <tr>
+                            <td>
+                            <div class="d-flex px-2">
+                                @userpolicy.IDDirective
+                            </div>
+                            </td>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @userpolicy.IDContext
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    IEnumerable<UserPolicyBase> CurrentUserPolicies { get; set; } 
+
+    ClaimsPrincipal User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;        
+        if(User is Sufficit.Identity.UserPrincipal user)
+        {
+            CurrentUserPolicies = user.Policies;
+        }
+    }
+}
