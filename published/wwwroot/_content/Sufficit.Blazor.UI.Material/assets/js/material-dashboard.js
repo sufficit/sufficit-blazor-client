@@ -171,6 +171,7 @@ function setAttributes(el, options) {
 }
 
 // Multi Level Dropdown
+/*
 function dropDown(a) {
   if (!document.querySelector('.dropdown-hover')) {
     event.stopPropagation();
@@ -190,7 +191,7 @@ function dropDown(a) {
     }
   }
 }
-
+*/
 // Fixed Plugin
 if (document.querySelector('.fixed-plugin')) {
   var fixedPlugin = document.querySelector('.fixed-plugin');

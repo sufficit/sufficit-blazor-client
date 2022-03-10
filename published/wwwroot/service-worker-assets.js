@@ -449,7 +449,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-guiQjSuibIKVMsPRe\/jmLN0oWHXjfEr\/v\/7Cpbay970=",
+      "hash": "sha256-sMHZK2vRqTPIWudxR3+9ZYq944FvOwA0q+WiLPvzQH8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -821,7 +821,7 @@
       "url": "_framework\/Newtonsoft.Json.dll"
     },
     {
-      "hash": "sha256-xJp\/VfNQFE4K5FTVIsAzqS2xdG1\/UvMLl149vsHcapQ=",
+      "hash": "sha256-XYX2ta5pQUnnOz4YFBFYhZ\/K6Om+Il1HGtTy\/Dm4eMY=",
       "url": "_framework\/Sufficit.Blazor.UI.Material.dll"
     },
     {
@@ -841,7 +841,7 @@
       "url": "_framework\/SufficitBase.dll"
     },
     {
-      "hash": "sha256-e1n+9+GN5KYEa6wJLq38lRSK9rJ1XmiTF\/XpGffH1fM=",
+      "hash": "sha256-LaBusErRD1U78zRc47mOc\/oxQY3thrQGOZtibnVxJOc=",
       "url": "_framework\/SufficitBlazorClient.dll"
     },
     {
@@ -1017,7 +1017,7 @@
       "url": "_framework\/System.ObjectModel.dll"
     },
     {
-      "hash": "sha256-1zoHIFDTmihoiHFI67aFGjlR81gn1r5ffqUDsxtpL+Q=",
+      "hash": "sha256-9uIMho0Y0uDVkChhQgPDzPx2XQID0AW3t8WrbrHGvlU=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
@@ -1217,7 +1217,7 @@
       "url": "_framework\/dotnet.6.0.2-mauipre.1.22102.15.t0lr9wecqh.js"
     },
     {
-      "hash": "sha256-JFGbsyWykSB6RJwvjojdN00ow8h32f147OZGylaDuIk=",
+      "hash": "sha256-rJXaKeGKAMY4SfldeDIhm5TWF4nQPkkz9h\/4KQPC+pg=",
       "url": "_framework\/dotnet.wasm"
     },
     {
@@ -1225,7 +1225,7 @@
       "url": "appsettings.json"
     },
     {
-      "hash": "sha256-5Q\/GJ1OhlHyJMutIpFwXKZ9IWVqaI21vrITuZdid5xM=",
+      "hash": "sha256-nqXfjQYc6UiYZnkxB+dHOANqyI0PcmjUwK9T92\/uFmQ=",
       "url": "SufficitBlazorClient.styles.css"
     },
     {
@@ -1245,24 +1245,12 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/bootstrap.min.css"
     },
     {
-      "hash": "sha256-\/PMp9nGenw6I4Zlay39wIslKMdCOHU+71CcQSNDO\/Es=",
+      "hash": "sha256-GMzayNWRWyiECi0HxUOzCUjR0xjJQXcoh83CJo14kfY=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.css"
     },
     {
-      "hash": "sha256-bBI10WRvV\/thRKLPOr4Yw5gRzhCxRR1+\/EKB9oBs6so=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.css.backup"
-    },
-    {
-      "hash": "sha256-ss6AOmkyqty3rlcqoNG54v7Pp9wI+NNuZ0O0E1myGok=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.css.map.backup"
-    },
-    {
-      "hash": "sha256-uCVbHHk4J7wLHcXCO6GkZjexLxAWLvfNv7QNcT2kPOc=",
+      "hash": "sha256-rvsLmKHwefOXtOh8yyYWqt0CpvmtMJCjXZqyjUgJXz4=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.min.css"
-    },
-    {
-      "hash": "sha256-gdMwbcg4nXiEmJ+4XZEYLT0JqHHOtONSFEyi8VB0eMA=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.min.css.backup"
     },
     {
       "hash": "sha256-sBwqd0TOT7ph4P5OE6+b5q2HCKuy3VrQTSuENCMauRQ=",
@@ -1333,7 +1321,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-choices.js"
     },
     {
-      "hash": "sha256-94ht3l0SEpfH9jXo6hvTjuX0ALTRC1KxxdgwTlUphlQ=",
+      "hash": "sha256-8OFRXvVHoWjJ43qxZcUQD3FPmZ0eMG5VZ7EnbNVDesU=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js"
     },
     {
@@ -1341,7 +1329,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js.map"
     },
     {
-      "hash": "sha256-S1r93508rA8T6jn+dGIEs0zNrBGP2Ry51vyDkuBCJrs=",
+      "hash": "sha256-fSVRvZEABTzB4r+stouxv8pAt33F1tGKEAb9Kcmcp\/0=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.min.js"
     },
     {
@@ -1377,7 +1365,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/plugins\/amcharts\/animated.js"
     },
     {
-      "hash": "sha256-1aQsn645Em8EvsVudhhYYbkuqRs4MMrkFzrA8mJ1Xxw=",
+      "hash": "sha256-GbXYhFVj9Nsvd\/CGDV4AN+96hNSBVeCBcZfp0C1\/smo=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/plugins\/amcharts\/core.js"
     },
     {
@@ -1545,7 +1533,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_dark-version.scss"
     },
     {
-      "hash": "sha256-X0ss6KVD1WaW\/bm4f\/dOd6MCXJ4Sq7MXLDiEoa6EvPw=",
+      "hash": "sha256-Fod2BM7VjdKzji7RGHpzBkQgsbpBY8C+0QBUTA6bFLw=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_dropdown.scss"
     },
     {
@@ -2353,5 +2341,5 @@
       "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
     }
   ],
-  "version": "iefQ15Gp"
+  "version": "GVORXqi+"
 };
