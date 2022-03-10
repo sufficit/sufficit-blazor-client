@@ -34822,7 +34822,9 @@
       n = i("DUr5");
     t.exports = function(t) {
       return r(function() {
-        return !!n[t]() || "​᠎" != "​᠎" [t]() || n[t].name !== t
+        return !!n[t]() || "​
+᠎" != "​
+᠎" [t]() || n[t].name !== t
       })
     }
   },
