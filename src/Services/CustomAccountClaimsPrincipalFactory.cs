@@ -30,7 +30,7 @@ namespace SufficitBlazorClient.Services
             _accessor = accessor;
             _logger = logger;
             _storage = storage;
-            _logger?.LogDebug($"instanced, storage user key: { STORAGEUSERKEY }");
+            _logger?.LogTrace($"instanced, storage user key: { STORAGEUSERKEY }");
         }
 
         public async Task<CustomRemoteUserAccount> GetCachedUser()

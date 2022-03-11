@@ -43,6 +43,7 @@ namespace SufficitBlazorClient
 
             services.AddHttpClient("default");
 
+            services.AddTransient<BlazorIdentityService>();
             services.AddTransient<FetchWeatherForecastService>();
 
             // Incluindo serviço de auxilio a navegação

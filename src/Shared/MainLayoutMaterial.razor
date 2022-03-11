@@ -1,7 +1,8 @@
-﻿@using SufficitBlazorClient.Models
+﻿@using Sufficit.Blazor.UI.Material.Services
+@using SufficitBlazorClient.Models
 @inherits LayoutComponentBase
 
-<SideBar />
+<SideBarMaterial />
 <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
     <NavBarMaterial />
     <div class="container-fluid px-2 px-md-4" style="min-height: 500px">
@@ -11,3 +12,16 @@
     <FooterMaterial />
 </div>
 <MaterialFixedPlugin />
+
+@code{
+    [Inject]
+    public BlazorUIMaterialService UIService { get; internal set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await UIService.EnsureIsLoaded();
+        }
+    }
+}

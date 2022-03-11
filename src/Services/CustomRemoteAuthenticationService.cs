@@ -32,7 +32,7 @@ namespace SufficitBlazorClient.Services
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            _logger?.LogInformation($"GetAuthenticationStateAsync ...");     
+            _logger?.LogTrace($"GetAuthenticationStateAsync ...");     
             var principal = await _factory.CreateUserAsync(null, _options.UserOptions);
             return new AuthenticationState(principal);            
         }
@@ -78,7 +78,7 @@ namespace SufficitBlazorClient.Services
             }
             catch (AccessTokenNotAvailableException exception)
             {
-                _logger.LogError($"uiuiuiui :: { exception.Message }");
+                _logger.LogError($"AccessTokenNotAvailableException :: { exception.Message }");
                 throw;
             }
             catch (Exception ex)

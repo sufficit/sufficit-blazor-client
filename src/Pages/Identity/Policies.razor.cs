@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Logging;
 using Sufficit.Blazor.UI.Material;
+using Sufficit.Blazor.UI.Material.Components;
 using Sufficit.Client;
+using Sufficit.Contacts;
 using Sufficit.Identity;
 using Sufficit.Identity.Client;
+using SufficitBlazorClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,106 +26,33 @@ namespace SufficitBlazorClient.Pages.Identity
     public partial class Policies : ComponentBase
     {
         [Inject]
-        private ILogger<Policies> Logger { get; set; }
+        private BlazorIdentityService BIService { get; set; }
 
-        [Inject]
-        private IdentityClientService Identity { get; set; }
-
-        [Inject]
-        private IHttpClientFactory Factory { get; set; }
-
-        [Inject]
-        IAccessTokenProvider TokenProvider { get; set; }
-
-        [Inject]
-        AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-
-        [Inject] APIClientService Service { get; set; }
-
-        private HttpClient http { get; set; }
-        private ClaimsPrincipal User { get; set; }
-        private string Response { get; set; }
-        private bool Success { get; set; }
         private string Status { get; set; }
-        private IEnumerable<IDirective> Directives { get; set; } = new IDirective[] { };
 
         private GetUsersResponse UsersResponse { get; set; }
-        private string UsersMessage { get; set; }
-        private Sufficit.Identity.Client.User UserSelected;
 
-        private GetUserClaimsResponse UserClaimsResponse { get; set; }
+        private string UsersMessage { get; set; }
+
+        private Sufficit.Identity.Client.User UserSelected { get; set; }
+
+        private IEnumerable<UserClaimPolicy> UserPolicies { get; set; }
+
         private string UserClaimsMessage { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
-            User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-            if (http == null)
-            {
-                http = Factory.CreateClient();
-                http.BaseAddress = new Uri("https://identity.sufficit.com.br:26602");
-            }
+        public TextInput textInput { get; set; }
 
-            await Request();
-
-            //Directives = 
-        }
-
-        protected async Task<IEnumerable<IListItem>> GetItems(string filter, int results, CancellationToken cancellationToken)
-        {
-            var collection = new List<IListItem>();
-            foreach (var item in await Service.Identity.GetDirectives(filter, results, cancellationToken))
-            {
-                var listItem = new ListItem();
-                listItem.Value = item.ID.ToString();
-                listItem.Description = item.Name;
-                listItem.Title = item.Description;
-                listItem.Anchor = item.Key;
-                collection.Add(listItem);
-            }
-            return collection;
-        }
+        [Parameter]
+        [SupplyParameterFromQuery]
+        public string Filter { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            Status = (await Identity.Health())?.Status;
+            if (!string.IsNullOrWhiteSpace(Filter))
+                textInput?.Update(Filter, true);
+
+            Status = (await BIService.Identity.Health())?.Status;
             await base.OnAfterRenderAsync(firstRender);
-        }
-
-        protected async Task Request()
-        {
-            string endpoint = string.Format("/api/Users/{0}/Claims", "095132cd-b1c4-4043-ae87-0a59cf2e0569");
-            try
-            {
-                var accessTokenResult = await TokenProvider.RequestAccessToken(new AccessTokenRequestOptions() { Scopes = new string[] { "skoruba_identity_admin_api" } });
-                if (accessTokenResult.TryGetToken(out AccessToken token))
-                {
-                    HttpRequestMessage request = new HttpRequestMessage();
-                    request.Method = HttpMethod.Get;
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-                    request.RequestUri = new Uri(endpoint, UriKind.Relative);
-                    var response = await http.SendAsync(request);
-                    response.EnsureSuccessStatusCode();
-
-                    Response = await response.Content.ReadAsStringAsync();
-                    Success = true;
-                    StateHasChanged();
-                }
-                else
-                {
-                    Response = "não foi possível recuperar o token de autorização";
-                }
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                Response = exception.Message;
-                Logger.LogError("erro ao consultar api redirecionando para token", exception);
-                exception.Redirect();
-            }
-            catch (Exception ex)
-            {
-                Response = ex.Message;
-                Logger.LogError($"erro ao consultar api :: { ex.Message }");
-            }
         }
 
         protected async Task ValueChanged(ChangeEventArgs args)
@@ -129,8 +60,7 @@ namespace SufficitBlazorClient.Pages.Identity
             var searchText = args.Value.ToString();
             if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
             {
-                Logger.LogInformation("GetUsersAsync");
-                UsersResponse = await Identity.Users.GetUsersAsync(args.Value.ToString());
+                UsersResponse = await BIService.Identity.Users.GetUsersAsync(args.Value.ToString());
                 if (UsersResponse == null)
                 {
                     UsersResponse = null;
@@ -149,26 +79,54 @@ namespace SufficitBlazorClient.Pages.Identity
             }
         }
 
-        protected async Task SelectUser(User selected)
+        protected async Task SelectUser(User selected, CancellationToken cancellationToken)
         {
             UserSelected = selected;
-            await GetUserClaims(UserSelected);
+            UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
+            StateHasChanged();
         }
 
-        protected async Task GetUserClaims(User selected)
+        protected async Task<string> GetContactTitle(Guid idcontact, CancellationToken cancellationToken = default)
         {
-            Logger.LogInformation("GetUserClaims");
-            UserClaimsResponse = await Identity.Users.GetUserClaimsAsync(selected.ID);
-            if (UserClaimsResponse == null)
+            if (idcontact == Guid.Empty) return "* Todos";
+
+            var contact = await BIService.GetContact(idcontact, cancellationToken);
+            if (contact == null) return string.Empty;
+            return contact.Title;
+        }
+
+        protected SearchInput InputDirective { get; set; }
+
+        protected SearchInput InputContext { get; set; }
+
+        protected async void OnAddClick(MouseEventArgs e)
+        {
+            await BIService.UpdateUserPolicy(UserSelected, InputDirective.Value, Guid.Parse(InputContext.Value), default);
+            await SelectUser(UserSelected, default);
+
+            /*
             {
-                UserClaimsResponse = null;
-                UserClaimsMessage = "Problema na consulta";
-            }
-            else if (UserClaimsResponse.Claims == null || !UserClaimsResponse.Claims.Any())
+              "userId": "095132cd-b1c4-4043-ae87-0a59cf2e0569",
+              "claimType": "directive",
+              "claimValue": "audioupdate:095132cd-b1c4-4043-ae87-0a59cf2e0569"
+            } 
+            */
+        }
+
+        protected async void OnDelClick(int? id)
+        {
+            if (id.HasValue)
             {
-                UserClaimsResponse = null;
-                UserClaimsMessage = "Nenhum resultado encontrado";
+                await BIService.RemoveUserPolicy(UserSelected, id.Value, default);
+                await SelectUser(UserSelected, default);
             }
+            /*
+            {
+              "userId": "095132cd-b1c4-4043-ae87-0a59cf2e0569",
+              "claimType": "directive",
+              "claimValue": "audioupdate:095132cd-b1c4-4043-ae87-0a59cf2e0569"
+            } 
+            */
         }
     }
 }

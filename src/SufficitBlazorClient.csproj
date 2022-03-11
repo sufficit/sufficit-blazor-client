@@ -76,8 +76,4 @@
     </Content>
   </ItemGroup>
   
-  <ItemGroup>
-    <Folder Include="Components\Telephony\" />
-  </ItemGroup>
-  
 </Project>

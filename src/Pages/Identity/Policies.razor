@@ -9,10 +9,9 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-
                 <InputGroup CssClass="input-group-outline mb-3">        
                     <Label>Filtro</Label>
-                    <TextInput OnChanged="@ValueChanged" />                            
+                    <TextInput OnChanged="@ValueChanged" @ref="textInput" />                            
                 </InputGroup>
 
             </div>
@@ -33,7 +32,7 @@
                     <tbody>
                         @foreach (var user in UsersResponse.Users)
                         {
-                            <tr @onclick="async () => await SelectUser(user)">
+                            <tr @onclick="async () => await SelectUser(user, default)">
                                 <td>@user.EMail</td>
                                 <td>@user.EMailConfirmed</td>
                                 <td>@user.UserName</td>
@@ -59,18 +58,20 @@
         <h5>@UserSelected?.EMail</h5>
         <hr class="dark horizontal" />
         <div class="row">
-            <div class="col-md-6">
-                <SearchInput CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@GetItems"></SearchInput>
+            <div class="col-md-5">
+                <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
             </div>
-            <div class="col-md-6">
-                <InputGroup CssClass="input-group-outline mb-3">        
-                    <Label>Contexto</Label>
-                    <TextInput />                            
-                </InputGroup>
+            <div class="col-md-5">
+                <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-sm bg-gradient-primary mb-0" @onclick="OnAddClick">
+                    <i class="material-icons text-white pe-2">add</i> Adicionar
+                </button>
             </div>
         </div>
         <div class="row">
-        @if (UserClaimsResponse != null && UserClaimsResponse.Claims != null && UserClaimsResponse.Claims.Any())
+        @if (UserPolicies != null && UserPolicies.Any())
         {
             <div class="table-responsive">
                 <table class="table align-items-center mb-0">
@@ -82,12 +83,14 @@
                         </tr>
                     </thead>                             
                     <tbody>
-                        @foreach (var claim in UserClaimsResponse.Claims)
+                        @foreach (var item in UserPolicies)
                         {
                             <tr>
-                                <td>@claim.ClaimID</td>
-                                <td>@claim.ClaimType</td>
-                                <td>@claim.ClaimValue</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm bg-gradient-primary mb-0" @onclick="() => OnDelClick(item.UserClaimId)"><i class="material-icons text-white pe-2">add</i> Remover</button>
+                                </td>
+                                <td>@item.Directive.Name</td>
+                                <td><Text Value="@GetContactTitle(item.IDContext)" /></td>
                             </tr>
                         }
                     </tbody>
