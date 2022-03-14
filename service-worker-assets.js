@@ -417,7 +417,7 @@
       "url": "favicon.ico"
     },
     {
-      "hash": "sha256-Kb1NGmJKwzeuF6WRHEX6RxdWAX0y4097F+uSUcKqJPA=",
+      "hash": "sha256-oMHz1UjJsW3p0tURIkSuJa5VJqibCziHAKNNiq8Ki0w=",
       "url": "index.html"
     },
     {
@@ -457,7 +457,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-76AAAWduGTkvQT06Vgmyoq1GEkhXZf2jF4CwzSgHjJY=",
+      "hash": "sha256-tvhiq7sC6BHAnHxzR9Fr97eAmmN00KMytZoA5zwOg+A=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -829,7 +829,7 @@
       "url": "_framework\/Newtonsoft.Json.dll"
     },
     {
-      "hash": "sha256-8lQQ+AKkZDhG0ZmDwKhyUnrEWfCb\/bEsMzGol1aE5s4=",
+      "hash": "sha256-quTOgEvegipy+tfeqIiuvN7d7uGM1yRPsDuQHNO1AGU=",
       "url": "_framework\/Sufficit.Blazor.UI.Material.dll"
     },
     {
@@ -849,7 +849,7 @@
       "url": "_framework\/SufficitBase.dll"
     },
     {
-      "hash": "sha256-y6HT\/19iBPns1v8ao5usEpFGkRuyYmW4YUzUYBxPrO0=",
+      "hash": "sha256-LG9E3x5WC2EO8MCVjH9q0TLgXdwXfH\/2y0Wt3fHm0lk=",
       "url": "_framework\/SufficitBlazorClient.dll"
     },
     {
@@ -1317,48 +1317,24 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/core\/popper.min.js"
     },
     {
-      "hash": "sha256-WHiMQq0al1ZpQhwNvfd8yKwn82ZFOi2Y8cy1tQua9bo=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-choices.js"
-    },
-    {
-      "hash": "sha256-8OFRXvVHoWjJ43qxZcUQD3FPmZ0eMG5VZ7EnbNVDesU=",
+      "hash": "sha256-kgD1eUUJkdENX72Ju+9Orik6aKL1YeUZQQH\/1GftF+M=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js"
     },
     {
-      "hash": "sha256-aCobYEKhLs\/oXNYIAkX2ODrvtjh+PPVCjbgI2tv7aF0=",
+      "hash": "sha256-a+DLZuulLQigJ1QY7HtnDlDLLZ+vqFpdrz6iW3cb2RY=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js.map"
     },
     {
-      "hash": "sha256-fSVRvZEABTzB4r+stouxv8pAt33F1tGKEAb9Kcmcp\/0=",
+      "hash": "sha256-6RftNwg1JJepm3\/S2E\/TbZkZrYnL52QeCeZpx\/PHwXk=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.min.js"
     },
     {
-      "hash": "sha256-uO\/u\/ByO\/kPlpIUJL+7gcgfBuiStKJWu3m4C+sRWip4=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.min.js.old"
+      "hash": "sha256-uspw7HZfJ0K8g90bqzZpF\/FJGpHDqRtOlUvdwUvF\/3I=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-services-browser.min.js"
     },
     {
-      "hash": "sha256-oR92CPqup8ypzX5cQ43ZbdApj+C5vK7i74qM9Q\/oH5Q=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-input-group.js"
-    },
-    {
-      "hash": "sha256-6PvOPQ7pTxfbamjtKFo8ghetVRxacEGRpk\/6Zquumrg=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-nav-pills.js"
-    },
-    {
-      "hash": "sha256-Rs8d1X6s4sguHTjBTVXDvWKruqhQJE9eg1cS+h9m33g=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-nav-toggle.js"
-    },
-    {
-      "hash": "sha256-EtJV4MNqC4SP145caQyipvZzCzvv51KjdaoY8lg\/+VE=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-preload.js"
-    },
-    {
-      "hash": "sha256-1qsnLRh+infexi9Al9Zk4FPBuIQhnBmLPrdEpZJEZUs=",
+      "hash": "sha256-BSrmEpJjhcV7180K2CKAjC4K+iYrkqaBwCnWOIm92Is=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-sufficit.min.js"
-    },
-    {
-      "hash": "sha256-xVFzRn3quDXNzJg5rTu9NpJjk+zwojPAjt03fbtdFYo=",
-      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-utils.js"
     },
     {
       "hash": "sha256-KvOEdsSom9QGojpDiY51+5W6\/MCBnSql3KnCfd28KdU=",
@@ -1483,6 +1459,38 @@
     {
       "hash": "sha256-5wRkH5Y8QRj7vWJc74koDCcuSBtNdtyRhwEhzDhw56g=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/plugins\/world.js"
+    },
+    {
+      "hash": "sha256-56vTGWiTXsxCKFXt2Vmd33PfpDMONuYXZsQul\/6tzC0=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/services\/browser.js"
+    },
+    {
+      "hash": "sha256-WHiMQq0al1ZpQhwNvfd8yKwn82ZFOi2Y8cy1tQua9bo=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-choices.js"
+    },
+    {
+      "hash": "sha256-oR92CPqup8ypzX5cQ43ZbdApj+C5vK7i74qM9Q\/oH5Q=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-input-group.js"
+    },
+    {
+      "hash": "sha256-6PvOPQ7pTxfbamjtKFo8ghetVRxacEGRpk\/6Zquumrg=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-nav-pills.js"
+    },
+    {
+      "hash": "sha256-Rs8d1X6s4sguHTjBTVXDvWKruqhQJE9eg1cS+h9m33g=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-nav-toggle.js"
+    },
+    {
+      "hash": "sha256-sgxLX2qO8MYlSsqMxONPfDVWaeIGZWVJlQKZcb+TkKQ=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-preload.js"
+    },
+    {
+      "hash": "sha256-0KcSxUQ8U9TEJbN7M\/+pGHbPaOPAjxoQYIhR8kXq5iA=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-theme.js"
+    },
+    {
+      "hash": "sha256-xVFzRn3quDXNzJg5rTu9NpJjk+zwojPAjt03fbtdFYo=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-utils.js"
     },
     {
       "hash": "sha256-kgcOlmPHmKriZy8N9f2SYWHKnEReKYjP2haK16u79OY=",
@@ -2341,5 +2349,5 @@
       "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
     }
   ],
-  "version": "agzLwhiW"
+  "version": "x2wPZYbj"
 };
