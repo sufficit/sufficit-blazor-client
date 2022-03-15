@@ -1,30 +1,27 @@
 ﻿@using SufficitBlazorClient.Models
 @inherits BasePageComponent
-@inject NavigationManager NavigationManager
-@inject IBreadcrumbService BreadcrumbService
 
 @code {
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnParametersSet()
     {
-        if (firstRender)
-        {
-            BreadcrumbService
-            .Set<HomeBreadcrumb>()
-            .Set<PagesBreadcrumb>()
-            .Set<PageBreadcrumb>(new Dictionary<string, object>
-            {
-                ["title"] = "Telefonia",
-                ["description"] = "Painel de Telefonia",
-                ["link"] = "/pages/telephony"
-            })
-            .Set<PageBreadcrumb>(new Dictionary<string, object>
-            {
-                ["title"] = Title,
-                ["description"] = Description,
-                ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
-            });
+        base.OnParametersSet();
 
-            BreadcrumbService.Description = Description;
-        }
+        BreadcrumbService
+        .Set<HomeBreadcrumb>()
+        .Set<PagesBreadcrumb>()
+        .Set<PageBreadcrumb>(new Dictionary<string, object>
+        {
+            ["title"] = "Telefonia",
+            ["description"] = "Painel de Telefonia",
+            ["link"] = "/pages/telephony"
+        })
+        .Set<PageBreadcrumb>(new Dictionary<string, object>
+        {
+            ["title"] = Title,
+            ["description"] = Description,
+            ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
+        });
+
+        BreadcrumbService.Description = Description;
     }
 }

@@ -43,31 +43,37 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.5" />
+    <PackageReference Include="MudBlazor" Version="6.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
+	
+	<ItemGroup Label="Sufficit Dependencies">
+	  <PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.AsterNET.Core" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Asterisk.Manager.Core" Version="1.22.*" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\sufficit-asteriskmanager-core\src\SufficitAsteriskManagerCore.csproj" />
 		<ProjectReference Include="..\..\sufficit-base\src\SufficitBase.csproj" />
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-core\src\SufficitIdentityCore.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\SufficitTelephonyJsSIP.csproj" />
 		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
-		<ProjectReference Include="..\..\sufficit-utils\src\SufficitUtils.csproj" />
+		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 	</ItemGroup>
   
   <ItemGroup>

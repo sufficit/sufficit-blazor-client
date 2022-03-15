@@ -2,8 +2,7 @@
 @inject IJSRuntime JSRuntime
 
 <SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark">
-    
-    <div class="background"></div>
+
     <div class="sidenav-header">
         <a class="navbar-brand m-0" style="text-align: center;">
             <img src="../../assets/img/logos/logo.png" class="navbar-brand-img h-100 logo" alt="main_logo" />
@@ -40,7 +39,8 @@
                     <hr class="horizontal dark mt-0 mb-0" />
                     <SideBarMaterialItem Title="Identity" Icon="fingerprint">  
                         <AuthorizeView Context="Manager" Roles="manager">
-                            <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem>                        
+                            <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
+                            <SideBarMaterialItem Title="Sincronia de contas" Link="pages/identity/sincronize"></SideBarMaterialItem> 
                         </AuthorizeView>
                         <SideBarMaterialItem Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
                     </SideBarMaterialItem>

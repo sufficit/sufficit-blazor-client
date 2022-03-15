@@ -23,8 +23,12 @@ using System.Threading.Tasks;
 namespace SufficitBlazorClient.Pages.Identity
 {
     [Authorize]
-    public partial class Policies : ComponentBase
+    public partial class Policies : BasePageComponent
     {
+        protected override string Title => "Políticas de usuário";
+
+        protected override string Description => "Diretivas de acesso";
+
         [Inject]
         private BlazorIdentityService BIService { get; set; }
 

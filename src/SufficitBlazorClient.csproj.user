@@ -5,7 +5,7 @@
     <RazorPage_SelectedScaffolderCategoryPath>root/Common/RazorComponent</RazorPage_SelectedScaffolderCategoryPath>
     <ShowAllFiles>true</ShowAllFiles>
     <ActiveDebugProfile>Executable</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>Z:\Desenvolvimento\sufficit-blazor-client\src\Properties\PublishProfiles\FTPProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>Z:\Desenvolvimento\sufficit-blazor-client\src\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

@@ -1,0 +1,84 @@
+﻿@page "/pages/identity/sincronize"
+@using Microsoft.Extensions.Logging
+@using System.Net.Http.Headers
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using Sufficit.Identity
+@using SufficitBlazorClient.Models.Identity
+@inherits BasePageComponent 
+@attribute [Authorize]
+
+<div>
+    <span>@Response?.PageSize / @Response?.TotalCount</span>
+</div>
+
+<hr class="dark horizontal" />    
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+            <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">EMail</th>
+            </tr>
+            </thead>
+            <tbody>
+                @if (Response?.Users != null)
+                {
+                    @foreach (var item in Response.Users)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @item.ID
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @item.EMail
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @Checks[item.ID]
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    protected override string Title => "Sincronia de contas";
+
+    protected override string Description => "Realiza a sincronização dos usuários";
+
+    [Inject]
+    IdentityClientService Identity { get; set; }
+
+    [Inject]
+    APIClientService APIClient { get; set; }
+
+    GetUsersResponse Response { get; set; }
+
+    Dictionary<Guid, bool> Checks = new Dictionary<Guid, bool>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Response = await Identity.Users.GetUsersAsync(string.Empty, 1, 10);
+        if (Response != null)
+        {
+            foreach(var user in Response.Users)
+            {
+                var directives = await APIClient.Access.GetUserDirectives(user.ID);
+                if(directives != null)
+                {
+                    Checks[user.ID] = true;
+                }
+            }
+        }
+    }
+}
