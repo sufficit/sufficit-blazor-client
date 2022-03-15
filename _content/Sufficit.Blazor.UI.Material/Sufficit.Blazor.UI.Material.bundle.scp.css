@@ -1,0 +1,31 @@
+/* _content/Sufficit.Blazor.UI.Material/Components/SideBar.razor.rz.scp.css */
+aside[b-zc168ne8a7]::before {
+    content: "";
+    display: block;
+    z-index: -1;
+    opacity: 0.05;
+    position: absolute;
+    width: 100%;
+    width: -moz-available; /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+    height: 100%;
+    height: -moz-available; /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    height: fill-available;
+    background-image: url('/assets/img/polygon.jpg'); /* ivancik.jpg */
+}
+
+.g-sidenav-pinned aside.navbar[b-zc168ne8a7]::after {
+    content: "";
+    min-height: 200px;
+    display: block;
+}  
+
+@media (max-width: 640px) {
+    .g-sidenav-pinned aside.navbar[b-zc168ne8a7] {
+        margin: 0 !important;
+        max-width: 100% !important;
+        border-radius: 0;
+    }     
+}
