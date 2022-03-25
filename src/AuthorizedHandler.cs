@@ -1,4 +1,4 @@
-﻿using SufficitBlazorClient.Services;
+﻿using Sufficit.Blazor.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient
+namespace Sufficit.Blazor.Client
 {
     public class AuthorizedHandler : DelegatingHandler
     {

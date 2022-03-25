@@ -12,7 +12,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <AssemblyName>SufficitBlazorClient</AssemblyName>
-    <RootNamespace>SufficitBlazorClient</RootNamespace>
+    <RootNamespace>Sufficit.Blazor.Client</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -67,11 +67,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\sufficit-base\src\SufficitBase.csproj" />
+		<ProjectReference Include="..\..\sufficit-base\src\Sufficit.Base.csproj" />
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
-		<ProjectReference Include="..\..\sufficit-identity-core\src\SufficitIdentityCore.csproj" />
-		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\SufficitTelephonyJsSIP.csproj" />
+		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
+		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\Sufficit.Telephony.JsSIP.csproj" />
 		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
 		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 	</ItemGroup>

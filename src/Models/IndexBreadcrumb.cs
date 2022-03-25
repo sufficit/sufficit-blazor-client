@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Models
+namespace Sufficit.Blazor.Client.Models
 {
     [RootBreadcrumb]
     public class HomeBreadcrumb : RootBreadcrumb

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Pages.Telephony
+namespace Sufficit.Blazor.Client.Pages.Telephony
 {
     [Authorize]
     public partial class CheckUp : TelephonyBasePageComponent

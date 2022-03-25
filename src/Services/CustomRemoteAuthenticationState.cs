@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Logging;
-using SufficitBlazorClient.Services;
+using Sufficit.Blazor.Client.Services;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient
+namespace Sufficit.Blazor.Client
 {    
     public class CustomRemoteAuthenticationState : RemoteAuthenticationState
     {

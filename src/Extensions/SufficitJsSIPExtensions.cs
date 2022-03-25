@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sufficit.Telephony.JsSIP;
 using System;
 
-namespace SufficitBlazorClient.Extensions
+namespace Sufficit.Blazor.Client.Extensions
 {
     public static class SufficitJsSIPExtensions
     {

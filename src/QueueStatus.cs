@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient
+namespace Sufficit.Blazor.Client
 {
     public class QueueStatus
     {

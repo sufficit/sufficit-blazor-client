@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {
     public class FetchWeatherForecastService
     {

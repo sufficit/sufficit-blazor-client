@@ -16,7 +16,7 @@
             <AuthorizeView>                
                 <Authorized>
                     <SideBarMaterialItem Title="@User?.Identity.Name" Image="@Avatar" Link="#ProfileNav">
-                        <SideBarMaterialItem Title="My Profile" Link="#profile"></SideBarMaterialItem>
+                        <SideBarMaterialItem Icon="face" Title="Perfil de usuário" Link="pages/identity/profile"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Settings" Link="#settings"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Logout" @onclick="BeginSignOut"></SideBarMaterialItem>
                     </SideBarMaterialItem>
@@ -39,10 +39,12 @@
                     <hr class="horizontal dark mt-0 mb-0" />
                     <SideBarMaterialItem Title="Identity" Icon="fingerprint">  
                         <AuthorizeView Context="Manager" Roles="manager">
-                            <SideBarMaterialItem Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
-                            <SideBarMaterialItem Title="Sincronia de contas" Link="pages/identity/sincronize"></SideBarMaterialItem> 
+                            <SideBarMaterialItem Icon="manage_accounts" Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
                         </AuthorizeView>
-                        <SideBarMaterialItem Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
+                        <AuthorizeView Context="Manager" Roles="administrator">
+                            <SideBarMaterialItem Title="Sincronia de contas" Link="pages/identity/sincronize"></SideBarMaterialItem>
+                        </AuthorizeView>
+                        <SideBarMaterialItem Icon="admin_panel_settings" Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
                     </SideBarMaterialItem>
                 </Authorized>
             </AuthorizeView>

@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Components
+namespace Sufficit.Blazor.Client.Components
 {
     public class SignalRQStatusComponent : ComponentBase, IAsyncDisposable
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient
+namespace Sufficit.Blazor.Client
 {
     class Program
     {

@@ -1,7 +1,7 @@
-﻿using SufficitBlazorClient.Models.Identity;
+﻿using Sufficit.Blazor.Client.Models.Identity;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {
     public interface IAuthenticationService
     {

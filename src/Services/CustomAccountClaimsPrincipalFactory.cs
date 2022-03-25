@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using Microsoft.Extensions.Logging;
 using Sufficit;
 using Sufficit.Identity;
-using SufficitBlazorClient.Models.Identity;
+using Sufficit.Blazor.Client.Models.Identity;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {    
     public class CustomAccountClaimsPrincipalFactory : AccountClaimsPrincipalFactory<CustomRemoteUserAccount>
     {
@@ -60,16 +60,10 @@ namespace SufficitBlazorClient.Services
 
                 if (!string.IsNullOrWhiteSpace(account.Id))
                     yield return new Claim("sub", account.Id);
-
-                if (account.Roles != null)
-                {
-                    foreach (var role in account.Roles)
-                        yield return new Claim(options.RoleClaim, role);
-                }
             }
         }
 
-        static IEnumerable<IDirective> Directives => Utils.GetEnumerableOfType<IDirective>();
+        static IEnumerable<IDirective> Directives => Directive.Enumerator;
 
         static UserPolicy GetPolicy(string text)
         {
@@ -127,7 +121,6 @@ namespace SufficitBlazorClient.Services
                             account.AdditionalProperties.Remove(pair);
                         }
                     }
-                    //account.Policies = policies;
                 }
             }
         }
@@ -166,33 +159,26 @@ namespace SufficitBlazorClient.Services
                 foreach (KeyValuePair<string, object> additionalProperty in account.AdditionalProperties)
                 {
                     string key = additionalProperty.Key;
-                    object value = additionalProperty.Value;
-                    JsonElement jsonElement = (JsonElement)value;
-                    if (value == null)
+                    if (additionalProperty.Value is JsonElement jsonElement)
                     {
-                        if (!(value is JsonElement))
-                        {
-                            continue;
-                        }
-                                                
                         if (jsonElement.ValueKind == JsonValueKind.Undefined || jsonElement.ValueKind == JsonValueKind.Null)
                         {
                             continue;
-                        }
-                    }
+                        }                        
 
-                    switch (jsonElement.ValueKind)
-                    {
-                        case JsonValueKind.String:
-                            {
-                                claimsIdentity.AddClaim(new Claim(key, value.ToString()));
+                        switch (jsonElement.ValueKind)
+                        {
+                            case JsonValueKind.String:
+                                {
+                                    claimsIdentity.AddClaim(new Claim(key, jsonElement.GetString()));
+                                    break;
+                                }
+                            case JsonValueKind.Array:
+                                foreach (var subelement in jsonElement.EnumerateArray())
+                                    claimsIdentity.AddClaim(new Claim(key, subelement.ToString()));
                                 break;
-                            }
-                        case JsonValueKind.Array:
-                            foreach (var subelement in jsonElement.EnumerateArray())
-                                claimsIdentity.AddClaim(new Claim(key, subelement.ToString()));
-                            break;
-                        default: continue;
+                            default: continue;
+                        }
                     }
                 }
             }

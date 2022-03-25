@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
-using SufficitBlazorClient.Extensions;
-using SufficitBlazorClient.Models;
-using SufficitBlazorClient.Services;
+using Sufficit.Blazor.Client.Extensions;
+using Sufficit.Blazor.Client.Models;
+using Sufficit.Blazor.Client.Services;
 using Microsoft.Extensions.Logging;
 using Sufficit.Client;
 using Sufficit.Identity.Client;
+using Sufficit.Blazor.UI.Material.Extensions;
 
-namespace SufficitBlazorClient
+namespace Sufficit.Blazor.Client
 {
     public class Startup
     {

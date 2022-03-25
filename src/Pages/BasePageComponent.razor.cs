@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using SufficitBlazorClient.Models;
+using Sufficit.Blazor.Client.Models;
 using System;
 using System.Collections.Generic;
 
-namespace SufficitBlazorClient.Pages
+namespace Sufficit.Blazor.Client.Pages
 {
     public class BasePageComponent : ComponentBase, IDisposable
     {

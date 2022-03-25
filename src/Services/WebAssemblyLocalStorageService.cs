@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {
     /// <summary>
     /// Salva informaçãoes na base local (cliente) do WebAssembly

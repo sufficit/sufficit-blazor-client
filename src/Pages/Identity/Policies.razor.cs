@@ -4,23 +4,18 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Logging;
+using Sufficit.Blazor.Client.Services;
 using Sufficit.Blazor.UI.Material;
 using Sufficit.Blazor.UI.Material.Components;
-using Sufficit.Client;
-using Sufficit.Contacts;
-using Sufficit.Identity;
+using Sufficit.Blazor.UI.Material.Services;
 using Sufficit.Identity.Client;
-using SufficitBlazorClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Pages.Identity
+namespace Sufficit.Blazor.Client.Pages.Identity
 {
     [Authorize]
     public partial class Policies : BasePageComponent
@@ -31,6 +26,9 @@ namespace SufficitBlazorClient.Pages.Identity
 
         [Inject]
         private BlazorIdentityService BIService { get; set; }
+
+        [Inject]
+        public BlazorUIMaterialService UIService { get; set; }
 
         private string Status { get; set; }
 
@@ -88,6 +86,49 @@ namespace SufficitBlazorClient.Pages.Identity
             UserSelected = selected;
             UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
             StateHasChanged();
+        }
+
+        protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken)
+        {
+            var alert = new SweetAlert() { 
+                TimerProgressBar = true, 
+                Timer = 5000, 
+                Title = "Redefinir senha ?",
+                Text = $"{ selected.EMail }",
+                Icon = "question",
+                ShowDenyButton = true 
+            };
+
+            var Swal = UIService.SweetAlerts;
+            var result = await Swal.Fire(alert);
+            if (result != null)
+            {
+                if (result.IsConfirmed)
+                {
+                    var newPassword = await BIService.ResetPassword(selected.ID);
+                    SweetAlert saConfirm;
+                    if (!string.IsNullOrWhiteSpace(newPassword)) {
+                        saConfirm = new SweetAlert()
+                        {
+                            TimerProgressBar = true,
+                            Timer = 3500,
+                            Title = "Pronto !",
+                            Text = $"nova senha temporária: { newPassword }",
+                            Icon = "success"
+                        };
+                    } else {
+                        saConfirm = new SweetAlert()
+                        {
+                            TimerProgressBar = true,
+                            Title = "Oops...",
+                            Text = "Deu ruim em algo, tente mais tarde.",
+                            Icon = "error"
+                        };
+                    }            
+
+                    await Swal.Fire(saConfirm);
+                }
+            }
         }
 
         protected async Task<string> GetContactTitle(Guid idcontact, CancellationToken cancellationToken = default)

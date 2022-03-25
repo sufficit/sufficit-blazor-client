@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {
     public class TestAuthenticationService : AuthenticationService
     {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
-using SufficitBlazorClient.Pages;
+using Sufficit.Blazor.Client.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Models
+namespace Sufficit.Blazor.Client.Models
 {
     class BreadcrumbService : IBreadcrumbService
     {

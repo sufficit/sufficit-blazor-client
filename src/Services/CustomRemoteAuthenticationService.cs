@@ -6,11 +6,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Sufficit.Identity.Configuration;
-using SufficitBlazorClient.Models.Identity;
+using Sufficit.Blazor.Client.Models.Identity;
 using System;
 using System.Threading.Tasks;
 
-namespace SufficitBlazorClient.Services
+namespace Sufficit.Blazor.Client.Services
 {
     public class CustomRemoteAuthenticationService : RemoteAuthenticationService<RemoteAuthenticationState, CustomRemoteUserAccount, OidcProviderOptions>
     {

@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <InputGroup CssClass="input-group-outline mb-3">        
                     <Label>Filtro</Label>
-                    <TextInput OnChanged="@ValueChanged" @ref="textInput" />                            
+                    <TextInput Type="search" OnChanged="@ValueChanged" @ref="textInput" />                            
                 </InputGroup>
 
             </div>
@@ -24,20 +24,37 @@
                 <table class="table align-items-center mb-0">
                     <thead>
                         <tr>
-                            <td>Ações</td>
-                            <td class="center aligned">ID</td>
-                            <td class="center aligned">Direção</td>
-                            <td class="left aligned">Estado</td>
+                            <th></th>
+                            <th class="text-left">E-Mail</th>
+                            <th class="text-center">Confirmado</th>
+                            <th class="text-left">Bloqueado Até</th>
+                            <th class="text-center">Ações</th>
                         </tr>
                     </thead>                             
                     <tbody>
                         @foreach (var user in UsersResponse.Users)
                         {
-                            <tr @onclick="async () => await SelectUser(user, default)">
-                                <td>@user.EMail</td>
-                                <td>@user.EMailConfirmed</td>
-                                <td>@user.UserName</td>
-                                <td>@user.LockoutEnd</td>
+                            <tr>
+                                <td class="text-center">
+                                    <Button Icon="play_for_work" Size="UI.Material.ComponentSize.Small" Color="UI.Material.ColorKind.Primary" CssClass="container m-0" OnClick="async () => await SelectUser(user, default)">
+                                        Selecionar
+                                    </Button>
+                                </td>
+                                <td class="text-left">@user.EMail</td>
+                                <td class="text-center">
+                                    <a data-tooltip="E-Mail confirmado ?">
+                                        <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
+                                    </a>
+                                </td>
+                                <td class="text-left">@user.LockoutEnd</td>
+                                <td class="text-center">
+                                    <Button ToolTipDescription="Resetar a senha" Color="UI.Material.ColorKind.Primary" CssClass="m-0 btn-sm" OnClick="async () => await ConfirmPasswordReset(user, default)">
+                                        <Icon Key="password" CssClass="text-sm" />
+                                    </Button>
+                                    <LinkButton IsDisabled="true" Color="UI.Material.ColorKind.Primary" CssClass="m-0 btn-sm" Navigation="@("pages/identity/profile/" + user.ID)">
+                                        <Icon Key="face" CssClass="text-sm" />
+                                    </LinkButton>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -52,7 +69,6 @@
     </div>
 </div>
 
-
 <hr class="dark horizontal" />
 <div class="card card-frame">
     <div class="card-body">
@@ -66,9 +82,9 @@
                 <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-sm bg-gradient-primary mb-0" @onclick="OnAddClick">
-                    <i class="material-icons text-white pe-2">add</i> Adicionar
-                </button>
+                <Button Size="UI.Material.ComponentSize.Small" Icon="add" CssClass="mb-0 bg-gradient-primary" OnClick="@OnAddClick">
+                    Adicionar
+                </Button>
             </div>
         </div>
         <div class="row">
@@ -88,7 +104,9 @@
                         {
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-sm bg-gradient-primary mb-0" @onclick="() => OnDelClick(item.UserClaimId)"><i class="material-icons text-white pe-2">add</i> Remover</button>
+                                    <Button Size="UI.Material.ComponentSize.Small" Icon="delete_outline" CssClass="mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)">
+                                        Remover
+                                    </Button>
                                 </td>
                                 <td>@item.Directive.Name</td>
                                 <td><Text Value="@GetContactTitle(item.IDContext)" /></td>

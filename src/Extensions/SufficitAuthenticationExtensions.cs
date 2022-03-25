@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sufficit.EndPoints.Configuration;
 using Sufficit.Identity.Configuration;
-using SufficitBlazorClient.Models.Identity;
-using SufficitBlazorClient.Services;
+using Sufficit.Blazor.Client.Models.Identity;
+using Sufficit.Blazor.Client.Services;
 using System;
 
-namespace SufficitBlazorClient.Extensions
+namespace Sufficit.Blazor.Client.Extensions
 {
     public static class SufficitAuthenticationExtensions
     {
