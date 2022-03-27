@@ -48,13 +48,36 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         [SupplyParameterFromQuery]
         public string Filter { get; set; }
 
+        [Parameter]
+        [SupplyParameterFromQuery]
+        public Guid UserID { get; set; }
+
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            if (UserID != Guid.Empty)
+            {
+                var user = await BIService.Identity.Users.GetUserAsync(UserID);
+                if (user != null)
+                    await SelectUser(user);
+            }
+        }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (!string.IsNullOrWhiteSpace(Filter))
-                textInput?.Update(Filter, true);
-
-            Status = (await BIService.Identity.Health())?.Status;
             await base.OnAfterRenderAsync(firstRender);
+
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                await textInput?.Update(Filter, true);
+                textInput.SetDisabled(true);
+            }
+
+            var statusPrevious = Status;
+            Status = (await BIService.Identity.Health())?.Status;
+            if (statusPrevious != Status) StateHasChanged();
         }
 
         protected async Task ValueChanged(ChangeEventArgs args)
@@ -81,14 +104,14 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             }
         }
 
-        protected async Task SelectUser(User selected, CancellationToken cancellationToken)
+        protected async Task SelectUser(User selected, CancellationToken cancellationToken = default)
         {
             UserSelected = selected;
             UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
             StateHasChanged();
         }
 
-        protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken)
+        protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken = default)
         {
             var alert = new SweetAlert() { 
                 TimerProgressBar = true, 
@@ -96,16 +119,18 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                 Title = "Redefinir senha ?",
                 Text = $"{ selected.EMail }",
                 Icon = "question",
-                ShowDenyButton = true 
+                ShowDenyButton = true,
+                DenyButtonText = "Não",
+                ConfirmButtonText = "Continuar"
             };
 
             var Swal = UIService.SweetAlerts;
-            var result = await Swal.Fire(alert);
+            var result = await Swal.Fire(alert, cancellationToken);
             if (result != null)
             {
                 if (result.IsConfirmed)
                 {
-                    var newPassword = await BIService.ResetPassword(selected.ID);
+                    var newPassword = await BIService.ResetPassword(selected.ID, cancellationToken);
                     SweetAlert saConfirm;
                     if (!string.IsNullOrWhiteSpace(newPassword)) {
                         saConfirm = new SweetAlert()

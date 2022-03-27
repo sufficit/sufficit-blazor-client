@@ -5,121 +5,168 @@
     <h3><span>Identity Admin API Status: </span> @Status</h3>
 </div>
 
-<hr class="dark horizontal" />
-<div class="card card-frame">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <InputGroup CssClass="input-group-outline mb-3">        
-                    <Label>Filtro</Label>
-                    <TextInput Type="search" OnChanged="@ValueChanged" @ref="textInput" />                            
-                </InputGroup>
-
+@if (UserID == Guid.Empty) {
+    <hr class="dark horizontal" />
+    <div class="card card-frame">
+        <div class="card-header d-flex align-items-center py-3">
+            <div class="d-block d-md-flex align-items-center">
+                <Icon Key="manage_accounts" />
+                <div class="mx-0 mx-md-3">
+                    <span>Personalizar o acesso de usuários as funções do sistema</span>
+                    <small class="d-block text-muted">*Pesquise por nome de usuário ou e-mail.</small>
+                </div>
             </div>
         </div>
-        <div class="row">
-        @if (UsersResponse != null && UsersResponse.Users != null)
-        {
-            <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th class="text-left">E-Mail</th>
-                            <th class="text-center">Confirmado</th>
-                            <th class="text-left">Bloqueado Até</th>
-                            <th class="text-center">Ações</th>
-                        </tr>
-                    </thead>                             
-                    <tbody>
-                        @foreach (var user in UsersResponse.Users)
-                        {
-                            <tr>
-                                <td class="text-center">
-                                    <Button Icon="play_for_work" Size="UI.Material.ComponentSize.Small" Color="UI.Material.ColorKind.Primary" CssClass="container m-0" OnClick="async () => await SelectUser(user, default)">
-                                        Selecionar
-                                    </Button>
-                                </td>
-                                <td class="text-left">@user.EMail</td>
-                                <td class="text-center">
-                                    <a data-tooltip="E-Mail confirmado ?">
-                                        <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
-                                    </a>
-                                </td>
-                                <td class="text-left">@user.LockoutEnd</td>
-                                <td class="text-center">
-                                    <Button ToolTipDescription="Resetar a senha" Color="UI.Material.ColorKind.Primary" CssClass="m-0 btn-sm" OnClick="async () => await ConfirmPasswordReset(user, default)">
-                                        <Icon Key="password" CssClass="text-sm" />
-                                    </Button>
-                                    <LinkButton IsDisabled="true" Color="UI.Material.ColorKind.Primary" CssClass="m-0 btn-sm" Navigation="@("pages/identity/profile/" + user.ID)">
-                                        <Icon Key="face" CssClass="text-sm" />
-                                    </LinkButton>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <InputGroup Size="UI.Material.ComponentSize.Medium" CssClass="input-group-outline input-group-icon mb-3">        
+                        <Icon Key="filter_alt"></Icon>
+                        <Label>Filtro</Label>
+                        <TextInput Type="search" OnChanged="@ValueChanged" @ref="textInput" />                            
+                    </InputGroup>
+
+                </div>
             </div>
-        } 
-        else
-        {
-            <h6>@UsersMessage</h6>
-        }
+            <div class="row">
+            @if (UsersResponse != null && UsersResponse.Users != null)
+            {
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-left">E-Mail</th>
+                                <th class="text-center">Confirmado</th>
+                                <th class="text-left">Bloqueado Até</th>
+                                
+                            </tr>
+                        </thead>                             
+                        <tbody>
+                            @foreach (var user in UsersResponse.Users)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="dropstart">
+                                            <a href="javascript:;" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="material-icons text-xl" style="vertical-align: middle;">more_vert</i>
+                                            </a>
+                                            
+                                            <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard" >
+                                                <li>
+                                                    <Button Icon="password" Size="UI.Material.ComponentSize.Small" Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
+                                                </li>
+                                                <li>
+                                                    <LinkButton Icon="face" Size="UI.Material.ComponentSize.Small" Text="Perfil do usuário" IsDisabled="true" CssClass="m-0 dropdown-item border-radius-md" Navigation="@("pages/identity/profile/" + user.ID)" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td class="text-left">
+                                        <Button 
+                                            Text="Selecionar" 
+                                            ToolTipDescription="Administrar políticas"
+                                            ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
+                                            Icon="arrow_circle_right" 
+                                            Size="UI.Material.ComponentSize.Small" 
+                                            Color="UI.Material.ColorKind.Primary" 
+                                            CssClass="btn-icon-only m-0"
+                                            OnClick="async () => await SelectUser(user, default)" />
+                                    </td>
+                                    <td class="text-center">
+                                        <ContactAvatar IDReference="user.ID" Size="UI.Material.ComponentSize.Tiny" />                                   
+                                    </td>
+                                    <td class="text-left">@user.EMail</td>
+                                    <td class="text-center">
+                                        <a data-tooltip="E-Mail confirmado ?">
+                                            <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
+                                        </a>
+                                    </td>
+                                    <td class="text-left">@user.LockoutEnd</td>                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            } 
+            else
+            {
+                <h6>@UsersMessage</h6>
+            }
+            </div>
         </div>
     </div>
-</div>
-
-<hr class="dark horizontal" />
-<div class="card card-frame">
-    <div class="card-body">
-        <h5>@UserSelected?.EMail</h5>
-        <hr class="dark horizontal" />
-        <div class="row">
-            <div class="col-md-5">
-                <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+}
+@if(UserSelected != null){
+    <hr class="dark horizontal" />    
+    <div class="card card-frame">
+        <div class="card-header d-flex align-items-center py-3">
+            <div class="d-block d-md-flex align-items-center">
+                <ContactAvatar IDReference="@UserSelected.ID" />
+                <div class="mx-0 mx-md-3">
+                    <Text>@UserSelected?.EMail</Text>
+                    <small class="d-block text-muted">3 days ago</small>
+                </div>
             </div>
-            <div class="col-md-5">
-                <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
-            </div>
-            <div class="col-md-2">
-                <Button Size="UI.Material.ComponentSize.Small" Icon="add" CssClass="mb-0 bg-gradient-primary" OnClick="@OnAddClick">
-                    Adicionar
-                </Button>
+            <div class="text-end ms-auto">
+                <Button 
+                    Icon="no_accounts" 
+                    Text="Remover Usuário Permanentemente" 
+                    Size="UI.Material.ComponentSize.Small" 
+                    CssClass="bg-gradient-primary mb-0" 
+                    IsDisabled="true" />
             </div>
         </div>
-        <div class="row">
-        @if (UserPolicies != null && UserPolicies.Any())
-        {
-            <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td class="center aligned"></td>
-                            <td class="center aligned"></td>
-                        </tr>
-                    </thead>                             
-                    <tbody>
-                        @foreach (var item in UserPolicies)
-                        {
-                            <tr>
-                                <td>
-                                    <Button Size="UI.Material.ComponentSize.Small" Icon="delete_outline" CssClass="mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)">
-                                        Remover
-                                    </Button>
-                                </td>
-                                <td>@item.Directive.Name</td>
-                                <td><Text Value="@GetContactTitle(item.IDContext)" /></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+                </div>
+                <div class="col-md-5">
+                    <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+                </div>
+                <div class="col-md-3" style="overflow: hidden;">
+                    <Button Text="Adicionar" Icon="add" CssClass="container mb-0 bg-gradient-primary" OnClick="@OnAddClick" />
+                </div>
             </div>
-        } 
-        else
-        {
-            <h6>@UserClaimsMessage</h6>
-        }
+            <div class="row">
+            @if (UserPolicies != null && UserPolicies.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td class="center aligned" style="width: 30%;"></td>
+                                <td></td>
+                                <td class="center aligned"></td>
+                            </tr>
+                        </thead>                             
+                        <tbody>
+                            @foreach (var item in UserPolicies)
+                            {
+                                <tr>
+                                    <td style="width: 140px;">
+                                        <Button Text="Remover" Size="UI.Material.ComponentSize.Small" Icon="delete_outline" CssClass="container mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)" />
+                                    </td>
+                                    <td>@item.Directive.Name</td>
+                                    <td>
+                                        <ContactAvatar IDReference="item.IDContext" Size="UI.Material.ComponentSize.Tiny" />                                   
+                                    </td>
+                                    <td><Text Value="@GetContactTitle(item.IDContext)" /></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            } 
+            else
+            {
+                <h6>@UserClaimsMessage</h6>
+            }
+            </div>
         </div>
     </div>
-</div>
+}
