@@ -6,7 +6,9 @@
     <div class="sidenav-header">
         <a class="navbar-brand m-0" style="text-align: center;">
             <img src="../../assets/img/logos/logo.png" class="navbar-brand-img h-100 logo" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white"><img src="../../assets/img/logos/logo-texto.png" class="navbar-brand-img h-100 textlogo" alt="main_logo" /></span>
+            <span class="ms-1 font-weight-bold text-white">
+                <img src="../../assets/img/logos/logo-texto.png" class="navbar-brand-img h-100 textlogo" alt="main_logo" />
+            </span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-0" />
@@ -16,13 +18,12 @@
             <AuthorizeView>                
                 <Authorized>
                     <SideBarMaterialItem Title="@User?.Identity.Name" Image="@Avatar" Link="#ProfileNav">
-                        <SideBarMaterialItem Icon="face" Title="Perfil de usuário" Link="pages/identity/profile"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="Settings" Link="#settings"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="Logout" @onclick="BeginSignOut"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Perfil de usuário" Icon="face" Link="https://identity.sufficit.com.br"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Sair" Icon="logout" @onclick="BeginSignOut"></SideBarMaterialItem>
                     </SideBarMaterialItem>
                 </Authorized>
                 <NotAuthorized>
-                    <SideBarMaterialItem Title="Entrar" Link="authentication/login"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Entrar" Icon="login" Link="authentication/login"></SideBarMaterialItem>
                 </NotAuthorized>
             </AuthorizeView>
             <hr class="horizontal light mt-0" />
@@ -61,12 +62,16 @@
                 </Authorized>
             </AuthorizeView>
     
-            <hr class="horizontal dark mt-0 mb-0" />
-            <SideBarMaterialItem Title="Development" Icon="api">
-                <SideBarMaterialItem Title="Estado das Extensões" Link="signalrpeer"></SideBarMaterialItem>
-                <SideBarMaterialItem Title="Abandono de Fila" Link="signalrabandon"></SideBarMaterialItem>
-                <SideBarMaterialItem Title="Segurança" Link="signalrsecurity"></SideBarMaterialItem>
-            </SideBarMaterialItem>
+            <AuthorizeView Roles="administrator">
+                <Authorized>
+                    <hr class="horizontal dark mt-0 mb-0" />
+                    <SideBarMaterialItem Title="Development" Icon="api">
+                        <SideBarMaterialItem Title="Estado das Extensões" Link="signalrpeer"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Abandono de Fila" Link="signalrabandon"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Segurança" Link="signalrsecurity"></SideBarMaterialItem>
+                    </SideBarMaterialItem>
+                </Authorized>
+            </AuthorizeView>
 
             <AuthorizeView>
                 <Authorized>
