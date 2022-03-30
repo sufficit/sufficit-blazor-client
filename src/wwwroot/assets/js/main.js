@@ -5,7 +5,6 @@ requirejs.config({
     paths: {
         'sufficit/blazor-before': 'sufficit-blazor-before',
         'framework': rootPath + '/_framework/blazor.webassembly',
-        'content/mudblazor': rootPath + '/_content/MudBlazor/MudBlazor.min',
         'content/authentication': rootPath + '/_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService'
     },
     shim: {
@@ -26,4 +25,11 @@ function onAuthenticationLoaded() {
 /** Carregando framework principal, Blazor */
 function onBlazorFrameworkLoaded() {
     console.debug("SUFFICIT: Blazor Framework loaded");
+}
+
+async function Reload() {
+    await caches.delete("blazor-resources-/");
+
+    // Recarrega a página atual sem usar o cache
+    document.location.reload(true);
 }

@@ -135,8 +135,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     if (!string.IsNullOrWhiteSpace(newPassword)) {
                         saConfirm = new SweetAlert()
                         {
-                            TimerProgressBar = true,
-                            Timer = 3500,
                             Title = "Pronto !",
                             Text = $"nova senha temporária: { newPassword }",
                             Icon = "success"
@@ -144,7 +142,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     } else {
                         saConfirm = new SweetAlert()
                         {
-                            TimerProgressBar = true,
                             Title = "Oops...",
                             Text = "Deu ruim em algo, tente mais tarde.",
                             Icon = "error"
