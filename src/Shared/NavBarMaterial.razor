@@ -14,7 +14,7 @@
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item">
                     <span class="nav-link text-body p-0">
-                        <Button Icon="refresh" CssClass="btn-icon-noeffect"></Button>
+                        <Button Icon="refresh" CssClass="btn-icon-noeffect" OnClick="Refresh"></Button>
                     </span>
                 </li>
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -84,4 +84,18 @@
 @code{
     [Parameter]
     public string Title { get; set; } 
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    [Inject]
+    private NavigationManager uriHelper { get; set; }
+
+    protected async Task Refresh(MouseEventArgs e) => await Reload();
+
+    protected async Task Reload()
+    {
+        await JSRuntime.InvokeVoidAsync("caches.delete", "blazor-resources-/");
+        uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);            
+    }
 }
