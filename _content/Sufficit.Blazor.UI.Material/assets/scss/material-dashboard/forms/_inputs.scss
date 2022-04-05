@@ -25,20 +25,37 @@
 }
 
 .input-group {
-  .input-group-text {
-    position: absolute;
-    padding: .75rem 0;
-    right: 0;
-    border-right: 0 !important;
-
-    i {
-      color: $gray-600;
-    }
-  }
-
-  &.input-group-static {
     .input-group-text {
-      bottom: 0;
+        position: absolute;
+        padding: .75rem 0;
+        right: 0;
+        border-right: 0 !important;
+
+        i {
+            color: $gray-600;
+        }
     }
-  }
+
+    &.input-group-static {
+        .input-group-text {
+            bottom: 0;
+        }
+    }
+
+    &.input-group-icon:not(.is-focused):not(.is-filled) {
+        .form-label {
+            padding-left: 2rem;
+        }
+    }
+
+    &.input-group-icon {
+        i {
+            position: absolute;
+            padding: 0.9rem;
+        }
+
+        input.form-control {
+            padding-left: 2.5rem !important;
+        }
+    }
 }

@@ -3,13 +3,10 @@
 }
 
 .swal2-styled.swal2-confirm {
-  background-image: linear-gradient(195deg, $info-gradient 0%, $info-gradient-state 100%);
-  background-color: transparent;
   @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
 
   &:hover,
   &:focus {
-    background-image: linear-gradient(195deg, $info-gradient 0%, $info-gradient-state 100%);
     outline: 0;
     box-shadow: $btn-focus-box-shadow;
   }
@@ -18,6 +15,21 @@
 .swal2-confirm.btn.bg-gradient-success {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.swal2-styled.swal2-deny {
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        box-shadow: $btn-focus-box-shadow;
+    }
+}
+
+.swal2-deny.btn.bg-gradient-error {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .swal2-image {
