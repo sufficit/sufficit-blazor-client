@@ -1,10 +1,10 @@
 ﻿@using System.Security.Claims
 @inject IJSRuntime JSRuntime
 
-<SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark">
+<SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3">
 
     <div class="sidenav-header">
-        <a class="navbar-brand m-0" style="text-align: center; background-image: linear-gradient(to top, rgba(0,0,0,0), rgb(0 0 0 / 15%));">
+        <a class="navbar-brand m-0" style="text-align: center;">
             <img src="../../assets/img/logos/logo.png" class="navbar-brand-img h-100 logo" alt="main_logo" />
             <span class="ms-1 font-weight-bold text-white">
                 <img src="../../assets/img/logos/logo-texto.png" class="navbar-brand-img h-100 textlogo" alt="main_logo" />
@@ -13,7 +13,7 @@
     </div>
     <hr class="horizontal light mt-0 mb-0" />
     
-    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <AuthorizeView>                
                 <Authorized>
@@ -28,7 +28,7 @@
             </AuthorizeView>
             <hr class="horizontal light mt-0" />
 
-            <SideBarMaterialItem Title="Material Dashboard" Icon="dashboard">
+            <SideBarMaterialItem Title="Dashboard" Description="Modelos de painéis e exibições" Icon="dashboard" >
                 <SideBarMaterialItem Title="Default" Link="material"></SideBarMaterialItem>
                 <SideBarMaterialItem Title="Toast" Link="dashboard/toast"></SideBarMaterialItem>
                 <SideBarMaterialItem Title="Not Ready" Link="unready"></SideBarMaterialItem>
@@ -38,7 +38,7 @@
             <AuthorizeView Context="Authenticated">                
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
-                    <SideBarMaterialItem Title="Identity" Icon="fingerprint">  
+                    <SideBarMaterialItem Title="Identidade" Description="Controle da segurança de acesso" Icon="fingerprint">  
                         <AuthorizeView Context="Manager" Roles="manager">
                             <SideBarMaterialItem Icon="manage_accounts" Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
                         </AuthorizeView>
@@ -53,9 +53,9 @@
             <AuthorizeView>
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
-                    <SideBarMaterialItem Title="Authorized" Icon="lock">
+                    <SideBarMaterialItem Title="Authorized" Description="Métodos em testes para usuários autenticados" Icon="lock">
                         <SideBarMaterialItem Title="Fetch BlazorServer" Link="fetchdata"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="Fetch Sufficit" Link="fetchsufficit"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Fetch Sufficit" Description="Get from Sufficit API" Link="fetchsufficit"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="User info ASP" Link="userinfobyasp"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="User info Test" Link="userinfobytest"></SideBarMaterialItem>
                     </SideBarMaterialItem>
@@ -65,7 +65,7 @@
             <AuthorizeView Roles="administrator">
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
-                    <SideBarMaterialItem Title="Development" Icon="api">
+                    <SideBarMaterialItem Title="Desenvolvimento" Description="Novas funções e futuras implementações (beta)" Icon="api">
                         <SideBarMaterialItem Title="Estado das Extensões" Link="signalrpeer"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Abandono de Fila" Link="signalrabandon"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Segurança" Link="signalrsecurity"></SideBarMaterialItem>
@@ -76,18 +76,18 @@
             <AuthorizeView>
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
-                    <SideBarMaterialItem Title="Telefonia" Icon="tty">
+                    <SideBarMaterialItem Title="Telefonia" Description="Ramais, chamadas e etc." Icon="tty">
                         <SideBarMaterialItem Title="Chamadas" Link="pages/telephony/calls"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Telefone Web" Link="pages/telephony/webphone"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="CheckUp" Link="pages/telephony/checkup"></SideBarMaterialItem>
                     </SideBarMaterialItem>
                 </Authorized>
             </AuthorizeView>
+            <li style="clear: both; height: 100px;">&nbsp;</li>
         </ul>
     </div>
-
-</SideBar>
     
+</SideBar>
 
 @code{
     [Inject] NavigationManager Navigation { get; set; }

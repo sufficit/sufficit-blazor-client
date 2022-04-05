@@ -26,20 +26,19 @@
 
     <link href="manifest.json" rel="manifest" />
     <!-- CSS Files -->
-    <link href="SufficitBlazorClient.styles.css" rel="stylesheet" />
+    <link href="Sufficit.Blazor.Client.styles.css" rel="stylesheet" />
     <link href="_content/Sufficit.Blazor.UI.Material/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="_content/Sufficit.Blazor.UI.Material/assets/css/material-dashboard.css?v=3.0.1" rel="stylesheet" />
-    <!-- <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /> -->
 
     <script type="text/javascript" async src="https://requirejs.org/docs/release/2.3.6/minified/require.js" data-main="assets/js/main.js"></script>
 </head>
 
 <body class="bg-gray-200">
-    <component id="app">
-        <div class="progress">
-            <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
-        </div>
+    <component id="app">        
         <div class="page-header align-items-start min-vh-100">
+            <div class="progress" style="position: fixed; width: 100%;">
+                <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
+            </div>
             <div class="container my-auto">
                 <div class="row">
                     <div class="col-lg-4 col-md-8 col-12 mx-auto align-items-center justify-content-center d-none" id="progress">

@@ -1,6 +1,4 @@
-﻿console.debug('SUFFICIT: Loading blazor before');
-
-function interceptConsoleEvents(dotNetObjectRef) {
+﻿function interceptConsoleEvents(dotNetObjectRef) {
 
     var exLog = console.debug;
     console.debug = function (msg) {

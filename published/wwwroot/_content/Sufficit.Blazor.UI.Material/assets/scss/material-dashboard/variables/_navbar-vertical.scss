@@ -19,7 +19,7 @@ $navbar-vertical-nav-link-padding-x:        1rem !default;
 $navbar-vertical-nav-link-padding-y:        .75rem !default;
 $navbar-vertical-sidenav-normal-ml:         4.01rem !default;
 $navbar-vertical-m:                         1rem !default;
-$navbar-vertical-inner:                     calc(100vh - 360px) !default;
+$navbar-vertical-inner:                     calc(100vh - 110px) !default;
 $navbar-icon-min-width:                     1.8rem !default;
 $navbar-icon-margin-left:                   0.15rem !default;
 $navbar-icon-material-margin-left:          2px !default;
@@ -57,9 +57,9 @@ $navbar-vertical-collapse-translate:             translate(0,-50%) !default;
 $navbar-vertical-hidden-width:                   6rem !default;
 
 // Hover effect
-$navbar-vertical-hover-bg-color:                 rgba(199, 199, 199, 0.2) !default;
+$navbar-vertical-hover-bg-color:                 rgba(199, 199, 199, 0.08) !default;
+$navbar-vertical-active-bg-color:                rgba(255, 255, 255, 0.3) !default;
 
 // RTL Page
-
-$rtl-sidebar-bullet-right:                       -1.125rem !default;
+$rtl-sidebar-bullet-right: -1.125rem !default;
 $rtl-sidebar-hover-padding-right:                2.5rem !default;

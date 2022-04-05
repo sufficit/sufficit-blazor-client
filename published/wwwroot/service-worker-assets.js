@@ -221,12 +221,16 @@
       "url": "assets\/img\/logos\/gray-logos\/logo-vodafone.svg"
     },
     {
-      "hash": "sha256-EK0EoLnWwg0QZ8W+pBGjhoupv54Vf8qwMxZsawhsEEM=",
+      "hash": "sha256-QVkVoFGZHpKdR6DaVKx+4Zj9\/GnVh6ewDvXdAoUS8mk=",
       "url": "assets\/img\/logos\/logo.png"
     },
     {
-      "hash": "sha256-Thz6bi+jIK0dE6UFFZRXagz\/ElKDYKUv9nWKT8z6CJU=",
+      "hash": "sha256-sy85FHfxYXK889HOqPwjd0boBvBLiuyY7hLNb3v6mJE=",
       "url": "assets\/img\/logos\/logo-texto.png"
+    },
+    {
+      "hash": "sha256-dtwlPoyUCMRTgNW+eByAFOOybUd79Lz0KdJmZ9nOde0=",
+      "url": "assets\/img\/logos\/logo-texto-gray.png"
     },
     {
       "hash": "sha256-qvldacD26pljXrnWic5r8NfRO8KUyR0yNLrXrdXz4Is=",
@@ -405,11 +409,15 @@
       "url": "assets\/img\/vr-bg.jpg"
     },
     {
-      "hash": "sha256-HMEIuxtX7zKZvrflhc1sOx7ThsRxi1DLjpFzSpKxvZU=",
+      "hash": "sha256-N0qPBBkbDZ7J\/1dqyEAFO2otP9MA5aaspIEYdZInCmg=",
+      "url": "assets\/js\/foo.js"
+    },
+    {
+      "hash": "sha256-wiC7AYYEP6UFsoUyzZt0t2wbQe1GuamyUgo6N9XMVWs=",
       "url": "assets\/js\/main.js"
     },
     {
-      "hash": "sha256-CqOxgOcyeS91n9NlIP0yEUQudxzAgss1g\/p28mpIT3w=",
+      "hash": "sha256-I\/T0mfyMV8awyVYYPnr03vdTLFDxRrUk9T1RBaqVBBM=",
       "url": "assets\/js\/sufficit-blazor-before.js"
     },
     {
@@ -417,7 +425,7 @@
       "url": "favicon.ico"
     },
     {
-      "hash": "sha256-oMHz1UjJsW3p0tURIkSuJa5VJqibCziHAKNNiq8Ki0w=",
+      "hash": "sha256-s0kvPm2borip9ctsKeq6QDbN8AZZZpqC79okVzu8yGk=",
       "url": "index.html"
     },
     {
@@ -449,7 +457,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-nD1ReCx50Zr5MYaIAurvp2M7EyvSob55o\/k3CuHicNM=",
+      "hash": "sha256-TXeCiIjDGZ0RBmPG8tYMliMiWUWNCz0fTBKvITAXxM8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -501,7 +509,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Authentication.dll"
     },
     {
-      "hash": "sha256-JdcVP2r6gk+I\/gvM2SeK+DKHz6t\/CtEocffzVoAT6Bw=",
+      "hash": "sha256-7tOWizlAEAtIByJ2VGafiq0xu7ck+IlEwSOiWk0P\/5Q=",
       "url": "_framework\/Microsoft.AspNetCore.Authorization.dll"
     },
     {
@@ -785,7 +793,7 @@
       "url": "_framework\/Microsoft.Extensions.WebEncoders.dll"
     },
     {
-      "hash": "sha256-p2rpRQbwfvynRF5rKy3D34ImNKlEcdV4J9ZO74vubU4=",
+      "hash": "sha256-2VhPiCF0iwRtQ86qsTPA0cp827i3A1I2lB6dY8k\/7X8=",
       "url": "_framework\/Microsoft.JSInterop.dll"
     },
     {
@@ -809,7 +817,7 @@
       "url": "_framework\/MudBlazor.dll"
     },
     {
-      "hash": "sha256-trYc+1LWKxZuLdZCU57Ot43E7vt7DXHG8f4FIkD9jgM=",
+      "hash": "sha256-Ags05U0mtG90uHlB4uv6Zc3NMAAur2XS9Sp0PFkoM4A=",
       "url": "_framework\/netstandard.dll"
     },
     {
@@ -833,35 +841,39 @@
       "url": "_framework\/Sufficit.AsterNET.Core.dll"
     },
     {
-      "hash": "sha256-9XGXUwL+IYVrOdR7CZeeo6WB\/pNMB\/4AsG3vVh1Nk2Y=",
+      "hash": "sha256-innd3kdaWzVR2fMbbHHH0fxACrT8kU7iZIh+T2xje6I=",
+      "url": "_framework\/Sufficit.Base.dll"
+    },
+    {
+      "hash": "sha256-nKWtq5c5TZkPi1WlXA3pN74yuIkBlN6gS5yT+N4iOjo=",
+      "url": "_framework\/Sufficit.Blazor.Client.dll"
+    },
+    {
+      "hash": "sha256-LoiRuvj5s3U2+m5+eSHlS+3fCdtes2NHE51byuuz7UU=",
       "url": "_framework\/Sufficit.Blazor.UI.Material.dll"
     },
     {
-      "hash": "sha256-L0eR2NTIF6MuyY7iBTlHsjG\/8NIbVRRTHRulP5Xp2YY=",
+      "hash": "sha256-Rf\/uDAUllDfZZ8trqQEVaB6TOPzycMmVZ5fI986Tenc=",
       "url": "_framework\/Sufficit.Client.dll"
     },
     {
-      "hash": "sha256-l5i2YADk4F6nhMdSZSxN0biX9TAxgVAkeE2teC49dR0=",
+      "hash": "sha256-hBEdZvT2N0QvZ+E2p7HMcHcEzxPvgCya8FvtFNFP71U=",
       "url": "_framework\/Sufficit.Identity.Client.dll"
     },
     {
-      "hash": "sha256-9diluyqJAavFzb2BLYStAm1bM64DZVJCGEIv0p25VxE=",
-      "url": "_framework\/SufficitBase.dll"
+      "hash": "sha256-6F+kNeBh9mGGuU3KpE7AyqxGIWMs8rkNHig8d2G3nhM=",
+      "url": "_framework\/Sufficit.Identity.Core.dll"
     },
     {
-      "hash": "sha256-9CLizCmploFN8t6Z\/ulZmzL0sUiPwKNTfugVfmSzzcQ=",
-      "url": "_framework\/SufficitBlazorClient.dll"
+      "hash": "sha256-+rP9aNpqlSS0j8Itm4pi+6E5mouOsCKq0KwPl0g5pdU=",
+      "url": "_framework\/Sufficit.Telephony.JsSIP.dll"
     },
     {
-      "hash": "sha256-ChUQ+LRWqtmcqrdKRE1gnoE4Ei5eJR6tEcliNEt5TTA=",
-      "url": "_framework\/SufficitIdentityCore.dll"
+      "hash": "sha256-\/TtAWSVkUxrtsZGYkrp0N46YK0u1mr\/tmIzHn8AxDdQ=",
+      "url": "_framework\/Sufficit.Utils.dll"
     },
     {
-      "hash": "sha256-vVbrE0ypXw31W2DVJ67ITLz+5CIGdWFY1EL0IBuasf0=",
-      "url": "_framework\/SufficitTelephonyJsSIP.dll"
-    },
-    {
-      "hash": "sha256-Mb95AZJcwGWcSHYWr+ferILJJXDz1CkR1m6o9m2QtwA=",
+      "hash": "sha256-6zSnTGaZ27Skj3l+p0MrnjRtWc6VIZ8H2alfm99ZJZ0=",
       "url": "_framework\/SufficitUtils.dll"
     },
     {
@@ -973,7 +985,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-6ehAQ6OrZKth0L\/DNyHkxos\/jeo+3R2BIXytpf5DseI=",
+      "hash": "sha256-fahqaMae8\/0ojOy1pceGFbvCiiilcEMK+RvCtI4O7KY=",
       "url": "_framework\/System.Linq.dll"
     },
     {
@@ -1025,7 +1037,7 @@
       "url": "_framework\/System.ObjectModel.dll"
     },
     {
-      "hash": "sha256-OZqUuvTJ73BmezGsIrzkAgiOqpI1LzZeQvEPRB508xk=",
+      "hash": "sha256-liAZqV8Z85pwMUf2YLU2e7JlVEvK0I\/3hb7nHm\/QX7g=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
@@ -1081,7 +1093,7 @@
       "url": "_framework\/System.Runtime.CompilerServices.Unsafe.dll"
     },
     {
-      "hash": "sha256-ZqAeB+ZWFQcz2r\/afg7n0Tlnyd+yP+Tncg60mvOT1KY=",
+      "hash": "sha256-SD6ohGhzK1Ep6xP1C2cJI7NKuzeoxDJ2KeK7atDOxus=",
       "url": "_framework\/System.Runtime.dll"
     },
     {
@@ -1169,7 +1181,7 @@
       "url": "_framework\/System.Text.Encodings.Web.dll"
     },
     {
-      "hash": "sha256-TZQITbpgpfefpzEJjkmiU0XNY\/65IkcVyz8eFlD6Zjs=",
+      "hash": "sha256-vi8E2ZC0G1zhXr4YkpkWVvHijucImySn8PBzhirqlGM=",
       "url": "_framework\/System.Text.Json.dll"
     },
     {
@@ -1225,7 +1237,7 @@
       "url": "_framework\/dotnet.6.0.3.t0lr9wecqh.js"
     },
     {
-      "hash": "sha256-lTjLhxrlaUhD9cSetEmPzEiuIl8o9R3wZ8QUm6dBe3s=",
+      "hash": "sha256-6W7ZThlmko27C\/tiuATZhyNLp\/OBkCvjHXi+JlFfQwc=",
       "url": "_framework\/dotnet.wasm"
     },
     {
@@ -1234,7 +1246,7 @@
     },
     {
       "hash": "sha256-6NfOTwrRMxsXlo\/HrKwipU0mJpMfF8MSpV94m0mWx+E=",
-      "url": "SufficitBlazorClient.styles.css"
+      "url": "Sufficit.Blazor.Client.styles.css"
     },
     {
       "hash": "sha256-Wn02IHGVHYWQvpPDhVA\/vA\/ICx8Xfh4I6vjapn2Wbxk=",
@@ -1253,11 +1265,11 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/bootstrap.min.css"
     },
     {
-      "hash": "sha256-GMzayNWRWyiECi0HxUOzCUjR0xjJQXcoh83CJo14kfY=",
+      "hash": "sha256-NNrnGrOq29+xiL\/HJL+fVhW6c\/OtX5RVXXwpSceqv0s=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.css"
     },
     {
-      "hash": "sha256-rvsLmKHwefOXtOh8yyYWqt0CpvmtMJCjXZqyjUgJXz4=",
+      "hash": "sha256-FGnTAR\/u+KoOHqsEf+CVkmDxldxm7EgJUyCR2Lfil+w=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/css\/material-dashboard.min.css"
     },
     {
@@ -1325,7 +1337,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/core\/popper.min.js"
     },
     {
-      "hash": "sha256-kgD1eUUJkdENX72Ju+9Orik6aKL1YeUZQQH\/1GftF+M=",
+      "hash": "sha256-GzuN6T6iZ\/MxxU9qqhTUhRxMWXHYQCw9HG6xb4o\/14g=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js"
     },
     {
@@ -1333,7 +1345,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.js.map"
     },
     {
-      "hash": "sha256-6RftNwg1JJepm3\/S2E\/TbZkZrYnL52QeCeZpx\/PHwXk=",
+      "hash": "sha256-tuO617TE3vK6ONGCcnKdQVGjSBVg2QNfwdT\/MBGqSZk=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-dashboard.min.js"
     },
     {
@@ -1341,7 +1353,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-services-browser.min.js"
     },
     {
-      "hash": "sha256-BSrmEpJjhcV7180K2CKAjC4K+iYrkqaBwCnWOIm92Is=",
+      "hash": "sha256-V+yxKS8U8oPtNoz06E3mZZxa1cBcwxZUXyLx8xyaf+k=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/material-sufficit.min.js"
     },
     {
@@ -1473,15 +1485,27 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/services\/browser.js"
     },
     {
+      "hash": "sha256-Q8MgardZpzdBLL+9Ug+Y928ZeG0SnDFLQSAPd\/C5o+g=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material.js"
+    },
+    {
+      "hash": "sha256-Il0e9XIHMLUlnN3rbh2YRL0P2AAi3vkysV\/19buwoPU=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-calendar.js"
+    },
+    {
       "hash": "sha256-WHiMQq0al1ZpQhwNvfd8yKwn82ZFOi2Y8cy1tQua9bo=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-choices.js"
+    },
+    {
+      "hash": "sha256-2bUF3F7JlBItn6O\/MhzWf1zuGYIdwxuMd\/WyI2Mb0kI=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-dropdown.js"
     },
     {
       "hash": "sha256-oR92CPqup8ypzX5cQ43ZbdApj+C5vK7i74qM9Q\/oH5Q=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-input-group.js"
     },
     {
-      "hash": "sha256-6PvOPQ7pTxfbamjtKFo8ghetVRxacEGRpk\/6Zquumrg=",
+      "hash": "sha256-mR8F1ltlETteYXSuE1T+djjd\/m4b6RM+1TFahb\/1SLg=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-nav-pills.js"
     },
     {
@@ -1489,12 +1513,28 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-nav-toggle.js"
     },
     {
-      "hash": "sha256-sgxLX2qO8MYlSsqMxONPfDVWaeIGZWVJlQKZcb+TkKQ=",
+      "hash": "sha256-ep7ots+tCWr0G1S3Z4xDJbp8sR\/S1fPSZm2TLagZS88=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-notification.js"
+    },
+    {
+      "hash": "sha256-Mr7\/c2\/UPdtSTcxonMdY65nl2YM4+loEBWcQJFsj\/GU=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-perfect-scrollbar.js"
+    },
+    {
+      "hash": "sha256-jyHwVn1wwyx0jgqroN7wmqrXUlRBorUpaAmUvx+e1oY=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-preload.js"
+    },
+    {
+      "hash": "sha256-I+NDGV8CMfH4Gfy3rWlhQWBhgkqk1pJ8kakoSnl91vI=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-ripple.js"
     },
     {
       "hash": "sha256-0KcSxUQ8U9TEJbN7M\/+pGHbPaOPAjxoQYIhR8kXq5iA=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-theme.js"
+    },
+    {
+      "hash": "sha256-M3peIyxH1zdTWZaL5RqwoZbO8e3jwuIWZhOhIZV8yY8=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/js\/sufficit\/material-toasts.js"
     },
     {
       "hash": "sha256-xVFzRn3quDXNzJg5rTu9NpJjk+zwojPAjt03fbtdFYo=",
@@ -1529,7 +1569,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_breadcrumbs.scss"
     },
     {
-      "hash": "sha256-oIoUwUJMiCRSq0QLpArZs7rCBwZsRHehRo5NtjtspeU=",
+      "hash": "sha256-YMUAZOWJ683oaWdxy1MV4m7tgelzz891OGX5BgOLYDc=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_buttons.scss"
     },
     {
@@ -1549,7 +1589,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_dark-version.scss"
     },
     {
-      "hash": "sha256-Fod2BM7VjdKzji7RGHpzBkQgsbpBY8C+0QBUTA6bFLw=",
+      "hash": "sha256-mnBu9kxhmOlsUcGwGBC+CcB1n9h8fLYMkKIZG+QCesk=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_dropdown.scss"
     },
     {
@@ -1585,7 +1625,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_header.scss"
     },
     {
-      "hash": "sha256-udO70EADyH07hHbRDHdUPf7Y2jm8h6Nmzy6iMmX0aSk=",
+      "hash": "sha256-hS69t3JeKcnmbZ10gSkiLffY36\/HP+0+P9creKjc+8k=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_icons.scss"
     },
     {
@@ -1613,7 +1653,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_navbar.scss"
     },
     {
-      "hash": "sha256-8Z3E\/RmcwH3Q0FPpks9ZPLXchNJ4aHbAyjJ6hVMHB3I=",
+      "hash": "sha256-4KGKvn+fTV7eWNs2xzUERamc+qTuXKmz1QQUNW9OpTk=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_navbar-vertical.scss"
     },
     {
@@ -1661,7 +1701,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_tooltips.scss"
     },
     {
-      "hash": "sha256-Nnes\/KV20yBUddg3X6xaxOWgDVO58nX4MgVMLmm3eO0=",
+      "hash": "sha256-3v7yxTJTITq1bL4aD2YaxMSUmGnYBdQldFNjNXDMNg0=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_typography.scss"
     },
     {
@@ -1673,7 +1713,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_utilities-extend.scss"
     },
     {
-      "hash": "sha256-0yioWdaa9+tMvziNVv80BmPkOTMDBTJXj8570e\/aD5Y=",
+      "hash": "sha256-R4tCvbsqX\/cjgJJZ4Nw1sxgoEL8rm9ATDpyIbRMjOAs=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/_variables.scss"
     },
     {
@@ -2081,7 +2121,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/forms\/_input-group.scss"
     },
     {
-      "hash": "sha256-YjmIChqfwOMcVoHU0t1fKy8hvz\/3pgvN0Ao19rKZSSc=",
+      "hash": "sha256-T3FIIvi2Onp1HR8k04XVcgVhp4rQofHKSu5CN11plbI=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/forms\/_inputs.scss"
     },
     {
@@ -2205,7 +2245,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/plugins\/pro\/_sweetalert2.scss"
     },
     {
-      "hash": "sha256-0RsIDope+gi+tWH5uiRn2T3Jgtwp2bS1jKdplkl68og=",
+      "hash": "sha256-\/qOAq3UvL35zarb9VmBDGvjAG1mpvVkFtl4t8lgXoLU=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/plugins\/pro\/_sweetalert2-extend.scss"
     },
     {
@@ -2297,7 +2337,7 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/variables\/_navbar.scss"
     },
     {
-      "hash": "sha256-xvND8rMrDxo+o2G5uxDnRNb67TkQFrcRyaakQkSpl0s=",
+      "hash": "sha256-C\/tAjBE3s+6uqfeGPnN+E3GQP2J3acUmINxWtbjlYbs=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/material-dashboard\/variables\/_navbar-vertical.scss"
     },
     {
@@ -2341,25 +2381,33 @@
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/sufficit\/_hr.scss"
     },
     {
-      "hash": "sha256-bsYdacP6ELaotoi3Rzm78rxYWq6mZKLyBd+iPvShBGs=",
+      "hash": "sha256-4Wkap5UikPxNXZTZ25b4s0ryq25XCberj\/XhXKtOZZA=",
+      "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/sufficit\/_tooltip.scss"
+    },
+    {
+      "hash": "sha256-u1o7Brcj7wRxQu086Nzmg1W4nh8FgRrngPlwfrqi494=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/assets\/scss\/sufficit\/site.scss"
     },
     {
       "hash": "sha256-8JGj2+E0mLZIJXo76FtEdxeoJYTQKothoh5uA0Sl\/xI=",
-      "url": "_content\/SufficitTelephonyJsSIP\/jssip-3.8.2.min.js"
+      "url": "_content\/Sufficit.Telephony.JsSIP\/jssip-3.8.2.min.js"
+    },
+    {
+      "hash": "sha256-\/\/aFhEi\/Hw2ovzGymQ5cwXtezz8E8EgHtk7vBSY8qQ8=",
+      "url": "_content\/Sufficit.Telephony.JsSIP\/jssip-3.9.0.min.js"
     },
     {
       "hash": "sha256-ed7dIattorazlDv6YJ6tW9eDCQlZjbol0yIQC\/RtZEc=",
-      "url": "_content\/SufficitTelephonyJsSIP\/jssip-service.min.js"
+      "url": "_content\/Sufficit.Telephony.JsSIP\/jssip-service.min.js"
     },
     {
       "hash": "sha256-1ZOICJoXXfigGHPaKdS5ij8r\/EC7G7hsg2CmoN\/hrWs=",
-      "url": "_content\/SufficitTelephonyJsSIP\/jssip-sessions.min.js"
+      "url": "_content\/Sufficit.Telephony.JsSIP\/jssip-sessions.min.js"
     },
     {
       "hash": "sha256-8T3cZqi0vxC8kOyy7zX5S2IGyEy820xhwLAKE93tl4A=",
       "url": "_content\/Sufficit.Blazor.UI.Material\/Sufficit.Blazor.UI.Material.bundle.scp.css"
     }
   ],
-  "version": "qPsACFg2"
+  "version": "appxWP+\/"
 };

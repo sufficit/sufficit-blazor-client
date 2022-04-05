@@ -120,7 +120,7 @@ namespace Sufficit.Blazor.Client.Services
                         var splitted = claim.ClaimValue.Split(":");
                         var policy = UserPolicy.Generate(splitted[0], splitted[1]);
                         var claimPolicy = new UserClaimPolicy(policy);
-                        claimPolicy.UserClaimId = claim.ClaimID;
+                        claimPolicy.UserClaimId = claim.Id;
                         collection.Add(claimPolicy);
                     }
                 }
@@ -131,8 +131,8 @@ namespace Sufficit.Blazor.Client.Services
 
         public async Task UpdateUserPolicy(User selected, string directive, Guid idcontext, CancellationToken cancellationToken = default)
         {
-            var claim = new UserClaim();
-            claim.UserID = selected.ID;
+            var claim = new Sufficit.Identity.UserClaim();
+            claim.UserId = selected.ID;
             claim.ClaimType = "directive";
             claim.ClaimValue = $"{ directive }:{ idcontext }";
             await Identity.Users.PostUserClaimsAsync(claim, cancellationToken);
@@ -140,8 +140,8 @@ namespace Sufficit.Blazor.Client.Services
 
         public async Task UpdateUserPolicy(User selected, UserPolicyBase policy, CancellationToken cancellationToken = default)
         {
-            var claim = new UserClaim();
-            claim.UserID = selected.ID;
+            var claim = new Sufficit.Identity.UserClaim();
+            claim.UserId = selected.ID;
             claim.ClaimType = "directive";
 
             var directive = Directive.Enumerator.FirstOrDefault(s => s.ID == policy.IDDirective);
@@ -154,9 +154,9 @@ namespace Sufficit.Blazor.Client.Services
 
         public async Task RemoveUserPolicy(User selected, int id, CancellationToken cancellationToken = default)
         {
-            var claim = new UserClaim();
-            claim.UserID = selected.ID;
-            claim.ClaimID = id;
+            var claim = new Sufficit.Identity.UserClaim();
+            claim.UserId = selected.ID;
+            claim.Id = id;
             await Identity.Users.DeleteUserClaimsAsync(claim, cancellationToken);
         }
 
@@ -196,5 +196,8 @@ namespace Sufficit.Blazor.Client.Services
             await Identity.Users.ChangePasswordAsync(request, cancellationToken);
             return request.Password;
         }
+
+        public async Task RemoveUser(User selected, CancellationToken cancellationToken = default) => 
+            await Identity.Users.DeleteUserAsync(selected.ID, cancellationToken);
     }
 }

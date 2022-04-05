@@ -110,14 +110,17 @@
                     <small class="d-block text-muted">3 days ago</small>
                 </div>
             </div>
-            <div class="text-end ms-auto">
-                <Button 
-                    Icon="no_accounts" 
-                    Text="Remover Usuário Permanentemente" 
-                    Size="UI.Material.ComponentSize.Small" 
-                    CssClass="bg-gradient-primary mb-0" 
-                    IsDisabled="true" />
-            </div>
+            <AuthorizeView Roles="administrator">
+                <div class="text-end ms-auto">
+                    <Button 
+                        Icon="no_accounts" 
+                        Text="Remover Usuário Permanentemente" 
+                        Size="UI.Material.ComponentSize.Small" 
+                        CssClass="bg-gradient-primary mb-0" 
+                        OnClick="() => OnUserDelClick(UserSelected)"
+                        />
+                </div>
+            </AuthorizeView>
         </div>
         <div class="card-body">
             <div class="row">

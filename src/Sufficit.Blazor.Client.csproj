@@ -1,21 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
-  </PropertyGroup>
+	<PropertyGroup Label="Sufficit Targeting">
+		<TargetFramework>net6.0</TargetFramework>
+		<Configurations>Debug;Release</Configurations>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
+		<RootNamespace>Sufficit.Blazor.Client</RootNamespace>
+		<TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+	</PropertyGroup>
+	
+	<PropertyGroup Label="Sufficit Versioning">
+		<VersionSuffix>1.$([System.DateTime]::UtcNow.ToString(yy)).$([System.DateTime]::UtcNow.ToString(MMdd)).$([System.DateTime]::UtcNow.ToString(HHmm))</VersionSuffix>
+		<AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">1.0.0.0</AssemblyVersion>
+		<AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
+		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
+		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
+	</PropertyGroup>
 
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <AssemblyName>SufficitBlazorClient</AssemblyName>
-    <RootNamespace>Sufficit.Blazor.Client</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
+	<ItemGroup>
     <Compile Remove="NotInUse\**" />
     <Content Remove="NotInUse\**" />
     <EmbeddedResource Remove="NotInUse\**" />
@@ -26,6 +28,12 @@
     <Content Remove="appsettings.Development.json" />
     <Content Remove="appsettings.json" />
     <Content Remove="appsettings.Production.json" />
+    <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
+    <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
+    <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
+    <Content Remove="wwwroot\assets\img\logos\logo-texto.xcf" />
+    <Content Remove="wwwroot\assets\img\logos\logo.xcf" />
+    <Content Remove="wwwroot\assets\img\logos\sufficit-logotipo-backup.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +68,7 @@
   </ItemGroup>
 	
 	<ItemGroup Label="Sufficit Dependencies">
+	  <PackageReference Include="Sufficit.Utils" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.AsterNET.Core" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
@@ -73,7 +82,6 @@
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\Sufficit.Telephony.JsSIP.csproj" />
 		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
-		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 	</ItemGroup>
   
   <ItemGroup>

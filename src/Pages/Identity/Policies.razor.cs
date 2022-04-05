@@ -30,6 +30,9 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         [Inject]
         public BlazorUIMaterialService UIService { get; set; }
 
+        [Inject]
+        public ILogger<Policies> Logger { get; set; }
+
         private string Status { get; set; }
 
         private GetUsersResponse UsersResponse { get; set; }
@@ -96,6 +99,8 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     UsersResponse = null;
                     UsersMessage = "Nenhum resultado encontrado";
                 }
+                    
+                StateHasChanged();                
             }
             else
             {
@@ -104,10 +109,17 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             }
         }
 
+        protected async Task ReloadSearch()
+        {
+            await ValueChanged(new ChangeEventArgs() { Value = textInput.Value });
+        }
+
         protected async Task SelectUser(User selected, CancellationToken cancellationToken = default)
         {
             UserSelected = selected;
-            UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
+            if(UserSelected != null)
+                UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
+
             StateHasChanged();
         }
 
@@ -194,6 +206,54 @@ namespace Sufficit.Blazor.Client.Pages.Identity
               "claimValue": "audioupdate:095132cd-b1c4-4043-ae87-0a59cf2e0569"
             } 
             */
+        }
+
+        protected async void OnUserDelClick(User selected, CancellationToken cancellationToken = default)
+        {
+            var alert = new SweetAlert()
+            {
+                TimerProgressBar = true,
+                Timer = 5000,
+                Title = "Tem certeza que deseja remover o usuário ?",
+                Text = $"{ selected.EMail }",
+                Icon = "question",
+                ShowDenyButton = true,
+                DenyButtonText = "Não",
+                ConfirmButtonText = "Continuar"
+            };
+
+            var Swal = UIService.SweetAlerts;
+            var result = await Swal.Fire(alert, cancellationToken);
+            if (result != null)
+            {
+                if (result.IsConfirmed)
+                {
+                    try
+                    {
+                        await BIService.RemoveUser(selected, cancellationToken);
+                        await SelectUser(null, cancellationToken);
+                        await ReloadSearch();
+
+                        SweetAlert saConfirm = new SweetAlert()
+                        {
+                            Title = "Pronto !",
+                            Icon = "success"
+                        }; 
+                        await Swal.Fire(saConfirm);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogError(ex, "error on remove user");
+                        SweetAlert saConfirm = new SweetAlert()
+                        {
+                            Title = "Oops...",
+                            Text = "Deu ruim em algo, tente mais tarde.",
+                            Icon = "error"
+                        };
+                        await Swal.Fire(saConfirm);
+                    }
+                }
+            }
         }
     }
 }
