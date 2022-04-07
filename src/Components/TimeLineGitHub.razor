@@ -1,0 +1,86 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization
+@if(Result != null)
+{
+    <div class="card h-100">
+        <div class="card-header pb-0">
+            <h6>
+                Estamos em constante desenvolvimento
+                <small class="d-block">Acompanhe nossos trabalhos diretamente pelo <a href="https://github.com/orgs/sufficit" target="_blank">GitHub</a></small>
+            </h6>
+        </div>
+        <div class="card-body p-3">
+            <div class="timeline timeline-one-side">
+                @foreach(var Item in Result){
+                    <div class="timeline-block mb-3">
+                        <span class="timeline-step">
+                            <Icon Key="github" Kind="UI.Material.IconKind.Brands" CssClass="text-success text-gradient text-lg"></Icon>
+                        </span>
+                        <div class="timeline-content">
+                            <h6 class="text-dark text-sm font-weight-bold mb-0"><a href="@Item.Repo.GetPublicUrl()" target="_blank">@Item.Repo.Name</a></h6>
+                            <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">@Item.CreatedAt.ToLocalTime()</p>
+                            <ul>
+                                @foreach(var message in @Item.Payload.GetMessages())
+                                {                                
+                                    <li class="text-secondary font-weight-normal text-xs mt-1 mb-0">@message</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+@code{
+    [Inject]
+    protected HttpClient Client { get; set; }
+
+    protected GitHubApiEventsResult? Result { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Result = await Client.GetFromJsonAsync<GitHubApiEventsResult>("https://api.github.com/orgs/sufficit/events?per_page=10");
+    }
+
+    public class GitHubApiEventsResult : List<GitHubApiEvent>
+    {
+
+    }
+
+    // See results in https://api.github.com/orgs/sufficit/events
+
+    public struct GitHubApiEvent
+    {
+        public Repo Repo { get; set; }
+
+        [JsonPropertyName("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        public Payload Payload { get; set; }
+    }
+
+    public struct Repo
+    {
+        public uint Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+
+        public string GetPublicUrl() => $"https://www.github.com/{Name}";
+    }
+
+    public struct Payload
+    {
+        public IEnumerable<Commit> Commits { get; set; }
+
+        public string GetMessage() => Commits?.FirstOrDefault().Message;
+
+        public IEnumerable<string> GetMessages() => Commits?.Select(s => s.Message);
+    }
+
+    public struct Commit
+    {
+        public string Message { get; set; }
+    }
+}
