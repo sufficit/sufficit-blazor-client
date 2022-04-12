@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using Sufficit.AsteriskManager.Events;
+using Sufficit.Asterisk.Events;
+using Sufficit.Asterisk.Manager.Events;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,4 +1,4 @@
-﻿using Sufficit.AsteriskManager.Events;
+﻿using Sufficit.Asterisk.Manager.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Content Remove="appsettings.Development.json" />
-    <Content Remove="appsettings.json" />
     <Content Remove="appsettings.Production.json" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
@@ -38,7 +37,6 @@
 
   <ItemGroup>
     <None Include="appsettings.Development.json" />
-    <None Include="appsettings.json" />
     <None Include="appsettings.Production.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -67,21 +65,25 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 	
-	<ItemGroup Label="Sufficit Dependencies">
+	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
 	  <PackageReference Include="Sufficit.Utils" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.AsterNET.Core" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Asterisk.Manager.Core" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
+		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
+		<ProjectReference Include="..\..\sufficit-asternet-fork\Asterisk.2013\Asterisk.NET\AsterNET.csproj" />
+		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" />
+		<ProjectReference Include="..\..\sufficit-asterisk-core\src\Sufficit.Asterisk.Core.csproj" />
 		<ProjectReference Include="..\..\sufficit-base\src\Sufficit.Base.csproj" />
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-jssip\src\Sufficit.Telephony.JsSIP.csproj" />
 		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
+		<ProjectReference Include="..\..\sufficit-telephony-eventspanel\src\Sufficit.Telephony.EventsPanel.csproj" />	
 	</ItemGroup>
   
   <ItemGroup>

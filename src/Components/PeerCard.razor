@@ -1,0 +1,41 @@
+﻿<div class="card px-1" data-state="@Peer.State" data-status="@Peer.Channels.Any()" data-tooltip="@Peer.State" style="height: fit-content;"> 
+    <div class="card-header p-0 bg-transparent">
+        <div class="row m-0 text-nowrap">
+            <div class="col-2">
+                <img src="../../assets/img/kal-visuals-square.jpg" alt="kal" class="avatar avatar-xs p-0 m-1 mx-n2">
+            </div>
+            <div class="col-8 px-1">
+                <small class="text-xs">@Peer.Extension</small>
+            </div>
+            <div class="col-2">
+                <div class="dropdown">
+                    <a class="cursor-pointer" href="javascript:;" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                        <i class="material-icons text-primary text-sm">
+                            settings
+                        </i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end ms-n5 px-2 py-3" aria-labelledby="dropdownTable" style="">
+                        <li><span class="dropdown-item border-radius-md">@Peer.Protocol</span></li>
+                        @if (!string.IsNullOrWhiteSpace(@Peer.Address))
+                        {
+                            <li><span class="dropdown-item border-radius-md">@Peer.Address</span></li>
+                        }
+                        @if (@Peer.Cause != Asterisk.Events.PeerStatusCauseEnum.Unknown)
+                        {
+                            <li><span class="dropdown-item border-radius-md">@Peer.Cause</span></li>
+                        }
+                        <li><hr /></li>
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Actions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (@Peer.Channels.Any())
+    {
+        <hr class="horizontal mt-0 dark" style="padding: 0;margin: 0;width: 100%;" />
+        <div class="card-body d-flex flex-column align-items-center p-0">    
+            <PeerCardChannels Channels=@Peer.Channels></PeerCardChannels>
+        </div>
+    }
+</div>

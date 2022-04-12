@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Sufficit.Client;
 using Sufficit.Identity.Client;
 using Sufficit.Blazor.UI.Material.Extensions;
+using Sufficit.Telephony.EventsPanel;
+using Microsoft.Extensions.Hosting;
 
 namespace Sufficit.Blazor.Client
 {
@@ -41,6 +43,7 @@ namespace Sufficit.Blazor.Client
             services.AddSufficitAuthentication();
             services.AddSufficitEndPointsAPI();
             services.AddSufficitIdentityClient();
+            services.AddEventsPanel();
 
             services.AddHttpClient("default");
 
@@ -50,7 +53,6 @@ namespace Sufficit.Blazor.Client
             // Incluindo serviço de auxilio a navegação
             services.AddSingleton<IBreadcrumbService, BreadcrumbService>();
 
-            //services.AddSingleton<BlazorServerAuthStateCache>();
             services.AddHttpContextAccessor();
             services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 

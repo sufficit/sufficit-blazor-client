@@ -1,0 +1,39 @@
+﻿@using Sufficit.Telephony.EventsPanel
+<span>@GetTimeSpan()</span>
+
+@code{
+    [Parameter]
+    public ChannelInfoMonitor Channel { get; set; }
+
+    public string GetTimeSpan() 
+    {
+        TimeSpan span = DateTime.Now - Channel.Start;
+        if(Channel.Hangup != null)
+        {
+            span = Channel.Hangup.Timestamp - Channel.Start;
+            aTimer.Elapsed -= CountDownTimer;
+        }
+
+        return span.ToString(@"mm\:ss");
+    }
+
+    private System.Timers.Timer aTimer;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if(aTimer == null)
+        {
+            aTimer = new System.Timers.Timer(1000);   
+            aTimer.Enabled = true;     
+        }
+
+        aTimer.Elapsed += CountDownTimer;        
+    }
+
+    public void CountDownTimer(object source, System.Timers.ElapsedEventArgs e)
+    {
+        StateHasChanged();
+    }
+}
