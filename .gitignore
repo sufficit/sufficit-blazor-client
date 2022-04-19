@@ -1,4 +1,6 @@
 bin/
 obj/
+src/wwwroot/appsettings.EventsPanel.json
+src/wwwroot/appsettings.EventsPanel*.json
 src/Properties/PublishProfiles/
 *.user
