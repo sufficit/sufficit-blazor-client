@@ -12,6 +12,9 @@
     protected List<EventsPanelCardMonitor> MyCards { get; set; }
 
     [Inject]
+    private EventsPanelService? Service { get; set; }
+
+    [Inject]
     public IOptionsMonitor<EventsPanelCardOptions> Monitor { get; set; }
 
     protected void OnConfigure(EventsPanelCardOptions options)
@@ -29,5 +32,12 @@
 
         Monitor.OnChange(OnConfigure);
         OnConfigure(Monitor.CurrentValue);
+
+        Service.CardAvatarHandler = GetAvatarUrl;
+    }
+
+    protected async Task<string> GetAvatarUrl(EventsPanelCardMonitor monitor)
+    {
+        return await Task.FromResult("https://www.sufficit.com.br/Relacionamento/Avatar.ashx");
     }
 }
