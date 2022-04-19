@@ -1,8 +1,33 @@
 ﻿@page "/pages/telephony/panel"
 @attribute [Authorize]
+@using Microsoft.Extensions.Options
 @using Sufficit.Client
 @using Sufficit.Telephony
 @using Sufficit.Blazor.Client.Models
 @inherits TelephonyBasePageComponent 
 
-<EventsPanel></EventsPanel>
+<EventsPanel Cards="@MyCards"></EventsPanel>
+
+@code{
+    protected List<EventsPanelCardMonitor> MyCards { get; set; }
+
+    [Inject]
+    public IOptionsMonitor<EventsPanelCardOptions> Monitor { get; set; }
+
+    protected void OnConfigure(EventsPanelCardOptions options)
+    {
+        MyCards = new List<EventsPanelCardMonitor>();
+        foreach (var card in options)
+        {
+            MyCards.Add(new EventsPanelCardMonitor(card));
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        Monitor.OnChange(OnConfigure);
+        OnConfigure(Monitor.CurrentValue);
+    }
+}

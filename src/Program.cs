@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client
@@ -15,9 +18,22 @@ namespace Sufficit.Blazor.Client
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            new Startup(builder.Configuration).ConfigureServices(builder.Services);           
+            #region INCLUDING A SEPARATED FILE FOR EVENTS PANEL
 
-            await builder.Build().RunAsync();
+            var jsonFile = "appsettings.EventsPanel.json";
+            var http = new HttpClient()
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            };
+
+            using var response = await http.GetAsync(jsonFile);
+            using var stream = await response.Content.ReadAsStreamAsync();
+
+            builder.Configuration.AddJsonStream(stream);
+
+            #endregion
+
+            await new Startup(builder).Build().RunAsync();
         }
     }
 }
