@@ -12527,7 +12527,7 @@ textarea.form-control-lg {
     top: 2px; }
   .btn.btn-rounded {
     border-radius: 1.875rem; }
-  .btn .material-icons, .btn .material-icons-round, .btn .material-icons-outlined, .btn .material-icons-two-tone, .btn .material-icons-sharp {
+  .btn .material-icons, .btn .material-icons-round, .btn .material-icons-outlined, .btn .material-icons-two-tone, .btn .material-icons-sharp, .btn .material-icons-brands {
     vertical-align: middle;
     margin-top: -1px;
     margin-bottom: -1px;
@@ -14037,11 +14037,18 @@ label,
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/materialiconssharp/v101/oPWQ_lt5nv4pWNJpghLP75WiFR4kLh3kvmvR.woff2) format("woff2"); }
 
-.material-icons, .material-icons-round, .material-icons-outlined, .material-icons-two-tone, .material-icons-sharp {
+@font-face {
+  font-family: 'Brand Icons';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  src: url("../fonts/brand-icons.woff2") format("woff2"); }
+
+.material-icons, .material-icons-round, .material-icons-outlined, .material-icons-two-tone, .material-icons-sharp, .material-icons-brands {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 20px;
+  font-size: 24px;
   /* Preferred icon size */
   display: inline-block;
   line-height: 1;
@@ -14058,7 +14065,7 @@ label,
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga'; }
-  .material-icons i, .material-icons-round i, .material-icons-outlined i, .material-icons-two-tone i, .material-icons-sharp i {
+  .material-icons i, .material-icons-round i, .material-icons-outlined i, .material-icons-two-tone i, .material-icons-sharp i, .material-icons-brands i {
     vertical-align: top; }
 
 .material-icons-round {
@@ -14073,8 +14080,2000 @@ label,
 .material-icons-sharp {
   font-family: 'Material Icons Sharp'; }
 
-.nav.nav-pills .nav-link .material-icons, .nav.nav-pills .nav-link .material-icons-round, .nav.nav-pills .nav-link .material-icons-outlined, .nav.nav-pills .nav-link .material-icons-two-tone, .nav.nav-pills .nav-link .material-icons-sharp {
+.material-icons-brands {
+  font-family: 'Brand Icons'; }
+
+.nav.nav-pills .nav-link .material-icons, .nav.nav-pills .nav-link .material-icons-round, .nav.nav-pills .nav-link .material-icons-outlined, .nav.nav-pills .nav-link .material-icons-two-tone, .nav.nav-pills .nav-link .material-icons-sharp, .nav.nav-pills .nav-link .material-icons-brands {
   top: 3px; }
+
+i.material-icons-brand-github:before {
+  font-family: 'Brand Icons';
+  content: ""; }
+
+i.material-icons-brand-search:before {
+  font-family: 'Brand Icons';
+  content: ""; }
+
+i.material-icons-brand-facebook:before {
+  font-family: 'Brand Icons';
+  content: ""; }
+
+i.material-icons-brand-twitter:before {
+  font-family: 'Brand Icons';
+  content: ""; }
+
+i.material-icons-brand-accessible:before {
+  font-family: 'Brand Icons';
+  content: ""; }
+
+i.material-icons.accusoft:before, i.accusoft.material-icons-round:before, i.accusoft.material-icons-outlined:before, i.accusoft.material-icons-two-tone:before, i.accusoft.material-icons-sharp:before, i.accusoft.material-icons-brands:before {
+  content: "\f369";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.acquisitions.incorporated:before, i.acquisitions.incorporated.material-icons-round:before, i.acquisitions.incorporated.material-icons-outlined:before, i.acquisitions.incorporated.material-icons-two-tone:before, i.acquisitions.incorporated.material-icons-sharp:before, i.acquisitions.incorporated.material-icons-brands:before {
+  content: "\f6af";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.adn:before, i.adn.material-icons-round:before, i.adn.material-icons-outlined:before, i.adn.material-icons-two-tone:before, i.adn.material-icons-sharp:before, i.adn.material-icons-brands:before {
+  content: "\f170";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.adobe:before, i.adobe.material-icons-round:before, i.adobe.material-icons-outlined:before, i.adobe.material-icons-two-tone:before, i.adobe.material-icons-sharp:before, i.adobe.material-icons-brands:before {
+  content: "\f778";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.adversal:before, i.adversal.material-icons-round:before, i.adversal.material-icons-outlined:before, i.adversal.material-icons-two-tone:before, i.adversal.material-icons-sharp:before, i.adversal.material-icons-brands:before {
+  content: "\f36a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.affiliatetheme:before, i.affiliatetheme.material-icons-round:before, i.affiliatetheme.material-icons-outlined:before, i.affiliatetheme.material-icons-two-tone:before, i.affiliatetheme.material-icons-sharp:before, i.affiliatetheme.material-icons-brands:before {
+  content: "\f36b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.airbnb:before, i.airbnb.material-icons-round:before, i.airbnb.material-icons-outlined:before, i.airbnb.material-icons-two-tone:before, i.airbnb.material-icons-sharp:before, i.airbnb.material-icons-brands:before {
+  content: "\f834";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.algolia:before, i.algolia.material-icons-round:before, i.algolia.material-icons-outlined:before, i.algolia.material-icons-two-tone:before, i.algolia.material-icons-sharp:before, i.algolia.material-icons-brands:before {
+  content: "\f36c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.alipay:before, i.alipay.material-icons-round:before, i.alipay.material-icons-outlined:before, i.alipay.material-icons-two-tone:before, i.alipay.material-icons-sharp:before, i.alipay.material-icons-brands:before {
+  content: "\f642";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.amazon:before, i.amazon.material-icons-round:before, i.amazon.material-icons-outlined:before, i.amazon.material-icons-two-tone:before, i.amazon.material-icons-sharp:before, i.amazon.material-icons-brands:before {
+  content: "\f270";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.amazon.pay:before, i.amazon.pay.material-icons-round:before, i.amazon.pay.material-icons-outlined:before, i.amazon.pay.material-icons-two-tone:before, i.amazon.pay.material-icons-sharp:before, i.amazon.pay.material-icons-brands:before {
+  content: "\f42c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.amilia:before, i.amilia.material-icons-round:before, i.amilia.material-icons-outlined:before, i.amilia.material-icons-two-tone:before, i.amilia.material-icons-sharp:before, i.amilia.material-icons-brands:before {
+  content: "\f36d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.android:before, i.android.material-icons-round:before, i.android.material-icons-outlined:before, i.android.material-icons-two-tone:before, i.android.material-icons-sharp:before, i.android.material-icons-brands:before {
+  content: "\f17b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.angellist:before, i.angellist.material-icons-round:before, i.angellist.material-icons-outlined:before, i.angellist.material-icons-two-tone:before, i.angellist.material-icons-sharp:before, i.angellist.material-icons-brands:before {
+  content: "\f209";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.angrycreative:before, i.angrycreative.material-icons-round:before, i.angrycreative.material-icons-outlined:before, i.angrycreative.material-icons-two-tone:before, i.angrycreative.material-icons-sharp:before, i.angrycreative.material-icons-brands:before {
+  content: "\f36e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.angular:before, i.angular.material-icons-round:before, i.angular.material-icons-outlined:before, i.angular.material-icons-two-tone:before, i.angular.material-icons-sharp:before, i.angular.material-icons-brands:before {
+  content: "\f420";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.app.store:before, i.app.store.material-icons-round:before, i.app.store.material-icons-outlined:before, i.app.store.material-icons-two-tone:before, i.app.store.material-icons-sharp:before, i.app.store.material-icons-brands:before {
+  content: "\f36f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.app.store.ios:before, i.app.store.ios.material-icons-round:before, i.app.store.ios.material-icons-outlined:before, i.app.store.ios.material-icons-two-tone:before, i.app.store.ios.material-icons-sharp:before, i.app.store.ios.material-icons-brands:before {
+  content: "\f370";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.apper:before, i.apper.material-icons-round:before, i.apper.material-icons-outlined:before, i.apper.material-icons-two-tone:before, i.apper.material-icons-sharp:before, i.apper.material-icons-brands:before {
+  content: "\f371";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.apple:before, i.apple.material-icons-round:before, i.apple.material-icons-outlined:before, i.apple.material-icons-two-tone:before, i.apple.material-icons-sharp:before, i.apple.material-icons-brands:before {
+  content: "\f179";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.apple.pay:before, i.apple.pay.material-icons-round:before, i.apple.pay.material-icons-outlined:before, i.apple.pay.material-icons-two-tone:before, i.apple.pay.material-icons-sharp:before, i.apple.pay.material-icons-brands:before {
+  content: "\f415";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.artstation:before, i.artstation.material-icons-round:before, i.artstation.material-icons-outlined:before, i.artstation.material-icons-two-tone:before, i.artstation.material-icons-sharp:before, i.artstation.material-icons-brands:before {
+  content: "\f77a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.asymmetrik:before, i.asymmetrik.material-icons-round:before, i.asymmetrik.material-icons-outlined:before, i.asymmetrik.material-icons-two-tone:before, i.asymmetrik.material-icons-sharp:before, i.asymmetrik.material-icons-brands:before {
+  content: "\f372";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.atlassian:before, i.atlassian.material-icons-round:before, i.atlassian.material-icons-outlined:before, i.atlassian.material-icons-two-tone:before, i.atlassian.material-icons-sharp:before, i.atlassian.material-icons-brands:before {
+  content: "\f77b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.audible:before, i.audible.material-icons-round:before, i.audible.material-icons-outlined:before, i.audible.material-icons-two-tone:before, i.audible.material-icons-sharp:before, i.audible.material-icons-brands:before {
+  content: "\f373";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.autoprefixer:before, i.autoprefixer.material-icons-round:before, i.autoprefixer.material-icons-outlined:before, i.autoprefixer.material-icons-two-tone:before, i.autoprefixer.material-icons-sharp:before, i.autoprefixer.material-icons-brands:before {
+  content: "\f41c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.avianex:before, i.avianex.material-icons-round:before, i.avianex.material-icons-outlined:before, i.avianex.material-icons-two-tone:before, i.avianex.material-icons-sharp:before, i.avianex.material-icons-brands:before {
+  content: "\f374";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.aviato:before, i.aviato.material-icons-round:before, i.aviato.material-icons-outlined:before, i.aviato.material-icons-two-tone:before, i.aviato.material-icons-sharp:before, i.aviato.material-icons-brands:before {
+  content: "\f421";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.aws:before, i.aws.material-icons-round:before, i.aws.material-icons-outlined:before, i.aws.material-icons-two-tone:before, i.aws.material-icons-sharp:before, i.aws.material-icons-brands:before {
+  content: "\f375";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bandcamp:before, i.bandcamp.material-icons-round:before, i.bandcamp.material-icons-outlined:before, i.bandcamp.material-icons-two-tone:before, i.bandcamp.material-icons-sharp:before, i.bandcamp.material-icons-brands:before {
+  content: "\f2d5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.battle.net:before, i.battle.net.material-icons-round:before, i.battle.net.material-icons-outlined:before, i.battle.net.material-icons-two-tone:before, i.battle.net.material-icons-sharp:before, i.battle.net.material-icons-brands:before {
+  content: "\f835";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.behance:before, i.behance.material-icons-round:before, i.behance.material-icons-outlined:before, i.behance.material-icons-two-tone:before, i.behance.material-icons-sharp:before, i.behance.material-icons-brands:before {
+  content: "\f1b4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.behance.square:before, i.behance.square.material-icons-round:before, i.behance.square.material-icons-outlined:before, i.behance.square.material-icons-two-tone:before, i.behance.square.material-icons-sharp:before, i.behance.square.material-icons-brands:before {
+  content: "\f1b5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bimobject:before, i.bimobject.material-icons-round:before, i.bimobject.material-icons-outlined:before, i.bimobject.material-icons-two-tone:before, i.bimobject.material-icons-sharp:before, i.bimobject.material-icons-brands:before {
+  content: "\f378";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bitbucket:before, i.bitbucket.material-icons-round:before, i.bitbucket.material-icons-outlined:before, i.bitbucket.material-icons-two-tone:before, i.bitbucket.material-icons-sharp:before, i.bitbucket.material-icons-brands:before {
+  content: "\f171";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bitcoin:before, i.bitcoin.material-icons-round:before, i.bitcoin.material-icons-outlined:before, i.bitcoin.material-icons-two-tone:before, i.bitcoin.material-icons-sharp:before, i.bitcoin.material-icons-brands:before {
+  content: "\f379";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bity:before, i.bity.material-icons-round:before, i.bity.material-icons-outlined:before, i.bity.material-icons-two-tone:before, i.bity.material-icons-sharp:before, i.bity.material-icons-brands:before {
+  content: "\f37a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.black.tie:before, i.black.tie.material-icons-round:before, i.black.tie.material-icons-outlined:before, i.black.tie.material-icons-two-tone:before, i.black.tie.material-icons-sharp:before, i.black.tie.material-icons-brands:before {
+  content: "\f27e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.blackberry:before, i.blackberry.material-icons-round:before, i.blackberry.material-icons-outlined:before, i.blackberry.material-icons-two-tone:before, i.blackberry.material-icons-sharp:before, i.blackberry.material-icons-brands:before {
+  content: "\f37b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.blogger:before, i.blogger.material-icons-round:before, i.blogger.material-icons-outlined:before, i.blogger.material-icons-two-tone:before, i.blogger.material-icons-sharp:before, i.blogger.material-icons-brands:before {
+  content: "\f37c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.blogger.b:before, i.blogger.b.material-icons-round:before, i.blogger.b.material-icons-outlined:before, i.blogger.b.material-icons-two-tone:before, i.blogger.b.material-icons-sharp:before, i.blogger.b.material-icons-brands:before {
+  content: "\f37d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bluetooth:before, i.bluetooth.material-icons-round:before, i.bluetooth.material-icons-outlined:before, i.bluetooth.material-icons-two-tone:before, i.bluetooth.material-icons-sharp:before, i.bluetooth.material-icons-brands:before {
+  content: "\f293";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bluetooth.b:before, i.bluetooth.b.material-icons-round:before, i.bluetooth.b.material-icons-outlined:before, i.bluetooth.b.material-icons-two-tone:before, i.bluetooth.b.material-icons-sharp:before, i.bluetooth.b.material-icons-brands:before {
+  content: "\f294";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bootstrap:before, i.bootstrap.material-icons-round:before, i.bootstrap.material-icons-outlined:before, i.bootstrap.material-icons-two-tone:before, i.bootstrap.material-icons-sharp:before, i.bootstrap.material-icons-brands:before {
+  content: "\f836";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.btc:before, i.btc.material-icons-round:before, i.btc.material-icons-outlined:before, i.btc.material-icons-two-tone:before, i.btc.material-icons-sharp:before, i.btc.material-icons-brands:before {
+  content: "\f15a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.buffer:before, i.buffer.material-icons-round:before, i.buffer.material-icons-outlined:before, i.buffer.material-icons-two-tone:before, i.buffer.material-icons-sharp:before, i.buffer.material-icons-brands:before {
+  content: "\f837";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.buromobelexperte:before, i.buromobelexperte.material-icons-round:before, i.buromobelexperte.material-icons-outlined:before, i.buromobelexperte.material-icons-two-tone:before, i.buromobelexperte.material-icons-sharp:before, i.buromobelexperte.material-icons-brands:before {
+  content: "\f37f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.buy.n.large:before, i.buy.n.large.material-icons-round:before, i.buy.n.large.material-icons-outlined:before, i.buy.n.large.material-icons-two-tone:before, i.buy.n.large.material-icons-sharp:before, i.buy.n.large.material-icons-brands:before {
+  content: "\f8a6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.buysellads:before, i.buysellads.material-icons-round:before, i.buysellads.material-icons-outlined:before, i.buysellads.material-icons-two-tone:before, i.buysellads.material-icons-sharp:before, i.buysellads.material-icons-brands:before {
+  content: "\f20d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.canadian.maple.leaf:before, i.canadian.maple.leaf.material-icons-round:before, i.canadian.maple.leaf.material-icons-outlined:before, i.canadian.maple.leaf.material-icons-two-tone:before, i.canadian.maple.leaf.material-icons-sharp:before, i.canadian.maple.leaf.material-icons-brands:before {
+  content: "\f785";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.amazon.pay:before, i.cc.amazon.pay.material-icons-round:before, i.cc.amazon.pay.material-icons-outlined:before, i.cc.amazon.pay.material-icons-two-tone:before, i.cc.amazon.pay.material-icons-sharp:before, i.cc.amazon.pay.material-icons-brands:before {
+  content: "\f42d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.amex:before, i.cc.amex.material-icons-round:before, i.cc.amex.material-icons-outlined:before, i.cc.amex.material-icons-two-tone:before, i.cc.amex.material-icons-sharp:before, i.cc.amex.material-icons-brands:before {
+  content: "\f1f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.apple.pay:before, i.cc.apple.pay.material-icons-round:before, i.cc.apple.pay.material-icons-outlined:before, i.cc.apple.pay.material-icons-two-tone:before, i.cc.apple.pay.material-icons-sharp:before, i.cc.apple.pay.material-icons-brands:before {
+  content: "\f416";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.diners.club:before, i.cc.diners.club.material-icons-round:before, i.cc.diners.club.material-icons-outlined:before, i.cc.diners.club.material-icons-two-tone:before, i.cc.diners.club.material-icons-sharp:before, i.cc.diners.club.material-icons-brands:before {
+  content: "\f24c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.discover:before, i.cc.discover.material-icons-round:before, i.cc.discover.material-icons-outlined:before, i.cc.discover.material-icons-two-tone:before, i.cc.discover.material-icons-sharp:before, i.cc.discover.material-icons-brands:before {
+  content: "\f1f2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.jcb:before, i.cc.jcb.material-icons-round:before, i.cc.jcb.material-icons-outlined:before, i.cc.jcb.material-icons-two-tone:before, i.cc.jcb.material-icons-sharp:before, i.cc.jcb.material-icons-brands:before {
+  content: "\f24b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.mastercard:before, i.cc.mastercard.material-icons-round:before, i.cc.mastercard.material-icons-outlined:before, i.cc.mastercard.material-icons-two-tone:before, i.cc.mastercard.material-icons-sharp:before, i.cc.mastercard.material-icons-brands:before {
+  content: "\f1f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.paypal:before, i.cc.paypal.material-icons-round:before, i.cc.paypal.material-icons-outlined:before, i.cc.paypal.material-icons-two-tone:before, i.cc.paypal.material-icons-sharp:before, i.cc.paypal.material-icons-brands:before {
+  content: "\f1f4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.stripe:before, i.cc.stripe.material-icons-round:before, i.cc.stripe.material-icons-outlined:before, i.cc.stripe.material-icons-two-tone:before, i.cc.stripe.material-icons-sharp:before, i.cc.stripe.material-icons-brands:before {
+  content: "\f1f5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cc.visa:before, i.cc.visa.material-icons-round:before, i.cc.visa.material-icons-outlined:before, i.cc.visa.material-icons-two-tone:before, i.cc.visa.material-icons-sharp:before, i.cc.visa.material-icons-brands:before {
+  content: "\f1f0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.centercode:before, i.centercode.material-icons-round:before, i.centercode.material-icons-outlined:before, i.centercode.material-icons-two-tone:before, i.centercode.material-icons-sharp:before, i.centercode.material-icons-brands:before {
+  content: "\f380";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.centos:before, i.centos.material-icons-round:before, i.centos.material-icons-outlined:before, i.centos.material-icons-two-tone:before, i.centos.material-icons-sharp:before, i.centos.material-icons-brands:before {
+  content: "\f789";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.chrome:before, i.chrome.material-icons-round:before, i.chrome.material-icons-outlined:before, i.chrome.material-icons-two-tone:before, i.chrome.material-icons-sharp:before, i.chrome.material-icons-brands:before {
+  content: "\f268";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.chromecast:before, i.chromecast.material-icons-round:before, i.chromecast.material-icons-outlined:before, i.chromecast.material-icons-two-tone:before, i.chromecast.material-icons-sharp:before, i.chromecast.material-icons-brands:before {
+  content: "\f838";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cloudscale:before, i.cloudscale.material-icons-round:before, i.cloudscale.material-icons-outlined:before, i.cloudscale.material-icons-two-tone:before, i.cloudscale.material-icons-sharp:before, i.cloudscale.material-icons-brands:before {
+  content: "\f383";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cloudsmith:before, i.cloudsmith.material-icons-round:before, i.cloudsmith.material-icons-outlined:before, i.cloudsmith.material-icons-two-tone:before, i.cloudsmith.material-icons-sharp:before, i.cloudsmith.material-icons-brands:before {
+  content: "\f384";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cloudversify:before, i.cloudversify.material-icons-round:before, i.cloudversify.material-icons-outlined:before, i.cloudversify.material-icons-two-tone:before, i.cloudversify.material-icons-sharp:before, i.cloudversify.material-icons-brands:before {
+  content: "\f385";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.codepen:before, i.codepen.material-icons-round:before, i.codepen.material-icons-outlined:before, i.codepen.material-icons-two-tone:before, i.codepen.material-icons-sharp:before, i.codepen.material-icons-brands:before {
+  content: "\f1cb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.codiepie:before, i.codiepie.material-icons-round:before, i.codiepie.material-icons-outlined:before, i.codiepie.material-icons-two-tone:before, i.codiepie.material-icons-sharp:before, i.codiepie.material-icons-brands:before {
+  content: "\f284";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.confluence:before, i.confluence.material-icons-round:before, i.confluence.material-icons-outlined:before, i.confluence.material-icons-two-tone:before, i.confluence.material-icons-sharp:before, i.confluence.material-icons-brands:before {
+  content: "\f78d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.connectdevelop:before, i.connectdevelop.material-icons-round:before, i.connectdevelop.material-icons-outlined:before, i.connectdevelop.material-icons-two-tone:before, i.connectdevelop.material-icons-sharp:before, i.connectdevelop.material-icons-brands:before {
+  content: "\f20e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.contao:before, i.contao.material-icons-round:before, i.contao.material-icons-outlined:before, i.contao.material-icons-two-tone:before, i.contao.material-icons-sharp:before, i.contao.material-icons-brands:before {
+  content: "\f26d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cotton.bureau:before, i.cotton.bureau.material-icons-round:before, i.cotton.bureau.material-icons-outlined:before, i.cotton.bureau.material-icons-two-tone:before, i.cotton.bureau.material-icons-sharp:before, i.cotton.bureau.material-icons-brands:before {
+  content: "\f89e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cpanel:before, i.cpanel.material-icons-round:before, i.cpanel.material-icons-outlined:before, i.cpanel.material-icons-two-tone:before, i.cpanel.material-icons-sharp:before, i.cpanel.material-icons-brands:before {
+  content: "\f388";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons:before, i.creative.commons.material-icons-round:before, i.creative.commons.material-icons-outlined:before, i.creative.commons.material-icons-two-tone:before, i.creative.commons.material-icons-sharp:before, i.creative.commons.material-icons-brands:before {
+  content: "\f25e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.by:before, i.creative.commons.by.material-icons-round:before, i.creative.commons.by.material-icons-outlined:before, i.creative.commons.by.material-icons-two-tone:before, i.creative.commons.by.material-icons-sharp:before, i.creative.commons.by.material-icons-brands:before {
+  content: "\f4e7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.nc:before, i.creative.commons.nc.material-icons-round:before, i.creative.commons.nc.material-icons-outlined:before, i.creative.commons.nc.material-icons-two-tone:before, i.creative.commons.nc.material-icons-sharp:before, i.creative.commons.nc.material-icons-brands:before {
+  content: "\f4e8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.nc.eu:before, i.creative.commons.nc.eu.material-icons-round:before, i.creative.commons.nc.eu.material-icons-outlined:before, i.creative.commons.nc.eu.material-icons-two-tone:before, i.creative.commons.nc.eu.material-icons-sharp:before, i.creative.commons.nc.eu.material-icons-brands:before {
+  content: "\f4e9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.nc.jp:before, i.creative.commons.nc.jp.material-icons-round:before, i.creative.commons.nc.jp.material-icons-outlined:before, i.creative.commons.nc.jp.material-icons-two-tone:before, i.creative.commons.nc.jp.material-icons-sharp:before, i.creative.commons.nc.jp.material-icons-brands:before {
+  content: "\f4ea";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.nd:before, i.creative.commons.nd.material-icons-round:before, i.creative.commons.nd.material-icons-outlined:before, i.creative.commons.nd.material-icons-two-tone:before, i.creative.commons.nd.material-icons-sharp:before, i.creative.commons.nd.material-icons-brands:before {
+  content: "\f4eb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.pd:before, i.creative.commons.pd.material-icons-round:before, i.creative.commons.pd.material-icons-outlined:before, i.creative.commons.pd.material-icons-two-tone:before, i.creative.commons.pd.material-icons-sharp:before, i.creative.commons.pd.material-icons-brands:before {
+  content: "\f4ec";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.pd.alternate:before, i.creative.commons.pd.alternate.material-icons-round:before, i.creative.commons.pd.alternate.material-icons-outlined:before, i.creative.commons.pd.alternate.material-icons-two-tone:before, i.creative.commons.pd.alternate.material-icons-sharp:before, i.creative.commons.pd.alternate.material-icons-brands:before {
+  content: "\f4ed";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.remix:before, i.creative.commons.remix.material-icons-round:before, i.creative.commons.remix.material-icons-outlined:before, i.creative.commons.remix.material-icons-two-tone:before, i.creative.commons.remix.material-icons-sharp:before, i.creative.commons.remix.material-icons-brands:before {
+  content: "\f4ee";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.sa:before, i.creative.commons.sa.material-icons-round:before, i.creative.commons.sa.material-icons-outlined:before, i.creative.commons.sa.material-icons-two-tone:before, i.creative.commons.sa.material-icons-sharp:before, i.creative.commons.sa.material-icons-brands:before {
+  content: "\f4ef";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.sampling:before, i.creative.commons.sampling.material-icons-round:before, i.creative.commons.sampling.material-icons-outlined:before, i.creative.commons.sampling.material-icons-two-tone:before, i.creative.commons.sampling.material-icons-sharp:before, i.creative.commons.sampling.material-icons-brands:before {
+  content: "\f4f0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.sampling.plus:before, i.creative.commons.sampling.plus.material-icons-round:before, i.creative.commons.sampling.plus.material-icons-outlined:before, i.creative.commons.sampling.plus.material-icons-two-tone:before, i.creative.commons.sampling.plus.material-icons-sharp:before, i.creative.commons.sampling.plus.material-icons-brands:before {
+  content: "\f4f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.share:before, i.creative.commons.share.material-icons-round:before, i.creative.commons.share.material-icons-outlined:before, i.creative.commons.share.material-icons-two-tone:before, i.creative.commons.share.material-icons-sharp:before, i.creative.commons.share.material-icons-brands:before {
+  content: "\f4f2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.creative.commons.zero:before, i.creative.commons.zero.material-icons-round:before, i.creative.commons.zero.material-icons-outlined:before, i.creative.commons.zero.material-icons-two-tone:before, i.creative.commons.zero.material-icons-sharp:before, i.creative.commons.zero.material-icons-brands:before {
+  content: "\f4f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.critical.role:before, i.critical.role.material-icons-round:before, i.critical.role.material-icons-outlined:before, i.critical.role.material-icons-two-tone:before, i.critical.role.material-icons-sharp:before, i.critical.role.material-icons-brands:before {
+  content: "\f6c9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.css3:before, i.css3.material-icons-round:before, i.css3.material-icons-outlined:before, i.css3.material-icons-two-tone:before, i.css3.material-icons-sharp:before, i.css3.material-icons-brands:before {
+  content: "\f13c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.css3.alternate:before, i.css3.alternate.material-icons-round:before, i.css3.alternate.material-icons-outlined:before, i.css3.alternate.material-icons-two-tone:before, i.css3.alternate.material-icons-sharp:before, i.css3.alternate.material-icons-brands:before {
+  content: "\f38b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.cuttlefish:before, i.cuttlefish.material-icons-round:before, i.cuttlefish.material-icons-outlined:before, i.cuttlefish.material-icons-two-tone:before, i.cuttlefish.material-icons-sharp:before, i.cuttlefish.material-icons-brands:before {
+  content: "\f38c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.d.and.d:before, i.d.and.d.material-icons-round:before, i.d.and.d.material-icons-outlined:before, i.d.and.d.material-icons-two-tone:before, i.d.and.d.material-icons-sharp:before, i.d.and.d.material-icons-brands:before {
+  content: "\f38d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.d.and.d.beyond:before, i.d.and.d.beyond.material-icons-round:before, i.d.and.d.beyond.material-icons-outlined:before, i.d.and.d.beyond.material-icons-two-tone:before, i.d.and.d.beyond.material-icons-sharp:before, i.d.and.d.beyond.material-icons-brands:before {
+  content: "\f6ca";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dailymotion:before, i.dailymotion.material-icons-round:before, i.dailymotion.material-icons-outlined:before, i.dailymotion.material-icons-two-tone:before, i.dailymotion.material-icons-sharp:before, i.dailymotion.material-icons-brands:before {
+  content: "\f952";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dashcube:before, i.dashcube.material-icons-round:before, i.dashcube.material-icons-outlined:before, i.dashcube.material-icons-two-tone:before, i.dashcube.material-icons-sharp:before, i.dashcube.material-icons-brands:before {
+  content: "\f210";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.delicious:before, i.delicious.material-icons-round:before, i.delicious.material-icons-outlined:before, i.delicious.material-icons-two-tone:before, i.delicious.material-icons-sharp:before, i.delicious.material-icons-brands:before {
+  content: "\f1a5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.deploydog:before, i.deploydog.material-icons-round:before, i.deploydog.material-icons-outlined:before, i.deploydog.material-icons-two-tone:before, i.deploydog.material-icons-sharp:before, i.deploydog.material-icons-brands:before {
+  content: "\f38e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.deskpro:before, i.deskpro.material-icons-round:before, i.deskpro.material-icons-outlined:before, i.deskpro.material-icons-two-tone:before, i.deskpro.material-icons-sharp:before, i.deskpro.material-icons-brands:before {
+  content: "\f38f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dev:before, i.dev.material-icons-round:before, i.dev.material-icons-outlined:before, i.dev.material-icons-two-tone:before, i.dev.material-icons-sharp:before, i.dev.material-icons-brands:before {
+  content: "\f6cc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.deviantart:before, i.deviantart.material-icons-round:before, i.deviantart.material-icons-outlined:before, i.deviantart.material-icons-two-tone:before, i.deviantart.material-icons-sharp:before, i.deviantart.material-icons-brands:before {
+  content: "\f1bd";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dhl:before, i.dhl.material-icons-round:before, i.dhl.material-icons-outlined:before, i.dhl.material-icons-two-tone:before, i.dhl.material-icons-sharp:before, i.dhl.material-icons-brands:before {
+  content: "\f790";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.diaspora:before, i.diaspora.material-icons-round:before, i.diaspora.material-icons-outlined:before, i.diaspora.material-icons-two-tone:before, i.diaspora.material-icons-sharp:before, i.diaspora.material-icons-brands:before {
+  content: "\f791";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.digg:before, i.digg.material-icons-round:before, i.digg.material-icons-outlined:before, i.digg.material-icons-two-tone:before, i.digg.material-icons-sharp:before, i.digg.material-icons-brands:before {
+  content: "\f1a6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.digital.ocean:before, i.digital.ocean.material-icons-round:before, i.digital.ocean.material-icons-outlined:before, i.digital.ocean.material-icons-two-tone:before, i.digital.ocean.material-icons-sharp:before, i.digital.ocean.material-icons-brands:before {
+  content: "\f391";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.discord:before, i.discord.material-icons-round:before, i.discord.material-icons-outlined:before, i.discord.material-icons-two-tone:before, i.discord.material-icons-sharp:before, i.discord.material-icons-brands:before {
+  content: "\f392";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.discourse:before, i.discourse.material-icons-round:before, i.discourse.material-icons-outlined:before, i.discourse.material-icons-two-tone:before, i.discourse.material-icons-sharp:before, i.discourse.material-icons-brands:before {
+  content: "\f393";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dochub:before, i.dochub.material-icons-round:before, i.dochub.material-icons-outlined:before, i.dochub.material-icons-two-tone:before, i.dochub.material-icons-sharp:before, i.dochub.material-icons-brands:before {
+  content: "\f394";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.docker:before, i.docker.material-icons-round:before, i.docker.material-icons-outlined:before, i.docker.material-icons-two-tone:before, i.docker.material-icons-sharp:before, i.docker.material-icons-brands:before {
+  content: "\f395";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.draft2digital:before, i.draft2digital.material-icons-round:before, i.draft2digital.material-icons-outlined:before, i.draft2digital.material-icons-two-tone:before, i.draft2digital.material-icons-sharp:before, i.draft2digital.material-icons-brands:before {
+  content: "\f396";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dribbble:before, i.dribbble.material-icons-round:before, i.dribbble.material-icons-outlined:before, i.dribbble.material-icons-two-tone:before, i.dribbble.material-icons-sharp:before, i.dribbble.material-icons-brands:before {
+  content: "\f17d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dribbble.square:before, i.dribbble.square.material-icons-round:before, i.dribbble.square.material-icons-outlined:before, i.dribbble.square.material-icons-two-tone:before, i.dribbble.square.material-icons-sharp:before, i.dribbble.square.material-icons-brands:before {
+  content: "\f397";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dropbox:before, i.dropbox.material-icons-round:before, i.dropbox.material-icons-outlined:before, i.dropbox.material-icons-two-tone:before, i.dropbox.material-icons-sharp:before, i.dropbox.material-icons-brands:before {
+  content: "\f16b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.drupal:before, i.drupal.material-icons-round:before, i.drupal.material-icons-outlined:before, i.drupal.material-icons-two-tone:before, i.drupal.material-icons-sharp:before, i.drupal.material-icons-brands:before {
+  content: "\f1a9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dyalog:before, i.dyalog.material-icons-round:before, i.dyalog.material-icons-outlined:before, i.dyalog.material-icons-two-tone:before, i.dyalog.material-icons-sharp:before, i.dyalog.material-icons-brands:before {
+  content: "\f399";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.earlybirds:before, i.earlybirds.material-icons-round:before, i.earlybirds.material-icons-outlined:before, i.earlybirds.material-icons-two-tone:before, i.earlybirds.material-icons-sharp:before, i.earlybirds.material-icons-brands:before {
+  content: "\f39a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ebay:before, i.ebay.material-icons-round:before, i.ebay.material-icons-outlined:before, i.ebay.material-icons-two-tone:before, i.ebay.material-icons-sharp:before, i.ebay.material-icons-brands:before {
+  content: "\f4f4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.edge:before, i.edge.material-icons-round:before, i.edge.material-icons-outlined:before, i.edge.material-icons-two-tone:before, i.edge.material-icons-sharp:before, i.edge.material-icons-brands:before {
+  content: "\f282";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.elementor:before, i.elementor.material-icons-round:before, i.elementor.material-icons-outlined:before, i.elementor.material-icons-two-tone:before, i.elementor.material-icons-sharp:before, i.elementor.material-icons-brands:before {
+  content: "\f430";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ello:before, i.ello.material-icons-round:before, i.ello.material-icons-outlined:before, i.ello.material-icons-two-tone:before, i.ello.material-icons-sharp:before, i.ello.material-icons-brands:before {
+  content: "\f5f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ember:before, i.ember.material-icons-round:before, i.ember.material-icons-outlined:before, i.ember.material-icons-two-tone:before, i.ember.material-icons-sharp:before, i.ember.material-icons-brands:before {
+  content: "\f423";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.empire:before, i.empire.material-icons-round:before, i.empire.material-icons-outlined:before, i.empire.material-icons-two-tone:before, i.empire.material-icons-sharp:before, i.empire.material-icons-brands:before {
+  content: "\f1d1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.envira:before, i.envira.material-icons-round:before, i.envira.material-icons-outlined:before, i.envira.material-icons-two-tone:before, i.envira.material-icons-sharp:before, i.envira.material-icons-brands:before {
+  content: "\f299";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.erlang:before, i.erlang.material-icons-round:before, i.erlang.material-icons-outlined:before, i.erlang.material-icons-two-tone:before, i.erlang.material-icons-sharp:before, i.erlang.material-icons-brands:before {
+  content: "\f39d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ethereum:before, i.ethereum.material-icons-round:before, i.ethereum.material-icons-outlined:before, i.ethereum.material-icons-two-tone:before, i.ethereum.material-icons-sharp:before, i.ethereum.material-icons-brands:before {
+  content: "\f42e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.etsy:before, i.etsy.material-icons-round:before, i.etsy.material-icons-outlined:before, i.etsy.material-icons-two-tone:before, i.etsy.material-icons-sharp:before, i.etsy.material-icons-brands:before {
+  content: "\f2d7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.evernote:before, i.evernote.material-icons-round:before, i.evernote.material-icons-outlined:before, i.evernote.material-icons-two-tone:before, i.evernote.material-icons-sharp:before, i.evernote.material-icons-brands:before {
+  content: "\f839";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.expeditedssl:before, i.expeditedssl.material-icons-round:before, i.expeditedssl.material-icons-outlined:before, i.expeditedssl.material-icons-two-tone:before, i.expeditedssl.material-icons-sharp:before, i.expeditedssl.material-icons-brands:before {
+  content: "\f23e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.facebook:before, i.facebook.material-icons-round:before, i.facebook.material-icons-outlined:before, i.facebook.material-icons-two-tone:before, i.facebook.material-icons-sharp:before, i.facebook.material-icons-brands:before {
+  content: "\f09a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.facebook.f:before, i.facebook.f.material-icons-round:before, i.facebook.f.material-icons-outlined:before, i.facebook.f.material-icons-two-tone:before, i.facebook.f.material-icons-sharp:before, i.facebook.f.material-icons-brands:before {
+  content: "\f39e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.facebook.messenger:before, i.facebook.messenger.material-icons-round:before, i.facebook.messenger.material-icons-outlined:before, i.facebook.messenger.material-icons-two-tone:before, i.facebook.messenger.material-icons-sharp:before, i.facebook.messenger.material-icons-brands:before {
+  content: "\f39f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.facebook.square:before, i.facebook.square.material-icons-round:before, i.facebook.square.material-icons-outlined:before, i.facebook.square.material-icons-two-tone:before, i.facebook.square.material-icons-sharp:before, i.facebook.square.material-icons-brands:before {
+  content: "\f082";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fantasy.flight.games:before, i.fantasy.flight.games.material-icons-round:before, i.fantasy.flight.games.material-icons-outlined:before, i.fantasy.flight.games.material-icons-two-tone:before, i.fantasy.flight.games.material-icons-sharp:before, i.fantasy.flight.games.material-icons-brands:before {
+  content: "\f6dc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fedex:before, i.fedex.material-icons-round:before, i.fedex.material-icons-outlined:before, i.fedex.material-icons-two-tone:before, i.fedex.material-icons-sharp:before, i.fedex.material-icons-brands:before {
+  content: "\f797";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fedora:before, i.fedora.material-icons-round:before, i.fedora.material-icons-outlined:before, i.fedora.material-icons-two-tone:before, i.fedora.material-icons-sharp:before, i.fedora.material-icons-brands:before {
+  content: "\f798";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.figma:before, i.figma.material-icons-round:before, i.figma.material-icons-outlined:before, i.figma.material-icons-two-tone:before, i.figma.material-icons-sharp:before, i.figma.material-icons-brands:before {
+  content: "\f799";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.firefox:before, i.firefox.material-icons-round:before, i.firefox.material-icons-outlined:before, i.firefox.material-icons-two-tone:before, i.firefox.material-icons-sharp:before, i.firefox.material-icons-brands:before {
+  content: "\f269";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.firefox.browser:before, i.firefox.browser.material-icons-round:before, i.firefox.browser.material-icons-outlined:before, i.firefox.browser.material-icons-two-tone:before, i.firefox.browser.material-icons-sharp:before, i.firefox.browser.material-icons-brands:before {
+  content: "\f907";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.first.order:before, i.first.order.material-icons-round:before, i.first.order.material-icons-outlined:before, i.first.order.material-icons-two-tone:before, i.first.order.material-icons-sharp:before, i.first.order.material-icons-brands:before {
+  content: "\f2b0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.first.order.alternate:before, i.first.order.alternate.material-icons-round:before, i.first.order.alternate.material-icons-outlined:before, i.first.order.alternate.material-icons-two-tone:before, i.first.order.alternate.material-icons-sharp:before, i.first.order.alternate.material-icons-brands:before {
+  content: "\f50a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.firstdraft:before, i.firstdraft.material-icons-round:before, i.firstdraft.material-icons-outlined:before, i.firstdraft.material-icons-two-tone:before, i.firstdraft.material-icons-sharp:before, i.firstdraft.material-icons-brands:before {
+  content: "\f3a1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.flickr:before, i.flickr.material-icons-round:before, i.flickr.material-icons-outlined:before, i.flickr.material-icons-two-tone:before, i.flickr.material-icons-sharp:before, i.flickr.material-icons-brands:before {
+  content: "\f16e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.flipboard:before, i.flipboard.material-icons-round:before, i.flipboard.material-icons-outlined:before, i.flipboard.material-icons-two-tone:before, i.flipboard.material-icons-sharp:before, i.flipboard.material-icons-brands:before {
+  content: "\f44d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fly:before, i.fly.material-icons-round:before, i.fly.material-icons-outlined:before, i.fly.material-icons-two-tone:before, i.fly.material-icons-sharp:before, i.fly.material-icons-brands:before {
+  content: "\f417";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.font.awesome:before, i.font.awesome.material-icons-round:before, i.font.awesome.material-icons-outlined:before, i.font.awesome.material-icons-two-tone:before, i.font.awesome.material-icons-sharp:before, i.font.awesome.material-icons-brands:before {
+  content: "\f2b4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.font.awesome.alternate:before, i.font.awesome.alternate.material-icons-round:before, i.font.awesome.alternate.material-icons-outlined:before, i.font.awesome.alternate.material-icons-two-tone:before, i.font.awesome.alternate.material-icons-sharp:before, i.font.awesome.alternate.material-icons-brands:before {
+  content: "\f35c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.font.awesome.flag:before, i.font.awesome.flag.material-icons-round:before, i.font.awesome.flag.material-icons-outlined:before, i.font.awesome.flag.material-icons-two-tone:before, i.font.awesome.flag.material-icons-sharp:before, i.font.awesome.flag.material-icons-brands:before {
+  content: "\f425";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fonticons:before, i.fonticons.material-icons-round:before, i.fonticons.material-icons-outlined:before, i.fonticons.material-icons-two-tone:before, i.fonticons.material-icons-sharp:before, i.fonticons.material-icons-brands:before {
+  content: "\f280";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fonticons.fi:before, i.fonticons.fi.material-icons-round:before, i.fonticons.fi.material-icons-outlined:before, i.fonticons.fi.material-icons-two-tone:before, i.fonticons.fi.material-icons-sharp:before, i.fonticons.fi.material-icons-brands:before {
+  content: "\f3a2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fort.awesome:before, i.fort.awesome.material-icons-round:before, i.fort.awesome.material-icons-outlined:before, i.fort.awesome.material-icons-two-tone:before, i.fort.awesome.material-icons-sharp:before, i.fort.awesome.material-icons-brands:before {
+  content: "\f286";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fort.awesome.alternate:before, i.fort.awesome.alternate.material-icons-round:before, i.fort.awesome.alternate.material-icons-outlined:before, i.fort.awesome.alternate.material-icons-two-tone:before, i.fort.awesome.alternate.material-icons-sharp:before, i.fort.awesome.alternate.material-icons-brands:before {
+  content: "\f3a3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.forumbee:before, i.forumbee.material-icons-round:before, i.forumbee.material-icons-outlined:before, i.forumbee.material-icons-two-tone:before, i.forumbee.material-icons-sharp:before, i.forumbee.material-icons-brands:before {
+  content: "\f211";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.foursquare:before, i.foursquare.material-icons-round:before, i.foursquare.material-icons-outlined:before, i.foursquare.material-icons-two-tone:before, i.foursquare.material-icons-sharp:before, i.foursquare.material-icons-brands:before {
+  content: "\f180";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.free.code.camp:before, i.free.code.camp.material-icons-round:before, i.free.code.camp.material-icons-outlined:before, i.free.code.camp.material-icons-two-tone:before, i.free.code.camp.material-icons-sharp:before, i.free.code.camp.material-icons-brands:before {
+  content: "\f2c5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.freebsd:before, i.freebsd.material-icons-round:before, i.freebsd.material-icons-outlined:before, i.freebsd.material-icons-two-tone:before, i.freebsd.material-icons-sharp:before, i.freebsd.material-icons-brands:before {
+  content: "\f3a4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fulcrum:before, i.fulcrum.material-icons-round:before, i.fulcrum.material-icons-outlined:before, i.fulcrum.material-icons-two-tone:before, i.fulcrum.material-icons-sharp:before, i.fulcrum.material-icons-brands:before {
+  content: "\f50b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.galactic.republic:before, i.galactic.republic.material-icons-round:before, i.galactic.republic.material-icons-outlined:before, i.galactic.republic.material-icons-two-tone:before, i.galactic.republic.material-icons-sharp:before, i.galactic.republic.material-icons-brands:before {
+  content: "\f50c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.galactic.senate:before, i.galactic.senate.material-icons-round:before, i.galactic.senate.material-icons-outlined:before, i.galactic.senate.material-icons-two-tone:before, i.galactic.senate.material-icons-sharp:before, i.galactic.senate.material-icons-brands:before {
+  content: "\f50d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.get.pocket:before, i.get.pocket.material-icons-round:before, i.get.pocket.material-icons-outlined:before, i.get.pocket.material-icons-two-tone:before, i.get.pocket.material-icons-sharp:before, i.get.pocket.material-icons-brands:before {
+  content: "\f265";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gg:before, i.gg.material-icons-round:before, i.gg.material-icons-outlined:before, i.gg.material-icons-two-tone:before, i.gg.material-icons-sharp:before, i.gg.material-icons-brands:before {
+  content: "\f260";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gg.circle:before, i.gg.circle.material-icons-round:before, i.gg.circle.material-icons-outlined:before, i.gg.circle.material-icons-two-tone:before, i.gg.circle.material-icons-sharp:before, i.gg.circle.material-icons-brands:before {
+  content: "\f261";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.git:before, i.git.material-icons-round:before, i.git.material-icons-outlined:before, i.git.material-icons-two-tone:before, i.git.material-icons-sharp:before, i.git.material-icons-brands:before {
+  content: "\f1d3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.git.alternate:before, i.git.alternate.material-icons-round:before, i.git.alternate.material-icons-outlined:before, i.git.alternate.material-icons-two-tone:before, i.git.alternate.material-icons-sharp:before, i.git.alternate.material-icons-brands:before {
+  content: "\f841";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.git.square:before, i.git.square.material-icons-round:before, i.git.square.material-icons-outlined:before, i.git.square.material-icons-two-tone:before, i.git.square.material-icons-sharp:before, i.git.square.material-icons-brands:before {
+  content: "\f1d2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.github:before, i.github.material-icons-round:before, i.github.material-icons-outlined:before, i.github.material-icons-two-tone:before, i.github.material-icons-sharp:before, i.github.material-icons-brands:before {
+  content: "\f09b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.github.alternate:before, i.github.alternate.material-icons-round:before, i.github.alternate.material-icons-outlined:before, i.github.alternate.material-icons-two-tone:before, i.github.alternate.material-icons-sharp:before, i.github.alternate.material-icons-brands:before {
+  content: "\f113";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.github.square:before, i.github.square.material-icons-round:before, i.github.square.material-icons-outlined:before, i.github.square.material-icons-two-tone:before, i.github.square.material-icons-sharp:before, i.github.square.material-icons-brands:before {
+  content: "\f092";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gitkraken:before, i.gitkraken.material-icons-round:before, i.gitkraken.material-icons-outlined:before, i.gitkraken.material-icons-two-tone:before, i.gitkraken.material-icons-sharp:before, i.gitkraken.material-icons-brands:before {
+  content: "\f3a6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gitlab:before, i.gitlab.material-icons-round:before, i.gitlab.material-icons-outlined:before, i.gitlab.material-icons-two-tone:before, i.gitlab.material-icons-sharp:before, i.gitlab.material-icons-brands:before {
+  content: "\f296";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gitter:before, i.gitter.material-icons-round:before, i.gitter.material-icons-outlined:before, i.gitter.material-icons-two-tone:before, i.gitter.material-icons-sharp:before, i.gitter.material-icons-brands:before {
+  content: "\f426";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.glide:before, i.glide.material-icons-round:before, i.glide.material-icons-outlined:before, i.glide.material-icons-two-tone:before, i.glide.material-icons-sharp:before, i.glide.material-icons-brands:before {
+  content: "\f2a5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.glide.g:before, i.glide.g.material-icons-round:before, i.glide.g.material-icons-outlined:before, i.glide.g.material-icons-two-tone:before, i.glide.g.material-icons-sharp:before, i.glide.g.material-icons-brands:before {
+  content: "\f2a6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gofore:before, i.gofore.material-icons-round:before, i.gofore.material-icons-outlined:before, i.gofore.material-icons-two-tone:before, i.gofore.material-icons-sharp:before, i.gofore.material-icons-brands:before {
+  content: "\f3a7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.goodreads:before, i.goodreads.material-icons-round:before, i.goodreads.material-icons-outlined:before, i.goodreads.material-icons-two-tone:before, i.goodreads.material-icons-sharp:before, i.goodreads.material-icons-brands:before {
+  content: "\f3a8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.goodreads.g:before, i.goodreads.g.material-icons-round:before, i.goodreads.g.material-icons-outlined:before, i.goodreads.g.material-icons-two-tone:before, i.goodreads.g.material-icons-sharp:before, i.goodreads.g.material-icons-brands:before {
+  content: "\f3a9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google:before, i.google.material-icons-round:before, i.google.material-icons-outlined:before, i.google.material-icons-two-tone:before, i.google.material-icons-sharp:before, i.google.material-icons-brands:before {
+  content: "\f1a0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.drive:before, i.google.drive.material-icons-round:before, i.google.drive.material-icons-outlined:before, i.google.drive.material-icons-two-tone:before, i.google.drive.material-icons-sharp:before, i.google.drive.material-icons-brands:before {
+  content: "\f3aa";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.play:before, i.google.play.material-icons-round:before, i.google.play.material-icons-outlined:before, i.google.play.material-icons-two-tone:before, i.google.play.material-icons-sharp:before, i.google.play.material-icons-brands:before {
+  content: "\f3ab";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.plus:before, i.google.plus.material-icons-round:before, i.google.plus.material-icons-outlined:before, i.google.plus.material-icons-two-tone:before, i.google.plus.material-icons-sharp:before, i.google.plus.material-icons-brands:before {
+  content: "\f2b3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.plus.g:before, i.google.plus.g.material-icons-round:before, i.google.plus.g.material-icons-outlined:before, i.google.plus.g.material-icons-two-tone:before, i.google.plus.g.material-icons-sharp:before, i.google.plus.g.material-icons-brands:before {
+  content: "\f0d5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.plus.square:before, i.google.plus.square.material-icons-round:before, i.google.plus.square.material-icons-outlined:before, i.google.plus.square.material-icons-two-tone:before, i.google.plus.square.material-icons-sharp:before, i.google.plus.square.material-icons-brands:before {
+  content: "\f0d4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.wallet:before, i.google.wallet.material-icons-round:before, i.google.wallet.material-icons-outlined:before, i.google.wallet.material-icons-two-tone:before, i.google.wallet.material-icons-sharp:before, i.google.wallet.material-icons-brands:before {
+  content: "\f1ee";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gratipay:before, i.gratipay.material-icons-round:before, i.gratipay.material-icons-outlined:before, i.gratipay.material-icons-two-tone:before, i.gratipay.material-icons-sharp:before, i.gratipay.material-icons-brands:before {
+  content: "\f184";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.grav:before, i.grav.material-icons-round:before, i.grav.material-icons-outlined:before, i.grav.material-icons-two-tone:before, i.grav.material-icons-sharp:before, i.grav.material-icons-brands:before {
+  content: "\f2d6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gripfire:before, i.gripfire.material-icons-round:before, i.gripfire.material-icons-outlined:before, i.gripfire.material-icons-two-tone:before, i.gripfire.material-icons-sharp:before, i.gripfire.material-icons-brands:before {
+  content: "\f3ac";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.grunt:before, i.grunt.material-icons-round:before, i.grunt.material-icons-outlined:before, i.grunt.material-icons-two-tone:before, i.grunt.material-icons-sharp:before, i.grunt.material-icons-brands:before {
+  content: "\f3ad";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gulp:before, i.gulp.material-icons-round:before, i.gulp.material-icons-outlined:before, i.gulp.material-icons-two-tone:before, i.gulp.material-icons-sharp:before, i.gulp.material-icons-brands:before {
+  content: "\f3ae";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hacker.news:before, i.hacker.news.material-icons-round:before, i.hacker.news.material-icons-outlined:before, i.hacker.news.material-icons-two-tone:before, i.hacker.news.material-icons-sharp:before, i.hacker.news.material-icons-brands:before {
+  content: "\f1d4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hacker.news.square:before, i.hacker.news.square.material-icons-round:before, i.hacker.news.square.material-icons-outlined:before, i.hacker.news.square.material-icons-two-tone:before, i.hacker.news.square.material-icons-sharp:before, i.hacker.news.square.material-icons-brands:before {
+  content: "\f3af";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hackerrank:before, i.hackerrank.material-icons-round:before, i.hackerrank.material-icons-outlined:before, i.hackerrank.material-icons-two-tone:before, i.hackerrank.material-icons-sharp:before, i.hackerrank.material-icons-brands:before {
+  content: "\f5f7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hips:before, i.hips.material-icons-round:before, i.hips.material-icons-outlined:before, i.hips.material-icons-two-tone:before, i.hips.material-icons-sharp:before, i.hips.material-icons-brands:before {
+  content: "\f452";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hire.a.helper:before, i.hire.a.helper.material-icons-round:before, i.hire.a.helper.material-icons-outlined:before, i.hire.a.helper.material-icons-two-tone:before, i.hire.a.helper.material-icons-sharp:before, i.hire.a.helper.material-icons-brands:before {
+  content: "\f3b0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hooli:before, i.hooli.material-icons-round:before, i.hooli.material-icons-outlined:before, i.hooli.material-icons-two-tone:before, i.hooli.material-icons-sharp:before, i.hooli.material-icons-brands:before {
+  content: "\f427";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hornbill:before, i.hornbill.material-icons-round:before, i.hornbill.material-icons-outlined:before, i.hornbill.material-icons-two-tone:before, i.hornbill.material-icons-sharp:before, i.hornbill.material-icons-brands:before {
+  content: "\f592";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hotjar:before, i.hotjar.material-icons-round:before, i.hotjar.material-icons-outlined:before, i.hotjar.material-icons-two-tone:before, i.hotjar.material-icons-sharp:before, i.hotjar.material-icons-brands:before {
+  content: "\f3b1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.houzz:before, i.houzz.material-icons-round:before, i.houzz.material-icons-outlined:before, i.houzz.material-icons-two-tone:before, i.houzz.material-icons-sharp:before, i.houzz.material-icons-brands:before {
+  content: "\f27c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.html5:before, i.html5.material-icons-round:before, i.html5.material-icons-outlined:before, i.html5.material-icons-two-tone:before, i.html5.material-icons-sharp:before, i.html5.material-icons-brands:before {
+  content: "\f13b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.hubspot:before, i.hubspot.material-icons-round:before, i.hubspot.material-icons-outlined:before, i.hubspot.material-icons-two-tone:before, i.hubspot.material-icons-sharp:before, i.hubspot.material-icons-brands:before {
+  content: "\f3b2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ideal:before, i.ideal.material-icons-round:before, i.ideal.material-icons-outlined:before, i.ideal.material-icons-two-tone:before, i.ideal.material-icons-sharp:before, i.ideal.material-icons-brands:before {
+  content: "\f913";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.imdb:before, i.imdb.material-icons-round:before, i.imdb.material-icons-outlined:before, i.imdb.material-icons-two-tone:before, i.imdb.material-icons-sharp:before, i.imdb.material-icons-brands:before {
+  content: "\f2d8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.instagram:before, i.instagram.material-icons-round:before, i.instagram.material-icons-outlined:before, i.instagram.material-icons-two-tone:before, i.instagram.material-icons-sharp:before, i.instagram.material-icons-brands:before {
+  content: "\f16d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.instagram.square:before, i.instagram.square.material-icons-round:before, i.instagram.square.material-icons-outlined:before, i.instagram.square.material-icons-two-tone:before, i.instagram.square.material-icons-sharp:before, i.instagram.square.material-icons-brands:before {
+  content: "\f955";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.intercom:before, i.intercom.material-icons-round:before, i.intercom.material-icons-outlined:before, i.intercom.material-icons-two-tone:before, i.intercom.material-icons-sharp:before, i.intercom.material-icons-brands:before {
+  content: "\f7af";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.internet.explorer:before, i.internet.explorer.material-icons-round:before, i.internet.explorer.material-icons-outlined:before, i.internet.explorer.material-icons-two-tone:before, i.internet.explorer.material-icons-sharp:before, i.internet.explorer.material-icons-brands:before {
+  content: "\f26b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.invision:before, i.invision.material-icons-round:before, i.invision.material-icons-outlined:before, i.invision.material-icons-two-tone:before, i.invision.material-icons-sharp:before, i.invision.material-icons-brands:before {
+  content: "\f7b0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ioxhost:before, i.ioxhost.material-icons-round:before, i.ioxhost.material-icons-outlined:before, i.ioxhost.material-icons-two-tone:before, i.ioxhost.material-icons-sharp:before, i.ioxhost.material-icons-brands:before {
+  content: "\f208";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.itch.io:before, i.itch.io.material-icons-round:before, i.itch.io.material-icons-outlined:before, i.itch.io.material-icons-two-tone:before, i.itch.io.material-icons-sharp:before, i.itch.io.material-icons-brands:before {
+  content: "\f83a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.itunes:before, i.itunes.material-icons-round:before, i.itunes.material-icons-outlined:before, i.itunes.material-icons-two-tone:before, i.itunes.material-icons-sharp:before, i.itunes.material-icons-brands:before {
+  content: "\f3b4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.itunes.note:before, i.itunes.note.material-icons-round:before, i.itunes.note.material-icons-outlined:before, i.itunes.note.material-icons-two-tone:before, i.itunes.note.material-icons-sharp:before, i.itunes.note.material-icons-brands:before {
+  content: "\f3b5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.java:before, i.java.material-icons-round:before, i.java.material-icons-outlined:before, i.java.material-icons-two-tone:before, i.java.material-icons-sharp:before, i.java.material-icons-brands:before {
+  content: "\f4e4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.jedi.order:before, i.jedi.order.material-icons-round:before, i.jedi.order.material-icons-outlined:before, i.jedi.order.material-icons-two-tone:before, i.jedi.order.material-icons-sharp:before, i.jedi.order.material-icons-brands:before {
+  content: "\f50e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.jenkins:before, i.jenkins.material-icons-round:before, i.jenkins.material-icons-outlined:before, i.jenkins.material-icons-two-tone:before, i.jenkins.material-icons-sharp:before, i.jenkins.material-icons-brands:before {
+  content: "\f3b6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.jira:before, i.jira.material-icons-round:before, i.jira.material-icons-outlined:before, i.jira.material-icons-two-tone:before, i.jira.material-icons-sharp:before, i.jira.material-icons-brands:before {
+  content: "\f7b1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.joget:before, i.joget.material-icons-round:before, i.joget.material-icons-outlined:before, i.joget.material-icons-two-tone:before, i.joget.material-icons-sharp:before, i.joget.material-icons-brands:before {
+  content: "\f3b7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.joomla:before, i.joomla.material-icons-round:before, i.joomla.material-icons-outlined:before, i.joomla.material-icons-two-tone:before, i.joomla.material-icons-sharp:before, i.joomla.material-icons-brands:before {
+  content: "\f1aa";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.js:before, i.js.material-icons-round:before, i.js.material-icons-outlined:before, i.js.material-icons-two-tone:before, i.js.material-icons-sharp:before, i.js.material-icons-brands:before {
+  content: "\f3b8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.js.square:before, i.js.square.material-icons-round:before, i.js.square.material-icons-outlined:before, i.js.square.material-icons-two-tone:before, i.js.square.material-icons-sharp:before, i.js.square.material-icons-brands:before {
+  content: "\f3b9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.jsfiddle:before, i.jsfiddle.material-icons-round:before, i.jsfiddle.material-icons-outlined:before, i.jsfiddle.material-icons-two-tone:before, i.jsfiddle.material-icons-sharp:before, i.jsfiddle.material-icons-brands:before {
+  content: "\f1cc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.kaggle:before, i.kaggle.material-icons-round:before, i.kaggle.material-icons-outlined:before, i.kaggle.material-icons-two-tone:before, i.kaggle.material-icons-sharp:before, i.kaggle.material-icons-brands:before {
+  content: "\f5fa";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.keybase:before, i.keybase.material-icons-round:before, i.keybase.material-icons-outlined:before, i.keybase.material-icons-two-tone:before, i.keybase.material-icons-sharp:before, i.keybase.material-icons-brands:before {
+  content: "\f4f5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.keycdn:before, i.keycdn.material-icons-round:before, i.keycdn.material-icons-outlined:before, i.keycdn.material-icons-two-tone:before, i.keycdn.material-icons-sharp:before, i.keycdn.material-icons-brands:before {
+  content: "\f3ba";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.kickstarter:before, i.kickstarter.material-icons-round:before, i.kickstarter.material-icons-outlined:before, i.kickstarter.material-icons-two-tone:before, i.kickstarter.material-icons-sharp:before, i.kickstarter.material-icons-brands:before {
+  content: "\f3bb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.kickstarter.k:before, i.kickstarter.k.material-icons-round:before, i.kickstarter.k.material-icons-outlined:before, i.kickstarter.k.material-icons-two-tone:before, i.kickstarter.k.material-icons-sharp:before, i.kickstarter.k.material-icons-brands:before {
+  content: "\f3bc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.korvue:before, i.korvue.material-icons-round:before, i.korvue.material-icons-outlined:before, i.korvue.material-icons-two-tone:before, i.korvue.material-icons-sharp:before, i.korvue.material-icons-brands:before {
+  content: "\f42f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.laravel:before, i.laravel.material-icons-round:before, i.laravel.material-icons-outlined:before, i.laravel.material-icons-two-tone:before, i.laravel.material-icons-sharp:before, i.laravel.material-icons-brands:before {
+  content: "\f3bd";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.lastfm:before, i.lastfm.material-icons-round:before, i.lastfm.material-icons-outlined:before, i.lastfm.material-icons-two-tone:before, i.lastfm.material-icons-sharp:before, i.lastfm.material-icons-brands:before {
+  content: "\f202";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.lastfm.square:before, i.lastfm.square.material-icons-round:before, i.lastfm.square.material-icons-outlined:before, i.lastfm.square.material-icons-two-tone:before, i.lastfm.square.material-icons-sharp:before, i.lastfm.square.material-icons-brands:before {
+  content: "\f203";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.leanpub:before, i.leanpub.material-icons-round:before, i.leanpub.material-icons-outlined:before, i.leanpub.material-icons-two-tone:before, i.leanpub.material-icons-sharp:before, i.leanpub.material-icons-brands:before {
+  content: "\f212";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.lesscss:before, i.lesscss.material-icons-round:before, i.lesscss.material-icons-outlined:before, i.lesscss.material-icons-two-tone:before, i.lesscss.material-icons-sharp:before, i.lesscss.material-icons-brands:before {
+  content: "\f41d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linechat:before, i.linechat.material-icons-round:before, i.linechat.material-icons-outlined:before, i.linechat.material-icons-two-tone:before, i.linechat.material-icons-sharp:before, i.linechat.material-icons-brands:before {
+  content: "\f3c0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linkedin:before, i.linkedin.material-icons-round:before, i.linkedin.material-icons-outlined:before, i.linkedin.material-icons-two-tone:before, i.linkedin.material-icons-sharp:before, i.linkedin.material-icons-brands:before {
+  content: "\f08c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linkedin.in:before, i.linkedin.in.material-icons-round:before, i.linkedin.in.material-icons-outlined:before, i.linkedin.in.material-icons-two-tone:before, i.linkedin.in.material-icons-sharp:before, i.linkedin.in.material-icons-brands:before {
+  content: "\f0e1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linode:before, i.linode.material-icons-round:before, i.linode.material-icons-outlined:before, i.linode.material-icons-two-tone:before, i.linode.material-icons-sharp:before, i.linode.material-icons-brands:before {
+  content: "\f2b8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linux:before, i.linux.material-icons-round:before, i.linux.material-icons-outlined:before, i.linux.material-icons-two-tone:before, i.linux.material-icons-sharp:before, i.linux.material-icons-brands:before {
+  content: "\f17c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.lyft:before, i.lyft.material-icons-round:before, i.lyft.material-icons-outlined:before, i.lyft.material-icons-two-tone:before, i.lyft.material-icons-sharp:before, i.lyft.material-icons-brands:before {
+  content: "\f3c3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.magento:before, i.magento.material-icons-round:before, i.magento.material-icons-outlined:before, i.magento.material-icons-two-tone:before, i.magento.material-icons-sharp:before, i.magento.material-icons-brands:before {
+  content: "\f3c4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mailchimp:before, i.mailchimp.material-icons-round:before, i.mailchimp.material-icons-outlined:before, i.mailchimp.material-icons-two-tone:before, i.mailchimp.material-icons-sharp:before, i.mailchimp.material-icons-brands:before {
+  content: "\f59e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mandalorian:before, i.mandalorian.material-icons-round:before, i.mandalorian.material-icons-outlined:before, i.mandalorian.material-icons-two-tone:before, i.mandalorian.material-icons-sharp:before, i.mandalorian.material-icons-brands:before {
+  content: "\f50f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.markdown:before, i.markdown.material-icons-round:before, i.markdown.material-icons-outlined:before, i.markdown.material-icons-two-tone:before, i.markdown.material-icons-sharp:before, i.markdown.material-icons-brands:before {
+  content: "\f60f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mastodon:before, i.mastodon.material-icons-round:before, i.mastodon.material-icons-outlined:before, i.mastodon.material-icons-two-tone:before, i.mastodon.material-icons-sharp:before, i.mastodon.material-icons-brands:before {
+  content: "\f4f6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.maxcdn:before, i.maxcdn.material-icons-round:before, i.maxcdn.material-icons-outlined:before, i.maxcdn.material-icons-two-tone:before, i.maxcdn.material-icons-sharp:before, i.maxcdn.material-icons-brands:before {
+  content: "\f136";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mdb:before, i.mdb.material-icons-round:before, i.mdb.material-icons-outlined:before, i.mdb.material-icons-two-tone:before, i.mdb.material-icons-sharp:before, i.mdb.material-icons-brands:before {
+  content: "\f8ca";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.medapps:before, i.medapps.material-icons-round:before, i.medapps.material-icons-outlined:before, i.medapps.material-icons-two-tone:before, i.medapps.material-icons-sharp:before, i.medapps.material-icons-brands:before {
+  content: "\f3c6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.medium:before, i.medium.material-icons-round:before, i.medium.material-icons-outlined:before, i.medium.material-icons-two-tone:before, i.medium.material-icons-sharp:before, i.medium.material-icons-brands:before {
+  content: "\f23a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.medium.m:before, i.medium.m.material-icons-round:before, i.medium.m.material-icons-outlined:before, i.medium.m.material-icons-two-tone:before, i.medium.m.material-icons-sharp:before, i.medium.m.material-icons-brands:before {
+  content: "\f3c7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.medrt:before, i.medrt.material-icons-round:before, i.medrt.material-icons-outlined:before, i.medrt.material-icons-two-tone:before, i.medrt.material-icons-sharp:before, i.medrt.material-icons-brands:before {
+  content: "\f3c8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.meetup:before, i.meetup.material-icons-round:before, i.meetup.material-icons-outlined:before, i.meetup.material-icons-two-tone:before, i.meetup.material-icons-sharp:before, i.meetup.material-icons-brands:before {
+  content: "\f2e0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.megaport:before, i.megaport.material-icons-round:before, i.megaport.material-icons-outlined:before, i.megaport.material-icons-two-tone:before, i.megaport.material-icons-sharp:before, i.megaport.material-icons-brands:before {
+  content: "\f5a3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mendeley:before, i.mendeley.material-icons-round:before, i.mendeley.material-icons-outlined:before, i.mendeley.material-icons-two-tone:before, i.mendeley.material-icons-sharp:before, i.mendeley.material-icons-brands:before {
+  content: "\f7b3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.microblog:before, i.microblog.material-icons-round:before, i.microblog.material-icons-outlined:before, i.microblog.material-icons-two-tone:before, i.microblog.material-icons-sharp:before, i.microblog.material-icons-brands:before {
+  content: "\f91a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.microsoft:before, i.microsoft.material-icons-round:before, i.microsoft.material-icons-outlined:before, i.microsoft.material-icons-two-tone:before, i.microsoft.material-icons-sharp:before, i.microsoft.material-icons-brands:before {
+  content: "\f3ca";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mix:before, i.mix.material-icons-round:before, i.mix.material-icons-outlined:before, i.mix.material-icons-two-tone:before, i.mix.material-icons-sharp:before, i.mix.material-icons-brands:before {
+  content: "\f3cb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mixcloud:before, i.mixcloud.material-icons-round:before, i.mixcloud.material-icons-outlined:before, i.mixcloud.material-icons-two-tone:before, i.mixcloud.material-icons-sharp:before, i.mixcloud.material-icons-brands:before {
+  content: "\f289";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mixer:before, i.mixer.material-icons-round:before, i.mixer.material-icons-outlined:before, i.mixer.material-icons-two-tone:before, i.mixer.material-icons-sharp:before, i.mixer.material-icons-brands:before {
+  content: "\f956";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mizuni:before, i.mizuni.material-icons-round:before, i.mizuni.material-icons-outlined:before, i.mizuni.material-icons-two-tone:before, i.mizuni.material-icons-sharp:before, i.mizuni.material-icons-brands:before {
+  content: "\f3cc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.modx:before, i.modx.material-icons-round:before, i.modx.material-icons-outlined:before, i.modx.material-icons-two-tone:before, i.modx.material-icons-sharp:before, i.modx.material-icons-brands:before {
+  content: "\f285";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.monero:before, i.monero.material-icons-round:before, i.monero.material-icons-outlined:before, i.monero.material-icons-two-tone:before, i.monero.material-icons-sharp:before, i.monero.material-icons-brands:before {
+  content: "\f3d0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.napster:before, i.napster.material-icons-round:before, i.napster.material-icons-outlined:before, i.napster.material-icons-two-tone:before, i.napster.material-icons-sharp:before, i.napster.material-icons-brands:before {
+  content: "\f3d2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.neos:before, i.neos.material-icons-round:before, i.neos.material-icons-outlined:before, i.neos.material-icons-two-tone:before, i.neos.material-icons-sharp:before, i.neos.material-icons-brands:before {
+  content: "\f612";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.nimblr:before, i.nimblr.material-icons-round:before, i.nimblr.material-icons-outlined:before, i.nimblr.material-icons-two-tone:before, i.nimblr.material-icons-sharp:before, i.nimblr.material-icons-brands:before {
+  content: "\f5a8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.node:before, i.node.material-icons-round:before, i.node.material-icons-outlined:before, i.node.material-icons-two-tone:before, i.node.material-icons-sharp:before, i.node.material-icons-brands:before {
+  content: "\f419";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.node.js:before, i.node.js.material-icons-round:before, i.node.js.material-icons-outlined:before, i.node.js.material-icons-two-tone:before, i.node.js.material-icons-sharp:before, i.node.js.material-icons-brands:before {
+  content: "\f3d3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.npm:before, i.npm.material-icons-round:before, i.npm.material-icons-outlined:before, i.npm.material-icons-two-tone:before, i.npm.material-icons-sharp:before, i.npm.material-icons-brands:before {
+  content: "\f3d4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ns8:before, i.ns8.material-icons-round:before, i.ns8.material-icons-outlined:before, i.ns8.material-icons-two-tone:before, i.ns8.material-icons-sharp:before, i.ns8.material-icons-brands:before {
+  content: "\f3d5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.nutritionix:before, i.nutritionix.material-icons-round:before, i.nutritionix.material-icons-outlined:before, i.nutritionix.material-icons-two-tone:before, i.nutritionix.material-icons-sharp:before, i.nutritionix.material-icons-brands:before {
+  content: "\f3d6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.odnoklassniki:before, i.odnoklassniki.material-icons-round:before, i.odnoklassniki.material-icons-outlined:before, i.odnoklassniki.material-icons-two-tone:before, i.odnoklassniki.material-icons-sharp:before, i.odnoklassniki.material-icons-brands:before {
+  content: "\f263";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.odnoklassniki.square:before, i.odnoklassniki.square.material-icons-round:before, i.odnoklassniki.square.material-icons-outlined:before, i.odnoklassniki.square.material-icons-two-tone:before, i.odnoklassniki.square.material-icons-sharp:before, i.odnoklassniki.square.material-icons-brands:before {
+  content: "\f264";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.old.republic:before, i.old.republic.material-icons-round:before, i.old.republic.material-icons-outlined:before, i.old.republic.material-icons-two-tone:before, i.old.republic.material-icons-sharp:before, i.old.republic.material-icons-brands:before {
+  content: "\f510";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.opencart:before, i.opencart.material-icons-round:before, i.opencart.material-icons-outlined:before, i.opencart.material-icons-two-tone:before, i.opencart.material-icons-sharp:before, i.opencart.material-icons-brands:before {
+  content: "\f23d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.openid:before, i.openid.material-icons-round:before, i.openid.material-icons-outlined:before, i.openid.material-icons-two-tone:before, i.openid.material-icons-sharp:before, i.openid.material-icons-brands:before {
+  content: "\f19b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.opera:before, i.opera.material-icons-round:before, i.opera.material-icons-outlined:before, i.opera.material-icons-two-tone:before, i.opera.material-icons-sharp:before, i.opera.material-icons-brands:before {
+  content: "\f26a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.optin.monster:before, i.optin.monster.material-icons-round:before, i.optin.monster.material-icons-outlined:before, i.optin.monster.material-icons-two-tone:before, i.optin.monster.material-icons-sharp:before, i.optin.monster.material-icons-brands:before {
+  content: "\f23c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.orcid:before, i.orcid.material-icons-round:before, i.orcid.material-icons-outlined:before, i.orcid.material-icons-two-tone:before, i.orcid.material-icons-sharp:before, i.orcid.material-icons-brands:before {
+  content: "\f8d2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.osi:before, i.osi.material-icons-round:before, i.osi.material-icons-outlined:before, i.osi.material-icons-two-tone:before, i.osi.material-icons-sharp:before, i.osi.material-icons-brands:before {
+  content: "\f41a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.page4:before, i.page4.material-icons-round:before, i.page4.material-icons-outlined:before, i.page4.material-icons-two-tone:before, i.page4.material-icons-sharp:before, i.page4.material-icons-brands:before {
+  content: "\f3d7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pagelines:before, i.pagelines.material-icons-round:before, i.pagelines.material-icons-outlined:before, i.pagelines.material-icons-two-tone:before, i.pagelines.material-icons-sharp:before, i.pagelines.material-icons-brands:before {
+  content: "\f18c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.palfed:before, i.palfed.material-icons-round:before, i.palfed.material-icons-outlined:before, i.palfed.material-icons-two-tone:before, i.palfed.material-icons-sharp:before, i.palfed.material-icons-brands:before {
+  content: "\f3d8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.patreon:before, i.patreon.material-icons-round:before, i.patreon.material-icons-outlined:before, i.patreon.material-icons-two-tone:before, i.patreon.material-icons-sharp:before, i.patreon.material-icons-brands:before {
+  content: "\f3d9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.paypal:before, i.paypal.material-icons-round:before, i.paypal.material-icons-outlined:before, i.paypal.material-icons-two-tone:before, i.paypal.material-icons-sharp:before, i.paypal.material-icons-brands:before {
+  content: "\f1ed";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.penny.arcade:before, i.penny.arcade.material-icons-round:before, i.penny.arcade.material-icons-outlined:before, i.penny.arcade.material-icons-two-tone:before, i.penny.arcade.material-icons-sharp:before, i.penny.arcade.material-icons-brands:before {
+  content: "\f704";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.periscope:before, i.periscope.material-icons-round:before, i.periscope.material-icons-outlined:before, i.periscope.material-icons-two-tone:before, i.periscope.material-icons-sharp:before, i.periscope.material-icons-brands:before {
+  content: "\f3da";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.phabricator:before, i.phabricator.material-icons-round:before, i.phabricator.material-icons-outlined:before, i.phabricator.material-icons-two-tone:before, i.phabricator.material-icons-sharp:before, i.phabricator.material-icons-brands:before {
+  content: "\f3db";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.phoenix.framework:before, i.phoenix.framework.material-icons-round:before, i.phoenix.framework.material-icons-outlined:before, i.phoenix.framework.material-icons-two-tone:before, i.phoenix.framework.material-icons-sharp:before, i.phoenix.framework.material-icons-brands:before {
+  content: "\f3dc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.phoenix.squadron:before, i.phoenix.squadron.material-icons-round:before, i.phoenix.squadron.material-icons-outlined:before, i.phoenix.squadron.material-icons-two-tone:before, i.phoenix.squadron.material-icons-sharp:before, i.phoenix.squadron.material-icons-brands:before {
+  content: "\f511";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.php:before, i.php.material-icons-round:before, i.php.material-icons-outlined:before, i.php.material-icons-two-tone:before, i.php.material-icons-sharp:before, i.php.material-icons-brands:before {
+  content: "\f457";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper:before, i.pied.piper.material-icons-round:before, i.pied.piper.material-icons-outlined:before, i.pied.piper.material-icons-two-tone:before, i.pied.piper.material-icons-sharp:before, i.pied.piper.material-icons-brands:before {
+  content: "\f2ae";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper.alternate:before, i.pied.piper.alternate.material-icons-round:before, i.pied.piper.alternate.material-icons-outlined:before, i.pied.piper.alternate.material-icons-two-tone:before, i.pied.piper.alternate.material-icons-sharp:before, i.pied.piper.alternate.material-icons-brands:before {
+  content: "\f1a8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper.hat:before, i.pied.piper.hat.material-icons-round:before, i.pied.piper.hat.material-icons-outlined:before, i.pied.piper.hat.material-icons-two-tone:before, i.pied.piper.hat.material-icons-sharp:before, i.pied.piper.hat.material-icons-brands:before {
+  content: "\f4e5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper.pp:before, i.pied.piper.pp.material-icons-round:before, i.pied.piper.pp.material-icons-outlined:before, i.pied.piper.pp.material-icons-two-tone:before, i.pied.piper.pp.material-icons-sharp:before, i.pied.piper.pp.material-icons-brands:before {
+  content: "\f1a7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper.square:before, i.pied.piper.square.material-icons-round:before, i.pied.piper.square.material-icons-outlined:before, i.pied.piper.square.material-icons-two-tone:before, i.pied.piper.square.material-icons-sharp:before, i.pied.piper.square.material-icons-brands:before {
+  content: "\f91e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pinterest:before, i.pinterest.material-icons-round:before, i.pinterest.material-icons-outlined:before, i.pinterest.material-icons-two-tone:before, i.pinterest.material-icons-sharp:before, i.pinterest.material-icons-brands:before {
+  content: "\f0d2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pinterest.p:before, i.pinterest.p.material-icons-round:before, i.pinterest.p.material-icons-outlined:before, i.pinterest.p.material-icons-two-tone:before, i.pinterest.p.material-icons-sharp:before, i.pinterest.p.material-icons-brands:before {
+  content: "\f231";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pinterest.square:before, i.pinterest.square.material-icons-round:before, i.pinterest.square.material-icons-outlined:before, i.pinterest.square.material-icons-two-tone:before, i.pinterest.square.material-icons-sharp:before, i.pinterest.square.material-icons-brands:before {
+  content: "\f0d3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.playstation:before, i.playstation.material-icons-round:before, i.playstation.material-icons-outlined:before, i.playstation.material-icons-two-tone:before, i.playstation.material-icons-sharp:before, i.playstation.material-icons-brands:before {
+  content: "\f3df";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.product.hunt:before, i.product.hunt.material-icons-round:before, i.product.hunt.material-icons-outlined:before, i.product.hunt.material-icons-two-tone:before, i.product.hunt.material-icons-sharp:before, i.product.hunt.material-icons-brands:before {
+  content: "\f288";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pushed:before, i.pushed.material-icons-round:before, i.pushed.material-icons-outlined:before, i.pushed.material-icons-two-tone:before, i.pushed.material-icons-sharp:before, i.pushed.material-icons-brands:before {
+  content: "\f3e1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.python:before, i.python.material-icons-round:before, i.python.material-icons-outlined:before, i.python.material-icons-two-tone:before, i.python.material-icons-sharp:before, i.python.material-icons-brands:before {
+  content: "\f3e2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.qq:before, i.qq.material-icons-round:before, i.qq.material-icons-outlined:before, i.qq.material-icons-two-tone:before, i.qq.material-icons-sharp:before, i.qq.material-icons-brands:before {
+  content: "\f1d6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.quinscape:before, i.quinscape.material-icons-round:before, i.quinscape.material-icons-outlined:before, i.quinscape.material-icons-two-tone:before, i.quinscape.material-icons-sharp:before, i.quinscape.material-icons-brands:before {
+  content: "\f459";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.quora:before, i.quora.material-icons-round:before, i.quora.material-icons-outlined:before, i.quora.material-icons-two-tone:before, i.quora.material-icons-sharp:before, i.quora.material-icons-brands:before {
+  content: "\f2c4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.r.project:before, i.r.project.material-icons-round:before, i.r.project.material-icons-outlined:before, i.r.project.material-icons-two-tone:before, i.r.project.material-icons-sharp:before, i.r.project.material-icons-brands:before {
+  content: "\f4f7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.raspberry.pi:before, i.raspberry.pi.material-icons-round:before, i.raspberry.pi.material-icons-outlined:before, i.raspberry.pi.material-icons-two-tone:before, i.raspberry.pi.material-icons-sharp:before, i.raspberry.pi.material-icons-brands:before {
+  content: "\f7bb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ravelry:before, i.ravelry.material-icons-round:before, i.ravelry.material-icons-outlined:before, i.ravelry.material-icons-two-tone:before, i.ravelry.material-icons-sharp:before, i.ravelry.material-icons-brands:before {
+  content: "\f2d9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.react:before, i.react.material-icons-round:before, i.react.material-icons-outlined:before, i.react.material-icons-two-tone:before, i.react.material-icons-sharp:before, i.react.material-icons-brands:before {
+  content: "\f41b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.reacteurope:before, i.reacteurope.material-icons-round:before, i.reacteurope.material-icons-outlined:before, i.reacteurope.material-icons-two-tone:before, i.reacteurope.material-icons-sharp:before, i.reacteurope.material-icons-brands:before {
+  content: "\f75d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.readme:before, i.readme.material-icons-round:before, i.readme.material-icons-outlined:before, i.readme.material-icons-two-tone:before, i.readme.material-icons-sharp:before, i.readme.material-icons-brands:before {
+  content: "\f4d5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.rebel:before, i.rebel.material-icons-round:before, i.rebel.material-icons-outlined:before, i.rebel.material-icons-two-tone:before, i.rebel.material-icons-sharp:before, i.rebel.material-icons-brands:before {
+  content: "\f1d0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.reddit:before, i.reddit.material-icons-round:before, i.reddit.material-icons-outlined:before, i.reddit.material-icons-two-tone:before, i.reddit.material-icons-sharp:before, i.reddit.material-icons-brands:before {
+  content: "\f1a1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.reddit.alien:before, i.reddit.alien.material-icons-round:before, i.reddit.alien.material-icons-outlined:before, i.reddit.alien.material-icons-two-tone:before, i.reddit.alien.material-icons-sharp:before, i.reddit.alien.material-icons-brands:before {
+  content: "\f281";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.reddit.square:before, i.reddit.square.material-icons-round:before, i.reddit.square.material-icons-outlined:before, i.reddit.square.material-icons-two-tone:before, i.reddit.square.material-icons-sharp:before, i.reddit.square.material-icons-brands:before {
+  content: "\f1a2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.redhat:before, i.redhat.material-icons-round:before, i.redhat.material-icons-outlined:before, i.redhat.material-icons-two-tone:before, i.redhat.material-icons-sharp:before, i.redhat.material-icons-brands:before {
+  content: "\f7bc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.redriver:before, i.redriver.material-icons-round:before, i.redriver.material-icons-outlined:before, i.redriver.material-icons-two-tone:before, i.redriver.material-icons-sharp:before, i.redriver.material-icons-brands:before {
+  content: "\f3e3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.redyeti:before, i.redyeti.material-icons-round:before, i.redyeti.material-icons-outlined:before, i.redyeti.material-icons-two-tone:before, i.redyeti.material-icons-sharp:before, i.redyeti.material-icons-brands:before {
+  content: "\f69d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.renren:before, i.renren.material-icons-round:before, i.renren.material-icons-outlined:before, i.renren.material-icons-two-tone:before, i.renren.material-icons-sharp:before, i.renren.material-icons-brands:before {
+  content: "\f18b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.replyd:before, i.replyd.material-icons-round:before, i.replyd.material-icons-outlined:before, i.replyd.material-icons-two-tone:before, i.replyd.material-icons-sharp:before, i.replyd.material-icons-brands:before {
+  content: "\f3e6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.researchgate:before, i.researchgate.material-icons-round:before, i.researchgate.material-icons-outlined:before, i.researchgate.material-icons-two-tone:before, i.researchgate.material-icons-sharp:before, i.researchgate.material-icons-brands:before {
+  content: "\f4f8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.resolving:before, i.resolving.material-icons-round:before, i.resolving.material-icons-outlined:before, i.resolving.material-icons-two-tone:before, i.resolving.material-icons-sharp:before, i.resolving.material-icons-brands:before {
+  content: "\f3e7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.rev:before, i.rev.material-icons-round:before, i.rev.material-icons-outlined:before, i.rev.material-icons-two-tone:before, i.rev.material-icons-sharp:before, i.rev.material-icons-brands:before {
+  content: "\f5b2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.rocketchat:before, i.rocketchat.material-icons-round:before, i.rocketchat.material-icons-outlined:before, i.rocketchat.material-icons-two-tone:before, i.rocketchat.material-icons-sharp:before, i.rocketchat.material-icons-brands:before {
+  content: "\f3e8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.rockrms:before, i.rockrms.material-icons-round:before, i.rockrms.material-icons-outlined:before, i.rockrms.material-icons-two-tone:before, i.rockrms.material-icons-sharp:before, i.rockrms.material-icons-brands:before {
+  content: "\f3e9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.safari:before, i.safari.material-icons-round:before, i.safari.material-icons-outlined:before, i.safari.material-icons-two-tone:before, i.safari.material-icons-sharp:before, i.safari.material-icons-brands:before {
+  content: "\f267";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.salesforce:before, i.salesforce.material-icons-round:before, i.salesforce.material-icons-outlined:before, i.salesforce.material-icons-two-tone:before, i.salesforce.material-icons-sharp:before, i.salesforce.material-icons-brands:before {
+  content: "\f83b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sass:before, i.sass.material-icons-round:before, i.sass.material-icons-outlined:before, i.sass.material-icons-two-tone:before, i.sass.material-icons-sharp:before, i.sass.material-icons-brands:before {
+  content: "\f41e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.schlix:before, i.schlix.material-icons-round:before, i.schlix.material-icons-outlined:before, i.schlix.material-icons-two-tone:before, i.schlix.material-icons-sharp:before, i.schlix.material-icons-brands:before {
+  content: "\f3ea";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.scribd:before, i.scribd.material-icons-round:before, i.scribd.material-icons-outlined:before, i.scribd.material-icons-two-tone:before, i.scribd.material-icons-sharp:before, i.scribd.material-icons-brands:before {
+  content: "\f28a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.searchengin:before, i.searchengin.material-icons-round:before, i.searchengin.material-icons-outlined:before, i.searchengin.material-icons-two-tone:before, i.searchengin.material-icons-sharp:before, i.searchengin.material-icons-brands:before {
+  content: "\f3eb";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sellcast:before, i.sellcast.material-icons-round:before, i.sellcast.material-icons-outlined:before, i.sellcast.material-icons-two-tone:before, i.sellcast.material-icons-sharp:before, i.sellcast.material-icons-brands:before {
+  content: "\f2da";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sellsy:before, i.sellsy.material-icons-round:before, i.sellsy.material-icons-outlined:before, i.sellsy.material-icons-two-tone:before, i.sellsy.material-icons-sharp:before, i.sellsy.material-icons-brands:before {
+  content: "\f213";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.servicestack:before, i.servicestack.material-icons-round:before, i.servicestack.material-icons-outlined:before, i.servicestack.material-icons-two-tone:before, i.servicestack.material-icons-sharp:before, i.servicestack.material-icons-brands:before {
+  content: "\f3ec";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.shirtsinbulk:before, i.shirtsinbulk.material-icons-round:before, i.shirtsinbulk.material-icons-outlined:before, i.shirtsinbulk.material-icons-two-tone:before, i.shirtsinbulk.material-icons-sharp:before, i.shirtsinbulk.material-icons-brands:before {
+  content: "\f214";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.shopify:before, i.shopify.material-icons-round:before, i.shopify.material-icons-outlined:before, i.shopify.material-icons-two-tone:before, i.shopify.material-icons-sharp:before, i.shopify.material-icons-brands:before {
+  content: "\f957";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.shopware:before, i.shopware.material-icons-round:before, i.shopware.material-icons-outlined:before, i.shopware.material-icons-two-tone:before, i.shopware.material-icons-sharp:before, i.shopware.material-icons-brands:before {
+  content: "\f5b5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.simplybuilt:before, i.simplybuilt.material-icons-round:before, i.simplybuilt.material-icons-outlined:before, i.simplybuilt.material-icons-two-tone:before, i.simplybuilt.material-icons-sharp:before, i.simplybuilt.material-icons-brands:before {
+  content: "\f215";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sistrix:before, i.sistrix.material-icons-round:before, i.sistrix.material-icons-outlined:before, i.sistrix.material-icons-two-tone:before, i.sistrix.material-icons-sharp:before, i.sistrix.material-icons-brands:before {
+  content: "\f3ee";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sith:before, i.sith.material-icons-round:before, i.sith.material-icons-outlined:before, i.sith.material-icons-two-tone:before, i.sith.material-icons-sharp:before, i.sith.material-icons-brands:before {
+  content: "\f512";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sketch:before, i.sketch.material-icons-round:before, i.sketch.material-icons-outlined:before, i.sketch.material-icons-two-tone:before, i.sketch.material-icons-sharp:before, i.sketch.material-icons-brands:before {
+  content: "\f7c6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.skyatlas:before, i.skyatlas.material-icons-round:before, i.skyatlas.material-icons-outlined:before, i.skyatlas.material-icons-two-tone:before, i.skyatlas.material-icons-sharp:before, i.skyatlas.material-icons-brands:before {
+  content: "\f216";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.skype:before, i.skype.material-icons-round:before, i.skype.material-icons-outlined:before, i.skype.material-icons-two-tone:before, i.skype.material-icons-sharp:before, i.skype.material-icons-brands:before {
+  content: "\f17e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.slack:before, i.slack.material-icons-round:before, i.slack.material-icons-outlined:before, i.slack.material-icons-two-tone:before, i.slack.material-icons-sharp:before, i.slack.material-icons-brands:before {
+  content: "\f198";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.slack.hash:before, i.slack.hash.material-icons-round:before, i.slack.hash.material-icons-outlined:before, i.slack.hash.material-icons-two-tone:before, i.slack.hash.material-icons-sharp:before, i.slack.hash.material-icons-brands:before {
+  content: "\f3ef";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.slideshare:before, i.slideshare.material-icons-round:before, i.slideshare.material-icons-outlined:before, i.slideshare.material-icons-two-tone:before, i.slideshare.material-icons-sharp:before, i.slideshare.material-icons-brands:before {
+  content: "\f1e7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.snapchat:before, i.snapchat.material-icons-round:before, i.snapchat.material-icons-outlined:before, i.snapchat.material-icons-two-tone:before, i.snapchat.material-icons-sharp:before, i.snapchat.material-icons-brands:before {
+  content: "\f2ab";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.snapchat.ghost:before, i.snapchat.ghost.material-icons-round:before, i.snapchat.ghost.material-icons-outlined:before, i.snapchat.ghost.material-icons-two-tone:before, i.snapchat.ghost.material-icons-sharp:before, i.snapchat.ghost.material-icons-brands:before {
+  content: "\f2ac";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.snapchat.square:before, i.snapchat.square.material-icons-round:before, i.snapchat.square.material-icons-outlined:before, i.snapchat.square.material-icons-two-tone:before, i.snapchat.square.material-icons-sharp:before, i.snapchat.square.material-icons-brands:before {
+  content: "\f2ad";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.soundcloud:before, i.soundcloud.material-icons-round:before, i.soundcloud.material-icons-outlined:before, i.soundcloud.material-icons-two-tone:before, i.soundcloud.material-icons-sharp:before, i.soundcloud.material-icons-brands:before {
+  content: "\f1be";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sourcetree:before, i.sourcetree.material-icons-round:before, i.sourcetree.material-icons-outlined:before, i.sourcetree.material-icons-two-tone:before, i.sourcetree.material-icons-sharp:before, i.sourcetree.material-icons-brands:before {
+  content: "\f7d3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.speakap:before, i.speakap.material-icons-round:before, i.speakap.material-icons-outlined:before, i.speakap.material-icons-two-tone:before, i.speakap.material-icons-sharp:before, i.speakap.material-icons-brands:before {
+  content: "\f3f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.speaker.deck:before, i.speaker.deck.material-icons-round:before, i.speaker.deck.material-icons-outlined:before, i.speaker.deck.material-icons-two-tone:before, i.speaker.deck.material-icons-sharp:before, i.speaker.deck.material-icons-brands:before {
+  content: "\f83c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.spotify:before, i.spotify.material-icons-round:before, i.spotify.material-icons-outlined:before, i.spotify.material-icons-two-tone:before, i.spotify.material-icons-sharp:before, i.spotify.material-icons-brands:before {
+  content: "\f1bc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.squarespace:before, i.squarespace.material-icons-round:before, i.squarespace.material-icons-outlined:before, i.squarespace.material-icons-two-tone:before, i.squarespace.material-icons-sharp:before, i.squarespace.material-icons-brands:before {
+  content: "\f5be";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stack.exchange:before, i.stack.exchange.material-icons-round:before, i.stack.exchange.material-icons-outlined:before, i.stack.exchange.material-icons-two-tone:before, i.stack.exchange.material-icons-sharp:before, i.stack.exchange.material-icons-brands:before {
+  content: "\f18d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stack.overflow:before, i.stack.overflow.material-icons-round:before, i.stack.overflow.material-icons-outlined:before, i.stack.overflow.material-icons-two-tone:before, i.stack.overflow.material-icons-sharp:before, i.stack.overflow.material-icons-brands:before {
+  content: "\f16c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stackpath:before, i.stackpath.material-icons-round:before, i.stackpath.material-icons-outlined:before, i.stackpath.material-icons-two-tone:before, i.stackpath.material-icons-sharp:before, i.stackpath.material-icons-brands:before {
+  content: "\f842";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.staylinked:before, i.staylinked.material-icons-round:before, i.staylinked.material-icons-outlined:before, i.staylinked.material-icons-two-tone:before, i.staylinked.material-icons-sharp:before, i.staylinked.material-icons-brands:before {
+  content: "\f3f5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.steam:before, i.steam.material-icons-round:before, i.steam.material-icons-outlined:before, i.steam.material-icons-two-tone:before, i.steam.material-icons-sharp:before, i.steam.material-icons-brands:before {
+  content: "\f1b6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.steam.square:before, i.steam.square.material-icons-round:before, i.steam.square.material-icons-outlined:before, i.steam.square.material-icons-two-tone:before, i.steam.square.material-icons-sharp:before, i.steam.square.material-icons-brands:before {
+  content: "\f1b7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.steam.symbol:before, i.steam.symbol.material-icons-round:before, i.steam.symbol.material-icons-outlined:before, i.steam.symbol.material-icons-two-tone:before, i.steam.symbol.material-icons-sharp:before, i.steam.symbol.material-icons-brands:before {
+  content: "\f3f6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.sticker.mule:before, i.sticker.mule.material-icons-round:before, i.sticker.mule.material-icons-outlined:before, i.sticker.mule.material-icons-two-tone:before, i.sticker.mule.material-icons-sharp:before, i.sticker.mule.material-icons-brands:before {
+  content: "\f3f7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.strava:before, i.strava.material-icons-round:before, i.strava.material-icons-outlined:before, i.strava.material-icons-two-tone:before, i.strava.material-icons-sharp:before, i.strava.material-icons-brands:before {
+  content: "\f428";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stripe:before, i.stripe.material-icons-round:before, i.stripe.material-icons-outlined:before, i.stripe.material-icons-two-tone:before, i.stripe.material-icons-sharp:before, i.stripe.material-icons-brands:before {
+  content: "\f429";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stripe.s:before, i.stripe.s.material-icons-round:before, i.stripe.s.material-icons-outlined:before, i.stripe.s.material-icons-two-tone:before, i.stripe.s.material-icons-sharp:before, i.stripe.s.material-icons-brands:before {
+  content: "\f42a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.studiovinari:before, i.studiovinari.material-icons-round:before, i.studiovinari.material-icons-outlined:before, i.studiovinari.material-icons-two-tone:before, i.studiovinari.material-icons-sharp:before, i.studiovinari.material-icons-brands:before {
+  content: "\f3f8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stumbleupon:before, i.stumbleupon.material-icons-round:before, i.stumbleupon.material-icons-outlined:before, i.stumbleupon.material-icons-two-tone:before, i.stumbleupon.material-icons-sharp:before, i.stumbleupon.material-icons-brands:before {
+  content: "\f1a4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stumbleupon.circle:before, i.stumbleupon.circle.material-icons-round:before, i.stumbleupon.circle.material-icons-outlined:before, i.stumbleupon.circle.material-icons-two-tone:before, i.stumbleupon.circle.material-icons-sharp:before, i.stumbleupon.circle.material-icons-brands:before {
+  content: "\f1a3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.superpowers:before, i.superpowers.material-icons-round:before, i.superpowers.material-icons-outlined:before, i.superpowers.material-icons-two-tone:before, i.superpowers.material-icons-sharp:before, i.superpowers.material-icons-brands:before {
+  content: "\f2dd";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.supple:before, i.supple.material-icons-round:before, i.supple.material-icons-outlined:before, i.supple.material-icons-two-tone:before, i.supple.material-icons-sharp:before, i.supple.material-icons-brands:before {
+  content: "\f3f9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.suse:before, i.suse.material-icons-round:before, i.suse.material-icons-outlined:before, i.suse.material-icons-two-tone:before, i.suse.material-icons-sharp:before, i.suse.material-icons-brands:before {
+  content: "\f7d6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.swift:before, i.swift.material-icons-round:before, i.swift.material-icons-outlined:before, i.swift.material-icons-two-tone:before, i.swift.material-icons-sharp:before, i.swift.material-icons-brands:before {
+  content: "\f8e1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.symfony:before, i.symfony.material-icons-round:before, i.symfony.material-icons-outlined:before, i.symfony.material-icons-two-tone:before, i.symfony.material-icons-sharp:before, i.symfony.material-icons-brands:before {
+  content: "\f83d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.teamspeak:before, i.teamspeak.material-icons-round:before, i.teamspeak.material-icons-outlined:before, i.teamspeak.material-icons-two-tone:before, i.teamspeak.material-icons-sharp:before, i.teamspeak.material-icons-brands:before {
+  content: "\f4f9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.telegram:before, i.telegram.material-icons-round:before, i.telegram.material-icons-outlined:before, i.telegram.material-icons-two-tone:before, i.telegram.material-icons-sharp:before, i.telegram.material-icons-brands:before {
+  content: "\f2c6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.telegram.plane:before, i.telegram.plane.material-icons-round:before, i.telegram.plane.material-icons-outlined:before, i.telegram.plane.material-icons-two-tone:before, i.telegram.plane.material-icons-sharp:before, i.telegram.plane.material-icons-brands:before {
+  content: "\f3fe";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.tencent.weibo:before, i.tencent.weibo.material-icons-round:before, i.tencent.weibo.material-icons-outlined:before, i.tencent.weibo.material-icons-two-tone:before, i.tencent.weibo.material-icons-sharp:before, i.tencent.weibo.material-icons-brands:before {
+  content: "\f1d5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.themeco:before, i.themeco.material-icons-round:before, i.themeco.material-icons-outlined:before, i.themeco.material-icons-two-tone:before, i.themeco.material-icons-sharp:before, i.themeco.material-icons-brands:before {
+  content: "\f5c6";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.themeisle:before, i.themeisle.material-icons-round:before, i.themeisle.material-icons-outlined:before, i.themeisle.material-icons-two-tone:before, i.themeisle.material-icons-sharp:before, i.themeisle.material-icons-brands:before {
+  content: "\f2b2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.think.peaks:before, i.think.peaks.material-icons-round:before, i.think.peaks.material-icons-outlined:before, i.think.peaks.material-icons-two-tone:before, i.think.peaks.material-icons-sharp:before, i.think.peaks.material-icons-brands:before {
+  content: "\f731";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.trade.federation:before, i.trade.federation.material-icons-round:before, i.trade.federation.material-icons-outlined:before, i.trade.federation.material-icons-two-tone:before, i.trade.federation.material-icons-sharp:before, i.trade.federation.material-icons-brands:before {
+  content: "\f513";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.trello:before, i.trello.material-icons-round:before, i.trello.material-icons-outlined:before, i.trello.material-icons-two-tone:before, i.trello.material-icons-sharp:before, i.trello.material-icons-brands:before {
+  content: "\f181";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.tripadvisor:before, i.tripadvisor.material-icons-round:before, i.tripadvisor.material-icons-outlined:before, i.tripadvisor.material-icons-two-tone:before, i.tripadvisor.material-icons-sharp:before, i.tripadvisor.material-icons-brands:before {
+  content: "\f262";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.tumblr:before, i.tumblr.material-icons-round:before, i.tumblr.material-icons-outlined:before, i.tumblr.material-icons-two-tone:before, i.tumblr.material-icons-sharp:before, i.tumblr.material-icons-brands:before {
+  content: "\f173";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.tumblr.square:before, i.tumblr.square.material-icons-round:before, i.tumblr.square.material-icons-outlined:before, i.tumblr.square.material-icons-two-tone:before, i.tumblr.square.material-icons-sharp:before, i.tumblr.square.material-icons-brands:before {
+  content: "\f174";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.twitch:before, i.twitch.material-icons-round:before, i.twitch.material-icons-outlined:before, i.twitch.material-icons-two-tone:before, i.twitch.material-icons-sharp:before, i.twitch.material-icons-brands:before {
+  content: "\f1e8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.twitter:before, i.twitter.material-icons-round:before, i.twitter.material-icons-outlined:before, i.twitter.material-icons-two-tone:before, i.twitter.material-icons-sharp:before, i.twitter.material-icons-brands:before {
+  content: "\f099";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.twitter.square:before, i.twitter.square.material-icons-round:before, i.twitter.square.material-icons-outlined:before, i.twitter.square.material-icons-two-tone:before, i.twitter.square.material-icons-sharp:before, i.twitter.square.material-icons-brands:before {
+  content: "\f081";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.typo3:before, i.typo3.material-icons-round:before, i.typo3.material-icons-outlined:before, i.typo3.material-icons-two-tone:before, i.typo3.material-icons-sharp:before, i.typo3.material-icons-brands:before {
+  content: "\f42b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.uber:before, i.uber.material-icons-round:before, i.uber.material-icons-outlined:before, i.uber.material-icons-two-tone:before, i.uber.material-icons-sharp:before, i.uber.material-icons-brands:before {
+  content: "\f402";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ubuntu:before, i.ubuntu.material-icons-round:before, i.ubuntu.material-icons-outlined:before, i.ubuntu.material-icons-two-tone:before, i.ubuntu.material-icons-sharp:before, i.ubuntu.material-icons-brands:before {
+  content: "\f7df";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.uikit:before, i.uikit.material-icons-round:before, i.uikit.material-icons-outlined:before, i.uikit.material-icons-two-tone:before, i.uikit.material-icons-sharp:before, i.uikit.material-icons-brands:before {
+  content: "\f403";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.umbraco:before, i.umbraco.material-icons-round:before, i.umbraco.material-icons-outlined:before, i.umbraco.material-icons-two-tone:before, i.umbraco.material-icons-sharp:before, i.umbraco.material-icons-brands:before {
+  content: "\f8e8";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.uniregistry:before, i.uniregistry.material-icons-round:before, i.uniregistry.material-icons-outlined:before, i.uniregistry.material-icons-two-tone:before, i.uniregistry.material-icons-sharp:before, i.uniregistry.material-icons-brands:before {
+  content: "\f404";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.unity:before, i.unity.material-icons-round:before, i.unity.material-icons-outlined:before, i.unity.material-icons-two-tone:before, i.unity.material-icons-sharp:before, i.unity.material-icons-brands:before {
+  content: "\f949";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.untappd:before, i.untappd.material-icons-round:before, i.untappd.material-icons-outlined:before, i.untappd.material-icons-two-tone:before, i.untappd.material-icons-sharp:before, i.untappd.material-icons-brands:before {
+  content: "\f405";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ups:before, i.ups.material-icons-round:before, i.ups.material-icons-outlined:before, i.ups.material-icons-two-tone:before, i.ups.material-icons-sharp:before, i.ups.material-icons-brands:before {
+  content: "\f7e0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.usb:before, i.usb.material-icons-round:before, i.usb.material-icons-outlined:before, i.usb.material-icons-two-tone:before, i.usb.material-icons-sharp:before, i.usb.material-icons-brands:before {
+  content: "\f287";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.usps:before, i.usps.material-icons-round:before, i.usps.material-icons-outlined:before, i.usps.material-icons-two-tone:before, i.usps.material-icons-sharp:before, i.usps.material-icons-brands:before {
+  content: "\f7e1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ussunnah:before, i.ussunnah.material-icons-round:before, i.ussunnah.material-icons-outlined:before, i.ussunnah.material-icons-two-tone:before, i.ussunnah.material-icons-sharp:before, i.ussunnah.material-icons-brands:before {
+  content: "\f407";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vaadin:before, i.vaadin.material-icons-round:before, i.vaadin.material-icons-outlined:before, i.vaadin.material-icons-two-tone:before, i.vaadin.material-icons-sharp:before, i.vaadin.material-icons-brands:before {
+  content: "\f408";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.viacoin:before, i.viacoin.material-icons-round:before, i.viacoin.material-icons-outlined:before, i.viacoin.material-icons-two-tone:before, i.viacoin.material-icons-sharp:before, i.viacoin.material-icons-brands:before {
+  content: "\f237";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.viadeo:before, i.viadeo.material-icons-round:before, i.viadeo.material-icons-outlined:before, i.viadeo.material-icons-two-tone:before, i.viadeo.material-icons-sharp:before, i.viadeo.material-icons-brands:before {
+  content: "\f2a9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.viadeo.square:before, i.viadeo.square.material-icons-round:before, i.viadeo.square.material-icons-outlined:before, i.viadeo.square.material-icons-two-tone:before, i.viadeo.square.material-icons-sharp:before, i.viadeo.square.material-icons-brands:before {
+  content: "\f2aa";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.viber:before, i.viber.material-icons-round:before, i.viber.material-icons-outlined:before, i.viber.material-icons-two-tone:before, i.viber.material-icons-sharp:before, i.viber.material-icons-brands:before {
+  content: "\f409";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vimeo:before, i.vimeo.material-icons-round:before, i.vimeo.material-icons-outlined:before, i.vimeo.material-icons-two-tone:before, i.vimeo.material-icons-sharp:before, i.vimeo.material-icons-brands:before {
+  content: "\f40a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vimeo.square:before, i.vimeo.square.material-icons-round:before, i.vimeo.square.material-icons-outlined:before, i.vimeo.square.material-icons-two-tone:before, i.vimeo.square.material-icons-sharp:before, i.vimeo.square.material-icons-brands:before {
+  content: "\f194";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vimeo.v:before, i.vimeo.v.material-icons-round:before, i.vimeo.v.material-icons-outlined:before, i.vimeo.v.material-icons-two-tone:before, i.vimeo.v.material-icons-sharp:before, i.vimeo.v.material-icons-brands:before {
+  content: "\f27d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vine:before, i.vine.material-icons-round:before, i.vine.material-icons-outlined:before, i.vine.material-icons-two-tone:before, i.vine.material-icons-sharp:before, i.vine.material-icons-brands:before {
+  content: "\f1ca";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vk:before, i.vk.material-icons-round:before, i.vk.material-icons-outlined:before, i.vk.material-icons-two-tone:before, i.vk.material-icons-sharp:before, i.vk.material-icons-brands:before {
+  content: "\f189";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vnv:before, i.vnv.material-icons-round:before, i.vnv.material-icons-outlined:before, i.vnv.material-icons-two-tone:before, i.vnv.material-icons-sharp:before, i.vnv.material-icons-brands:before {
+  content: "\f40b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.vuejs:before, i.vuejs.material-icons-round:before, i.vuejs.material-icons-outlined:before, i.vuejs.material-icons-two-tone:before, i.vuejs.material-icons-sharp:before, i.vuejs.material-icons-brands:before {
+  content: "\f41f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.waze:before, i.waze.material-icons-round:before, i.waze.material-icons-outlined:before, i.waze.material-icons-two-tone:before, i.waze.material-icons-sharp:before, i.waze.material-icons-brands:before {
+  content: "\f83f";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.weebly:before, i.weebly.material-icons-round:before, i.weebly.material-icons-outlined:before, i.weebly.material-icons-two-tone:before, i.weebly.material-icons-sharp:before, i.weebly.material-icons-brands:before {
+  content: "\f5cc";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.weibo:before, i.weibo.material-icons-round:before, i.weibo.material-icons-outlined:before, i.weibo.material-icons-two-tone:before, i.weibo.material-icons-sharp:before, i.weibo.material-icons-brands:before {
+  content: "\f18a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.weixin:before, i.weixin.material-icons-round:before, i.weixin.material-icons-outlined:before, i.weixin.material-icons-two-tone:before, i.weixin.material-icons-sharp:before, i.weixin.material-icons-brands:before {
+  content: "\f1d7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.whatsapp:before, i.whatsapp.material-icons-round:before, i.whatsapp.material-icons-outlined:before, i.whatsapp.material-icons-two-tone:before, i.whatsapp.material-icons-sharp:before, i.whatsapp.material-icons-brands:before {
+  content: "\f232";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.whatsapp.square:before, i.whatsapp.square.material-icons-round:before, i.whatsapp.square.material-icons-outlined:before, i.whatsapp.square.material-icons-two-tone:before, i.whatsapp.square.material-icons-sharp:before, i.whatsapp.square.material-icons-brands:before {
+  content: "\f40c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.whmcs:before, i.whmcs.material-icons-round:before, i.whmcs.material-icons-outlined:before, i.whmcs.material-icons-two-tone:before, i.whmcs.material-icons-sharp:before, i.whmcs.material-icons-brands:before {
+  content: "\f40d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wikipedia.w:before, i.wikipedia.w.material-icons-round:before, i.wikipedia.w.material-icons-outlined:before, i.wikipedia.w.material-icons-two-tone:before, i.wikipedia.w.material-icons-sharp:before, i.wikipedia.w.material-icons-brands:before {
+  content: "\f266";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.windows:before, i.windows.material-icons-round:before, i.windows.material-icons-outlined:before, i.windows.material-icons-two-tone:before, i.windows.material-icons-sharp:before, i.windows.material-icons-brands:before {
+  content: "\f17a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wix:before, i.wix.material-icons-round:before, i.wix.material-icons-outlined:before, i.wix.material-icons-two-tone:before, i.wix.material-icons-sharp:before, i.wix.material-icons-brands:before {
+  content: "\f5cf";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wizards.of.the.coast:before, i.wizards.of.the.coast.material-icons-round:before, i.wizards.of.the.coast.material-icons-outlined:before, i.wizards.of.the.coast.material-icons-two-tone:before, i.wizards.of.the.coast.material-icons-sharp:before, i.wizards.of.the.coast.material-icons-brands:before {
+  content: "\f730";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wolf.pack.battalion:before, i.wolf.pack.battalion.material-icons-round:before, i.wolf.pack.battalion.material-icons-outlined:before, i.wolf.pack.battalion.material-icons-two-tone:before, i.wolf.pack.battalion.material-icons-sharp:before, i.wolf.pack.battalion.material-icons-brands:before {
+  content: "\f514";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wordpress:before, i.wordpress.material-icons-round:before, i.wordpress.material-icons-outlined:before, i.wordpress.material-icons-two-tone:before, i.wordpress.material-icons-sharp:before, i.wordpress.material-icons-brands:before {
+  content: "\f19a";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wordpress.simple:before, i.wordpress.simple.material-icons-round:before, i.wordpress.simple.material-icons-outlined:before, i.wordpress.simple.material-icons-two-tone:before, i.wordpress.simple.material-icons-sharp:before, i.wordpress.simple.material-icons-brands:before {
+  content: "\f411";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wpbeginner:before, i.wpbeginner.material-icons-round:before, i.wpbeginner.material-icons-outlined:before, i.wpbeginner.material-icons-two-tone:before, i.wpbeginner.material-icons-sharp:before, i.wpbeginner.material-icons-brands:before {
+  content: "\f297";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wpexplorer:before, i.wpexplorer.material-icons-round:before, i.wpexplorer.material-icons-outlined:before, i.wpexplorer.material-icons-two-tone:before, i.wpexplorer.material-icons-sharp:before, i.wpexplorer.material-icons-brands:before {
+  content: "\f2de";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wpforms:before, i.wpforms.material-icons-round:before, i.wpforms.material-icons-outlined:before, i.wpforms.material-icons-two-tone:before, i.wpforms.material-icons-sharp:before, i.wpforms.material-icons-brands:before {
+  content: "\f298";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wpressr:before, i.wpressr.material-icons-round:before, i.wpressr.material-icons-outlined:before, i.wpressr.material-icons-two-tone:before, i.wpressr.material-icons-sharp:before, i.wpressr.material-icons-brands:before {
+  content: "\f3e4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.xbox:before, i.xbox.material-icons-round:before, i.xbox.material-icons-outlined:before, i.xbox.material-icons-two-tone:before, i.xbox.material-icons-sharp:before, i.xbox.material-icons-brands:before {
+  content: "\f412";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.xing:before, i.xing.material-icons-round:before, i.xing.material-icons-outlined:before, i.xing.material-icons-two-tone:before, i.xing.material-icons-sharp:before, i.xing.material-icons-brands:before {
+  content: "\f168";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.xing.square:before, i.xing.square.material-icons-round:before, i.xing.square.material-icons-outlined:before, i.xing.square.material-icons-two-tone:before, i.xing.square.material-icons-sharp:before, i.xing.square.material-icons-brands:before {
+  content: "\f169";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.y.combinator:before, i.y.combinator.material-icons-round:before, i.y.combinator.material-icons-outlined:before, i.y.combinator.material-icons-two-tone:before, i.y.combinator.material-icons-sharp:before, i.y.combinator.material-icons-brands:before {
+  content: "\f23b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yahoo:before, i.yahoo.material-icons-round:before, i.yahoo.material-icons-outlined:before, i.yahoo.material-icons-two-tone:before, i.yahoo.material-icons-sharp:before, i.yahoo.material-icons-brands:before {
+  content: "\f19e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yammer:before, i.yammer.material-icons-round:before, i.yammer.material-icons-outlined:before, i.yammer.material-icons-two-tone:before, i.yammer.material-icons-sharp:before, i.yammer.material-icons-brands:before {
+  content: "\f840";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yandex:before, i.yandex.material-icons-round:before, i.yandex.material-icons-outlined:before, i.yandex.material-icons-two-tone:before, i.yandex.material-icons-sharp:before, i.yandex.material-icons-brands:before {
+  content: "\f413";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yandex.international:before, i.yandex.international.material-icons-round:before, i.yandex.international.material-icons-outlined:before, i.yandex.international.material-icons-two-tone:before, i.yandex.international.material-icons-sharp:before, i.yandex.international.material-icons-brands:before {
+  content: "\f414";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yarn:before, i.yarn.material-icons-round:before, i.yarn.material-icons-outlined:before, i.yarn.material-icons-two-tone:before, i.yarn.material-icons-sharp:before, i.yarn.material-icons-brands:before {
+  content: "\f7e3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yelp:before, i.yelp.material-icons-round:before, i.yelp.material-icons-outlined:before, i.yelp.material-icons-two-tone:before, i.yelp.material-icons-sharp:before, i.yelp.material-icons-brands:before {
+  content: "\f1e9";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yoast:before, i.yoast.material-icons-round:before, i.yoast.material-icons-outlined:before, i.yoast.material-icons-two-tone:before, i.yoast.material-icons-sharp:before, i.yoast.material-icons-brands:before {
+  content: "\f2b1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.youtube:before, i.youtube.material-icons-round:before, i.youtube.material-icons-outlined:before, i.youtube.material-icons-two-tone:before, i.youtube.material-icons-sharp:before, i.youtube.material-icons-brands:before {
+  content: "\f167";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.youtube.square:before, i.youtube.square.material-icons-round:before, i.youtube.square.material-icons-outlined:before, i.youtube.square.material-icons-two-tone:before, i.youtube.square.material-icons-sharp:before, i.youtube.square.material-icons-brands:before {
+  content: "\f431";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.zhihu:before, i.zhihu.material-icons-round:before, i.zhihu.material-icons-outlined:before, i.zhihu.material-icons-two-tone:before, i.zhihu.material-icons-sharp:before, i.zhihu.material-icons-brands:before {
+  content: "\f63f";
+  font-family: 'Brand Icons'; }
+
+/* Aliases */
+i.material-icons.american.express:before, i.american.express.material-icons-round:before, i.american.express.material-icons-outlined:before, i.american.express.material-icons-two-tone:before, i.american.express.material-icons-sharp:before, i.american.express.material-icons-brands:before {
+  content: "\f1f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.american.express.card:before, i.american.express.card.material-icons-round:before, i.american.express.card.material-icons-outlined:before, i.american.express.card.material-icons-two-tone:before, i.american.express.card.material-icons-sharp:before, i.american.express.card.material-icons-brands:before {
+  content: "\f1f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.amex:before, i.amex.material-icons-round:before, i.amex.material-icons-outlined:before, i.amex.material-icons-two-tone:before, i.amex.material-icons-sharp:before, i.amex.material-icons-brands:before {
+  content: "\f1f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bitbucket.square:before, i.bitbucket.square.material-icons-round:before, i.bitbucket.square.material-icons-outlined:before, i.bitbucket.square.material-icons-two-tone:before, i.bitbucket.square.material-icons-sharp:before, i.bitbucket.square.material-icons-brands:before {
+  content: "\f171";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.bluetooth.alternative:before, i.bluetooth.alternative.material-icons-round:before, i.bluetooth.alternative.material-icons-outlined:before, i.bluetooth.alternative.material-icons-two-tone:before, i.bluetooth.alternative.material-icons-sharp:before, i.bluetooth.alternative.material-icons-brands:before {
+  content: "\f294";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.amazon.pay:before, i.credit.card.amazon.pay.material-icons-round:before, i.credit.card.amazon.pay.material-icons-outlined:before, i.credit.card.amazon.pay.material-icons-two-tone:before, i.credit.card.amazon.pay.material-icons-sharp:before, i.credit.card.amazon.pay.material-icons-brands:before {
+  content: "\f42d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.american.express:before, i.credit.card.american.express.material-icons-round:before, i.credit.card.american.express.material-icons-outlined:before, i.credit.card.american.express.material-icons-two-tone:before, i.credit.card.american.express.material-icons-sharp:before, i.credit.card.american.express.material-icons-brands:before {
+  content: "\f1f3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.diners.club:before, i.credit.card.diners.club.material-icons-round:before, i.credit.card.diners.club.material-icons-outlined:before, i.credit.card.diners.club.material-icons-two-tone:before, i.credit.card.diners.club.material-icons-sharp:before, i.credit.card.diners.club.material-icons-brands:before {
+  content: "\f24c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.discover:before, i.credit.card.discover.material-icons-round:before, i.credit.card.discover.material-icons-outlined:before, i.credit.card.discover.material-icons-two-tone:before, i.credit.card.discover.material-icons-sharp:before, i.credit.card.discover.material-icons-brands:before {
+  content: "\f1f2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.jcb:before, i.credit.card.jcb.material-icons-round:before, i.credit.card.jcb.material-icons-outlined:before, i.credit.card.jcb.material-icons-two-tone:before, i.credit.card.jcb.material-icons-sharp:before, i.credit.card.jcb.material-icons-brands:before {
+  content: "\f24b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.mastercard:before, i.credit.card.mastercard.material-icons-round:before, i.credit.card.mastercard.material-icons-outlined:before, i.credit.card.mastercard.material-icons-two-tone:before, i.credit.card.mastercard.material-icons-sharp:before, i.credit.card.mastercard.material-icons-brands:before {
+  content: "\f1f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.paypal:before, i.credit.card.paypal.material-icons-round:before, i.credit.card.paypal.material-icons-outlined:before, i.credit.card.paypal.material-icons-two-tone:before, i.credit.card.paypal.material-icons-sharp:before, i.credit.card.paypal.material-icons-brands:before {
+  content: "\f1f4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.stripe:before, i.credit.card.stripe.material-icons-round:before, i.credit.card.stripe.material-icons-outlined:before, i.credit.card.stripe.material-icons-two-tone:before, i.credit.card.stripe.material-icons-sharp:before, i.credit.card.stripe.material-icons-brands:before {
+  content: "\f1f5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.credit.card.visa:before, i.credit.card.visa.material-icons-round:before, i.credit.card.visa.material-icons-outlined:before, i.credit.card.visa.material-icons-two-tone:before, i.credit.card.visa.material-icons-sharp:before, i.credit.card.visa.material-icons-brands:before {
+  content: "\f1f0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.diners.club:before, i.diners.club.material-icons-round:before, i.diners.club.material-icons-outlined:before, i.diners.club.material-icons-two-tone:before, i.diners.club.material-icons-sharp:before, i.diners.club.material-icons-brands:before {
+  content: "\f24c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.diners.club.card:before, i.diners.club.card.material-icons-round:before, i.diners.club.card.material-icons-outlined:before, i.diners.club.card.material-icons-two-tone:before, i.diners.club.card.material-icons-sharp:before, i.diners.club.card.material-icons-brands:before {
+  content: "\f24c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.discover:before, i.discover.material-icons-round:before, i.discover.material-icons-outlined:before, i.discover.material-icons-two-tone:before, i.discover.material-icons-sharp:before, i.discover.material-icons-brands:before {
+  content: "\f1f2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.discover.card:before, i.discover.card.material-icons-round:before, i.discover.card.material-icons-outlined:before, i.discover.card.material-icons-two-tone:before, i.discover.card.material-icons-sharp:before, i.discover.card.material-icons-brands:before {
+  content: "\f1f2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.disk.outline:before, i.disk.outline.material-icons-round:before, i.disk.outline.material-icons-outlined:before, i.disk.outline.material-icons-two-tone:before, i.disk.outline.material-icons-sharp:before, i.disk.outline.material-icons-brands:before {
+  content: "\f369";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.dribble:before, i.dribble.material-icons-round:before, i.dribble.material-icons-outlined:before, i.dribble.material-icons-two-tone:before, i.dribble.material-icons-sharp:before, i.dribble.material-icons-brands:before {
+  content: "\f17d";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.eercast:before, i.eercast.material-icons-round:before, i.eercast.material-icons-outlined:before, i.eercast.material-icons-two-tone:before, i.eercast.material-icons-sharp:before, i.eercast.material-icons-brands:before {
+  content: "\f2da";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.envira.gallery:before, i.envira.gallery.material-icons-round:before, i.envira.gallery.material-icons-outlined:before, i.envira.gallery.material-icons-two-tone:before, i.envira.gallery.material-icons-sharp:before, i.envira.gallery.material-icons-brands:before {
+  content: "\f299";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.fa:before, i.fa.material-icons-round:before, i.fa.material-icons-outlined:before, i.fa.material-icons-two-tone:before, i.fa.material-icons-sharp:before, i.fa.material-icons-brands:before {
+  content: "\f2b4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.facebook.official:before, i.facebook.official.material-icons-round:before, i.facebook.official.material-icons-outlined:before, i.facebook.official.material-icons-two-tone:before, i.facebook.official.material-icons-sharp:before, i.facebook.official.material-icons-brands:before {
+  content: "\f082";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.five.hundred.pixels:before, i.five.hundred.pixels.material-icons-round:before, i.five.hundred.pixels.material-icons-outlined:before, i.five.hundred.pixels.material-icons-two-tone:before, i.five.hundred.pixels.material-icons-sharp:before, i.five.hundred.pixels.material-icons-brands:before {
+  content: "\f26e";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.gittip:before, i.gittip.material-icons-round:before, i.gittip.material-icons-outlined:before, i.gittip.material-icons-two-tone:before, i.gittip.material-icons-sharp:before, i.gittip.material-icons-brands:before {
+  content: "\f184";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.plus.circle:before, i.google.plus.circle.material-icons-round:before, i.google.plus.circle.material-icons-outlined:before, i.google.plus.circle.material-icons-two-tone:before, i.google.plus.circle.material-icons-sharp:before, i.google.plus.circle.material-icons-brands:before {
+  content: "\f2b3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.google.plus.official:before, i.google.plus.official.material-icons-round:before, i.google.plus.official.material-icons-outlined:before, i.google.plus.official.material-icons-two-tone:before, i.google.plus.official.material-icons-sharp:before, i.google.plus.official.material-icons-brands:before {
+  content: "\f2b3";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.japan.credit.bureau:before, i.japan.credit.bureau.material-icons-round:before, i.japan.credit.bureau.material-icons-outlined:before, i.japan.credit.bureau.material-icons-two-tone:before, i.japan.credit.bureau.material-icons-sharp:before, i.japan.credit.bureau.material-icons-brands:before {
+  content: "\f24b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.japan.credit.bureau.card:before, i.japan.credit.bureau.card.material-icons-round:before, i.japan.credit.bureau.card.material-icons-outlined:before, i.japan.credit.bureau.card.material-icons-two-tone:before, i.japan.credit.bureau.card.material-icons-sharp:before, i.japan.credit.bureau.card.material-icons-brands:before {
+  content: "\f24b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.jcb:before, i.jcb.material-icons-round:before, i.jcb.material-icons-outlined:before, i.jcb.material-icons-two-tone:before, i.jcb.material-icons-sharp:before, i.jcb.material-icons-brands:before {
+  content: "\f24b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.linkedin.square:before, i.linkedin.square.material-icons-round:before, i.linkedin.square.material-icons-outlined:before, i.linkedin.square.material-icons-two-tone:before, i.linkedin.square.material-icons-sharp:before, i.linkedin.square.material-icons-brands:before {
+  content: "\f08c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mastercard:before, i.mastercard.material-icons-round:before, i.mastercard.material-icons-outlined:before, i.mastercard.material-icons-two-tone:before, i.mastercard.material-icons-sharp:before, i.mastercard.material-icons-brands:before {
+  content: "\f1f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.mastercard.card:before, i.mastercard.card.material-icons-round:before, i.mastercard.card.material-icons-outlined:before, i.mastercard.card.material-icons-two-tone:before, i.mastercard.card.material-icons-sharp:before, i.mastercard.card.material-icons-brands:before {
+  content: "\f1f1";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.microsoft.edge:before, i.microsoft.edge.material-icons-round:before, i.microsoft.edge.material-icons-outlined:before, i.microsoft.edge.material-icons-two-tone:before, i.microsoft.edge.material-icons-sharp:before, i.microsoft.edge.material-icons-brands:before {
+  content: "\f282";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ms.edge:before, i.ms.edge.material-icons-round:before, i.ms.edge.material-icons-outlined:before, i.ms.edge.material-icons-two-tone:before, i.ms.edge.material-icons-sharp:before, i.ms.edge.material-icons-brands:before {
+  content: "\f282";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.new.pied.piper:before, i.new.pied.piper.material-icons-round:before, i.new.pied.piper.material-icons-outlined:before, i.new.pied.piper.material-icons-two-tone:before, i.new.pied.piper.material-icons-sharp:before, i.new.pied.piper.material-icons-brands:before {
+  content: "\f2ae";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.optinmonster:before, i.optinmonster.material-icons-round:before, i.optinmonster.material-icons-outlined:before, i.optinmonster.material-icons-two-tone:before, i.optinmonster.material-icons-sharp:before, i.optinmonster.material-icons-brands:before {
+  content: "\f23c";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.paypal.card:before, i.paypal.card.material-icons-round:before, i.paypal.card.material-icons-outlined:before, i.paypal.card.material-icons-two-tone:before, i.paypal.card.material-icons-sharp:before, i.paypal.card.material-icons-brands:before {
+  content: "\f1f4";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pied.piper.hat:before, i.pied.piper.hat.material-icons-round:before, i.pied.piper.hat.material-icons-outlined:before, i.pied.piper.hat.material-icons-two-tone:before, i.pied.piper.hat.material-icons-sharp:before, i.pied.piper.hat.material-icons-brands:before {
+  content: "\f2ae";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.pocket:before, i.pocket.material-icons-round:before, i.pocket.material-icons-outlined:before, i.pocket.material-icons-two-tone:before, i.pocket.material-icons-sharp:before, i.pocket.material-icons-brands:before {
+  content: "\f265";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.stripe.card:before, i.stripe.card.material-icons-round:before, i.stripe.card.material-icons-outlined:before, i.stripe.card.material-icons-two-tone:before, i.stripe.card.material-icons-sharp:before, i.stripe.card.material-icons-brands:before {
+  content: "\f1f5";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.theme.isle:before, i.theme.isle.material-icons-round:before, i.theme.isle.material-icons-outlined:before, i.theme.isle.material-icons-two-tone:before, i.theme.isle.material-icons-sharp:before, i.theme.isle.material-icons-brands:before {
+  content: "\f2b2";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.visa:before, i.visa.material-icons-round:before, i.visa.material-icons-outlined:before, i.visa.material-icons-two-tone:before, i.visa.material-icons-sharp:before, i.visa.material-icons-brands:before {
+  content: "\f1f0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.visa.card:before, i.visa.card.material-icons-round:before, i.visa.card.material-icons-outlined:before, i.visa.card.material-icons-two-tone:before, i.visa.card.material-icons-sharp:before, i.visa.card.material-icons-brands:before {
+  content: "\f1f0";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wechat:before, i.wechat.material-icons-round:before, i.wechat.material-icons-outlined:before, i.wechat.material-icons-two-tone:before, i.wechat.material-icons-sharp:before, i.wechat.material-icons-brands:before {
+  content: "\f1d7";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wikipedia:before, i.wikipedia.material-icons-round:before, i.wikipedia.material-icons-outlined:before, i.wikipedia.material-icons-two-tone:before, i.wikipedia.material-icons-sharp:before, i.wikipedia.material-icons-brands:before {
+  content: "\f266";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wordpress.beginner:before, i.wordpress.beginner.material-icons-round:before, i.wordpress.beginner.material-icons-outlined:before, i.wordpress.beginner.material-icons-two-tone:before, i.wordpress.beginner.material-icons-sharp:before, i.wordpress.beginner.material-icons-brands:before {
+  content: "\f297";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.wordpress.forms:before, i.wordpress.forms.material-icons-round:before, i.wordpress.forms.material-icons-outlined:before, i.wordpress.forms.material-icons-two-tone:before, i.wordpress.forms.material-icons-sharp:before, i.wordpress.forms.material-icons-brands:before {
+  content: "\f298";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.yc:before, i.yc.material-icons-round:before, i.yc.material-icons-outlined:before, i.yc.material-icons-two-tone:before, i.yc.material-icons-sharp:before, i.yc.material-icons-brands:before {
+  content: "\f23b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.ycombinator:before, i.ycombinator.material-icons-round:before, i.ycombinator.material-icons-outlined:before, i.ycombinator.material-icons-two-tone:before, i.ycombinator.material-icons-sharp:before, i.ycombinator.material-icons-brands:before {
+  content: "\f23b";
+  font-family: 'Brand Icons'; }
+
+i.material-icons.youtube.play:before, i.youtube.play.material-icons-round:before, i.youtube.play.material-icons-outlined:before, i.youtube.play.material-icons-two-tone:before, i.youtube.play.material-icons-sharp:before, i.youtube.play.material-icons-brands:before {
+  content: "\f167";
+  font-family: 'Brand Icons'; }
 
 .icon-shape {
   width: 48px;
@@ -14614,8 +16613,15 @@ hr.horizontal {
     overflow-clip-margin: 0px;
     overflow-wrap: normal;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: overlay;
     height: calc(100vh - 110px); }
+    .navbar-vertical.navbar-expand-xs .navbar-collapse::-webkit-scrollbar {
+      width: 7px;
+      overflow: visible; }
+    .navbar-vertical.navbar-expand-xs .navbar-collapse::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      border-right: 7px rgba(0, 0, 0, 0.3) solid;
+      background-clip: padding-box; }
   .navbar-vertical.navbar-expand-xs > [class*="container"] {
     flex-direction: column;
     align-items: stretch;
@@ -14686,8 +16692,15 @@ hr.horizontal {
       overflow-clip-margin: 0px;
       overflow-wrap: normal;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: overlay;
       height: calc(100vh - 110px); }
+      .navbar-vertical.navbar-expand-sm .navbar-collapse::-webkit-scrollbar {
+        width: 7px;
+        overflow: visible; }
+      .navbar-vertical.navbar-expand-sm .navbar-collapse::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        border-right: 7px rgba(0, 0, 0, 0.3) solid;
+        background-clip: padding-box; }
     .navbar-vertical.navbar-expand-sm > [class*="container"] {
       flex-direction: column;
       align-items: stretch;
@@ -14760,8 +16773,15 @@ hr.horizontal {
       overflow-clip-margin: 0px;
       overflow-wrap: normal;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: overlay;
       height: calc(100vh - 110px); }
+      .navbar-vertical.navbar-expand-md .navbar-collapse::-webkit-scrollbar {
+        width: 7px;
+        overflow: visible; }
+      .navbar-vertical.navbar-expand-md .navbar-collapse::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        border-right: 7px rgba(0, 0, 0, 0.3) solid;
+        background-clip: padding-box; }
     .navbar-vertical.navbar-expand-md > [class*="container"] {
       flex-direction: column;
       align-items: stretch;
@@ -14834,8 +16854,15 @@ hr.horizontal {
       overflow-clip-margin: 0px;
       overflow-wrap: normal;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: overlay;
       height: calc(100vh - 110px); }
+      .navbar-vertical.navbar-expand-lg .navbar-collapse::-webkit-scrollbar {
+        width: 7px;
+        overflow: visible; }
+      .navbar-vertical.navbar-expand-lg .navbar-collapse::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        border-right: 7px rgba(0, 0, 0, 0.3) solid;
+        background-clip: padding-box; }
     .navbar-vertical.navbar-expand-lg > [class*="container"] {
       flex-direction: column;
       align-items: stretch;
@@ -14908,8 +16935,15 @@ hr.horizontal {
       overflow-clip-margin: 0px;
       overflow-wrap: normal;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: overlay;
       height: calc(100vh - 110px); }
+      .navbar-vertical.navbar-expand-xl .navbar-collapse::-webkit-scrollbar {
+        width: 7px;
+        overflow: visible; }
+      .navbar-vertical.navbar-expand-xl .navbar-collapse::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        border-right: 7px rgba(0, 0, 0, 0.3) solid;
+        background-clip: padding-box; }
     .navbar-vertical.navbar-expand-xl > [class*="container"] {
       flex-direction: column;
       align-items: stretch;
@@ -14982,8 +17016,15 @@ hr.horizontal {
       overflow-clip-margin: 0px;
       overflow-wrap: normal;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: overlay;
       height: calc(100vh - 110px); }
+      .navbar-vertical.navbar-expand-xxl .navbar-collapse::-webkit-scrollbar {
+        width: 7px;
+        overflow: visible; }
+      .navbar-vertical.navbar-expand-xxl .navbar-collapse::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        border-right: 7px rgba(0, 0, 0, 0.3) solid;
+        background-clip: padding-box; }
     .navbar-vertical.navbar-expand-xxl > [class*="container"] {
       flex-direction: column;
       align-items: stretch;

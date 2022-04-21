@@ -33,11 +33,20 @@
     src: url(https://fonts.gstatic.com/s/materialiconssharp/v101/oPWQ_lt5nv4pWNJpghLP75WiFR4kLh3kvmvR.woff2) format('woff2');
 }
 
+@font-face {
+    font-family: 'Brand Icons';
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    src: url('../fonts/brand-icons.woff2') format('woff2');
+}
+
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 20px; /* Preferred icon size */
+    font-size: 24px; /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -79,10 +88,15 @@
     font-family: 'Material Icons Sharp';
 }
 
-.nav.nav-pills {
-    .nav-link {
-        .material-icons {
-            top: 3px;
+.material-icons-brands {
+    @extend .material-icons;
+    font-family: 'Brand Icons';
+}
+
+    .nav.nav-pills {
+        .nav-link {
+            .material-icons {
+                top: 3px;
+            }
         }
     }
-}
