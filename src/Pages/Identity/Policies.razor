@@ -122,17 +122,19 @@
                 </div>
             </AuthorizeView>
         </div>
-        <div class="card-body">
+        <div class="card-body">            
             <div class="row">
-                <div class="col-md-4">
-                    <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
-                </div>
-                <div class="col-md-5">
-                    <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
-                </div>
-                <div class="col-md-3" style="overflow: hidden;">
-                    <Button Text="Adicionar" Icon="add" CssClass="container mb-0 bg-gradient-primary" OnClick="@OnAddClick" />
-                </div>
+                <Form>
+                    <div class="col-md-4">
+                        <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+                    </div>
+                    <div class="col-md-5">
+                        <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+                    </div>
+                    <div class="col-md-3" style="overflow: hidden;">
+                        <Button Text="Adicionar" Icon="add" CssClass="container mb-0 bg-gradient-primary" OnClick="@OnAddClick" />
+                    </div>
+                </Form>
             </div>
             <div class="row">
             @if (UserPolicies != null && UserPolicies.Any())

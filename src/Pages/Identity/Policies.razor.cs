@@ -178,18 +178,42 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected SearchInput InputContext { get; set; }
 
-        protected async void OnAddClick(MouseEventArgs e)
+        protected async Task OnAddClick(MouseEventArgs e)
         {
-            await BIService.UpdateUserPolicy(UserSelected, InputDirective.Value, Guid.Parse(InputContext.Value), default);
-            await SelectUser(UserSelected, default);
+            var user = UserSelected;
+            var directive = InputDirective.Value;
+            var context = InputContext.Value;
 
-            /*
+            if (user != null)
             {
-              "userId": "095132cd-b1c4-4043-ae87-0a59cf2e0569",
-              "claimType": "directive",
-              "claimValue": "audioupdate:095132cd-b1c4-4043-ae87-0a59cf2e0569"
+                if (!string.IsNullOrWhiteSpace(directive))
+                {
+                    if (!string.IsNullOrWhiteSpace(context))
+                    {
+                        if (Guid.TryParse(context, out Guid idcontext))
+                        {
+                            await BIService.UpdateUserPolicy(user, directive, idcontext, default);
+                            await SelectUser(UserSelected, default);
+                        }
+                        else
+                        {
+                            throw new FormValidationException("Contexto inválido.");
+                        }
+                    }
+                    else
+                    {
+                        throw new FormValidationException("Contexto em branco.");
+                    }
+                }
+                else
+                {
+                    throw new FormValidationException("Diretiva em branco.");
+                }
             } 
-            */
+            else
+            {
+                throw new FormValidationException("Usuário não selecionado");
+            }
         }
 
         protected async void OnDelClick(int? id)

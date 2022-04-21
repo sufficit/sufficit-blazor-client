@@ -105,8 +105,19 @@
                         overflow-clip-margin: 0px;
                         overflow-wrap: normal;
                         overflow-x: auto;
-                        overflow-y: visible;
+                        overflow-y: overlay;
                         height: $navbar-vertical-inner;
+
+                        &::-webkit-scrollbar {
+                            width: 7px;
+                            overflow: visible;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            border-radius: 3px;
+                            border-right: 7px rgba(0, 0, 0, 0.3) solid;
+                            background-clip: padding-box;
+                        }
                     }
                     // Container
                     > [class*="container"] {

@@ -12,6 +12,9 @@
     protected List<EventsPanelCardMonitor> MyCards { get; set; }
 
     [Inject]
+    private APIClientService? APIClient { get; set; }
+
+    [Inject]
     private EventsPanelService? Service { get; set; }
 
     [Inject]
@@ -29,6 +32,18 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
+        var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
+        if(endpoints != null)
+        {
+            var ep = endpoints.FirstOrDefault();
+            if(ep != null)
+            {
+                var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
+                var client = new AMIHubClient(options, null);
+                Service.Configure(client);
+            }
+        }
 
         Monitor.OnChange(OnConfigure);
         OnConfigure(Monitor.CurrentValue);

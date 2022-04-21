@@ -4,3 +4,4 @@ src/wwwroot/appsettings.EventsPanel.json
 src/wwwroot/appsettings.EventsPanel*.json
 src/Properties/PublishProfiles/
 *.user
+published/wwwroot/appsettings.EventsPanel.*

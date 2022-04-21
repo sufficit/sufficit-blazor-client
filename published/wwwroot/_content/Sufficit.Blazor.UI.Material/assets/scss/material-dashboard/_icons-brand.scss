@@ -1,0 +1,2491 @@
+
+$font-icon: "Brand Icons";
+@mixin icon($icon: unknown, $styles: true) {
+
+    // A particular icon has been specified
+    content: "#{map-get($icons, $icon)}";
+
+    @if $styles {
+        // Supportive icon styles required
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-family: $font-icon;
+    }
+}
+
+$icons: 
+    'github'        '\f09b',
+    'search'        '\f002', 
+    'facebook'      '\f09a', 
+    'twitter'       '\f099',
+    'accessible'    '\f368';
+
+@each $name, $glyph in $icons {
+    i.material-icons-brand-#{$name}:before {
+        font-family: 'Brand Icons';
+        content: $glyph;
+    }
+}
+
+i.material-icons.accusoft:before {
+    content: "\f369";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.acquisitions.incorporated:before {
+    content: "\f6af";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.adn:before {
+    content: "\f170";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.adobe:before {
+    content: "\f778";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.adversal:before {
+    content: "\f36a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.affiliatetheme:before {
+    content: "\f36b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.airbnb:before {
+    content: "\f834";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.algolia:before {
+    content: "\f36c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.alipay:before {
+    content: "\f642";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.amazon:before {
+    content: "\f270";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.amazon.pay:before {
+    content: "\f42c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.amilia:before {
+    content: "\f36d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.android:before {
+    content: "\f17b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.angellist:before {
+    content: "\f209";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.angrycreative:before {
+    content: "\f36e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.angular:before {
+    content: "\f420";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.app.store:before {
+    content: "\f36f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.app.store.ios:before {
+    content: "\f370";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.apper:before {
+    content: "\f371";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.apple:before {
+    content: "\f179";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.apple.pay:before {
+    content: "\f415";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.artstation:before {
+    content: "\f77a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.asymmetrik:before {
+    content: "\f372";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.atlassian:before {
+    content: "\f77b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.audible:before {
+    content: "\f373";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.autoprefixer:before {
+    content: "\f41c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.avianex:before {
+    content: "\f374";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.aviato:before {
+    content: "\f421";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.aws:before {
+    content: "\f375";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bandcamp:before {
+    content: "\f2d5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.battle.net:before {
+    content: "\f835";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.behance:before {
+    content: "\f1b4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.behance.square:before {
+    content: "\f1b5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bimobject:before {
+    content: "\f378";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bitbucket:before {
+    content: "\f171";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bitcoin:before {
+    content: "\f379";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bity:before {
+    content: "\f37a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.black.tie:before {
+    content: "\f27e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.blackberry:before {
+    content: "\f37b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.blogger:before {
+    content: "\f37c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.blogger.b:before {
+    content: "\f37d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bluetooth:before {
+    content: "\f293";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bluetooth.b:before {
+    content: "\f294";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bootstrap:before {
+    content: "\f836";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.btc:before {
+    content: "\f15a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.buffer:before {
+    content: "\f837";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.buromobelexperte:before {
+    content: "\f37f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.buy.n.large:before {
+    content: "\f8a6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.buysellads:before {
+    content: "\f20d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.canadian.maple.leaf:before {
+    content: "\f785";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.amazon.pay:before {
+    content: "\f42d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.amex:before {
+    content: "\f1f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.apple.pay:before {
+    content: "\f416";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.diners.club:before {
+    content: "\f24c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.discover:before {
+    content: "\f1f2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.jcb:before {
+    content: "\f24b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.mastercard:before {
+    content: "\f1f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.paypal:before {
+    content: "\f1f4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.stripe:before {
+    content: "\f1f5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cc.visa:before {
+    content: "\f1f0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.centercode:before {
+    content: "\f380";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.centos:before {
+    content: "\f789";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.chrome:before {
+    content: "\f268";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.chromecast:before {
+    content: "\f838";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cloudscale:before {
+    content: "\f383";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cloudsmith:before {
+    content: "\f384";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cloudversify:before {
+    content: "\f385";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.codepen:before {
+    content: "\f1cb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.codiepie:before {
+    content: "\f284";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.confluence:before {
+    content: "\f78d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.connectdevelop:before {
+    content: "\f20e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.contao:before {
+    content: "\f26d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cotton.bureau:before {
+    content: "\f89e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cpanel:before {
+    content: "\f388";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons:before {
+    content: "\f25e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.by:before {
+    content: "\f4e7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.nc:before {
+    content: "\f4e8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.nc.eu:before {
+    content: "\f4e9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.nc.jp:before {
+    content: "\f4ea";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.nd:before {
+    content: "\f4eb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.pd:before {
+    content: "\f4ec";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.pd.alternate:before {
+    content: "\f4ed";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.remix:before {
+    content: "\f4ee";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.sa:before {
+    content: "\f4ef";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.sampling:before {
+    content: "\f4f0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.sampling.plus:before {
+    content: "\f4f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.share:before {
+    content: "\f4f2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.creative.commons.zero:before {
+    content: "\f4f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.critical.role:before {
+    content: "\f6c9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.css3:before {
+    content: "\f13c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.css3.alternate:before {
+    content: "\f38b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.cuttlefish:before {
+    content: "\f38c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.d.and.d:before {
+    content: "\f38d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.d.and.d.beyond:before {
+    content: "\f6ca";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dailymotion:before {
+    content: "\f952";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dashcube:before {
+    content: "\f210";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.delicious:before {
+    content: "\f1a5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.deploydog:before {
+    content: "\f38e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.deskpro:before {
+    content: "\f38f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dev:before {
+    content: "\f6cc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.deviantart:before {
+    content: "\f1bd";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dhl:before {
+    content: "\f790";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.diaspora:before {
+    content: "\f791";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.digg:before {
+    content: "\f1a6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.digital.ocean:before {
+    content: "\f391";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.discord:before {
+    content: "\f392";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.discourse:before {
+    content: "\f393";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dochub:before {
+    content: "\f394";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.docker:before {
+    content: "\f395";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.draft2digital:before {
+    content: "\f396";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dribbble:before {
+    content: "\f17d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dribbble.square:before {
+    content: "\f397";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dropbox:before {
+    content: "\f16b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.drupal:before {
+    content: "\f1a9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dyalog:before {
+    content: "\f399";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.earlybirds:before {
+    content: "\f39a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ebay:before {
+    content: "\f4f4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.edge:before {
+    content: "\f282";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.elementor:before {
+    content: "\f430";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ello:before {
+    content: "\f5f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ember:before {
+    content: "\f423";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.empire:before {
+    content: "\f1d1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.envira:before {
+    content: "\f299";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.erlang:before {
+    content: "\f39d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ethereum:before {
+    content: "\f42e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.etsy:before {
+    content: "\f2d7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.evernote:before {
+    content: "\f839";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.expeditedssl:before {
+    content: "\f23e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.facebook:before {
+    content: "\f09a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.facebook.f:before {
+    content: "\f39e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.facebook.messenger:before {
+    content: "\f39f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.facebook.square:before {
+    content: "\f082";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fantasy.flight.games:before {
+    content: "\f6dc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fedex:before {
+    content: "\f797";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fedora:before {
+    content: "\f798";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.figma:before {
+    content: "\f799";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.firefox:before {
+    content: "\f269";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.firefox.browser:before {
+    content: "\f907";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.first.order:before {
+    content: "\f2b0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.first.order.alternate:before {
+    content: "\f50a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.firstdraft:before {
+    content: "\f3a1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.flickr:before {
+    content: "\f16e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.flipboard:before {
+    content: "\f44d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fly:before {
+    content: "\f417";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.font.awesome:before {
+    content: "\f2b4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.font.awesome.alternate:before {
+    content: "\f35c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.font.awesome.flag:before {
+    content: "\f425";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fonticons:before {
+    content: "\f280";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fonticons.fi:before {
+    content: "\f3a2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fort.awesome:before {
+    content: "\f286";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fort.awesome.alternate:before {
+    content: "\f3a3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.forumbee:before {
+    content: "\f211";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.foursquare:before {
+    content: "\f180";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.free.code.camp:before {
+    content: "\f2c5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.freebsd:before {
+    content: "\f3a4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fulcrum:before {
+    content: "\f50b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.galactic.republic:before {
+    content: "\f50c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.galactic.senate:before {
+    content: "\f50d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.get.pocket:before {
+    content: "\f265";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gg:before {
+    content: "\f260";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gg.circle:before {
+    content: "\f261";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.git:before {
+    content: "\f1d3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.git.alternate:before {
+    content: "\f841";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.git.square:before {
+    content: "\f1d2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.github:before {
+    content: "\f09b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.github.alternate:before {
+    content: "\f113";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.github.square:before {
+    content: "\f092";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gitkraken:before {
+    content: "\f3a6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gitlab:before {
+    content: "\f296";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gitter:before {
+    content: "\f426";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.glide:before {
+    content: "\f2a5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.glide.g:before {
+    content: "\f2a6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gofore:before {
+    content: "\f3a7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.goodreads:before {
+    content: "\f3a8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.goodreads.g:before {
+    content: "\f3a9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google:before {
+    content: "\f1a0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.drive:before {
+    content: "\f3aa";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.play:before {
+    content: "\f3ab";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.plus:before {
+    content: "\f2b3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.plus.g:before {
+    content: "\f0d5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.plus.square:before {
+    content: "\f0d4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.wallet:before {
+    content: "\f1ee";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gratipay:before {
+    content: "\f184";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.grav:before {
+    content: "\f2d6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gripfire:before {
+    content: "\f3ac";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.grunt:before {
+    content: "\f3ad";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gulp:before {
+    content: "\f3ae";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hacker.news:before {
+    content: "\f1d4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hacker.news.square:before {
+    content: "\f3af";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hackerrank:before {
+    content: "\f5f7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hips:before {
+    content: "\f452";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hire.a.helper:before {
+    content: "\f3b0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hooli:before {
+    content: "\f427";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hornbill:before {
+    content: "\f592";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hotjar:before {
+    content: "\f3b1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.houzz:before {
+    content: "\f27c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.html5:before {
+    content: "\f13b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.hubspot:before {
+    content: "\f3b2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ideal:before {
+    content: "\f913";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.imdb:before {
+    content: "\f2d8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.instagram:before {
+    content: "\f16d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.instagram.square:before {
+    content: "\f955";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.intercom:before {
+    content: "\f7af";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.internet.explorer:before {
+    content: "\f26b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.invision:before {
+    content: "\f7b0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ioxhost:before {
+    content: "\f208";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.itch.io:before {
+    content: "\f83a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.itunes:before {
+    content: "\f3b4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.itunes.note:before {
+    content: "\f3b5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.java:before {
+    content: "\f4e4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.jedi.order:before {
+    content: "\f50e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.jenkins:before {
+    content: "\f3b6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.jira:before {
+    content: "\f7b1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.joget:before {
+    content: "\f3b7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.joomla:before {
+    content: "\f1aa";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.js:before {
+    content: "\f3b8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.js.square:before {
+    content: "\f3b9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.jsfiddle:before {
+    content: "\f1cc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.kaggle:before {
+    content: "\f5fa";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.keybase:before {
+    content: "\f4f5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.keycdn:before {
+    content: "\f3ba";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.kickstarter:before {
+    content: "\f3bb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.kickstarter.k:before {
+    content: "\f3bc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.korvue:before {
+    content: "\f42f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.laravel:before {
+    content: "\f3bd";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.lastfm:before {
+    content: "\f202";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.lastfm.square:before {
+    content: "\f203";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.leanpub:before {
+    content: "\f212";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.lesscss:before {
+    content: "\f41d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linechat:before {
+    content: "\f3c0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linkedin:before {
+    content: "\f08c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linkedin.in:before {
+    content: "\f0e1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linode:before {
+    content: "\f2b8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linux:before {
+    content: "\f17c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.lyft:before {
+    content: "\f3c3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.magento:before {
+    content: "\f3c4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mailchimp:before {
+    content: "\f59e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mandalorian:before {
+    content: "\f50f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.markdown:before {
+    content: "\f60f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mastodon:before {
+    content: "\f4f6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.maxcdn:before {
+    content: "\f136";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mdb:before {
+    content: "\f8ca";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.medapps:before {
+    content: "\f3c6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.medium:before {
+    content: "\f23a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.medium.m:before {
+    content: "\f3c7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.medrt:before {
+    content: "\f3c8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.meetup:before {
+    content: "\f2e0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.megaport:before {
+    content: "\f5a3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mendeley:before {
+    content: "\f7b3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.microblog:before {
+    content: "\f91a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.microsoft:before {
+    content: "\f3ca";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mix:before {
+    content: "\f3cb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mixcloud:before {
+    content: "\f289";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mixer:before {
+    content: "\f956";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mizuni:before {
+    content: "\f3cc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.modx:before {
+    content: "\f285";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.monero:before {
+    content: "\f3d0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.napster:before {
+    content: "\f3d2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.neos:before {
+    content: "\f612";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.nimblr:before {
+    content: "\f5a8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.node:before {
+    content: "\f419";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.node.js:before {
+    content: "\f3d3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.npm:before {
+    content: "\f3d4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ns8:before {
+    content: "\f3d5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.nutritionix:before {
+    content: "\f3d6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.odnoklassniki:before {
+    content: "\f263";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.odnoklassniki.square:before {
+    content: "\f264";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.old.republic:before {
+    content: "\f510";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.opencart:before {
+    content: "\f23d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.openid:before {
+    content: "\f19b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.opera:before {
+    content: "\f26a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.optin.monster:before {
+    content: "\f23c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.orcid:before {
+    content: "\f8d2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.osi:before {
+    content: "\f41a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.page4:before {
+    content: "\f3d7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pagelines:before {
+    content: "\f18c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.palfed:before {
+    content: "\f3d8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.patreon:before {
+    content: "\f3d9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.paypal:before {
+    content: "\f1ed";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.penny.arcade:before {
+    content: "\f704";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.periscope:before {
+    content: "\f3da";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.phabricator:before {
+    content: "\f3db";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.phoenix.framework:before {
+    content: "\f3dc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.phoenix.squadron:before {
+    content: "\f511";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.php:before {
+    content: "\f457";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper:before {
+    content: "\f2ae";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper.alternate:before {
+    content: "\f1a8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper.hat:before {
+    content: "\f4e5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper.pp:before {
+    content: "\f1a7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper.square:before {
+    content: "\f91e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pinterest:before {
+    content: "\f0d2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pinterest.p:before {
+    content: "\f231";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pinterest.square:before {
+    content: "\f0d3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.playstation:before {
+    content: "\f3df";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.product.hunt:before {
+    content: "\f288";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pushed:before {
+    content: "\f3e1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.python:before {
+    content: "\f3e2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.qq:before {
+    content: "\f1d6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.quinscape:before {
+    content: "\f459";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.quora:before {
+    content: "\f2c4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.r.project:before {
+    content: "\f4f7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.raspberry.pi:before {
+    content: "\f7bb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ravelry:before {
+    content: "\f2d9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.react:before {
+    content: "\f41b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.reacteurope:before {
+    content: "\f75d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.readme:before {
+    content: "\f4d5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.rebel:before {
+    content: "\f1d0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.reddit:before {
+    content: "\f1a1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.reddit.alien:before {
+    content: "\f281";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.reddit.square:before {
+    content: "\f1a2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.redhat:before {
+    content: "\f7bc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.redriver:before {
+    content: "\f3e3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.redyeti:before {
+    content: "\f69d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.renren:before {
+    content: "\f18b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.replyd:before {
+    content: "\f3e6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.researchgate:before {
+    content: "\f4f8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.resolving:before {
+    content: "\f3e7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.rev:before {
+    content: "\f5b2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.rocketchat:before {
+    content: "\f3e8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.rockrms:before {
+    content: "\f3e9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.safari:before {
+    content: "\f267";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.salesforce:before {
+    content: "\f83b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sass:before {
+    content: "\f41e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.schlix:before {
+    content: "\f3ea";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.scribd:before {
+    content: "\f28a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.searchengin:before {
+    content: "\f3eb";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sellcast:before {
+    content: "\f2da";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sellsy:before {
+    content: "\f213";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.servicestack:before {
+    content: "\f3ec";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.shirtsinbulk:before {
+    content: "\f214";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.shopify:before {
+    content: "\f957";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.shopware:before {
+    content: "\f5b5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.simplybuilt:before {
+    content: "\f215";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sistrix:before {
+    content: "\f3ee";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sith:before {
+    content: "\f512";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sketch:before {
+    content: "\f7c6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.skyatlas:before {
+    content: "\f216";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.skype:before {
+    content: "\f17e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.slack:before {
+    content: "\f198";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.slack.hash:before {
+    content: "\f3ef";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.slideshare:before {
+    content: "\f1e7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.snapchat:before {
+    content: "\f2ab";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.snapchat.ghost:before {
+    content: "\f2ac";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.snapchat.square:before {
+    content: "\f2ad";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.soundcloud:before {
+    content: "\f1be";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sourcetree:before {
+    content: "\f7d3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.speakap:before {
+    content: "\f3f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.speaker.deck:before {
+    content: "\f83c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.spotify:before {
+    content: "\f1bc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.squarespace:before {
+    content: "\f5be";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stack.exchange:before {
+    content: "\f18d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stack.overflow:before {
+    content: "\f16c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stackpath:before {
+    content: "\f842";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.staylinked:before {
+    content: "\f3f5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.steam:before {
+    content: "\f1b6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.steam.square:before {
+    content: "\f1b7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.steam.symbol:before {
+    content: "\f3f6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.sticker.mule:before {
+    content: "\f3f7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.strava:before {
+    content: "\f428";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stripe:before {
+    content: "\f429";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stripe.s:before {
+    content: "\f42a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.studiovinari:before {
+    content: "\f3f8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stumbleupon:before {
+    content: "\f1a4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stumbleupon.circle:before {
+    content: "\f1a3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.superpowers:before {
+    content: "\f2dd";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.supple:before {
+    content: "\f3f9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.suse:before {
+    content: "\f7d6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.swift:before {
+    content: "\f8e1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.symfony:before {
+    content: "\f83d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.teamspeak:before {
+    content: "\f4f9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.telegram:before {
+    content: "\f2c6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.telegram.plane:before {
+    content: "\f3fe";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.tencent.weibo:before {
+    content: "\f1d5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.themeco:before {
+    content: "\f5c6";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.themeisle:before {
+    content: "\f2b2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.think.peaks:before {
+    content: "\f731";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.trade.federation:before {
+    content: "\f513";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.trello:before {
+    content: "\f181";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.tripadvisor:before {
+    content: "\f262";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.tumblr:before {
+    content: "\f173";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.tumblr.square:before {
+    content: "\f174";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.twitch:before {
+    content: "\f1e8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.twitter:before {
+    content: "\f099";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.twitter.square:before {
+    content: "\f081";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.typo3:before {
+    content: "\f42b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.uber:before {
+    content: "\f402";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ubuntu:before {
+    content: "\f7df";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.uikit:before {
+    content: "\f403";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.umbraco:before {
+    content: "\f8e8";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.uniregistry:before {
+    content: "\f404";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.unity:before {
+    content: "\f949";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.untappd:before {
+    content: "\f405";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ups:before {
+    content: "\f7e0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.usb:before {
+    content: "\f287";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.usps:before {
+    content: "\f7e1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ussunnah:before {
+    content: "\f407";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vaadin:before {
+    content: "\f408";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.viacoin:before {
+    content: "\f237";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.viadeo:before {
+    content: "\f2a9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.viadeo.square:before {
+    content: "\f2aa";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.viber:before {
+    content: "\f409";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vimeo:before {
+    content: "\f40a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vimeo.square:before {
+    content: "\f194";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vimeo.v:before {
+    content: "\f27d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vine:before {
+    content: "\f1ca";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vk:before {
+    content: "\f189";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vnv:before {
+    content: "\f40b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.vuejs:before {
+    content: "\f41f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.waze:before {
+    content: "\f83f";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.weebly:before {
+    content: "\f5cc";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.weibo:before {
+    content: "\f18a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.weixin:before {
+    content: "\f1d7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.whatsapp:before {
+    content: "\f232";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.whatsapp.square:before {
+    content: "\f40c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.whmcs:before {
+    content: "\f40d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wikipedia.w:before {
+    content: "\f266";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.windows:before {
+    content: "\f17a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wix:before {
+    content: "\f5cf";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wizards.of.the.coast:before {
+    content: "\f730";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wolf.pack.battalion:before {
+    content: "\f514";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wordpress:before {
+    content: "\f19a";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wordpress.simple:before {
+    content: "\f411";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wpbeginner:before {
+    content: "\f297";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wpexplorer:before {
+    content: "\f2de";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wpforms:before {
+    content: "\f298";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wpressr:before {
+    content: "\f3e4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.xbox:before {
+    content: "\f412";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.xing:before {
+    content: "\f168";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.xing.square:before {
+    content: "\f169";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.y.combinator:before {
+    content: "\f23b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yahoo:before {
+    content: "\f19e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yammer:before {
+    content: "\f840";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yandex:before {
+    content: "\f413";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yandex.international:before {
+    content: "\f414";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yarn:before {
+    content: "\f7e3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yelp:before {
+    content: "\f1e9";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yoast:before {
+    content: "\f2b1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.youtube:before {
+    content: "\f167";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.youtube.square:before {
+    content: "\f431";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.zhihu:before {
+    content: "\f63f";
+    font-family: 'Brand Icons';
+}
+
+/* Aliases */
+
+i.material-icons.american.express:before {
+    content: "\f1f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.american.express.card:before {
+    content: "\f1f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.amex:before {
+    content: "\f1f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bitbucket.square:before {
+    content: "\f171";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.bluetooth.alternative:before {
+    content: "\f294";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.amazon.pay:before {
+    content: "\f42d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.american.express:before {
+    content: "\f1f3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.diners.club:before {
+    content: "\f24c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.discover:before {
+    content: "\f1f2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.jcb:before {
+    content: "\f24b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.mastercard:before {
+    content: "\f1f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.paypal:before {
+    content: "\f1f4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.stripe:before {
+    content: "\f1f5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.credit.card.visa:before {
+    content: "\f1f0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.diners.club:before {
+    content: "\f24c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.diners.club.card:before {
+    content: "\f24c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.discover:before {
+    content: "\f1f2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.discover.card:before {
+    content: "\f1f2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.disk.outline:before {
+    content: "\f369";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.dribble:before {
+    content: "\f17d";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.eercast:before {
+    content: "\f2da";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.envira.gallery:before {
+    content: "\f299";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.fa:before {
+    content: "\f2b4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.facebook.official:before {
+    content: "\f082";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.five.hundred.pixels:before {
+    content: "\f26e";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.gittip:before {
+    content: "\f184";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.plus.circle:before {
+    content: "\f2b3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.google.plus.official:before {
+    content: "\f2b3";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.japan.credit.bureau:before {
+    content: "\f24b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.japan.credit.bureau.card:before {
+    content: "\f24b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.jcb:before {
+    content: "\f24b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.linkedin.square:before {
+    content: "\f08c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mastercard:before {
+    content: "\f1f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.mastercard.card:before {
+    content: "\f1f1";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.microsoft.edge:before {
+    content: "\f282";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ms.edge:before {
+    content: "\f282";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.new.pied.piper:before {
+    content: "\f2ae";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.optinmonster:before {
+    content: "\f23c";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.paypal.card:before {
+    content: "\f1f4";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pied.piper.hat:before {
+    content: "\f2ae";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.pocket:before {
+    content: "\f265";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.stripe.card:before {
+    content: "\f1f5";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.theme.isle:before {
+    content: "\f2b2";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.visa:before {
+    content: "\f1f0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.visa.card:before {
+    content: "\f1f0";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wechat:before {
+    content: "\f1d7";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wikipedia:before {
+    content: "\f266";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wordpress.beginner:before {
+    content: "\f297";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.wordpress.forms:before {
+    content: "\f298";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.yc:before {
+    content: "\f23b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.ycombinator:before {
+    content: "\f23b";
+    font-family: 'Brand Icons';
+}
+
+i.material-icons.youtube.play:before {
+    content: "\f167";
+    font-family: 'Brand Icons';
+}
