@@ -6,11 +6,17 @@
 @using Sufficit.Blazor.Client.Models
 @inherits TelephonyBasePageComponent 
 
-<EventsPanel Cards="@MyCards"></EventsPanel>
+<EventsPanel></EventsPanel>
+@if (ErrorConfig != null)
+{
+    <div class="alert alert-danger mb-0 m-3">
+        <h4 class="alert-heading">Erro ao buscar configuração na API</h4>
+        <p>@ErrorConfig.Message</p>
+    </div>
+}
+
 
 @code{
-    protected List<EventsPanelCardMonitor> MyCards { get; set; }
-
     [Inject]
     private APIClientService? APIClient { get; set; }
 
@@ -20,35 +26,36 @@
     [Inject]
     public IOptionsMonitor<EventsPanelCardOptions> Monitor { get; set; }
 
-    protected void OnConfigure(EventsPanelCardOptions options)
-    {
-        MyCards = new List<EventsPanelCardMonitor>();
-        foreach (var card in options)
-        {
-            MyCards.Add(new EventsPanelCardMonitor(card));
-        }
-    }
+    protected Exception? ErrorConfig { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
-        if(endpoints != null)
+        if (Service != null)
         {
-            var ep = endpoints.FirstOrDefault();
-            if(ep != null)
+            try
             {
-                var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
-                var client = new AMIHubClient(options, null);
-                Service.Configure(client);
+                var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
+                if (endpoints != null)
+                {
+                    var ep = endpoints.FirstOrDefault();
+                    if (ep != null)
+                    {
+                        var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
+                        var client = new AMIHubClient(options, null);
+                        Service.Configure(client);                        
+                        ErrorConfig = null;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorConfig = ex;
+            }
+
+            Service.CardAvatarHandler = GetAvatarUrl;
+            await Service.StartAsync(System.Threading.CancellationToken.None);
         }
-
-        Monitor.OnChange(OnConfigure);
-        OnConfigure(Monitor.CurrentValue);
-
-        Service.CardAvatarHandler = GetAvatarUrl;
     }
 
     protected async Task<string> GetAvatarUrl(EventsPanelCardMonitor monitor)

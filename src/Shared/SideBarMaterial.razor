@@ -41,22 +41,7 @@
                         <AuthorizeView Context="Manager" Roles="manager">
                             <SideBarMaterialItem Icon="manage_accounts" Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
                         </AuthorizeView>
-                        <AuthorizeView Context="Manager" Roles="administrator">
-                            <SideBarMaterialItem Title="Sincronia de contas" Link="pages/identity/sincronize"></SideBarMaterialItem>
-                        </AuthorizeView>
                         <SideBarMaterialItem Icon="admin_panel_settings" Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
-                    </SideBarMaterialItem>
-                </Authorized>
-            </AuthorizeView>
-
-            <AuthorizeView>
-                <Authorized>
-                    <hr class="horizontal dark mt-0 mb-0" />
-                    <SideBarMaterialItem Title="Authorized" Description="Métodos em testes para usuários autenticados" Icon="lock">
-                        <SideBarMaterialItem Title="Fetch BlazorServer" Link="fetchdata"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="Fetch Sufficit" Description="Get from Sufficit API" Link="fetchsufficit"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="User info ASP" Link="userinfobyasp"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="User info Test" Link="userinfobytest"></SideBarMaterialItem>
                     </SideBarMaterialItem>
                 </Authorized>
             </AuthorizeView>
