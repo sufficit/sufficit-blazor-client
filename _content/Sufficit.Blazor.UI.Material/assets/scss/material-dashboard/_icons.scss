@@ -66,6 +66,14 @@
     i {
         vertical-align: top;
     }
+    /* bootstrap */
+    &.spinning {
+        animation: 0.75s linear infinite spinner-border;
+    }
+
+    &.growing {
+        animation: 0.75s linear infinite spinner-grow;
+    }
 }
 
 .material-icons-round {
@@ -100,3 +108,4 @@
             }
         }
     }
+
