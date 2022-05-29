@@ -1,3 +1,33 @@
-.events-monitor .card-header img.avatar {
-    border: 0.1px solid rgba(0, 0, 0, .3);    
+.events-monitor {
+    .card {
+        height: fit-content;
+
+        .card-header {
+            small {
+                font-variant: petite-caps;
+            }
+
+            img.avatar {
+                border: 0.1px solid rgba(0, 0, 0, .3);
+            }
+        }
+
+        .card-channel {
+            &[data-hangup] {
+                text-decoration: line-through;
+            }
+
+            .card-channel-actions {
+                i {
+                    vertical-align: middle;
+                }
+
+                &[data-state='Ring']:not([data-hangup]), &[data-state='Ringing']:not([data-hangup]) {
+                    i {
+                        animation: blink-animation 0.5s steps(5, start) infinite;
+                    }
+                }
+            }
+        }
+    }
 }

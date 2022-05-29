@@ -1,0 +1,11 @@
+﻿<DataRow>
+    <td class="text-sm font-weight-normal">@Item.Content.Key</td>
+    <td class="text-sm font-weight-normal">@Item.Content.Start</td>
+    <td class="text-sm font-weight-normal">@Item.Content.State</td>
+    <td class="text-sm font-weight-normal">
+        @if(Item.Content.Hangup != null)
+        {
+            <span>(@Item.Content.Hangup.Code) @Item.Content.Hangup.Description</span>
+        }
+    </td>
+</DataRow>    

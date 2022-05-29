@@ -1,0 +1,80 @@
+﻿<div class="table-responsive">
+    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-height fixed-columns search-results">
+        <div class="dataTable-top">
+            <div class="dataTable-dropdown">
+                <label>
+                    <Select CssClass="dataTable-selector" @ref="SelectPageSize">                                    
+                        <Option Label="5" />
+                        <Option Label="10" />
+                        <Option Label="15" />
+                        <Option Label="20" />
+                        <Option Label="25" />
+                    </Select> entries per page
+                </label>
+            </div>
+            <div class="dataTable-search is-filled">
+                <input class="dataTable-input" placeholder="Search..." type="text" @bind="FilterText">
+            </div>
+        </div>
+        <div class="dataTable-container">
+            <Table @ref="table" class="table table-flush dataTable-table" id="datatable-search">
+                <thead class="thead-light">
+                    <tr>
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Protocolo</a>
+                        </th>
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Ramal</a>
+                        </th>                        
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Estado</a>
+                        </th>
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Endereço</a>
+                        </th>
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Motivo</a>
+                        </th>
+                        <th data-sortable="">
+                            <a href="#" class="dataTable-sorter">Tempo</a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var Item in @GetItems())
+                    {
+                        <DataRow>
+                            <td class="text-sm font-weight-normal">@Item.Protocol</td>
+                            <td class="text-sm font-weight-normal">@Item.Name</td>
+                            <td class="text-sm font-weight-normal">@Item.Status</td>
+                            <td class="text-sm font-weight-normal">@Item.Address</td>
+                            <td class="text-sm font-weight-normal">@Item.Cause</td>
+                            <td class="text-sm font-weight-normal">@Item.Time</td>
+                            <td class="text-sm font-weight-normal">
+                                <a href="pages/telephony/monitor/events?FilterText=@Item.Name" data-tooltip="Monitorar Eventos" data-tooltip-position="left center">
+                                    <i class="material-icons text-primary text-sm">visibility</i>
+                                </a>
+                            </td>
+                        </DataRow>
+                    }                                
+                </tbody>
+            </Table>
+        </div>
+        <div class="dataTable-bottom">
+            <div class="dataTable-info">Exibindo 1 até 10 de @Items.Count Resultados</div>
+            <nav class="dataTable-pagination">
+                <ul class="dataTable-pagination-list">
+                    <li class="pager"><a href="#" data-page="1">‹</a></li>
+                    <li class="active"><a href="#" data-page="1">1</a></li>
+                    <li class=""><a href="#" data-page="2">2</a></li>
+                    <li class=""><a href="#" data-page="3">3</a></li>
+                    <li class=""><a href="#" data-page="4">4</a></li>
+                    <li class=""><a href="#" data-page="5">5</a></li>
+                    <li class=""><a href="#" data-page="6">6</a></li>
+                    <li class="pager"><a href="#" data-page="2">›</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>       

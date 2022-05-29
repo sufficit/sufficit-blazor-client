@@ -5,3 +5,6 @@ src/wwwroot/appsettings.EventsPanel*.json
 src/Properties/PublishProfiles/
 *.user
 published/wwwroot/appsettings.EventsPanel.*
+published/wwwroot/appsettings.EventsPanel-Hscor.json
+published/wwwroot/appsettings.EventsPanel-Hscor.json.br
+published/wwwroot/appsettings.EventsPanel-Hscor.json.gz

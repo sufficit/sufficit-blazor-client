@@ -19,22 +19,25 @@ namespace Sufficit.Blazor.Client.Pages
 
         protected virtual string Keywords { get; }
 
-        protected override void OnParametersSet()
+        protected override void OnAfterRender(bool firstRender)
         {
             // continuando o processo na base do componente
-            base.OnParametersSet();
+            base.OnAfterRender(firstRender);
 
-            BreadcrumbService
-            .Set<HomeBreadcrumb>()
-            .Set<PagesBreadcrumb>()
-            .Set<PageBreadcrumb>(new Dictionary<string, object>
+            if (firstRender)
             {
-                ["title"] = Title,
-                ["description"] = Description,
-                ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
-            });
+                BreadcrumbService
+                .Set<HomeBreadcrumb>()
+                .Set<PagesBreadcrumb>()
+                .Set<PageBreadcrumb>(new Dictionary<string, object>
+                {
+                    ["title"] = Title,
+                    ["description"] = Description,
+                    ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
+                });
 
-            BreadcrumbService.Description = Description;
+                BreadcrumbService.Description = Description;
+            }
         }
 
         void IDisposable.Dispose()

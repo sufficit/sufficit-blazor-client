@@ -36,6 +36,7 @@
             font-weight: 800;
             margin: 0;
             padding: 0 !important;
+            vertical-align: middle;
 
             &:after {
                 border: none !important;
@@ -73,12 +74,17 @@
         padding-left: $btn-icon-padding-y;
 
         i {
-            padding: 0 .5rem 0 0;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
 
-            &:after {
+        .btn-text {
+            vertical-align: middle;
+
+            &:before {
                 border-right-style: double;
                 border-right-color: #a7a9a95c;
-                padding-left: $btn-block-spacing-y;
+                margin-right: $btn-block-spacing-y;
                 content: "";
             }
         }

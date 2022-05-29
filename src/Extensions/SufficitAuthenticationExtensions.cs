@@ -37,6 +37,7 @@ namespace Sufficit.Blazor.Client.Extensions
             services.AddOidcAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
                 oidOptions.Bind(options.ProviderOptions);
+
                 // oidOptions.GetClaimsFromUserInfoEndpoint = true;
                 // importante pois o nome padrão normalmente é o endereço completo da microsoft
                 // ex: https://micros...................role
@@ -45,7 +46,8 @@ namespace Sufficit.Blazor.Client.Extensions
                 .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory>();
 
             // importante para incluir propriedades extras ao usuario
-            services.AddScoped<AuthenticationStateProvider, CustomRemoteAuthenticationService>();
+            services.AddScoped<CustomRemoteAuthenticationService>();
+            services.AddScoped<AuthenticationStateProvider, CustomRemoteAuthenticationService>((provider) => provider.GetRequiredService<CustomRemoteAuthenticationService>());
 
             return services;
         }

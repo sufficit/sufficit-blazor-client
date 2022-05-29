@@ -5,7 +5,7 @@
 @using Sufficit.Blazor.UI.Material.Services
 @attribute [Authorize]
 
-<Text>@id</Text>
+<HyperText>@id</HyperText>
 
 <div class="row mt-4 mb-5">
     <div class="col-md-4">
@@ -41,10 +41,10 @@
     public string id { get; set; }
 
     [Inject]
-    public BlazorUIMaterialService UIService { get; set; }
+    protected BlazorUIMaterialService UIService { get; set; } = default!;
 
     [Inject]
-    public ILogger<Profile> Logger{ get; set; }
+    protected ILogger<Profile> Logger { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {               
@@ -52,7 +52,7 @@
         var Swal = UIService.SweetAlerts;
         var alert = new SweetAlert() { Toast = true, TimerProgressBar = true, Timer = 3000, Title = "Are you sure ?", ShowCancelButton = true };
 
-        var result = await Swal.Fire(alert).ContinueWith((previous) => { Swal.Fire(alert).AndForget(); return previous; });
+        var result = await Swal.Fire(alert).ContinueWith((previous) => { Swal.Fire(alert).ConfigureAwait(false); return previous; });
         var jsonResult = System.Text.Json.JsonSerializer.SerializeToElement(result);
         Logger.LogInformation($"result received: { jsonResult }");
     }

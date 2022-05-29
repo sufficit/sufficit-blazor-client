@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Executable": {
+    "Blazor.Client": {
       "commandName": "Executable",
       "executablePath": "dotnet.exe",
       "commandLineArgs": "watch run",
@@ -13,6 +13,10 @@
       "applicationUrl": "https://localhost:26508",
       "dotnetRunMessages": true,
       "hotReloadProfile": "blazorwasm"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
     }
   }
 }

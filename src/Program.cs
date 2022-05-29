@@ -21,15 +21,21 @@ namespace Sufficit.Blazor.Client
             #region INCLUDING A SEPARATED FILE FOR EVENTS PANEL
 
             var jsonFile = "appsettings.EventsPanel.json";
-            var http = new HttpClient()
+            try
             {
-                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-            };
+                var http = new HttpClient()
+                {
+                    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+                };
 
-            using var response = await http.GetAsync(jsonFile);
-            using var stream = await response.Content.ReadAsStreamAsync();
-
-            builder.Configuration.AddJsonStream(stream);
+                using var response = await http.GetAsync(jsonFile);
+                using var stream = await response.Content.ReadAsStreamAsync();
+                if (stream != null)
+                {
+                    Console.WriteLine($"appsettings eventspanel from json: {jsonFile}");
+                    builder.Configuration.AddJsonStream(stream);
+                }
+            } catch { }
 
             #endregion
 

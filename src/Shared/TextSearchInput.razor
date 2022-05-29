@@ -1,0 +1,44 @@
+﻿@using Sufficit.Blazor.UI.Material
+<InputGroup CssClass="input-group-outline" IsDisabled="@_disabled">
+    <Label>Pesquisar ...</Label>
+    <TextInput @ref="_input" Value="@_text" OnChanged="SearchInputChanged" />
+</InputGroup>
+@code{
+    private TextInput _input;
+    private bool _disabled;
+    private string? _text;
+
+    [CascadingParameter]
+    public TextSearchControl? TextSearch { get; set; }
+
+    protected void SearchInputChanged(ChangeEventArgs e)
+    {
+        if(TextSearch != null)
+            TextSearch.Update(e.Value.ToString());
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if(TextSearch != null)
+        {
+            _disabled = !TextSearch.CanSearch;
+            _text = TextSearch.Value;
+
+            TextSearch.OnChanged += TextSearchChanged;
+            TextSearch.OnValueChanged += TextSearchValueChanged;
+        }
+    }
+
+    protected void TextSearchChanged(bool value)
+    {
+        _disabled = !value;
+        StateHasChanged();
+    }
+
+    protected void TextSearchValueChanged(string? value)
+    {
+        _text = value;
+        StateHasChanged();
+    }   
+}

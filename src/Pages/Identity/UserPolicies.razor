@@ -5,6 +5,7 @@
 @using System.Security.Claims
 @using Sufficit.Identity
 @using Sufficit.Blazor.Client.Models.Identity
+@using System.Text.Json
 @attribute [Authorize]
 
 <div>
@@ -51,7 +52,7 @@
 
 @code {
     [Inject]
-    AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    protected CustomRemoteAuthenticationService AuthenticationService { get; set; } = default!;
 
     IEnumerable<UserPolicyBase> CurrentUserPolicies { get; set; } 
 
@@ -59,10 +60,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;        
+        User = (await AuthenticationService.GetAuthenticationStateAsync()).User;        
         if(User is Sufficit.Identity.UserPrincipal user)
         {
-            CurrentUserPolicies = user.Policies;
-        }
+            CurrentUserPolicies = user.Policies;            
+        }        
     }
 }

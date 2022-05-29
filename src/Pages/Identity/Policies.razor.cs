@@ -25,13 +25,13 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         protected override string Description => "Diretivas de acesso";
 
         [Inject]
-        private BlazorIdentityService BIService { get; set; }
+        protected BlazorIdentityService BIService { get; set; } = default!;
 
         [Inject]
-        public BlazorUIMaterialService UIService { get; set; }
+        protected BlazorUIMaterialService UIService { get; set; } = default!;
 
         [Inject]
-        public ILogger<Policies> Logger { get; set; }
+        protected ILogger<Policies> Logger { get; set; } = default!;
 
         private string Status { get; set; }
 

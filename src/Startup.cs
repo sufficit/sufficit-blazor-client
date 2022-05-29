@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MudBlazor.Services;
 using Sufficit.Blazor.Client.Extensions;
 using Sufficit.Blazor.Client.Models;
 using Sufficit.Blazor.Client.Services;
@@ -46,7 +45,6 @@ namespace Sufficit.Blazor.Client
                 options.AddConfiguration(_builder.Configuration.GetSection("Logging"));
             });
 
-            services.AddMudServices();
             services.AddOptions();
             services.AddBlazoredLocalStorage();
 
@@ -68,6 +66,8 @@ namespace Sufficit.Blazor.Client
 
             services.AddJsSIP();
             services.AddBlazorUIMaterial();
+
+            //services.AddSingleton<IEventsPanelCardCollection, EventsPanelCardGroupedCollection>();
 
             return services;
         }

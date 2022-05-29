@@ -106,7 +106,7 @@
             <div class="d-block d-md-flex align-items-center">
                 <ContactAvatar IDReference="@UserSelected.ID" />
                 <div class="mx-0 mx-md-3">
-                    <Text>@UserSelected?.EMail</Text>
+                    <HyperText>@UserSelected?.EMail</HyperText>
                     <small class="d-block text-muted">3 days ago</small>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                                     <td>
                                         <ContactAvatar IDReference="item.IDContext" Size="UI.Material.ComponentSize.Tiny" />                                   
                                     </td>
-                                    <td><Text Value="@GetContactTitle(item.IDContext)" /></td>
+                                    <td><HyperText Value="@GetContactTitle(item.IDContext)" /></td>
                                 </tr>
                             }
                         </tbody>

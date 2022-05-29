@@ -32,7 +32,7 @@ namespace Sufficit.Blazor.Client.Services
             _storage = storage;
             _logger?.LogTrace($"instanced, storage user key: { STORAGEUSERKEY }");
         }
-
+                
         public async Task<CustomRemoteUserAccount> GetCachedUser()
         {
             if (await _storage.ContainKeyAsync(STORAGEUSERKEY))

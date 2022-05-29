@@ -19,6 +19,7 @@ namespace Sufficit.Blazor.Client.Models
             builder.Link("Entrada", string.Empty, new KeyValuePair<string, object>("class", "opacity-5 text-dark"));
         }
     }
+
     public class PagesBreadcrumb : Breadcrumb
     {
         public override void Configure(BreadcrumbBuilder builder)
