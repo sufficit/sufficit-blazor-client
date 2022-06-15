@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sufficit.Blazor.Client.Extensions;
 using Sufficit.Blazor.Client.Models;
 using Sufficit.Blazor.Client.Services;
 using Microsoft.Extensions.Logging;
@@ -15,6 +14,10 @@ using System;
 using System.IO;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Sufficit.Blazor;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Sufficit.Blazor.Client
 {
@@ -46,29 +49,17 @@ namespace Sufficit.Blazor.Client
             });
 
             services.AddOptions();
-            services.AddBlazoredLocalStorage();
+            services.ConfigureCommonServices();
 
-            services.AddSufficitAuthentication();
-            services.AddSufficitEndPointsAPI();
-            services.AddSufficitIdentityClient();
-            services.AddEventsPanel();
+            services.AddHttpClient("BlazorHybrid", options => options.BaseAddress = new Uri(_builder.HostEnvironment.BaseAddress));
+            services.AddSingleton<IAuthService, WasmAuthService>();
 
-            services.AddHttpClient("default");
+            services.AddAuthorizationCore();
 
-            services.AddTransient<BlazorIdentityService>();
-            services.AddTransient<FetchWeatherForecastService>();
+            services.AddSingleton<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationService, DefaultAuthorizationService>();
 
-            // Incluindo serviço de auxilio a navegação
-            services.AddSingleton<IBreadcrumbService, BreadcrumbService>();
-
-            services.AddHttpContextAccessor();
-            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddJsSIP();
-            services.AddBlazorUIMaterial();
-
-            //services.AddSingleton<IEventsPanelCardCollection, EventsPanelCardGroupedCollection>();
-
+            //services.AddSufficitAuthentication();
             return services;
         }
     }

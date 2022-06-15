@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
+    [Authorize(Roles = "telephony")]
     public partial class Panel : MonitorTelephonyBasePageComponent
     {
         protected override string Title => "Painel";
@@ -20,9 +22,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         [Inject]
         private EventsPanelService Service { get; set; } = default!;
-
-        [Inject]
-        public IOptionsMonitor<EventsPanelCardOptions> Monitor { get; set; }
 
         protected Exception? ErrorConfig { get; set; }
 
@@ -42,7 +41,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                             if (ep != null)
                             {
                                 var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
-                                var client = new AMIHubClient(options, null);
+                                var client = new AMIHubClient(options);
                                 Service.Configure(client);
                                 ErrorConfig = null;
                             }

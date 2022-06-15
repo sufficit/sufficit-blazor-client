@@ -13,8 +13,9 @@
             {
                 @if(Exception != null)
                 {
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger text-white">
                         <small>@Exception.Message</small>
+                        <p><small>@Exception.StackTrace</small></p>
                     </div>
                 } else {
                     <div class="timeline-block mb-3 placeholder-glow">
@@ -53,22 +54,29 @@
 
 @code{
     [Inject]
-    protected HttpClient Client { get; set; }
+    protected IHttpClientFactory Factory { get; set; } = default!;
 
     protected Exception? Exception { get; set; }
 
-    protected GitHubApiEventsResult Result { get; set; }
+    protected GitHubApiEventsResult? Result { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
-        try
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
         {
-            Result = await Client.GetFromJsonAsync<GitHubApiEventsResult>("https://api.github.com/orgs/sufficit/events?per_page=10");
-        }
-        catch(Exception ex)
-        {
-            Exception = ex;
+            try
+            {
+                var Client = Factory.CreateClient("GitHub");
+                if (Client != null)
+                    Result = await Client.GetFromJsonAsync<GitHubApiEventsResult>("https://api.github.com/orgs/sufficit/events?per_page=10");                
+            }
+            catch(Exception ex)
+            {
+                Exception = ex;
+            }     
+
+            await InvokeAsync(StateHasChanged);       
         }
     }
 
@@ -102,7 +110,7 @@
     {
         public IEnumerable<Commit> Commits { get; set; }
 
-        public string GetMessage() => Commits?.FirstOrDefault().Message;
+        public string GetMessage() => Commits.FirstOrDefault().Message;
 
         public IEnumerable<string> GetMessages() => Commits?.Select(s => s.Message) ?? Array.Empty<string>();
     }

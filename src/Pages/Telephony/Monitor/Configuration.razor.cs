@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
+    [Authorize(Roles = "telephony")]
     public partial class Configuration : MonitorTelephonyBasePageComponent
     {
         protected override string Title => "Configurações";

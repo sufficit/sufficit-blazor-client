@@ -15,7 +15,7 @@
                 <li class="breadcrumb-item text-sm">@breadcrumb</li>
             }
         </ol>
-        <h6 class="font-weight-bolder mb-0">@BreadcrumbService?.Description</h6>     
+        <h6 class="font-weight-bolder mb-0">@BreadcrumbService?.Description</h6> 
     </nav>
 }
 
@@ -38,15 +38,15 @@
         BreadcrumbService.Reset -= HandleBreadcrumbReset;        
     }
 
-    private void HandleBreadcrumbReset()
+    private async void HandleBreadcrumbReset()
     {
         _breadcrumbs.Clear();
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
-    private void HandleBreadcrumbAdded(RenderFragment breadcrumb)
+    private async void HandleBreadcrumbAdded(RenderFragment breadcrumb)
     {
         _breadcrumbs.Add(breadcrumb);
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 }

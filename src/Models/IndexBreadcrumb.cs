@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sufficit.Blazor;
 
 namespace Sufficit.Blazor.Client.Models
 {
     [RootBreadcrumb]
-    public class HomeBreadcrumb : RootBreadcrumb
+    public class HomeBreadcrumb : RootAbstractBreadcrumb
     {
         public override void Configure(BreadcrumbBuilder builder)
         {
@@ -31,22 +32,25 @@ namespace Sufficit.Blazor.Client.Models
     public class PageBreadcrumb : Breadcrumb
     {
         [Parameter]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [Parameter]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Parameter]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         public override void Configure(BreadcrumbBuilder builder)
         {
-            builder.Link(Title, Link, 
-                new KeyValuePair<string, object>("class", "opacity-5 text-dark"),
-                new KeyValuePair<string, object>("data-bs-toggle", "tooltip"),
-                new KeyValuePair<string, object>("data-bs-placement", "bottom"),
-                new KeyValuePair<string, object>("title", Description)
-                );
+            if (!string.IsNullOrWhiteSpace(Title))
+            {
+                builder.Link(Title, Link,
+                    new KeyValuePair<string, object>("class", "opacity-5 text-dark"),
+                    new KeyValuePair<string, object>("data-bs-toggle", "tooltip"),
+                    new KeyValuePair<string, object>("data-bs-placement", "bottom"),
+                    new KeyValuePair<string, object>("title", Description)
+                    );
+            }
         }
     }
 }

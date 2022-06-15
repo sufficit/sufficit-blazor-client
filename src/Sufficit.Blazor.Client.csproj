@@ -2,6 +2,7 @@
 
 	<PropertyGroup Label="Sufficit Targeting">
 		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<Configurations>Debug;Release</Configurations>
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
@@ -25,8 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings.Development.json" />
-    <Content Remove="appsettings.Production.json" />
+    <Content Remove="appsettings.json" />
+    <Content Remove="wwwroot\appsettings.EventsPanel-Hscor.json" />
+    <Content Remove="wwwroot\appsettings.EventsPanel.json" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
@@ -34,15 +36,14 @@
     <Content Remove="wwwroot\assets\img\logos\logo.xcf" />
     <Content Remove="wwwroot\assets\img\logos\sufficit-logotipo-backup.png" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="appsettings.Development.json" />
-    <None Include="appsettings.Production.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup Label="Hybrid Models">
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.2" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.46.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+	</ItemGroup>
+  <ItemGroup>	  
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="GraphQL.Client" Version="4.0.2" />
     <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.2" />
@@ -60,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
     <ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
   </ItemGroup>
 
@@ -89,15 +91,25 @@
 	</ItemGroup>
   
   <ItemGroup>
-    <Content Update="wwwroot\appsettings.EventsPanel.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\appsettings.EventsPanel-Hscor.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Models\Identity\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\appsettings.EventsPanel-Hscor.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\appsettings.EventsPanel.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>

@@ -6,9 +6,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Sufficit.Identity.Configuration;
-using Sufficit.Blazor.Client.Models.Identity;
+using Sufficit.Blazor;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Sufficit.Blazor.Client.Services
 {
@@ -17,19 +18,22 @@ namespace Sufficit.Blazor.Client.Services
         private readonly ILogger<CustomRemoteAuthenticationService> _logger;
         private readonly CustomAccountClaimsPrincipalFactory _factory;
         private readonly RemoteAuthenticationOptions<OidcProviderOptions> _options;
+        private readonly IHttpContextAccessor _accessor;
 
-        public CustomRemoteAuthenticationService(ILogger<CustomRemoteAuthenticationService> logger,
+        public CustomRemoteAuthenticationService(ILogger<CustomRemoteAuthenticationService> logger, 
+            IHttpContextAccessor httpContextAccessor,
             IJSRuntime jsRuntime, 
             IOptionsSnapshot<RemoteAuthenticationOptions<OidcProviderOptions>> options, 
             NavigationManager navigation,
             CustomAccountClaimsPrincipalFactory accountClaimsPrincipalFactory) : 
             base(jsRuntime, options, navigation, accountClaimsPrincipalFactory)
         {
+            _accessor = httpContextAccessor;
             _options = options.Value;
             _logger = logger;
             _factory = accountClaimsPrincipalFactory;
         }
-
+        /*
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             _logger?.LogTrace($"GetAuthenticationStateAsync ...");     
@@ -87,5 +91,6 @@ namespace Sufficit.Blazor.Client.Services
                 throw;
             }
         }
+        */
     }
 }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sufficit.Blazor;
 
 namespace Sufficit.Blazor.Client.Models
 {
     [RootBreadcrumb]
-    public abstract class RootBreadcrumb : Breadcrumb
+    public abstract class RootAbstractBreadcrumb : Breadcrumb
     {
+
     }
 }

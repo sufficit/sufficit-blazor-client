@@ -8,10 +8,10 @@ namespace Sufficit.Blazor.Client.Pages
     public class BasePageComponent : ComponentBase, IDisposable
     {
         [Inject]
-        protected NavigationManager NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
    
         [Inject]
-        protected IBreadcrumbService BreadcrumbService { get; set; }
+        protected IBreadcrumbService BreadcrumbService { get; set; } = default!;
 
         protected virtual string Title { get; }
 

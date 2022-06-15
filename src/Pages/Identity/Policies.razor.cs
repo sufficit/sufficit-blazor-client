@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Logging;
-using Sufficit.Blazor.Client.Services;
 using Sufficit.Blazor.UI.Material;
 using Sufficit.Blazor.UI.Material.Components;
 using Sufficit.Blazor.UI.Material.Services;
@@ -14,10 +11,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Sufficit.Blazor;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {
-    [Authorize]
+    [Authorize(Roles = "manager")]
     public partial class Policies : BasePageComponent
     {
         protected override string Title => "Políticas de usuário";

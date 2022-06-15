@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
+    [Authorize(Roles = "manager")]
     public partial class Peers : MonitorTelephonyBasePageComponent
     {
         protected override string Title => "Pares";

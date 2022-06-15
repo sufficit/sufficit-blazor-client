@@ -4,18 +4,51 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
 @using Sufficit.Identity
-@using Sufficit.Blazor.Client.Models.Identity
+@using Sufficit.Blazor
 @using System.Text.Json
 @attribute [Authorize]
 
 <div>
-    <span>@User?.GetType()</span>
+    <span>@User?.GetType() :: Authenticated: @User?.Identity?.IsAuthenticated</span>
 </div>
 <div>
     <span>Policies: </span> (@CurrentUserPolicies?.Count()) @CurrentUserPolicies?.GetType()
 </div>
 
-<hr class="dark horizontal" />    
+<hr class="dark horizontal" />   
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+            <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipo</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Valor</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                @if (User != null)
+                {
+                    @foreach (var userpolicy in User.Claims)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @userpolicy.Type
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex px-2">
+                                    @userpolicy.Value
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -52,15 +85,15 @@
 
 @code {
     [Inject]
-    protected CustomRemoteAuthenticationService AuthenticationService { get; set; } = default!;
+    protected BlazorAuthenticationStateProvider AuthenticationService { get; set; } = default!;
 
-    IEnumerable<UserPolicyBase> CurrentUserPolicies { get; set; } 
+    IEnumerable<UserPolicyBase>? CurrentUserPolicies { get; set; } 
 
-    ClaimsPrincipal User { get; set; }
+    ClaimsPrincipal? User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        User = (await AuthenticationService.GetAuthenticationStateAsync()).User;        
+        User = (await AuthenticationService.GetAuthenticationStateAsync()).User;
         if(User is Sufficit.Identity.UserPrincipal user)
         {
             CurrentUserPolicies = user.Policies;            

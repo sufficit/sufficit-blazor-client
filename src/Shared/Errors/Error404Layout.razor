@@ -5,17 +5,14 @@
 
 @code {
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     protected override void OnInitialized()
-    {
-        if (httpContextAccessor != null)
-        {
-            if (httpContextAccessor.HttpContext != null)
-            {
-                httpContextAccessor.HttpContext.Response.StatusCode = 404;
-            }
-        }
-        
+    { 
+        if (httpContextAccessor == null) return;
+        if (httpContextAccessor.HttpContext == null) return;
+        if (httpContextAccessor.HttpContext.Response.HasStarted) return;
+
+        httpContextAccessor.HttpContext.Response.StatusCode = 404;       
     }
 }

@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sufficit.EndPoints.Configuration;
 using Sufficit.Identity.Configuration;
-using Sufficit.Blazor.Client.Models.Identity;
+using Sufficit.Blazor;
 using Sufficit.Blazor.Client.Services;
 using System;
 
-namespace Sufficit.Blazor.Client.Extensions
+namespace Sufficit.Blazor.Client
 {
     public static class SufficitAuthenticationExtensions
     {
@@ -24,16 +24,14 @@ namespace Sufficit.Blazor.Client.Extensions
 
             // Capturando para uso local
             var oidOptions = configuration.GetSection(OpenIDOptions.SECTIONNAME).Get<OpenIDOptions>();
-            
+
             // Usado na página /authentication
             services.AddScoped<RemoteAuthenticationState, CustomRemoteAuthenticationState>();
-
             services.AddScoped<RemoteUserAccount, CustomRemoteUserAccount>();
 
             services.AddScoped<CustomAccountClaimsPrincipalFactory>();
             services.AddScoped<AccountClaimsPrincipalFactory<CustomRemoteUserAccount>, CustomAccountClaimsPrincipalFactory>();
-
-            services.AddAuthorizationCore(); 
+            
             services.AddOidcAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
                 oidOptions.Bind(options.ProviderOptions);
@@ -41,10 +39,11 @@ namespace Sufficit.Blazor.Client.Extensions
                 // oidOptions.GetClaimsFromUserInfoEndpoint = true;
                 // importante pois o nome padrão normalmente é o endereço completo da microsoft
                 // ex: https://micros...................role
+                options.UserOptions.NameClaim = "name";
                 options.UserOptions.RoleClaim = "role";
             })
                 .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory>();
-
+                        
             // importante para incluir propriedades extras ao usuario
             services.AddScoped<CustomRemoteAuthenticationService>();
             services.AddScoped<AuthenticationStateProvider, CustomRemoteAuthenticationService>((provider) => provider.GetRequiredService<CustomRemoteAuthenticationService>());

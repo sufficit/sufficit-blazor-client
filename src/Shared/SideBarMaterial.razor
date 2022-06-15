@@ -1,4 +1,7 @@
 ﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.Infrastructure
+@using Sufficit.Identity
 @inject IJSRuntime JSRuntime
 
 <SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3">
@@ -14,15 +17,15 @@
     <hr class="horizontal light mt-0 mb-0" />
     <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <AuthorizeView>                
+            <AuthorizeView Context="IdentityUser">                
                 <Authorized>
-                    <SideBarMaterialItem Title="@User?.Identity.Name" Image="@Avatar" Link="#ProfileNav">
+                    <SideBarMaterialItem Title="@User?.Identity?.Name" Image="@Avatar" Link="#ProfileNav">
                         <SideBarMaterialItem Title="Perfil de usuário" Icon="face" Link="https://identity.sufficit.com.br"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="Sair" Icon="logout" @onclick="BeginSignOut"></SideBarMaterialItem>
+                        <SideBarMaterialItem Title="Sair" Icon="logout" @onclick="LogOut"></SideBarMaterialItem>
                     </SideBarMaterialItem>
                 </Authorized>
                 <NotAuthorized>
-                    <SideBarMaterialItem Title="Entrar" Icon="login" Link="authentication/login"></SideBarMaterialItem>
+                    <SideBarMaterialItem Title="Entrar" Icon="login" @onclick="LogIn"></SideBarMaterialItem>
                 </NotAuthorized>
             </AuthorizeView>
             <hr class="horizontal light mt-0" />
@@ -34,30 +37,33 @@
                 <SideBarMaterialItem Title="Counter" Icon="add" Link="counter"></SideBarMaterialItem>
             </SideBarMaterialItem>
 
-            <AuthorizeView Context="Authenticated">                
+            <AuthorizeView Context="Identity">                
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
                     <SideBarMaterialItem Title="Identidade" Description="Controle da segurança de acesso" Icon="fingerprint">  
                         <AuthorizeView Context="Manager" Roles="manager">
                             <SideBarMaterialItem Icon="manage_accounts" Title="Políticas de usuário" Link="pages/identity/policies"></SideBarMaterialItem> 
                         </AuthorizeView>
-                        <SideBarMaterialItem Icon="admin_panel_settings" Title="Regas do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>   
+                        <SideBarMaterialItem Icon="admin_panel_settings" Title="Regras do usuário" Link="pages/identity/userroles"></SideBarMaterialItem>
+                        <SideBarMaterialItem Icon="admin_panel_settings" Title="Políticas deste usuário" Link="pages/identity/userpolicies"></SideBarMaterialItem>
                     </SideBarMaterialItem>
                 </Authorized>
             </AuthorizeView>  
 
-            <AuthorizeView>
+            <AuthorizeView Context="Telephony">
                 <Authorized>
                     <hr class="horizontal dark mt-0 mb-0" />
                     <SideBarMaterialItem Title="Telefonia" Description="Ramais, chamadas e etc." Icon="tty">
-
                         <SideBarItemTelephonyMonitor></SideBarItemTelephonyMonitor>
-
-                        <SideBarMaterialItem Title="Chamadas" Link="pages/telephony/calls"></SideBarMaterialItem>
                         <SideBarMaterialItem Title="Telefone Web" Link="pages/telephony/webphone"></SideBarMaterialItem>
-                        <SideBarMaterialItem Title="CheckUp" Link="pages/telephony/checkup"></SideBarMaterialItem>
+                        <AuthorizeView Roles="telephony">                                              
+                            <SideBarMaterialItem Title="Chamadas" Link="pages/telephony/calls"></SideBarMaterialItem> 
+                        </AuthorizeView>                        
+                        <AuthorizeView Roles="manager">                    
+                            <SideBarMaterialItem Title="CheckUp" Link="pages/telephony/checkup"></SideBarMaterialItem>
+                        </AuthorizeView>
                     </SideBarMaterialItem>
-                </Authorized>
+                </Authorized>                
             </AuthorizeView>
             <li style="clear: both; height: 100px;">&nbsp;</li>
         </ul>
@@ -66,25 +72,24 @@
 </SideBar>
 
 @code{
-    [Inject] NavigationManager Navigation { get; set; }
-    [Inject] SignOutSessionStateManager SignOutManager { get; set; }
-    [Inject] AuthenticationStateProvider StateProvider { get; set; }
+    [Inject] 
+    NavigationManager Navigation { get; set; } = default!;
 
-    protected ClaimsPrincipal User { get; set; }
+    [Inject] 
+    IAuthenticationStateProvider StateProvider { get; set; } = default!;
 
-    protected async Task BeginSignOut(MouseEventArgs args)
+    protected UserPrincipal? User { get; set; }
+
+    protected async Task LogOut(MouseEventArgs _)
     {
-        await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("authentication/logout");
+        await StateProvider.Logout();        
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected async Task LogIn(MouseEventArgs _)
     {
-        await Task.Yield();
-        if (firstRender)
-        {
-            //await JSRuntime.InvokeVoidAsync("SideBarMaterial");
-        }
+        string returnUrl = Navigation.Uri;
+        await StateProvider.Login(returnUrl); 
+        await InvokeAsync(StateHasChanged);
     }
 
     protected string Avatar
@@ -94,21 +99,35 @@
             string result = "https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto=";
             if (User != null)
             {
-                result += User.FindFirst(c => c.Type == "sub")?.Value;
+                result += User.GetUserId();
             }
             return result;
         }
     }
 
-    protected async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
+    protected async void OnAuthenticationStateChanged(Task<BlazorAuthenticationState> task)
     {
         User = (await task).User;
-        this.StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        User = (await StateProvider.GetAuthenticationStateAsync()).User;       
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            var user = (await StateProvider.GetAuthenticationStateAsync()).User;
+            if (User != user)
+            {
+                User = user;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
         StateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
     }
 }

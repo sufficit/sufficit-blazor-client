@@ -1,8 +1,15 @@
 ﻿@inject NavigationManager Navigation
+@inject BlazorAuthenticationStateProvider StateProvider
 
 @code {
-    protected override void OnInitialized()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Navigation.NavigateTo($"authentication/login?returnUrl={ Uri.EscapeDataString(Navigation.Uri) }");
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            string returnUrl = Navigation.Uri;
+            await StateProvider.Login(returnUrl); 
+            await InvokeAsync(StateHasChanged);            
+        }
     }
 }

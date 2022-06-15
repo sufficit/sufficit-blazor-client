@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Sufficit.Identity.Configuration;
 
-namespace Sufficit.Blazor.Client.Extensions
+namespace Sufficit.Blazor.Client
 {
     public static class SufficitOpenIDOptionsExtensions
     {

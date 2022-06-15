@@ -2,7 +2,7 @@
 @using System.Security.Claims
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<MudPaper Class="pa-1 ma-1" Elevation="0">
+<div class="pa-1 ma-1">
     <hr />
     <h3>ClaimsPrincipal data using default "@AuthenticationStateProvider.GetType().Name" </h3>
     <h5>AuthenticationType: @User?.Identity.AuthenticationType</h5>
@@ -21,7 +21,7 @@
         </ul>
     }
 
-</MudPaper>
+</div>
 
 @code {
     private string _authMessage;

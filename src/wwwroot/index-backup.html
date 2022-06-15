@@ -34,7 +34,7 @@
 </head>
 
 <body class="bg-gray-200">
-    <app>
+    <component id="app">        
         <div class="page-header align-items-start min-vh-100">
             <div class="progress" style="position: fixed; width: 100%;">
                 <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-    </app>
+    </component>
 
     <div id="blazor-error-ui" style="display: none;">
         <div class="alert alert-danger alert-dismissible text-white fade show text-center" role="alert">
@@ -80,11 +80,7 @@
         </div>
     </div>
 
-    <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
-    <script>
-        window.hybridType = 'WebAssembly';
-        window.getHybridType = function () { return window.hybridType; }
-    </script>
+
 </body>
 </html>

@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder Link(this BreadcrumbBuilder builder, string title, string url, params KeyValuePair<string, object>[] attributes)
+        public static BreadcrumbBuilder Link(this BreadcrumbBuilder builder, string title, string? url, params KeyValuePair<string, object>[] attributes)
         {
             builder.Title = title;
             builder.Action = null;

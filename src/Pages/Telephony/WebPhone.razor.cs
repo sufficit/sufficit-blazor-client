@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sufficit.Identity;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -18,29 +19,25 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
     public partial class WebPhone : TelephonyBasePageComponent
     {
         [Inject]
-        public IJSRuntime JSRuntime { get; set; }
+        public JsSIPService JsSIPService { get; set; } = default!;
 
         [Inject]
-        public JsSIPService JsSIPService { get; set; }
+        public ILogger<WebPhone> Logger { get; set; } = default!;
 
         [Inject]
-        public ILogger<WebPhone> Logger { get; set; }
+        IAuthenticationStateProvider AuthenticationService { get; set; } = default!;
 
         [Inject]
-        AuthenticationStateProvider AuthProvider { get; set; }
+        IOptions<JsSIPOptions> Options { get; set; } = default!;
 
         [Inject]
-        IOptions<JsSIPOptions> Options { get; set; }
-
-        [Inject]
-        APIClientService APIClient { get; set; }
+        APIClientService APIClient { get; set; } = default!;
 
         protected override string Title => "Telefone Web";
 
         protected override string Description => "Aplicativo de telefone virtual";
 
-
-        protected string Destination { get; set; }
+        protected string? Destination { get; set; }
 
         /// <summary>
         /// key used to connect on asterisk server
@@ -55,33 +52,31 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
 
         protected IEnumerable<JsSIPMediaDevice> VideoInputDevices => MediaDevices.Where(s => s.Kind == "videoinput");
 
-        protected override async Task OnInitializedAsync()
-        {
-            JsSIPService.OnChanged += (sender, args) => StateHasChanged();
-            if (string.IsNullOrWhiteSpace(JsSIPService.Status))
-            {
-                var authstate = await AuthProvider.GetAuthenticationStateAsync();
-                var idClaim = authstate.User.FindFirst(s => s.Type == "sub");
-                if (Guid.TryParse(idClaim.Value, out Guid UserID))
-                {
-                    WebRTCKey = await APIClient.Telephony.WebRTCKey();
-                    var endpoint = $"{UserID.ToString("N")}{WebRTCKey.ToString("N")}";
-                    var options = Options.Value;
-                    options.Uri = $"sip:{ endpoint }@voip.sufficit.com.br";
-                    await JsSIPService.Start(options);
-                }
-            }
-            MediaDevices = await JsSIPService.MediaDevices();
-            await base.OnInitializedAsync();
-        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
                 await JsSIPService.TestDevices();
+
+                JsSIPService.OnChanged += (sender, args) => StateHasChanged();
+                if (string.IsNullOrWhiteSpace(JsSIPService.Status))
+                {
+                    var authstate = await AuthenticationService.GetAuthenticationStateAsync();
+                    var UserID = authstate.User.GetUserId();
+                    if (UserID != Guid.Empty)
+                    {
+                        WebRTCKey = await APIClient.Telephony.WebRTCKey();
+                        var endpoint = $"{UserID.ToString("N")}{WebRTCKey.ToString("N")}";
+                        var options = Options.Value;
+                        options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
+                        await JsSIPService.Start(options);
+                    }
+                }
+
+                MediaDevices = await JsSIPService.MediaDevices();
             }
-            await base.OnAfterRenderAsync(firstRender);
         }
 
         protected async Task VoiceCall() => await JsSIPService.Call(Destination, false);

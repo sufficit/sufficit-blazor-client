@@ -22,12 +22,12 @@ namespace Sufficit.Blazor.Client
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage responseMessage = new HttpResponseMessage();
             try
             {
                 var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
                 
-                if (!authState.User.Identity.IsAuthenticated)
+                if (authState != null && authState.User.Identity != null && !authState.User.Identity.IsAuthenticated)
                 {
                     // if user is not authenticated, immediately set response status to 401 Unauthorized
                     responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);

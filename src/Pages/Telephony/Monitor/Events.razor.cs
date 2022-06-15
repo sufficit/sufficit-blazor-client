@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Sufficit.Blazor.UI.Material;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
+    [Authorize(Roles = "manager")]
     public partial class Events : MonitorTelephonyBasePageComponent
     {
         protected override string Title => "Eventos";

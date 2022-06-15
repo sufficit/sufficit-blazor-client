@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client
 {
-    class Program
+    public class Program
     {
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             // Para finalizar vamos construir o aplicativo para o usuário final
-            builder.RootComponents.Add<App>("#app");
+            //builder.RootComponents.Add<App>("app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             #region INCLUDING A SEPARATED FILE FOR EVENTS PANEL
@@ -40,6 +40,6 @@ namespace Sufficit.Blazor.Client
             #endregion
 
             await new Startup(builder).Build().RunAsync();
-        }
+        }        
     }
 }

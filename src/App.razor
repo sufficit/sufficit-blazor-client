@@ -15,7 +15,7 @@
                             </div>
                     </Authorizing>
                     <NotAuthorized>
-                        @if (!context.User.Identity.IsAuthenticated)
+                        @if (context.User.Identity == null || !context.User.Identity.IsAuthenticated)
                         {
                             <div class="card customNotAuthenticated">
                                 <div class="card-body">
