@@ -42,10 +42,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             }
         }
 
-        private void TextSearchValueChanged(string value) 
+        private async void TextSearchValueChanged(string? value) 
         { 
             Items.Clear(); 
-            StateHasChanged(); 
+            await InvokeAsync(StateHasChanged); 
         }
 
         protected override async Task OnInitializedAsync()
@@ -79,12 +79,12 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             }
         }
 
-        private void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
+        private async void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
         {
             var json = e.GetType() + " :: " + JsonSerializer.Serialize(e, e.GetType());
             if (!string.IsNullOrEmpty(TextSearch?.Value))
             {
-                if (!json.Contains(TextSearch?.Value))
+                if (!json.Contains(TextSearch?.Value!))
                 {
                     return;
                 }
@@ -94,7 +94,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 Items.Dequeue();
             
             Items.Enqueue(json);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

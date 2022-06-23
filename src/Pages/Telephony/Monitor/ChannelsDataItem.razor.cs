@@ -14,17 +14,19 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
     public partial class ChannelsDataItem
     {
         [Parameter]
-        public ChannelInfoMonitor Item { get; set; }
+        [EditorRequired]
+        public ChannelInfoMonitor Item { get; set; } = default!;
 
         protected override void OnParametersSet()
         {
-            base.OnParametersSet();
-            Item.OnChanged += Item_OnChanged;
+            base.OnParametersSet();            
+            Item.OnChanged += ItemChanged;
         }
 
-        private void Item_OnChanged(IMonitor sender, object state)
+
+        private async void ItemChanged(IMonitor? sender, object? state)
         {
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@if (Clients.Any())
+{
+    <div class="table-responsive">    
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th class="text-left">Titulo</th>
+                    <th class="text-center">Vencimento</th>
+
+                </tr>
+            </thead>                             
+            <tbody>
+                @foreach (var item in Clients)
+                {
+                    <tr>
+                        <td class="text-left">
+                            <Button 
+                                Text="Selecionar" 
+                                ToolTipDescription="Rodar CheckUp"
+                                ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
+                                Icon="arrow_circle_right" 
+                                Size="UI.Material.ComponentSize.Small" 
+                                Color="UI.Material.ColorKind.Primary" 
+                                CssClass="btn-icon-only m-0" 
+                                OnClick="@(() => OnSelect?.Invoke(item.Id))"
+                                />
+                        </td>
+                        <td class="text-center">
+                            <ContactAvatar IDReference="item.Id" Size="UI.Material.ComponentSize.Tiny" />                                   
+                        </td>
+                        <td class="text-left">@item.Title</td>
+                        <td class="text-center">@item.Expiration</td>
+                    </tr>
+                }
+            </tbody>
+        </table>    
+    </div>
+} 
+else
+{
+    <div>Nenhum resultado encontrado para (@TextSearch?.Value) ! ... </div>
+}

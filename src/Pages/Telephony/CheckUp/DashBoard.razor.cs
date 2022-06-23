@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sufficit.Blazor.Client.Pages.Telephony
+namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 {
     [Authorize(Roles = "manager")]
-    public partial class CheckUp : TelephonyBasePageComponent
+    public partial class DashBoard : TelephonyBasePageComponent
     {
         [Inject]
-        IWebSocketService WSClient { get; set; }
+        IWebSocketService WSClient { get; set; } = default!;
 
         protected override string Title => "CheckUp";
 
@@ -26,9 +26,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             return base.OnInitializedAsync();
         }
 
-        private void WSClient_OnChanged(object sender, EventArgs e)
+        private async void WSClient_OnChanged(object? sender, EventArgs e)
         {
-            this.StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

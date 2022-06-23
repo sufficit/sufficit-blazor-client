@@ -18,11 +18,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override string Description => "Filtro de canais ativos";
 
         [Inject]
-        private EventsPanelService Service { get; set; } = default!;
+        EventsPanelService Service { get; set; } = default!;
 
         protected int Count => Service.Channels.Count;
 
-        protected string? FilterText => TextSearch.Value;
+        protected string? FilterText => TextSearch?.Value;
 
         protected IEnumerable<ChannelInfoMonitor> GetItems()
         {
@@ -47,7 +47,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [CascadingParameter]
         public TextSearchControl? TextSearch { get; set; }
 
-        private void TextSearchValueChanged(string value) 
+        private void TextSearchValueChanged(string? value) 
         { 
             StateHasChanged(); 
         }
@@ -67,7 +67,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             Service.Channels.OnChanged += Channels_OnChanged;
         }
 
-        private async void Channels_OnChanged(IMonitor sender, object state)
+        private async void Channels_OnChanged(IMonitor? sender, object? state)
         {            
             await InvokeAsync(StateHasChanged);
         }
@@ -75,7 +75,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-
             if (TextSearch != null)
             {
                 TextSearch.Toggle(true);
