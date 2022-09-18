@@ -4,17 +4,10 @@
 @using Sufficit.Identity
 @inject IJSRuntime JSRuntime
 
-<SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3">
-
+<SideBar CssClass="navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 z-index-1">
     <div class="sidenav-header">
-        <a class="navbar-brand m-0" style="text-align: center;" href="/">
-            <img src="../../assets/img/logos/logo.png" class="navbar-brand-img h-100 logo" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">
-                <img src="../../assets/img/logos/logo-texto.png" class="navbar-brand-img h-100 textlogo" alt="main_logo" />
-            </span>
-        </a>
+        <ClientView></ClientView>        
     </div>
-    <hr class="horizontal light mt-0 mb-0" />
     <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <AuthorizeView Context="IdentityUser">                
@@ -28,8 +21,7 @@
                     <SideBarMaterialItem Title="Entrar" Icon="login" @onclick="LogIn"></SideBarMaterialItem>
                 </NotAuthorized>
             </AuthorizeView>
-            <hr class="horizontal light mt-0" />
-
+            <hr class="horizontal light mt-0" />            
             <SideBarMaterialItem Title="Dashboard" Description="Modelos de painéis e exibições" Icon="dashboard" >
                 <SideBarMaterialItem Title="Default" Link="material"></SideBarMaterialItem>
                 <SideBarMaterialItem Title="Toast" Link="dashboard/toast"></SideBarMaterialItem>
@@ -63,9 +55,10 @@
                             <SideBarMaterialItem Title="CheckUp" Link="pages/telephony/checkup"></SideBarMaterialItem>
                         </AuthorizeView>
                     </SideBarMaterialItem>
+                    <SideBarMaterialItem Title="IVR | Menus" Link="pages/telephony/ivr/dashboard" Icon="list"></SideBarMaterialItem>
                 </Authorized>                
             </AuthorizeView>
-            <li style="clear: both; height: 100px;">&nbsp;</li>
+            <li style="clear: both;"></li>
         </ul>
     </div>
     

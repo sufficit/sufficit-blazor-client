@@ -1,0 +1,98 @@
+﻿@layout FullScreenLayout
+@page "/gateway/chatwoot"
+@using Microsoft.Extensions.Logging
+@using Sufficit.Blazor.Gateway.ChatWoot
+@using System.Text.Json
+
+<div class="card p-5">
+    @if (Received)
+    {
+        @if (Redirecting)
+        {
+            <h2>Ação definida: @Action</h2>
+            <h5>Redirecionando ...</h5>   
+        } else {
+            <h2>Mensagem recebida</h2>
+            if (ContextId != Guid.Empty)
+            {
+                <h5>Pesquisando cliente na base de dados ...</h5>
+            } else {
+                <h5>ID do Cliente ainda não definido para esta conversa.</h5>
+            }
+        }
+    } else {
+        <h2>Aguardando o ChatWoot indicar o cliente ...</h2>
+        <h5>Se demorar mais que 5 segundos, volte e tente novamente.</h5>        
+    }
+</div>
+
+@code{
+    [Inject]
+    MessageEventInterop Interop { get; set; } = default!;
+
+    [Inject]
+    ILogger<ChatWoot> Logger { get; set; } = default!;
+
+    [Inject]
+    IContextView ContextView { get; set; } = default!;
+
+    [Inject] 
+    NavigationManager NavManager { get; set; } = default!;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Action { get; set; }
+
+    /// <summary>
+    /// Received javascript message from chatwoot ?
+    /// </summary>
+    protected bool Received { get; set; }
+
+    /// <summary>
+    /// Client received from ChatWoot
+    /// </summary>
+    protected Guid ContextId;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected bool Redirecting { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) 
+    {
+        if (!firstRender) return;
+        await Interop.SetupMessageEventCallback(args => HandleMessageEvent(args));
+    }
+
+    private async Task HandleMessageEvent(string @event) 
+    {
+        Received = true;
+        await InvokeAsync(StateHasChanged);
+
+        var options = new JsonSerializerOptions();
+        options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        options.PropertyNameCaseInsensitive = true;
+        options.UnknownTypeHandling = System.Text.Json.Serialization.JsonUnknownTypeHandling.JsonElement;
+
+        var msgEvent = JsonSerializer.Deserialize<MessageEvent>(@event, options);
+        Logger.LogTrace($"Contact Id: {msgEvent.Data.Contact.Id}");
+        if (msgEvent.Data.Contact.CustomAttributes.TryGetProperty("contextid", out JsonElement contextId))
+        {
+            if(contextId.TryGetGuid(out ContextId))
+            {
+                if (Action == "sales")
+                {
+                    Redirecting = true;
+                    await InvokeAsync(StateHasChanged);
+                    NavManager.NavigateTo("https://www.sufficit.com.br/vendas/controle?fullviewport=true&idobjeto=" + ContextId);
+                }
+                else
+                {
+                    Logger.LogTrace($"Context Id Found: {ContextId}");
+                    await ContextView.Update(ContextId);
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+    }
+}

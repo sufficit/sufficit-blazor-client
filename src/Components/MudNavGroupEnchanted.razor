@@ -1,0 +1,30 @@
+﻿@inherits MudNavGroup
+<div @attributes="UserAttributes" class=@Classname disabled="@Disabled" style="@Style">
+    <button @onclick="ExpandedToggle" tabindex="0" class="@ButtonClassname">       
+        @if (!string.IsNullOrWhiteSpace(Icon)) {
+            @if (IconAsAvatar) {
+                <MudAvatar Image="@Icon" Color="@IconColor" Class="@IconClassname" Size="Size.Small" />
+            } else {
+                <MudIcon Icon="@Icon" Color="@IconColor" Class="@IconClassname" />
+            }
+        } else {
+            <MudAvatar Color="@IconColor" Class="@IconClassname" Size="Size.Small" Variant="Variant.Outlined">@GetInitials()</MudAvatar>
+        }
+        <div class="@GetTitleClass">
+            <span class="mud-nav-link-title">@Title</span>
+            @if (!string.IsNullOrWhiteSpace(SubTitle))
+            {
+                <span class="mud-nav-link-subtitle">@SubTitle</span>
+            }
+        </div>        
+        @if (!HideExpandIcon)
+        {
+            <MudIcon Icon="@ExpandIcon" class="@ExpandIconClassname" />
+        }
+    </button>
+    <MudCollapse Expanded="@Expanded" MaxHeight="@MaxHeight" Class="mud-navgroup-collapse">
+        <MudNavMenu>
+            @ChildContent
+        </MudNavMenu>
+    </MudCollapse>
+</div>

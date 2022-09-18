@@ -1,0 +1,29 @@
+﻿@inject IJSRuntime JS
+<div class="card h-100">
+    <div class="card-header pb-0">
+        <h2>Cálculo de latência</h2>
+        @if (latency is null)
+        {
+            <span>Calculando ...</span>
+        }
+        else
+        {
+            <span>@(latency.Value.TotalMilliseconds)ms</span>
+        }
+    </div>
+</div>
+@code {
+    private DateTime startTime;
+    private TimeSpan? latency;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            startTime = DateTime.UtcNow;
+            var _ = await JS.InvokeAsync<string>("toString");
+            latency = DateTime.UtcNow - startTime;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Sufficit.Client;
-using Sufficit.Blazor.UI.Material.Extensions;
 using Sufficit.Telephony.JsSIP;
 using System;
 using System.Collections.Generic;

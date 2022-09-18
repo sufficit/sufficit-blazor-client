@@ -1,0 +1,24 @@
+﻿@if (View.ContextId != Guid.Empty)
+{
+    <div class="card border-light bg-light shadow-none text-center" style="min-height: auto; padding: 0; margin-bottom: -5px;" data-animation="true">
+        <div class="card-header card-avatar bg-light p-1 z-index-1">
+            <ContactAvatar IDReference="View.ContextId" Size="Size.Large"></ContactAvatar>    
+        </div>
+
+        <div class="card-body pb-0">
+            <MudButtonGroup Class="card-actions mt-n16 d-flex mx-auto justify-center pb-3" Variant="Variant.Text" Size="Size.Small" DisableElevation="true">
+                <MudIconButton Icon="@Icons.Material.Filled.Refresh" OnClick="ChooseClicked"></MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Href="@ProfileLink" Target="_blank"></MudIconButton>
+            </MudButtonGroup>
+            @if (true || !Collapsed)           
+            {
+                <h6 class="card-title text-truncate">@ContextTitle</h6>
+                @if (!string.IsNullOrWhiteSpace(ContextDocument))
+                {
+                    <p class="card-text text-truncate">@ContextDocument</p>
+                }
+            }
+        </div>
+    </div>
+    <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+}

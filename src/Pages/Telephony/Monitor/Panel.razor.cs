@@ -25,66 +25,54 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         protected Exception? ErrorConfig { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-            if (firstRender)
-            {
-                if (!Service.IsConfigured)
-                {
-                    try
-                    {
-                        var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
-                        if (endpoints != null)
-                        {
-                            var ep = endpoints.FirstOrDefault();
-                            if (ep != null)
-                            {
-                                var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
-                                var client = new AMIHubClient(options);
-                                Service.Configure(client);
-                                ErrorConfig = null;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorConfig = ex;
-                    }
-                }
+        protected bool FirstRendered { get; set; }
 
-                // Getting cards
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+            if (!Service.IsConfigured)
+            {
                 try
                 {
-                    var options = await APIClient.Telephony.EventsPanel.GetServiceOptions();
-                    if (options != null)
+                    var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
+                    if (endpoints != null)
                     {
-                        var weps = JsonSerializer.Serialize(options);
-                        Console.WriteLine(weps);
-
-                        Service.Panel.Cards.Clear();
-                        Service.OnConfigure(options);
+                        var ep = endpoints.FirstOrDefault();
+                        if (ep != null)
+                        {
+                            Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
+                            var options = new AMIHubClientOptions() { EndPoint = new Uri(ep.Endpoint) };
+                            var client = new AMIHubClient(options);
+                            Service.Configure(client);
+                            ErrorConfig = null;
+                        }
                     }
-                    else { Console.WriteLine("null options received from api"); }
                 }
                 catch (Exception ex)
                 {
                     ErrorConfig = ex;
                 }
+            }
 
-                if (Service.CardAvatarHandler == null)
+            // Getting cards
+            try
+            {
+                var options = await APIClient.Telephony.EventsPanel.GetServiceOptions();
+                if (options != null)
                 {
-                    try
-                    {
-                        Service.CardAvatarHandler = GetAvatarUrl;
-                        await Service.StartAsync(System.Threading.CancellationToken.None);
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorConfig = ex;
-                    }
+                    Service.Panel.Cards.Clear();
+                    Service.OnConfigure(options);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorConfig = ex;
+            }
+
+            if (Service.CardAvatarHandler == null)
+                Service.CardAvatarHandler = GetAvatarUrl;
+
+            FirstRendered = true;
         }
 
         protected async Task<string> GetAvatarUrl(EventsPanelCard monitor)

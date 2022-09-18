@@ -1,0 +1,18 @@
+﻿@namespace Sufficit.Blazor.Client.Shared
+<MudDialog Options="DialogOptions" Class="w-100">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Business" Class="mr-3 mb-n1" />
+            Escolha do cliente | contexto
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="FilterText" Margin="Margin.Dense" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
+        <MudDivider DividerType="DividerType.Middle" Light="true" Style="margin: 1rem;"></MudDivider>
+        <ClientList Filter="@FilterText" Limit="3" SelectedItemChanged="@OnClientSelect"></ClientList>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Close">Fechar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="OnClearClicked">Limpar</MudButton>
+    </DialogActions>
+</MudDialog>

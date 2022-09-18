@@ -1,0 +1,101 @@
+﻿@using Sufficit.Blazor.UI.Material.Components
+@using Sufficit.Blazor.UI.Material.Choices
+<MudCard Class="ma-2" Elevation="25">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Filled.FormatListBulleted"></MudIcon>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Menu | Interactive Voice Response</MudText>
+            <MudText Typo="Typo.body2">id: @Item.Id</MudText>
+        </CardHeaderContent>        
+        <CardHeaderActions>
+            @if(Item.Update > DateTime.MinValue)
+            {
+                <MudElement Style="padding: 1rem; display: flex;">
+                    <MudTooltip Text="Última atualização">
+                        <MudStack Row="true">
+                            <MudText Typo="Typo.body2">@Item.Update</MudText>
+                            <MudIcon Size="Size.Small" Icon="@Icons.Filled.EditCalendar"></MudIcon>
+                        </MudStack>
+                    </MudTooltip>
+                </MudElement>
+            }
+        </CardHeaderActions>        
+    </MudCardHeader>
+    <MudDivider DividerType="DividerType.Middle" Light="true"></MudDivider>
+    <MudCardContent>
+        <div class="border-radius-xl bg-white js-active" data-animation="FadeIn">                
+            <div class="form-content">
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-3">
+                        <div class="input-group input-group-static">
+                            <label for="title">Titulo</label>
+                            <input type="text" id="title" class="form-control" placeholder="Principal" @bind="@Item.Title">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-9 mt-3 mt-sm-0">
+                        <div class="input-group input-group-static">
+                            <label for="description">Descrição</label>
+                            <input type="text" id="description" class="form-control" placeholder="Usado na entrada dos clientes" @bind="@Item.Description">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-5 mt-3 mt-sm-0 text-start">  
+                        <div class="input-group input-group-static">
+                            <label>Áudio de saudação</label>
+                            <div class="choices is-open is-focused" data-type="select-one">
+                                <Select CssClass="form-control choices-list" Selected="@Item.IdAnnouncement?.ToString()" OnChanged="OnAnnouncementChange">
+                                    <Option Value="@Guid.Empty.ToString()">Nenhum áudio</Option>
+                                    @if (Audios != null)
+                                    {
+                                        @foreach (var item in Audios)
+                                        {
+                                            <Option Value="@item.Id.ToString()">@item.Title</Option>
+                                        }                                
+                                    }
+                                </Select>
+                            </div>
+                        </div>                  
+                    </div>
+                    <div class="col-12 col-sm-5 mt-3 mt-sm-0 text-start">
+                        <InputGroup CssClass="input-group-static">
+                            <Label>Áudio de despedida</Label>
+                            <Choices Selected="@Item.IdValediction?.ToString()" OnChanged="OnValedictionChange">
+                                <Option CssClass="choices-item" Value="@Guid.Empty.ToString()" Label="Nenhum áudio" Default="true" />
+                                @if (Audios != null)
+                                {
+                                    @foreach (var item in Audios)
+                                    {
+                                        <Option CssClass="choices-item" Value="@item.Id.ToString()" Label="@item.Title" />
+                                    }
+                                }
+                            </Choices>
+                        </InputGroup>         
+                    </div>
+                    <div class="col-12 col-sm-2 mt-3 mt-sm-0">
+                        <div class="input-group input-group-static">
+                            <label>Extensão</label>
+                            <input class="form-control" @bind="@Item.Extension">
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </div>         
+    </MudCardContent>
+    <MudDivider DividerType="DividerType.Middle" Light="true"></MudDivider>
+    <MudCardActions Style="padding: .5rem 1.5rem .5rem 1.5rem;">
+        <MudStack Row="true">
+            <MudSwitch @bind-Checked="@Item.CanSkipAnnouncement" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
+                <MudText Typo="Typo.body1">Permite pular</MudText>
+                <MudText Typo="Typo.caption">Ao escolher cancela o áudio !</MudText>
+            </MudSwitch>
+            <MudDivider DividerType="DividerType.Middle" Vertical="true" Light="true"></MudDivider>
+            <MudSwitch @bind-Checked="@Item.DirectDial" ThumbIcon="@Icons.Material.Filled.Person" Color="@Color.Primary">
+                <MudText Typo="Typo.body1">Discar para ramal diretamente</MudText>
+                <MudText Typo="Typo.caption">Permite discar uma extensão não listada, como um ramal diretamente, ex: 6001</MudText>
+            </MudSwitch>
+        </MudStack>
+    </MudCardActions>
+</MudCard>

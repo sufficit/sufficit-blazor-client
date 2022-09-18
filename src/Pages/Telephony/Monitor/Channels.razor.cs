@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "manager")]
-    public partial class Channels : MonitorTelephonyBasePageComponent
+    public partial class Channels : MonitorTelephonyBasePageComponent, IDisposable
     {
         protected override string Title => "Canais";
 
@@ -47,24 +47,19 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [CascadingParameter]
         public TextSearchControl? TextSearch { get; set; }
 
-        private void TextSearchValueChanged(string? value) 
+        private async void TextSearchValueChanged(string? value) 
         { 
-            StateHasChanged(); 
+            await InvokeAsync(StateHasChanged); 
         }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnAfterRender(bool firstRender)
         {
-            await base.OnInitializedAsync();            
-            try
-            {
-                await Service.StartAsync(System.Threading.CancellationToken.None);
-            }
-            catch (Exception ex)
-            {
-                ErrorConfig = ex;
-            }            
+            base.OnAfterRender(firstRender);
+            if (!firstRender) return;
 
             Service.Channels.OnChanged += Channels_OnChanged;
+            if (TextSearch != null)
+                TextSearch.OnValueChanged += TextSearchValueChanged;
         }
 
         private async void Channels_OnChanged(IMonitor? sender, object? state)
@@ -75,11 +70,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            if (TextSearch != null)
-            {
-                TextSearch.Toggle(true);
-                TextSearch.OnValueChanged += TextSearchValueChanged;
-            }
+            if (TextSearch != null)            
+                TextSearch.Toggle(true);            
+        }
+
+        void IDisposable.Dispose()
+        {
+            Service.Channels.OnChanged -= Channels_OnChanged;
+            if(TextSearch != null)
+                TextSearch.OnValueChanged -= TextSearchValueChanged;
         }
     }
 }

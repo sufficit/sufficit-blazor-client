@@ -11,6 +11,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
     public partial class EventsData 
     {
         [Parameter]
-        public IEnumerable<string>? Items { get; set; }      
+        [EditorRequired]
+        public IEnumerable<string> Items { get; set; } = default!;  
     }
 }

@@ -1,23 +1,9 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sufficit.Blazor.Client.Models;
-using Sufficit.Blazor.Client.Services;
 using Microsoft.Extensions.Logging;
-using Sufficit.Client;
-using Sufficit.Identity.Client;
-using Sufficit.Blazor.UI.Material.Extensions;
-using Sufficit.Telephony.EventsPanel;
-using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
-using System.Net.Http;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using Sufficit.Blazor;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Sufficit.Blazor.Client
 {

@@ -5,82 +5,118 @@
 @using Sufficit.Blazor.Client.Models
 @inherits TelephonyBasePageComponent 
 
-@error
-<div class="card">
-    <div class="table-responsive">
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <td style="width: 110px; text-align: left;">                        
-                        <a data-tooltip="Itens encontrados">
-                            <asp:Label ID="Label1" runat="server" CssClass="ui orange tag icon label">
-                                <i class="bullseye icon"></i> ( 000 )                                
-                            </asp:Label>
-                        </a>
-                        <asp:LinkButton ID="LBExport" runat="server" OnClick="ToSpreadSheet" data-tooltip="Exportar esse relatório em formato de planilha" data-tooltip-position="right center">
-                            <span class="ui green icon label"><i class="file excel icon"></i></span>
-                        </asp:LinkButton>
-                        <a class="ui blue icon label suff-fullviewporttoggle" data-tooltip="alternar tela cheia" data-tooltip-position="bottom center">
-                            <i class="expand arrows alternate icon"></i>
-                        </a>
-                    </td>
-                    <td class="center aligned" style="width: 160px;">Data / Hora</td>
-                    <td class="center aligned" style="min-width: 160px;">DID</td>
-                    <td class="left aligned" style="min-width: 160px;">Origem</td>
-                    <td class="left aligned" style="min-width: 160px;">Destino</td>
-                    <td style="width: 90px;">Tempo (s)</td>
-                    <td style="min-width: 80px; text-align: left; padding-left: 8px;">(R$) Custo</td>
-                    <td style="text-align: center;">Classificação</td>
-                </tr>
-            </thead>                             
-            <tbody>
-                @foreach(var call in CallList){
-                    <tr>
-                        <td>info</td>
-                        <td>@call.Start.ToLocalTime()</td>
-                        <td class="center aligned">@call.DID</td>
-                        <td class="center aligned">@call.Origin</td>
-                        <td class="left aligned">@call.Destination</td>
-                        <td class="left aligned">@call.Duration</td>
-                        <td style="text-align: center;">@call.Billing</td>            
-                        <td>@call.Model</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+@if (View.ContextId == Guid.Empty)
+{
+    <ClientMissing></ClientMissing>
+}
 
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="card card-error">@error</div>
+}
+
+@if (CallList != null) {
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+                <thead>
+                    <tr>
+                        <td style="width: 110px; text-align: left;">                        
+                            <a data-tooltip="Itens encontrados">
+                                <asp:Label ID="Label1" runat="server" CssClass="ui orange tag icon label">
+                                    <i class="bullseye icon"></i> ( 000 )                                
+                                </asp:Label>
+                            </a>
+                            <asp:LinkButton ID="LBExport" runat="server" OnClick="ToSpreadSheet" data-tooltip="Exportar esse relatório em formato de planilha" data-tooltip-position="right center">
+                                <span class="ui green icon label"><i class="file excel icon"></i></span>
+                            </asp:LinkButton>
+                            <a class="ui blue icon label suff-fullviewporttoggle" data-tooltip="alternar tela cheia" data-tooltip-position="bottom center">
+                                <i class="expand arrows alternate icon"></i>
+                            </a>
+                        </td>
+                        <td class="center aligned" style="width: 160px;">Data / Hora</td>
+                        <td class="center aligned" style="min-width: 160px;">DID</td>
+                        <td class="left aligned" style="min-width: 160px;">Origem</td>
+                        <td class="left aligned" style="min-width: 160px;">Destino</td>
+                        <td style="width: 90px;">Tempo (s)</td>
+                        <td style="min-width: 80px; text-align: left; padding-left: 8px;">(R$) Custo</td>
+                        <td style="text-align: center;">Classificação</td>
+                    </tr>
+                </thead>                             
+                <tbody>
+                    @foreach(var call in CallList){
+                        <tr>
+                            <td>info</td>
+                            <td>@call.Start.ToLocalTime()</td>
+                            <td class="center aligned">@call.DID</td>
+                            <td class="center aligned">@call.Origin</td>
+                            <td class="left aligned">@call.Destination</td>
+                            <td class="left aligned">@call.Duration</td>
+                            <td style="text-align: center;">@call.Billing</td>            
+                            <td>@call.Model</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
 
 @code {
-    [Inject] APIClientService Service { get; set; }
+    [Inject] 
+    APIClientService Service { get; set; } = default!;
+
+    [Inject]
+    IContextView View { get; set; } = default!;
 
     protected override string Title => "Chamadas";
 
     protected override string Description => "Chamadas Telefônicas";
 
-    protected IEnumerable<ICallRecordBasic> CallList = new List<ICallRecordBasic>();
+    protected IEnumerable<ICallRecordBasic>? CallList;
 
     private string error;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        CallSearchParameters parameters = new CallSearchParameters();
-        parameters.IDContext = Guid.Parse("d21cfb04-9d37-473b-837c-67591a26feed");
-        parameters.Start = DateTime.Now.Date;
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
 
-        try
+        View.OnChanged += ContextChanged;
+
+        if (View.ContextId != Guid.Empty)
+            await Filter(View.ContextId);
+    }
+
+    protected async void ContextChanged(Guid context)
+        => await Filter(View.ContextId);
+
+    protected async Task Filter(Guid ContextId)
+    {
+        CallList = null;
+        error = string.Empty;
+
+        if (ContextId != Guid.Empty)
         {
-            CallList = await Service.Telephony.CallSearchAsync(parameters);
-            error = string.Empty;
+            CallSearchParameters parameters = new CallSearchParameters();
+            parameters.IDContext = ContextId;
+            parameters.Start = DateTime.Now.Date;
+
+            try
+            {
+                CallList = await Service.Telephony.CallSearchAsync(parameters);                
+            }
+            catch (UnauthorizedAccessException)
+            {
+                error = "Não autorizado";
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
         }
-        catch (UnauthorizedAccessException)
-        {
-            error = "Não autorizado";
-        }
-        catch(Exception ex)
-        {
-            error = ex.Message;
-        }
+
+        // refresh front end
+        await InvokeAsync(StateHasChanged);
     }
 }

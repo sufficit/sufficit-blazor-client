@@ -3,7 +3,7 @@
         <div class="dataTable-top">
             <div class="dataTable-dropdown">
                 <label>
-                    <Select CssClass="dataTable-selector" @ref="SelectPageSize">                                    
+                    <Select CssClass="dataTable-selector" Selected="@MaxSelected" OnChanged="SelectPageSize_OnChanged">
                         <Option Label="5" />
                         <Option Label="10" />
                         <Option Label="15" />
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="dataTable-container">
-            <Table @ref="table" class="table table-flush dataTable-table" id="datatable-search">
+            <Table class="table table-flush dataTable-table" id="datatable-search">
                 <thead class="thead-light">
                     <tr>
                         <th data-sortable="">

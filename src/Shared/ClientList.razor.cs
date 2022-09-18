@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 using Sufficit.Blazor.UI.Material;
 using Sufficit.Client;
-using Sufficit.Contacts;
 using Sufficit.Sales;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Shared
@@ -15,46 +17,65 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject]
         APIClientService APIClient { get; set; } = default!;
 
-        [Parameter]
-        public string? Filter { get; set; }
+        [Inject]
+        IContextView View { get; set; } = default!;
 
         [Parameter]
-        public Action<Guid>? OnSelect { get; set; }
+        public string? Filter {
+            get => _filter;
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    Table?.ReloadServerData();
+                }
+            }
+        }
+
+        private string? _filter = string.Empty;
+
+        [EditorRequired]
+        protected MudTable<IClient>? Table { get; set; }
+
+        [Parameter]
+        public EventCallback<string?> FilterChanged { get; set; }
+
+        [Parameter]
+        public EventCallback<IClient> SelectedItemChanged { get; set; }
 
         [Parameter]
         public uint Limit { get; set; }
 
-        [CascadingParameter]
-        public TextSearchControl? TextSearch { get; set; }
+        [Parameter]
+        public uint TimeOut { get; set; } = 1500;
 
-        protected List<IClient> Clients { get; } = new List<IClient>();
+        protected bool Updating { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+
+        protected string RowClass(IClient client, int i)
         {
-            await base.OnAfterRenderAsync(firstRender);
-            if (firstRender)
-            {
-                if(TextSearch != null)
-                    TextSearch.OnValueChanged += TextSearch_OnValueChanged;
-
-                await Update();
-            }
+            return View.ContextId == client.Id ? "bg-gradient-light" : string.Empty;
         }
 
-        private async void TextSearch_OnValueChanged(string? obj)
-        {
-            Filter = obj;
-            await Update();
-        }
+        protected IEnumerable<IClient> Clients { get; set; } = Array.Empty<IClient>();
 
-        private async Task Update()
+        CancellationTokenSource? TokenSource;
+
+        protected async Task<TableData<IClient>> GetData(TableState _)
         {
-            Clients.Clear();
-            foreach (var item in await APIClient.Sales.GetClients(Filter, Limit))
+            // only filter if text is set
+            if (!string.IsNullOrWhiteSpace(_filter))
             {
-                Clients.Add(item);
-            }
-            await InvokeAsync(StateHasChanged);
+                if (TokenSource != null) 
+                    TokenSource.Cancel(false);
+
+                TokenSource = new CancellationTokenSource((int)TimeOut);
+                Clients = await APIClient.Sales.GetClients(_filter, Limit, TokenSource.Token);
+            } 
+            else Clients = Array.Empty<IClient>();
+
+            return new TableData<IClient>() { Items = Clients };
         }
     }
 }

@@ -7,45 +7,33 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "manager")]
-    public partial class Peers : MonitorTelephonyBasePageComponent
+    public partial class Peers : MonitorTelephonyBasePageComponent, IDisposable
     {
         protected override string Title => "Pares";
 
         protected override string Description => "Estado de pares";
 
         [Inject]
-        private EventsPanelService? Service { get; set; }
+        private EventsPanelService EPService { get; set; } = default!;
 
         protected Exception? ErrorConfig { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnAfterRender(bool firstRender)
         {
-            await base.OnInitializedAsync();
-            if (Service != null)
-            {
-                try
-                {
-                    await Service.StartAsync(System.Threading.CancellationToken.None);
-                }
-                catch (Exception ex)
-                {
-                    ErrorConfig = ex;
-                }
-            }
+            base.OnAfterRender(firstRender);
+            if (!firstRender) return;
+
+            EPService.Peers.OnChanged += Peers_OnChanged;
         }
 
-        protected override void OnParametersSet()
+        private async void Peers_OnChanged(IMonitor? sender, object? state)
         {
-            base.OnParametersSet();
-            if(Service != null)
-            {
-                Service.Peers.OnChanged += Peers_OnChanged;
-            }
+            await InvokeAsync(StateHasChanged);
         }
 
-        private void Peers_OnChanged(IMonitor sender, object state)
+        void IDisposable.Dispose()
         {
-            
+            EPService.Peers.OnChanged -= Peers_OnChanged;
         }
     }
 }

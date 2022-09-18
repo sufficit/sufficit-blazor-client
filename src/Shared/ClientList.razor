@@ -1,44 +1,36 @@
-﻿@if (Clients.Any())
-{
-    <div class="table-responsive">    
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th class="text-left">Titulo</th>
-                    <th class="text-center">Vencimento</th>
-
-                </tr>
-            </thead>                             
-            <tbody>
-                @foreach (var item in Clients)
-                {
-                    <tr>
-                        <td class="text-left">
-                            <Button 
-                                Text="Selecionar" 
-                                ToolTipDescription="Rodar CheckUp"
-                                ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
-                                Icon="arrow_circle_right" 
-                                Size="UI.Material.ComponentSize.Small" 
-                                Color="UI.Material.ColorKind.Primary" 
-                                CssClass="btn-icon-only m-0" 
-                                OnClick="@(() => OnSelect?.Invoke(item.Id))"
-                                />
-                        </td>
-                        <td class="text-center">
-                            <ContactAvatar IDReference="item.Id" Size="UI.Material.ComponentSize.Tiny" />                                   
-                        </td>
-                        <td class="text-left">@item.Title</td>
-                        <td class="text-center">@item.Expiration</td>
-                    </tr>
-                }
-            </tbody>
-        </table>    
-    </div>
-} 
-else
-{
-    <div>Nenhum resultado encontrado para (@TextSearch?.Value) ! ... </div>
-}
+﻿<MudTable @ref="Table"    
+    RowClassFunc="RowClass" 
+    RowStyle="cursor: pointer;" 
+    T="Sufficit.Sales.IClient" 
+    Dense="true" 
+    Hover="true" 
+    Elevation="0" 
+    Style="padding: 0;" 
+    Breakpoint="Breakpoint.Sm"    
+    LoadingProgressColor="Color.Info"
+    ServerData="GetData"    
+    SelectedItemChanged="SelectedItemChanged">
+    <HeaderContent>
+        @if (Clients.Any())
+        {
+            <MudTh></MudTh>
+            <MudTh Style="text-align:left">Titulo</MudTh>
+            <MudTh Style="text-align:center">Vencimento</MudTh>
+        }
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
+            <ContactAvatar IDReference="@context.Id" Size="Size.Small" />
+        </MudTd>
+        <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
+        <MudTd DataLabel="Vencimento" Style="text-align:center">@context.Expiration.ToString("dd/MM/yyyy")</MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        @if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+        } else {
+            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+        }
+    </NoRecordsContent>
+</MudTable>

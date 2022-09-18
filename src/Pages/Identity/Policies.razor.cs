@@ -31,23 +31,26 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         [Inject]
         protected ILogger<Policies> Logger { get; set; } = default!;
 
-        private string Status { get; set; }
+        private string? Status { get; set; }
 
-        private GetUsersResponse UsersResponse { get; set; }
+        private GetUsersResponse? UsersResponse { get; set; }
 
-        private string UsersMessage { get; set; }
+        private string? UsersMessage { get; set; }
 
-        private Sufficit.Identity.Client.User UserSelected { get; set; }
+        private Sufficit.Identity.Client.User? UserSelected { get; set; }
 
-        private IEnumerable<UserClaimPolicy> UserPolicies { get; set; }
+        private IEnumerable<UserClaimPolicy>? UserPolicies { get; set; }
 
-        private string UserClaimsMessage { get; set; }
+        private string? UserClaimsMessage { get; set; }
 
-        public TextInput textInput { get; set; }
+        /// <summary>
+        /// Object reference
+        /// </summary>
+        public TextInput? TextInputReference { get; set; }
 
         [Parameter]
         [SupplyParameterFromQuery]
-        public string Filter { get; set; }
+        public string? Filter { get; set; }
 
         [Parameter]
         [SupplyParameterFromQuery]
@@ -72,21 +75,22 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
             if (!string.IsNullOrWhiteSpace(Filter))
             {
-                await textInput?.Update(Filter, true);
-                textInput.SetDisabled(true);
+                throw new NotImplementedException();
+                //TextInputReference.Update(Filter, true);
+                //TextInputReference.SetDisabled(true);
             }
 
             var statusPrevious = Status;
             Status = (await BIService.Identity.Health())?.Status;
-            if (statusPrevious != Status) StateHasChanged();
+            if (statusPrevious != Status) 
+                await InvokeAsync(StateHasChanged);
         }
 
-        protected async Task ValueChanged(ChangeEventArgs args)
+        protected async Task ValueChanged(string? searchText)
         {
-            var searchText = args.Value.ToString();
             if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
             {
-                UsersResponse = await BIService.Identity.Users.GetUsersAsync(args.Value.ToString());
+                UsersResponse = await BIService.Identity.Users.GetUsersAsync(searchText);
                 if (UsersResponse == null)
                 {
                     UsersResponse = null;
@@ -98,7 +102,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     UsersMessage = "Nenhum resultado encontrado";
                 }
                     
-                StateHasChanged();                
+                await InvokeAsync(StateHasChanged);                
             }
             else
             {
@@ -109,16 +113,16 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected async Task ReloadSearch()
         {
-            await ValueChanged(new ChangeEventArgs() { Value = textInput.Value });
+            await ValueChanged(TextInputReference?.Value);
         }
 
-        protected async Task SelectUser(User selected, CancellationToken cancellationToken = default)
+        protected async Task SelectUser(User? selected, CancellationToken cancellationToken = default)
         {
             UserSelected = selected;
             if(UserSelected != null)
                 UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
 
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
 
         protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken = default)
@@ -169,18 +173,18 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
             var contact = await BIService.GetContact(idcontact, cancellationToken);
             if (contact == null) return string.Empty;
-            return contact.Title;
+            return contact.Title ?? "* Desconhecido";
         }
 
-        protected SearchInput InputDirective { get; set; }
+        protected SearchInput? InputDirective { get; set; } = default!;
 
-        protected SearchInput InputContext { get; set; }
+        protected SearchInput? InputContext { get; set; } = default!;
 
         protected async Task OnAddClick(MouseEventArgs e)
         {
             var user = UserSelected;
-            var directive = InputDirective.Value;
-            var context = InputContext.Value;
+            var directive = InputDirective?.Selected;
+            var context = InputContext?.Selected;
 
             if (user != null)
             {
@@ -218,16 +222,14 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         {
             if (id.HasValue)
             {
-                await BIService.RemoveUserPolicy(UserSelected, id.Value, default);
-                await SelectUser(UserSelected, default);
+                if (UserSelected != null)
+                {
+                    await BIService.RemoveUserPolicy(UserSelected, id.Value, default);
+                    await SelectUser(UserSelected, default);
+                }
+                else throw new Exception("no user selected");
             }
-            /*
-            {
-              "userId": "095132cd-b1c4-4043-ae87-0a59cf2e0569",
-              "claimType": "directive",
-              "claimValue": "audioupdate:095132cd-b1c4-4043-ae87-0a59cf2e0569"
-            } 
-            */
+            else throw new Exception("id not recognized");
         }
 
         protected async void OnUserDelClick(User selected, CancellationToken cancellationToken = default)

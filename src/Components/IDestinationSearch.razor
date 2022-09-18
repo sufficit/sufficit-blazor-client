@@ -1,0 +1,24 @@
+﻿<MudAutocomplete 
+    T="Sufficit.Telephony.IDestination" 
+    Label="Destino"
+    Value="@Value"
+    Variant="Variant.Outlined"
+    Margin="Margin.Dense"
+    SearchFunc="Search"
+    ValueChanged="DestinationValueChanged"
+    AdornmentIcon="@GetAdornmentIcon()"
+    IconSize="Size.Small"
+    CoerceText="false"
+    ResetValueOnEmptyText="true"
+    Converter="@IDestinationConverter.Instance"
+    HelperText="@GetHelperText()"
+    data-asterisk="@GetAsterisk()">
+    <NoItemsTemplate>
+        <MudText Align="Align.Center" Class="px-4 py-1">
+            Nenhum item encontrado 
+        </MudText>
+    </NoItemsTemplate>
+    <ItemTemplate>
+        <IDestinationItemTemplate Destination="@context" />
+    </ItemTemplate>                                
+</MudAutocomplete>

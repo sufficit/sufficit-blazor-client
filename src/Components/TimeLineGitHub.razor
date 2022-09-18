@@ -2,6 +2,7 @@
 @using System.Text.Json.Serialization
 <div class="card h-100">
     <div class="card-header pb-0">
+        <h2>GitHub</h2>
         <h6>
             Estamos em constante desenvolvimento
             <small class="d-block">Acompanhe nossos trabalhos diretamente pelo <a href="https://github.com/orgs/sufficit" target="_blank">GitHub</a></small>
@@ -69,7 +70,10 @@
             {
                 var Client = Factory.CreateClient("GitHub");
                 if (Client != null)
-                    Result = await Client.GetFromJsonAsync<GitHubApiEventsResult>("https://api.github.com/orgs/sufficit/events?per_page=10");                
+                {
+                    Client.DefaultRequestHeaders.Add("User-Agent", "sufficit");
+                    Result = await Client.GetFromJsonAsync<GitHubApiEventsResult>("https://api.github.com/orgs/sufficit/events?per_page=10");
+                }
             }
             catch(Exception ex)
             {

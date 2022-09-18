@@ -18,7 +18,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override string Description => "Opções do painel de eventos";
 
         [Inject]
-        private APIClientService? APIClient { get; set; }
+        private APIClientService APIClient { get; set; } = default!;
+
+        [Inject]
+        private IOptionsMonitor<AMIHubClientOptions> AMIOptionsMonitor { get; set; } = default!;
+
+        [Inject]
+        private EventsPanelService EPService { get; set; } = default!;
 
         protected EventsPanelUserOptions? Options { get; set; }
 
@@ -26,6 +32,19 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         {
             await base.OnParametersSetAsync();
             Options = await APIClient.Telephony.EventsPanel.GetUserOptions();
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (!firstRender) return;
+
+            AMIOptionsMonitor.OnChange(OptionsChanged);
+        }
+
+        protected async void OptionsChanged(AMIHubClientOptions? _, string __)
+        {
+            await InvokeAsync(StateHasChanged);
         }
 
         protected async Task OnCheckBoxChanged(ChangeEventArgs e)

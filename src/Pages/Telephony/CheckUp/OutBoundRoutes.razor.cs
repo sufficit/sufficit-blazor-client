@@ -72,7 +72,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
                     TextSearch.OnValueChanged += TextSearchValueChanged;
                 }
 
-                await GetClientInformation();
                 await DoCheckUp();
             }
         }
@@ -96,17 +95,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
             }
         }
 
-        public string ContextTitle { get; internal set; } = "Desconhecido";
-        public string? ContextDocument { get; internal set; }
-
         protected IList<CheckUpStepInfo> Infos { get; } = new List<CheckUpStepInfo>();
-
-        public async Task GetClientInformation()
-        {
-            ContextTitle = await View.GetTitle() ?? "Desconhecido";
-            ContextDocument = await View.GetDocument();
-            await InvokeAsync(StateHasChanged);
-        }
 
         public async Task DoCheckUp()
         {
@@ -125,8 +114,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 
             // Cleating filters
             TextSearch?.Update(null);
-
-            await GetClientInformation();
             await DoCheckUp();
         }
     }

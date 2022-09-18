@@ -1,49 +1,49 @@
-<CascadingAuthenticationState>
-     <LayoutView Layout="@typeof(MainLayoutMaterial)">      
-        <Router AppAssembly="@typeof(App).Assembly">
-            <Found Context="routeData">  
-                <AuthorizeRouteView RouteData="@routeData">
-                    <Authorizing>
-                        <div class="card customAuthorizing">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            Verificando estado de autenticação, aguarde ...
-                                        </div>
+<CascadingAuthenticationState>         
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">  
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    <div class="card customAuthorizing">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        Verificando estado de autenticação, aguarde ...
                                     </div>
                                 </div>
                             </div>
-                    </Authorizing>
-                    <NotAuthorized>
-                        @if (context.User.Identity == null || !context.User.Identity.IsAuthenticated)
-                        {
-                            <div class="card customNotAuthenticated">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            Você não está autenticado e não possui permissão para acessar este recurso.
-                                        </div>
+                        </div>
+                </Authorizing>
+                <NotAuthorized>
+                    @if (context.User.Identity == null || !context.User.Identity.IsAuthenticated)
+                    {
+                        <div class="card customNotAuthenticated">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        Você não está autenticado e não possui permissão para acessar este recurso.
                                     </div>
                                 </div>
                             </div>
-                            <RedirectToLogin />
-                        }
-                        else
-                        {
-                            <div class="card customNotAuthorized">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            Você não possui permissão para acessar este recurso.
-                                        </div>
+                        </div>
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <div class="card customNotAuthorized">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        Você não possui permissão para acessar este recurso.
                                     </div>
                                 </div>
                             </div>
-                        }
-                    </NotAuthorized>
-                </AuthorizeRouteView> 
-            </Found>
-            <NotFound>
+                        </div>
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView> 
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
                 <Error404Layout>
                     <div class="card customNotFound">
                         <div class="card-body">
@@ -54,8 +54,8 @@
                             </div>
                         </div>
                     </div>
-                </Error404Layout>                    
-            </NotFound>
-        </Router>
-    </LayoutView> 
+                </Error404Layout>      
+            </LayoutView>
+        </NotFound>
+    </Router>
 </CascadingAuthenticationState>

@@ -9,22 +9,20 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    public partial class PanelPeersData 
+    public partial class PanelPeersData : IDisposable
     {
         [Inject]
-        private EventsPanelService? Service { get; set; }
+        private EventsPanelService EPService { get; set; } = default!;
 
         protected Exception? ErrorConfig { get; set; }
-
-        protected Table table { get; set; }
-
-        protected Select SelectPageSize { get; set; }
 
         public string? FilterText { get; set; }
 
         public int PageSize { get; set; }
 
-        public IList<PeerInfoMonitor> Items => Service?.Peers.ToList<PeerInfoMonitor>();
+        public string? MaxSelected { get; internal set; }
+
+        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList<PeerInfoMonitor>();
 
         public IEnumerable<PeerInfo> GetItems()
         {
@@ -33,64 +31,46 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 string filter = FilterText.ToLowerInvariant().Trim();
                 foreach (var item in Items.Where(s => s.Key.Contains(filter)).Take(PageSize))
                     yield return item;
-            } else
-            {
+            } else {
                 foreach (var item in Items.Take(PageSize))
                     yield return item;
             }            
         }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-            if (Service != null)
-            {
-                try
-                {
-                    await Service.StartAsync(System.Threading.CancellationToken.None);
-                }
-                catch (Exception ex)
-                {
-                    ErrorConfig = ex;
-                }
-            }
-        }
-        
-        private void SelectPageSize_OnChanged(object sender, SelectedChangedEventArgs<string> e)
+                
+        private async void SelectPageSize_OnChanged(SelectedChangedEventArgs<string?> e)
         {
             if(int.TryParse(e.Current, out int size) && PageSize != size)
             {
                 PageSize = size;
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             }
         }
 
         protected override void OnParametersSet()
         {
-            base.OnParametersSet();            
-
-            if (Service != null)
+            base.OnParametersSet();
+            if (int.TryParse(MaxSelected, out int size) && PageSize != size)
             {
-                Service.Peers.OnChanged += Peers_OnChanged;
+                PageSize = size;
             }
         }
 
         protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
-            if (firstRender)            
-                SelectPageSize.OnChanged += SelectPageSize_OnChanged;                
-            
-            if (int.TryParse(SelectPageSize.Selected, out int size) && PageSize != size)
-            {
-                PageSize = size;
-                StateHasChanged();
-            }
+            if (!firstRender) return;
+
+            EPService.Peers.OnChanged += Peers_OnChanged;            
         }
 
-        private async void Peers_OnChanged(IMonitor sender, object state)
+        private async void Peers_OnChanged(IMonitor? sender, object? state)
         {
             await InvokeAsync(StateHasChanged);
+        }
+
+        public void Dispose()
+        {
+            EPService.Peers.OnChanged -= Peers_OnChanged;
         }
     }
 }

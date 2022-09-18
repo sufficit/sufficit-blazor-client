@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="_themeManager.Theme" />
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<ToastContainer></ToastContainer>
+<MudLayout>
+    <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
+    <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
+
+    <CascadingValue Value="@TextSearch" IsFixed="true"> 
+        <CascadingValue Value="@_themeManager.Theme" TValue="MudTheme" IsFixed="true">
+           <MudDrawerContainer Class="mud-height-full">
+                <AppBarDefault @bind-SideBarExtended="SideBarExtended"></AppBarDefault>
+                <SideBarDrawer SideBarExtended="@SideBarExtended" />            
+                <MudMainContent Class="pt-16 px-16 bg-gray-100">
+                    @Body
+                    <div class="fillheight"></div>
+                    <FooterMaterial />
+                </MudMainContent>
+            </MudDrawerContainer>
+        </CascadingValue>
+    </CascadingValue>
+</MudLayout>

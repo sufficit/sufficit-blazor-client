@@ -21,80 +21,79 @@
             <div class="row">
                 <div class="col-md-4">
                     <InputGroup Size="UI.Material.ComponentSize.Medium" CssClass="input-group-outline input-group-icon mb-3">        
-                        <Icon Key="filter_alt"></Icon>
-                        <Label>Filtro</Label>
-                        <TextInput Type="search" OnChanged="@ValueChanged" @ref="textInput" />                            
+                        <Icon Key="filter_alt" />
+                        <Label CssClass="form-label">Filtro</Label>
+                        <TextInput Type="search" OnValueChanged="@ValueChanged" @ref="TextInputReference" />
                     </InputGroup>
-
                 </div>
             </div>
             <div class="row">
-            @if (UsersResponse != null && UsersResponse.Users != null)
-            {
-                <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th class="text-left">E-Mail</th>
-                                <th class="text-center">Confirmado</th>
-                                <th class="text-left">Bloqueado Até</th>
-                                
-                            </tr>
-                        </thead>                             
-                        <tbody>
-                            @foreach (var user in UsersResponse.Users)
-                            {
+                @if (UsersResponse != null && UsersResponse.Users != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0">
+                            <thead>
                                 <tr>
-                                    <td class="text-center">
-                                        <div class="dropstart">
-                                            <a href="javascript:;" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="material-icons text-xl" style="vertical-align: middle;">more_vert</i>
-                                            </a>
-                                            
-                                            <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard" >
-                                                <li>
-                                                    <Button Icon="password" Size="UI.Material.ComponentSize.Small" Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
-                                                </li>
-                                                <li>
-                                                    <LinkButton Icon="face" Size="UI.Material.ComponentSize.Small" Text="Perfil do usuário" IsDisabled="true" CssClass="m-0 dropdown-item border-radius-md" Navigation="@("pages/identity/profile/" + user.ID)" />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td class="text-left">
-                                        <Button 
-                                            Text="Selecionar" 
-                                            ToolTipDescription="Administrar políticas"
-                                            ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
-                                            Icon="arrow_circle_right" 
-                                            Size="UI.Material.ComponentSize.Small" 
-                                            Color="UI.Material.ColorKind.Primary" 
-                                            CssClass="btn-icon-only m-0"
-                                            OnClick="async () => await SelectUser(user, default)" />
-                                    </td>
-                                    <td class="text-center">
-                                        <ContactAvatar IDReference="user.ID" Size="UI.Material.ComponentSize.Tiny" />                                   
-                                    </td>
-                                    <td class="text-left">@user.EMail</td>
-                                    <td class="text-center">
-                                        <a data-tooltip="E-Mail confirmado ?">
-                                            <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
-                                        </a>
-                                    </td>
-                                    <td class="text-left">@user.LockoutEnd</td>                                    
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-left">E-Mail</th>
+                                    <th class="text-center">Confirmado</th>
+                                    <th class="text-left">Bloqueado Até</th>
+                                
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            } 
-            else
-            {
-                <h6>@UsersMessage</h6>
-            }
+                            </thead>                             
+                            <tbody>
+                                @foreach (User user in UsersResponse.Users)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="dropstart">
+                                                <a href="javascript:;" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="material-icons text-xl" style="vertical-align: middle;">more_vert</i>
+                                                </a>
+                                            
+                                                <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard" >
+                                                    <li>
+                                                        <Button Icon="password" Size="UI.Material.ComponentSize.Small" Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
+                                                    </li>
+                                                    <li>
+                                                        <LinkButton Icon="face" Size="UI.Material.ComponentSize.Small" Text="Perfil do usuário" IsDisabled="true" CssClass="m-0 dropdown-item border-radius-md" Navigation="@("pages/identity/profile/" + user.ID)" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td class="text-left">
+                                            <Button 
+                                                Text="Selecionar" 
+                                                ToolTipDescription="Administrar políticas"
+                                                ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
+                                                Icon="arrow_circle_right" 
+                                                Size="UI.Material.ComponentSize.Small" 
+                                                Color="UI.Material.ColorKind.Primary" 
+                                                CssClass="btn-icon-only m-0"
+                                                OnClick="async () => await SelectUser(user, default)" />
+                                        </td>
+                                        <td class="text-center">
+                                            <ContactAvatar IDReference="user.ID" Size="Size.Small" />                                   
+                                        </td>
+                                        <td class="text-left">@user.EMail</td>
+                                        <td class="text-center">
+                                            <a data-tooltip="E-Mail confirmado ?">
+                                                <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
+                                            </a>
+                                        </td>
+                                        <td class="text-left">@user.LockoutEnd</td>                                    
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                } 
+                else
+                {
+                    <h6>@UsersMessage</h6>
+                }
             </div>
         </div>
     </div>
@@ -107,7 +106,7 @@
                 <ContactAvatar IDReference="@UserSelected.ID" />
                 <div class="mx-0 mx-md-3">
                     <HyperText>@UserSelected?.EMail</HyperText>
-                    <small class="d-block text-muted">3 days ago</small>
+                    <small class="d-block text-muted">sem informação</small>
                 </div>
             </div>
             <AuthorizeView Roles="administrator">
@@ -126,10 +125,14 @@
             <div class="row">
                 <Form>
                     <div class="col-md-4">
-                        <SearchInput @ref="InputDirective" CssClass="input-group-outline mb-3" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+                        <InputGroup CssClass="input-group-outline mb-3">
+                            <SearchInput @ref="InputDirective" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+                        </InputGroup>
                     </div>
                     <div class="col-md-5">
-                        <SearchInput @ref="InputContext" CssClass="input-group-outline mb-3" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+                        <InputGroup CssClass="input-group-outline mb-3">
+                            <SearchInput @ref="InputContext" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+                        </InputGroup>
                     </div>
                     <div class="col-md-3" style="overflow: hidden;">
                         <Button Text="Adicionar" Icon="add" CssClass="container mb-0 bg-gradient-primary" OnClick="@OnAddClick" />
@@ -158,7 +161,7 @@
                                     </td>
                                     <td>@item.Directive.Name</td>
                                     <td>
-                                        <ContactAvatar IDReference="item.IDContext" Size="UI.Material.ComponentSize.Tiny" />                                   
+                                        <ContactAvatar IDReference="item.IDContext" Size="Size.Small" />                                   
                                     </td>
                                     <td><HyperText Value="@GetContactTitle(item.IDContext)" /></td>
                                 </tr>
