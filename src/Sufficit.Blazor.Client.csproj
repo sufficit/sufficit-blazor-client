@@ -74,6 +74,7 @@
 	  <PackageReference Include="Sufficit.Client" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
 	  <PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.MudBlazor" Version="1.22.*" />
   </ItemGroup>
 
 	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
