@@ -6,26 +6,46 @@ on:
     branches: [ master ]
 
 jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-versions: [ '6.0.x' ]
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Environment
+      uses: actions/setup-dotnet@v1
+        
+    - name: Install dependencies
+      working-directory: ./src
+      run: dotnet restore
+      
+    - name: Build
+      working-directory: ./src
+      run: dotnet build --configuration Packing
+      
+    - name: Deploy Package 
+      working-directory: ./src
+      run: dotnet pack --configuration Packing --output ./nupkgs
+    
+    - name: Publish to Nuget.Org
+      working-directory: ./src
+      run: dotnet nuget push --skip-duplicate ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
+      
+    - name: Publish to GitHub
+      working-directory: ./src
+      run: dotnet nuget push --skip-duplicate ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/${{github.repository_owner}}/index.json --api-key ${{github.token}}
+
   deploy-to-github-pages:
     # use ubuntu-latest image to run steps on
     runs-on: ubuntu-latest
     steps:
     # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v2
-    
-    # sets up .NET Core SDK 3.1
-    #- name: Setup .NET Core SDK
-    #  uses: actions/setup-dotnet@v1
-    #  with:
-    #    dotnet-version: '6.0.x'
-
-    # publishes Blazor project to the release-folder
-    #- name: Publish .NET Core Project
-    #  run: dotnet publish src/SufficitBlazorClient.csproj -c Release -o release --nologo
-    
+     
     - name: Copy files
-      run: mkdir release && cp -fR published/wwwroot/* release/.
-    
+      run: mkdir release && cp -fR published/wwwroot/* release/.    
     
     # changes the base-tag in index.html from '/' to 'SufficitBlazorClient' to match GitHub Pages repository subdirectory
     - name: Change base-tag in main.js from / to SufficitBlazorClient

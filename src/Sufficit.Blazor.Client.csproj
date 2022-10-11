@@ -63,24 +63,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
-    <ProjectReference Include="..\..\sufficit-mudblazor\src\MudBlazor\MudBlazor.csproj" />
-    <ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
+	  <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  <ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">
+	  <PackageReference Include="Sufficit.Utils" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Client" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
+	  <PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
   </ItemGroup>
-	
-	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
-		<PackageReference Include="Sufficit.Utils" Version="1.22.*" />
-		<PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Client" Version="1.22.*" />
-	</ItemGroup>
 
 	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
+		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
 		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 		<ProjectReference Include="..\..\sufficit-asternet-fork\Asterisk.2013\Asterisk.NET\AsterNET.csproj" />
 		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" />
@@ -88,7 +85,9 @@
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
+		<ProjectReference Include="..\..\sufficit-mudblazor\src\MudBlazor\MudBlazor.csproj" />
 		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
+		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel\src\Sufficit.Telephony.EventsPanel.csproj" />	
 	</ItemGroup>
   
