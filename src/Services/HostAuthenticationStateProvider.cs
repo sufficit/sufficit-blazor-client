@@ -32,26 +32,17 @@ namespace Sufficit.Blazor.Client.Services
             _navigation = navigation;
             _client = client;
             _logger = logger;
-            _logger?.LogInformation("HostAuthenticationStateProvider instanced");
+            _logger.LogInformation("HostAuthenticationStateProvider instanced");
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            AuthenticationState loginuser = null;
-            try
-            {
-                loginuser = new AuthenticationState(await GetUser(useCache: true));
-            }
-            catch
-            {
-
-            }
-            return loginuser;
+            return new AuthenticationState(await GetUser(useCache: true));
         }
 
-        public void SignIn(string customReturnUrl = null)
+        public void SignIn(string? customReturnUrl = null)
         {
-            _logger?.LogInformation("HostAuthenticationStateProvider SignIn");
+            _logger.LogInformation("HostAuthenticationStateProvider SignIn");
             var returnUrl = customReturnUrl != null ? _navigation.ToAbsoluteUri(customReturnUrl).ToString() : null;
             var encodedReturnUrl = Uri.EscapeDataString(returnUrl ?? _navigation.Uri);
             var logInUrl = _navigation.ToAbsoluteUri($"{LogInPath}?returnUrl={encodedReturnUrl}");
@@ -68,7 +59,7 @@ namespace Sufficit.Blazor.Client.Services
         {
             await Task.Yield();
 
-            _logger?.LogInformation("HostAuthenticationStateProvider GetUser");
+            _logger.LogInformation("HostAuthenticationStateProvider GetUser");
             var now = DateTimeOffset.Now;
             if (useCache && now < _userLastCheck + _userCacheRefreshInterval)
             {
@@ -83,17 +74,18 @@ namespace Sufficit.Blazor.Client.Services
             return _cachedUser;
         }
 
-        private async Task<ClaimsPrincipal> FetchUser()
+        private async Task<ClaimsPrincipal?> FetchUser()
         {
-            _logger?.LogInformation("HostAuthenticationStateProvider FetchUser");
-            UserInfo user = null;
+            _logger.LogInformation("HostAuthenticationStateProvider FetchUser");
+            UserInfo? user = null;
 
             try
             {
                 var response = await _client.GetAsync("User");
                 response.EnsureSuccessStatusCode();
 
-                user = await response.Content.ReadFromJsonAsync<UserInfo>();                
+                if(response != null)
+                    user = await response.Content.ReadFromJsonAsync<UserInfo?>();                
             }
             catch (Exception exc)
             {               

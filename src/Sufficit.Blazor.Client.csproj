@@ -3,7 +3,6 @@
 	<PropertyGroup Label="Sufficit Targeting">
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<Configurations>Debug;Release</Configurations>
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
 		<RootNamespace>Sufficit.Blazor.Client</RootNamespace>
@@ -19,15 +18,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-    <Compile Remove="Models\Identity\**" />
-    <Compile Remove="NotInUse\**" />
-    <Content Remove="Models\Identity\**" />
-    <Content Remove="NotInUse\**" />
-    <EmbeddedResource Remove="Models\Identity\**" />
-    <EmbeddedResource Remove="NotInUse\**" />
-    <None Remove="Models\Identity\**" />
-    <None Remove="NotInUse\**" />
-  </ItemGroup>
+		<Compile Remove="Models\Identity\**" />
+		<Compile Remove="NotInUse\**" />
+		<Content Remove="Models\Identity\**" />
+		<Content Remove="NotInUse\**" />
+		<EmbeddedResource Remove="Models\Identity\**" />
+		<EmbeddedResource Remove="NotInUse\**" />
+		<None Remove="Models\Identity\**" />
+		<None Remove="NotInUse\**" />
+	</ItemGroup>
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
@@ -38,26 +37,28 @@
     <Content Remove="wwwroot\assets\img\logos\logo.xcf" />
     <Content Remove="wwwroot\assets\img\logos\sufficit-logotipo-backup.png" />
   </ItemGroup>
+	
 	<ItemGroup Label="Hybrid Models">
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.2" />
-		<PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.46.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.49.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+		<PackageReference Include="protobuf-net.Grpc" Version="1.0.177" />
 	</ItemGroup>
+	
   <ItemGroup>	  
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
-    <PackageReference Include="GraphQL.Client" Version="4.0.2" />
-    <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.2" />
+    <PackageReference Include="GraphQL.Client" Version="5.1.0" />
+    <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
@@ -66,16 +67,25 @@
 	  <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">
-	  <PackageReference Include="Sufficit.Utils" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Client" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
-	  <PackageReference Include="Sufficit.MudBlazor" Version="1.22.*" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
+	</ItemGroup>
+	
+	<ItemGroup Label="Sufficit Dependencies Fixed">
+		<PackageReference Include="Sufficit.Blazor.UI.Material" Version="1.22.*" />
+	</ItemGroup>
+	
+	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
+		<PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Blazor" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Client" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
+		<PackageReference Include="Sufficit.Utils" Version="1.22.*" />
+	</ItemGroup>
 
 	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
 		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
@@ -86,12 +96,10 @@
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
-		<ProjectReference Include="..\..\sufficit-mudblazor\src\MudBlazor\MudBlazor.csproj" />
-		<ProjectReference Include="..\..\sufficit-blazor-ui-material\src\Sufficit.Blazor.UI.Material.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel\src\Sufficit.Telephony.EventsPanel.csproj" />	
-	</ItemGroup>
-  
+	</ItemGroup>  
+		
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
