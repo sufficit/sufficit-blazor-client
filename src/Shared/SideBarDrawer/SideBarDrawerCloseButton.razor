@@ -1,0 +1,18 @@
+﻿@namespace Sufficit.Blazor.Client.Shared
+
+<MudHidden Breakpoint="Breakpoint.Xs" Invert>
+    @if (SideBarExtended)
+    {
+        <div class="fixed bottom-3 w-100 d-flex justify-end pr-7">
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Variant="Variant.Filled" Color="Color.Primary" aria-label="close" OnClick="ToggleDrawer"></MudIconButton>
+        </div>
+    }
+</MudHidden>
+
+@code {
+    [Parameter]
+    public bool SideBarExtended { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback ToggleDrawer { get; set; }
+}
