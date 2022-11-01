@@ -1,80 +1,15 @@
-﻿@using System.Security.Claims
-@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Mvc.Infrastructure
-@using Sufficit.Identity
-@inject IJSRuntime JSRuntime
+﻿
+<MudHidden Breakpoint="Breakpoint.Xs">
+    <MudDrawer @bind-Open="SideBarExtended" Fixed="false" Elevation="0" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Class="bg-gray-200">
+        <SideBarDrawerContainer SideBarExtended="@SideBarExtended" ToggleDrawer="ToggleDrawer"></SideBarDrawerContainer>
+    </MudDrawer>
+</MudHidden>
 
-<MudDrawer @bind-Open="SideBarExtended" Fixed="false" Elevation="0" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Class="bg-gray-200">
-    <MudDrawerHeader>
-        <ClientView></ClientView>
-    </MudDrawerHeader>
-    <MudNavMenu>        
-        <AuthorizeView Context="IdentityUser">
-            <Authorized>       
-                <MudNavGroupEnchanted Icon="@Avatar" IconAsAvatar="true" Title="@User?.Identity?.Name">               
-                    <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Face" Href="https://identity.sufficit.com.br">Perfil de usuário</MudNavLink>
-                    <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Logout" OnClick="LogOut">Sair</MudNavLink>
-                </MudNavGroupEnchanted>
-            </Authorized>
-            <NotAuthorized>
-                <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Login" OnClick="LogIn">Entrar</MudNavLink>
-            </NotAuthorized>
-        </AuthorizeView>
-
-        <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
-        <MudNavGroupEnchanted Icon="@Icons.Filled.Dashboard" Title="Dashboard" SubTitle="Modelos de painéis e exibições">
-            <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="material" Title="Default"></MudNavLinkEnchanted>
-            <MudNavLinkEnchanted Match="NavLinkMatch.Prefix" Href="dashboard/toast" Title="Toast"></MudNavLinkEnchanted>
-        </MudNavGroupEnchanted>
-
-        <AuthorizeView Context="Identity">                
-            <Authorized>            
-                <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
-                <MudNavGroup Title="Identidade" Icon="@Icons.Material.Filled.Fingerprint">
-                    <AuthorizeView Context="Manager" Roles="manager">
-                        <MudNavLink Icon="@Icons.Material.Filled.ManageAccounts" Href="pages/identity/policies">Políticas de usuário</MudNavLink>
-                    </AuthorizeView>
-                    <MudNavLink Icon="@Icons.Material.Filled.AdminPanelSettings" Href="pages/identity/userroles">Regras do usuário</MudNavLink>
-                    <MudNavLink Icon="@Icons.Material.Filled.AdminPanelSettings" Href="pages/identity/userpolicies">Políticas deste usuário</MudNavLink>
-                </MudNavGroup>            
-            </Authorized>
-        </AuthorizeView>  
-    
-        <AuthorizeView Context="Telephony">
-            <Authorized>
-                <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
-                <MudNavGroupEnchanted Title="Telefonia" Icon="@Icons.Material.Filled.Tty" SubTitle="Ramais, chamadas e etc.">  
-                    <MudNavLinkEnchanted Href="pages/telephony/webphone" Title="Telefone Web"></MudNavLinkEnchanted>
-                    <AuthorizeView Roles="telephony">
-                        <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas"></MudNavLinkEnchanted>
-                    </AuthorizeView>                        
-                    <AuthorizeView Roles="manager">
-                        <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>
-                    </AuthorizeView>
-                    <MudNavLink Icon="@Icons.Material.Filled.List" Href="pages/telephony/ivr/dashboard">IVR | Menus</MudNavLink>
-
-                    <AuthorizeView Roles="telephony" Context="TelephonyMonitor">
-                        <Authorized>
-                            <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
-                            <MudNavGroupEnchanted Title="Monitoramento" Icon="@Icons.Material.Filled.Api" SubTitle="Informações em tempo real">
-                                <MudNavLinkEnchanted Title="Configuração" Href="pages/telephony/monitor/configuration"></MudNavLinkEnchanted>
-                                <MudNavLinkEnchanted Title="Painel" Href="pages/telephony/monitor/panel"></MudNavLinkEnchanted>
-
-                                <AuthorizeView Roles="manager">
-                                    <MudNavLinkEnchanted Title="Pares" Href="pages/telephony/monitor/peers"></MudNavLinkEnchanted>
-                                    <MudNavLinkEnchanted Title="Filas de Espera" Href="pages/telephony/monitor/calls"></MudNavLinkEnchanted>
-                                    <MudNavLinkEnchanted Title="Canais" Href="pages/telephony/monitor/channels"></MudNavLinkEnchanted>
-                                    <MudNavLinkEnchanted Title="Eventos" Href="pages/telephony/monitor/events"></MudNavLinkEnchanted>
-                                </AuthorizeView>
-                            </MudNavGroupEnchanted>
-                        </Authorized>
-                    </AuthorizeView>
-                </MudNavGroupEnchanted>                 
-            </Authorized>                
-        </AuthorizeView>
-    </MudNavMenu>
-    <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
-</MudDrawer>
+<MudHidden Breakpoint="Breakpoint.Xs" Invert>
+    <MudDrawer @bind-Open="SideBarExtended" Fixed="false" Elevation="0" Variant="@DrawerVariant.Responsive" Class="bg-gray-200">
+        <SideBarDrawerContainer SideBarExtended="@SideBarExtended" ToggleDrawer="ToggleDrawer"></SideBarDrawerContainer>
+    </MudDrawer>
+</MudHidden>
 
 @code{
     void ToggleDrawer()
@@ -84,63 +19,4 @@
 
     [Parameter]
     public bool SideBarExtended { get; set; } = default!;
-
-    [Inject] 
-    NavigationManager Navigation { get; set; } = default!;
-
-    [Inject] 
-    IAuthenticationStateProvider StateProvider { get; set; } = default!;
-
-    protected UserPrincipal? User { get; set; }
-
-    protected async Task LogOut(MouseEventArgs _)
-    {
-        await StateProvider.Logout();        
-    }
-
-    protected async Task LogIn(MouseEventArgs _)
-    {
-        string returnUrl = Navigation.Uri;
-        await StateProvider.Login(returnUrl); 
-        await InvokeAsync(StateHasChanged);
-    }
-
-    protected string Avatar
-    {
-        get
-        {
-            string result = "https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto=";
-            if (User != null)
-            {
-                result += User.GetUserId();
-            }
-            return result;
-        }
-    }
-
-    protected async void OnAuthenticationStateChanged(Task<BlazorAuthenticationState> task)
-    {
-        User = (await task).User;
-        await InvokeAsync(StateHasChanged);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            var user = (await StateProvider.GetAuthenticationStateAsync()).User;
-            if (User != user)
-            {
-                User = user;
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        StateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
-    }
 }
