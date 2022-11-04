@@ -22,16 +22,15 @@
         </NotAuthorized>
     </AuthorizeView>
 
-    <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+    <MudDivider Class="my-2" DividerType="DividerType.Middle" />
     
     <MudNavGroupEnchanted Icon="@Icons.Filled.Dashboard" Title="Dashboard" SubTitle="Modelos de painéis e exibições">
-        <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="material" Title="Default"></MudNavLinkEnchanted>
-        <MudNavLinkEnchanted Match="NavLinkMatch.Prefix" Href="dashboard/toast" Title="Toast"></MudNavLinkEnchanted>
+        <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="dashboard/material" Title="Default"></MudNavLinkEnchanted>
     </MudNavGroupEnchanted>
 
     <AuthorizeView Context="Identity">
         <Authorized>
-            <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
             <MudNavGroup Title="Identidade" Icon="@Icons.Material.Filled.Fingerprint">
                 <AuthorizeView Context="Manager" Roles="manager">
                     <MudNavLink Icon="@Icons.Material.Filled.ManageAccounts" Href="pages/identity/policies">Políticas de usuário</MudNavLink>
@@ -44,7 +43,7 @@
 
     <AuthorizeView Context="Telephony">
         <Authorized>
-            <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
             <MudNavGroupEnchanted Title="Telefonia" Icon="@Icons.Material.Filled.Tty" SubTitle="Ramais, chamadas e etc.">
                 <MudNavLinkEnchanted Href="pages/telephony/webphone" Title="Telefone Web"></MudNavLinkEnchanted>
                 <AuthorizeView Roles="telephony">
@@ -57,7 +56,7 @@
 
                 <AuthorizeView Roles="telephony" Context="TelephonyMonitor">
                     <Authorized>
-                        <MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+                        <MudDivider Class="my-2" DividerType="DividerType.Middle" />
                         <MudNavGroupEnchanted Title="Monitoramento" Icon="@Icons.Material.Filled.Api" SubTitle="Informações em tempo real">
                             <MudNavLinkEnchanted Title="Configuração" Href="pages/telephony/monitor/configuration"></MudNavLinkEnchanted>
                             <MudNavLinkEnchanted Title="Painel" Href="pages/telephony/monitor/panel"></MudNavLinkEnchanted>
@@ -76,7 +75,7 @@
     </AuthorizeView>
 </MudNavMenu>
 
-<MudDivider Class="my-2" DividerType="DividerType.Middle" Light="true" />
+<MudDivider Class="my-2" DividerType="DividerType.Middle" />
 
 <SideBarDrawerCloseButton SideBarExtended="@SideBarExtended" ToggleDrawer="ToggleDrawer"></SideBarDrawerCloseButton>
 

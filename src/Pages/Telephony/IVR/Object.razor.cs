@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using MudBlazor;
-using Sufficit.Blazor.UI.Material;
-using Sufficit.Blazor.UI.Material.Services;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;
@@ -24,9 +22,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
-
-        [Inject]
-        private ToastService Toasts { get; set; } = default!;
 
         [Inject]
         protected IContextView ContextView { get; set; } = default!;
@@ -122,7 +117,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             {
                 await APIClient.Telephony.IVR.Update(Item);
 
-                await APIClient.Telephony.IVR.Update(ObjectId, IVROptions).Toast(Toasts, new UI.Material.Toasts.UpdateSuccessToast());
+                // await APIClient.Telephony.IVR.Update(ObjectId, IVROptions).Toast(Toasts, new UI.Material.Toasts.UpdateSuccessToast());
                 await InvokeAsync(StateHasChanged);
             }
         }        

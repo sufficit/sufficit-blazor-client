@@ -1,8 +1,0 @@
-﻿div.fillheight {
-    bottom: 0;
-    height: 250px;
-    width: 100%;
-    width: -moz-available; /* WebKit-based browsers will ignore this. */
-    width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    width: fill-available;
-}

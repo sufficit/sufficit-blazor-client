@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sufficit.Identity;
+using Sufficit.Identity.Client;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client
@@ -21,9 +23,18 @@ namespace Sufficit.Blazor.Client
             httpClient = factory.CreateClient("BlazorHybrid");
         }
 
-        public Task<BlazorRemoteUser> CurrentUser()
+        public async Task<BlazorRemoteUser?> CurrentUser()
         {
-            return httpClient.GetFromJsonAsync<BlazorRemoteUser>("api/authentication/currentuser")!;
+            var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                try
+                {
+                    return await responseMessage.Content.ReadFromJsonAsync<BlazorRemoteUser>();
+                }
+                catch(Exception ex) { Console.WriteLine($"current user error: {ex.Message}"); }
+            }
+            return null;
         }
 
         public async Task Login(string returnUrl)

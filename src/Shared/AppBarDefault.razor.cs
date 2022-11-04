@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.JSInterop;
-using Sufficit.Blazor.UI.Material;
-using Sufficit.Blazor.UI.Material.Components;
-using Sufficit.Blazor.UI.Material.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -26,9 +23,6 @@ namespace Sufficit.Blazor.Client.Shared
         public EventCallback<bool> SideBarExtendedChanged { get; set; }
 
         [Inject]
-        protected BlazorUIMaterialService UIService { get; set; } = default!;
-
-        [Inject]
         protected IJSRuntime JSRuntime { get; set; } = default!;
 
         [Inject]
@@ -36,6 +30,7 @@ namespace Sufficit.Blazor.Client.Shared
 
         protected async Task Refresh(MouseEventArgs e)
         {
+            /*
             var alert = new SweetAlert()
             {
                 TimerProgressBar = true,
@@ -57,6 +52,7 @@ namespace Sufficit.Blazor.Client.Shared
                     await Reload();
                 }
             }
+            */
         }
 
         protected async Task Reload()

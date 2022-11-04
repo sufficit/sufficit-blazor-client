@@ -8,7 +8,7 @@
     </TitleContent>
     <DialogContent>
         <MudTextField @bind-Value="FilterText" Margin="Margin.Dense" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
-        <MudDivider DividerType="DividerType.Middle" Light="true" Style="margin: 1rem;"></MudDivider>
+        <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
         <ClientList Filter="@FilterText" Limit="3" SelectedItemChanged="@OnClientSelect"></ClientList>
     </DialogContent>
     <DialogActions>

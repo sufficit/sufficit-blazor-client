@@ -1,49 +1,34 @@
 ﻿using MudBlazor.ThemeManager;
 using MudBlazor;
-using Sufficit.Blazor.UI.Material.Services;
-using Sufficit.Blazor.UI.Material;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Shared.Layout
 {
     public partial class MainLayout : LayoutComponentBase, IDisposable
     {
-        public bool SideBarExtended { get; set; }
+        public bool SideBarExtended { get; set; } = default!;
 
         private MudThemeProvider? ThemeProvider { get; set; } = default!;
 
-        void ToggleDrawer()
+        protected void ToggleDrawer()
         {
             SideBarExtended = !SideBarExtended;
         }
 
-        [Inject]
-        public BlazorUIMaterialService UIService { get; internal set; } = default!;
 
         [Inject]
         public NavigationManager Navigation { get; internal set; } = default!;
 
-        public TextSearchControl? TextSearch { get; internal set; }
-
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            TextSearch = new TextSearchControl(Navigation);
             _themeManager.Theme = MyCustomTheme;
         }
 
         protected CancellationTokenSource CancellationTokenSource { get; set; } = new CancellationTokenSource();
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await UIService.EnsureIsLoaded(CancellationTokenSource.Token);
-            }
-        }
 
         MudTheme MyCustomTheme = new MudTheme()
         {
@@ -51,7 +36,7 @@ namespace Sufficit.Blazor.Client.Shared.Layout
             {
                 Primary = Colors.Red.Darken1,
                 Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.Shades.White,
+                AppbarBackground = Colors.Shades.White
             },
             Typography = new Typography()
             {

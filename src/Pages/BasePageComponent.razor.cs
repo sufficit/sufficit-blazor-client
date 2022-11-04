@@ -13,11 +13,11 @@ namespace Sufficit.Blazor.Client.Pages
         [Inject]
         protected IBreadcrumbService BreadcrumbService { get; set; } = default!;
 
-        protected virtual string Title { get; }
+        protected virtual string Title { get; } = default!;
 
-        protected virtual string Description { get; }
+        protected virtual string Description { get; } = default!;
 
-        protected virtual string Keywords { get; }
+        protected virtual string Keywords { get; } = default!;
 
         protected override void OnAfterRender(bool firstRender)
         {

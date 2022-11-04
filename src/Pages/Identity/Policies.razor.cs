@@ -2,16 +2,12 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
-using Sufficit.Blazor.UI.Material;
-using Sufficit.Blazor.UI.Material.Components;
-using Sufficit.Blazor.UI.Material.Services;
 using Sufficit.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Sufficit.Blazor;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {
@@ -24,9 +20,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;
-
-        [Inject]
-        protected BlazorUIMaterialService UIService { get; set; } = default!;
 
         [Inject]
         protected ILogger<Policies> Logger { get; set; } = default!;
@@ -42,11 +35,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         private IEnumerable<UserClaimPolicy>? UserPolicies { get; set; }
 
         private string? UserClaimsMessage { get; set; }
-
-        /// <summary>
-        /// Object reference
-        /// </summary>
-        public TextInput? TextInputReference { get; set; }
 
         [Parameter]
         [SupplyParameterFromQuery]
@@ -113,7 +101,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected async Task ReloadSearch()
         {
-            await ValueChanged(TextInputReference?.Value);
+           // await ValueChanged(TextInputReference?.Value);
         }
 
         protected async Task SelectUser(User? selected, CancellationToken cancellationToken = default)
@@ -127,6 +115,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken = default)
         {
+            /*
             var alert = new SweetAlert() { 
                 TimerProgressBar = true, 
                 Timer = 5000, 
@@ -165,6 +154,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     await Swal.Fire(saConfirm);
                 }
             }
+            */
         }
 
         protected async Task<string> GetContactTitle(Guid idcontact, CancellationToken cancellationToken = default)
@@ -176,12 +166,14 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             return contact.Title ?? "* Desconhecido";
         }
 
+        /*
         protected SearchInput? InputDirective { get; set; } = default!;
 
         protected SearchInput? InputContext { get; set; } = default!;
+        */
 
         protected async Task OnAddClick(MouseEventArgs e)
-        {
+        {/*
             var user = UserSelected;
             var directive = InputDirective?.Selected;
             var context = InputContext?.Selected;
@@ -216,6 +208,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             {
                 throw new FormValidationException("Usuário não selecionado");
             }
+            */
         }
 
         protected async void OnDelClick(int? id)
@@ -234,6 +227,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected async void OnUserDelClick(User selected, CancellationToken cancellationToken = default)
         {
+            /*
             var alert = new SweetAlert()
             {
                 TimerProgressBar = true,
@@ -278,6 +272,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     }
                 }
             }
+            */
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿
+﻿@using MudBlazor.Components
+@using MudBlazor
+
 <MudHidden Breakpoint="Breakpoint.Xs">
     <MudDrawer @bind-Open="SideBarExtended" Fixed="false" Elevation="0" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Class="bg-gray-200">
         <SideBarDrawerContainer SideBarExtended="@SideBarExtended" ToggleDrawer="ToggleDrawer"></SideBarDrawerContainer>

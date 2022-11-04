@@ -109,7 +109,40 @@ hr {
     opacity: .5;
 }
 
-div#blazor-error-ui {
+.mud-card[data-animation="true"] .mud-card-actions {
+    display: none;
+    margin-top: -31px;
+
+    padding: unset;
+    align-items: unset;
+}
+
+.mud-card:hover[data-animation="true"] .mud-card-actions {
+    display: block;
+}
+
+.mud-card[data-animation="true"] .mud-card-header {
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    -webkit-transition: all 300ms cubic-bezier(.34,1.61,.7,1);
+    -moz-transition: all 300ms cubic-bezier(.34,1.61,.7,1);
+    -o-transition: all 300ms cubic-bezier(.34,1.61,.7,1);
+    -ms-transition: all 300ms cubic-bezier(.34,1.61,.7,1);
+    transition: all 300ms cubic-bezier(.34,1.61,.7,1);
+}
+
+.mud-card:hover[data-animation="true"] .mud-card-header {
+    -webkit-transform: translate3d(0,-50px,0);
+    -moz-transform: translate3d(0,-50px,0);
+    -o-transform: translate3d(0,-50px,0);
+    -ms-transform: translate3d(0,-50px,0);
+    transform: translate3d(0,-50px,0);
+}
+
+    div #blazor-error-ui {
     bottom: 0;
     left: 0;
     display: none;
@@ -120,3 +153,10 @@ div#blazor-error-ui {
     box-shadow: none;
     background: none;
 }
+
+    div#blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: unset;
+        right: unset;
+        top: unset;
+    }

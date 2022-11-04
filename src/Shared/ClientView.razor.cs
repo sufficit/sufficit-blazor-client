@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
-using Sufficit.Blazor.Client.Pages.Telephony.IVR;
-using Sufficit.Blazor.UI.Material;
-using Sufficit.Blazor.UI.Material.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -24,9 +20,6 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject]
         IAuthenticationStateProvider StateProvider { get; set; } = default!;
 
-        [Inject]
-        public SideBarService SBService { get; internal set; } = default!;
-
         [Inject] 
         IDialogService Dialog { get; set; } = default!;
 
@@ -41,7 +34,7 @@ namespace Sufficit.Blazor.Client.Shared
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            Collapsed = SBService.Collapsed;
+            //Collapsed = SBService.Collapsed;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -54,7 +47,7 @@ namespace Sufficit.Blazor.Client.Shared
                 Update(View.ContextId);
 
             View.OnChanged += Update;
-            SBService.OnCollapsing += SBServiceToggle;            
+            //SBService.OnCollapsing += SBServiceToggle;            
         }
 
         private async void SBServiceToggle(bool collapsed)
@@ -91,7 +84,7 @@ namespace Sufficit.Blazor.Client.Shared
         void IDisposable.Dispose()
         {
             View.OnChanged -= Update;
-            SBService.OnCollapsing -= SBServiceToggle;
+           // SBService.OnCollapsing -= SBServiceToggle;
         }
     }
 }

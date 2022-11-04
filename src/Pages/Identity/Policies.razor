@@ -20,11 +20,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
+                    <!--
                     <InputGroup Size="UI.Material.ComponentSize.Medium" CssClass="input-group-outline input-group-icon mb-3">        
                         <Icon Key="filter_alt" />
                         <Label CssClass="form-label">Filtro</Label>
                         <TextInput Type="search" OnValueChanged="@ValueChanged" @ref="TextInputReference" />
                     </InputGroup>
+                    -->
                 </div>
             </div>
             <div class="row">
@@ -55,7 +57,7 @@
                                             
                                                 <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard" >
                                                     <li>
-                                                        <Button Icon="password" Size="UI.Material.ComponentSize.Small" Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
+                                                        <MudButton Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
                                                     </li>
                                                     <li>
                                                         <LinkButton Icon="face" Size="UI.Material.ComponentSize.Small" Text="Perfil do usuário" IsDisabled="true" CssClass="m-0 dropdown-item border-radius-md" Navigation="@("pages/identity/profile/" + user.ID)" />
@@ -75,7 +77,7 @@
                                                 OnClick="async () => await SelectUser(user, default)" />
                                         </td>
                                         <td class="text-center">
-                                            <ContactAvatar IDReference="user.ID" Size="Size.Small" />                                   
+                                            <!-- <ContactAvatar IDReference="user.ID" Size="Size.Small" /> -->
                                         </td>
                                         <td class="text-left">@user.EMail</td>
                                         <td class="text-center">
@@ -126,12 +128,12 @@
                 <Form>
                     <div class="col-md-4">
                         <InputGroup CssClass="input-group-outline mb-3">
-                            <SearchInput @ref="InputDirective" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>
+                            <!--<SearchInput @ref="InputDirective" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>-->
                         </InputGroup>
                     </div>
                     <div class="col-md-5">
                         <InputGroup CssClass="input-group-outline mb-3">
-                            <SearchInput @ref="InputContext" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>
+                            <!--<SearchInput @ref="InputContext" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>-->
                         </InputGroup>
                     </div>
                     <div class="col-md-3" style="overflow: hidden;">
