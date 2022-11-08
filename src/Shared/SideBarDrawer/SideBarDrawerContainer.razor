@@ -10,9 +10,9 @@
 </MudDrawerHeader>
 
 <MudNavMenu>
-    <AuthorizeView Context="IdentityUser">
+    <AuthorizeView Context="IdentityContext">
         <Authorized>
-            <MudNavGroupEnchanted Icon="@Avatar" IconAsAvatar="true" Title="@User?.Identity?.Name">
+            <MudNavGroupEnchanted Icon="@Avatar" IconAsAvatar="true" Title="@IdentityContext.User.Identity?.Name">
                 <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Face" Href="https://identity.sufficit.com.br">Perfil de usuário</MudNavLink>
                 <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Logout" OnClick="LogOut">Sair</MudNavLink>
             </MudNavGroupEnchanted>
@@ -92,6 +92,7 @@
     [Inject]
     IAuthenticationStateProvider StateProvider { get; set; } = default!;
 
+    [CascadingParameter]
     protected UserPrincipal? User { get; set; }
 
     protected async Task LogOut(MouseEventArgs _)
@@ -117,31 +118,5 @@
             }
             return result;
         }
-    }
-
-    protected async void OnAuthenticationStateChanged(Task<BlazorAuthenticationState> task)
-    {
-        User = (await task).User;
-        await InvokeAsync(StateHasChanged);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            var user = (await StateProvider.GetAuthenticationStateAsync()).User;
-            if (User != user)
-            {
-                User = user;
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        StateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
     }
 }

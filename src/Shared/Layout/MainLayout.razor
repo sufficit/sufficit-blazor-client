@@ -12,13 +12,15 @@
 
     <CascadingValue Value="@_themeManager.Theme" TValue="MudTheme" IsFixed="true">
         <MudDrawerContainer Class="mud-height-full">
-            <AppBarDefault @bind-SideBarExtended="SideBarExtended"></AppBarDefault>
-            <SideBarDrawer SideBarExtended="@SideBarExtended" />            
-            <MudMainContent Class="pt-16 px-16 bg-gray-100">
-                @Body
-                <div class="fillheight"></div>
-                <FooterMaterial />
-            </MudMainContent>
+            <CascadingIdentityContainerService>
+                <AppBarDefault @bind-SideBarExtended="SideBarExtended"></AppBarDefault>            
+                <SideBarDrawer SideBarExtended="@SideBarExtended" />            
+                <MudMainContent Class="pt-16 px-16 bg-gray-100">
+                    @Body
+                    <div class="fillheight"></div>
+                    <FooterMaterial />
+                </MudMainContent>
+            </CascadingIdentityContainerService>
         </MudDrawerContainer>
     </CascadingValue>
 </MudLayout>

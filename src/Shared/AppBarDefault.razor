@@ -1,9 +1,19 @@
-﻿<MudAppBar Elevation="0" Class="bg-gray-100">
+﻿@using Sufficit.Identity
+
+<MudAppBar Elevation="0" Class="bg-gray-100">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
     <BreadcrumbNavigation />
     <MudSpacer />
     <div class="ms-md-auto pe-md-3 d-flex w-100 align-items-center px-3">
         <TextSearchInput></TextSearchInput>
     </div>
+    <AuthorizeView>
+        <Authorized>
+            <MudIconButton Icon="@Icons.Filled.Logout" OnClick="LogOut" />
+        </Authorized>
+        <NotAuthorized>
+            <MudIconButton Icon="@Icons.Filled.Login" OnClick="LogIn" />
+        </NotAuthorized>
+    </AuthorizeView>
     <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Link="https://github.com/sufficit" Target="_blank" />
 </MudAppBar>

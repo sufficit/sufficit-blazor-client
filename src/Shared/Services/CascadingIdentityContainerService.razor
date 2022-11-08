@@ -1,0 +1,12 @@
+﻿<AuthorizeView>    
+     <Authorized>
+        <CascadingValue Value="@(context.User as Sufficit.Identity.UserPrincipal)" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </Authorized>
+    <NotAuthorized>
+        <CascadingValue Value="@(context.User as Sufficit.Identity.UserPrincipal)" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </NotAuthorized>
+</AuthorizeView>

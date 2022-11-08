@@ -4,14 +4,14 @@
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
                     <div class="card customAuthorizing">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        Verificando estado de autenticação, aguarde ...
-                                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    Verificando estado de autenticação, aguarde ...
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </Authorizing>
                 <NotAuthorized>
                     @if (context.User.Identity == null || !context.User.Identity.IsAuthenticated)

@@ -38,7 +38,7 @@ namespace Sufficit.Blazor.Client
             services.ConfigureCommonServices();
 
             services.AddHttpClient("BlazorHybrid", options => options.BaseAddress = new Uri(_builder.HostEnvironment.BaseAddress));
-            services.AddSingleton<IAuthService, WasmAuthService>();
+            services.AddScoped<IAuthService, WasmAuthService>();
 
             services.AddAuthorizationCore();
 

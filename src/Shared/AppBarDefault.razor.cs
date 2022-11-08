@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.JSInterop;
+using Sufficit.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -59,6 +60,28 @@ namespace Sufficit.Blazor.Client.Shared
         {
             await JSRuntime.InvokeVoidAsync("caches.delete", "blazor-resources-/");
             uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
-        }    
+        }
+
+        [Inject]
+        NavigationManager Navigation { get; set; } = default!;
+
+        [Inject]
+        IAuthService Auth { get; set; } = default!;
+
+        [CascadingParameter]
+        protected UserPrincipal? User { get; set; }
+
+        protected async Task LogOut(MouseEventArgs _)
+        {
+            await Auth.Logout();
+            await InvokeAsync(StateHasChanged);
+        }
+
+        protected async Task LogIn(MouseEventArgs _)
+        {
+            string returnUrl = Navigation.Uri;
+            await Auth.Login(returnUrl);
+            await InvokeAsync(StateHasChanged);
+        }
     }
 }

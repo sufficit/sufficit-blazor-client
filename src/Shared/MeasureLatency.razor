@@ -1,6 +1,5 @@
-﻿@inject IJSRuntime JS
-<div class="card h-100">
-    <div class="card-header pb-0">
+﻿<MudCard Elevation="0">
+    <MudCardHeader>
         <h2>Cálculo de latência</h2>
         @if (latency is null)
         {
@@ -10,9 +9,12 @@
         {
             <span>@(latency.Value.TotalMilliseconds)ms</span>
         }
-    </div>
-</div>
+    </MudCardHeader>
+</MudCard>
 @code {
+    [Inject]
+    protected IJSRuntime JS { get; set; } = default!;
+
     private DateTime startTime;
     private TimeSpan? latency;
 

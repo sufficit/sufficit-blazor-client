@@ -1,14 +1,14 @@
 ﻿@using System.Text.Json
 @using System.Text.Json.Serialization
-<div class="card h-100">
-    <div class="card-header pb-0">
+<MudCard Elevation="0">
+    <MudCardHeader>
         <h2>GitHub</h2>
         <h6>
             Estamos em constante desenvolvimento
             <small class="d-block">Acompanhe nossos trabalhos diretamente pelo <a href="https://github.com/orgs/sufficit" target="_blank">GitHub</a></small>
         </h6>
-    </div>
-    <div class="card-body p-3">
+    </MudCardHeader>
+    <MudCardContent>
         <div class="timeline timeline-one-side">                
             @if (Result == null)
             {
@@ -50,8 +50,8 @@
                 }
             }
         </div>
-    </div>
-</div>
+    </MudCardContent>
+</MudCard>
 
 @code{
     [Inject]
