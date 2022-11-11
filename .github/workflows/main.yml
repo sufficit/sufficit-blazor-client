@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Environment
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
         
     - name: Install dependencies
       working-directory: ./src
