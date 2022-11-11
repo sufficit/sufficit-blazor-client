@@ -70,11 +70,7 @@
 	<ItemGroup>
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
-	
-	<ItemGroup Label="Sufficit Dependencies Fixed">
-		<PackageReference Include="Sufficit.Blazor.UI.Material" Version="1.22.*" />
-	</ItemGroup>
-	
+		
 	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
 		<PackageReference Include="Sufficit.AsterNETFork" Version="1.22.*" />
 		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
