@@ -142,7 +142,7 @@ hr {
     transform: translate3d(0,-50px,0);
 }
 
-    div #blazor-error-ui {
+    div#blazor-error-ui {
     bottom: 0;
     left: 0;
     display: none;

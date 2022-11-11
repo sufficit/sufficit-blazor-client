@@ -1,24 +1,24 @@
 ﻿@using System.Reflection
+@using MudBlazor.Components
+
 <footer class="footer py-4">
-    <div class="container-fluid">
-        <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-                <div class="copyright text-center text-sm text-muted text-lg-start">
+    <MudContainer Style="padding-top: 1rem;" MaxWidth="MaxWidth.False">
+        <MudGrid>
+            <MudItem lg="6">
+                <MudText Align="Align.Start" Typo="Typo.caption" Class="d-block">
                     build: @(AssemblyVersion ?? "Desconhecido"),
                     made by
                     <a href="https://www.sufficit.com.br" class="font-weight-bold" target="_blank">sufficit</a>
                     for a really great experience.
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                    <li class="nav-item">
-                        <a href="https://www.sufficit.com.br/App_Media/termos.pdf" class="nav-link pe-0 text-muted" target="_blank">termos de uso</a>
-                    </li>
-                </ul>
-            </div>
-        </div>          
-    </div>
+                </MudText>
+            </MudItem>
+            <MudItem lg="6"> 
+                <MudText Align="Align.End" Typo="Typo.caption" Class="d-block">
+                    <a href="https://www.sufficit.com.br/App_Media/termos.pdf" class="nav-link pe-0 text-muted" target="_blank">termos de uso</a>
+                </MudText>
+            </MudItem>
+        </MudGrid>      
+    </MudContainer>
 </footer>
 
 @code{
