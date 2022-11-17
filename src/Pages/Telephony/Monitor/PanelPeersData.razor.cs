@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Sufficit.Blazor.UI.Material.Components;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -36,7 +35,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                     yield return item;
             }            
         }
-                
+                /*
         private async void SelectPageSize_OnChanged(SelectedChangedEventArgs<string?> e)
         {
             if(int.TryParse(e.Current, out int size) && PageSize != size)
@@ -45,7 +44,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 await InvokeAsync(StateHasChanged);
             }
         }
-
+                */
         protected override void OnParametersSet()
         {
             base.OnParametersSet();

@@ -1,8 +1,5 @@
 ﻿@page "/pages/identity/profile/{id}"
 @using Microsoft.Extensions.Logging
-@using Newtonsoft.Json
-@using Sufficit.Blazor.UI.Material
-@using Sufficit.Blazor.UI.Material.Services
 @attribute [Authorize]
 
 <HyperText>@id</HyperText>
@@ -41,13 +38,11 @@
     public string id { get; set; }
 
     [Inject]
-    protected BlazorUIMaterialService UIService { get; set; } = default!;
-
-    [Inject]
     protected ILogger<Profile> Logger { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {               
+        /*
         await base.OnAfterRenderAsync(firstRender);
         var Swal = UIService.SweetAlerts;
         var alert = new SweetAlert() { Toast = true, TimerProgressBar = true, Timer = 3000, Title = "Are you sure ?", ShowCancelButton = true };
@@ -55,5 +50,6 @@
         var result = await Swal.Fire(alert).ContinueWith((previous) => { Swal.Fire(alert).ConfigureAwait(false); return previous; });
         var jsonResult = System.Text.Json.JsonSerializer.SerializeToElement(result);
         Logger.LogInformation($"result received: { jsonResult }");
+        */
     }
 }

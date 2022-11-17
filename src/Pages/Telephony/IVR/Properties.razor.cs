@@ -29,7 +29,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
             await InvokeAsync(StateHasChanged).ConfigureAwait(false);
         }
-
+        
         protected void OnValedictionChange(SelectedChangedEventArgs<string?> args)
         {
             if(Guid.TryParse(args.Current, out Guid id))
@@ -40,6 +40,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         {
             if (Guid.TryParse(args.Current, out Guid id))
                 Item.IdAnnouncement = id;
-        }        
+        }   
+        
     }
 }

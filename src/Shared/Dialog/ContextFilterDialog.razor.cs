@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
-using Sufficit.Blazor.UI.Material;
 using Sufficit.Sales;
 using System;
 
@@ -22,13 +21,13 @@ namespace Sufficit.Blazor.Client.Shared
             = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, FullScreen = false };
 
         protected string? FilterText { get; set; }
-
-        public TextSearchControl? TextSearch { get; internal set; }
-
+        
+        //public TextSearchControl? TextSearch { get; internal set; }
+        
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            TextSearch = new TextSearchControl(Navigation);
+            //TextSearch = new TextSearchControl(Navigation);
         }
 
         public async void OnClientSelect(IClient client)

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Sufficit.Blazor.UI.Material;
-using Sufficit.Blazor.UI.Material.Components;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;

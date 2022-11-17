@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Sufficit.Blazor.UI.Material;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
@@ -28,14 +27,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         public int MaxItems { get; set; } = 20;
 
-        [CascadingParameter]
-        public TextSearchControl? TextSearch { get; set; }
 
         public Events()
         {
             _items = new Queue<string>(MaxItems);
             _lock = new object();
         }
+        /*
+        [CascadingParameter]
+        public TextSearchControl? TextSearch { get; set; }
 
         protected override void OnAfterRender(bool firstRender)
         {
@@ -47,7 +47,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             if (TextSearch != null)
                 TextSearch.OnValueChanged += TextSearchValueChanged;
         }
-
+        */
         private async void TextSearchValueChanged(string? value) 
         { 
             lock(_lock)
@@ -59,13 +59,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            
+            /*
             if (TextSearch != null)            
                 TextSearch.Toggle(true);    
+            */
         }
 
         private async void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
         {
+            /*
             var json = e.GetType() + " :: " + JsonSerializer.Serialize(e, e.GetType());
             if (!string.IsNullOrEmpty(TextSearch?.Value))
             {
@@ -83,14 +85,16 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 _items.Enqueue(json);
             }
             await InvokeAsync(StateHasChanged);
+            */
         }
 
         void IDisposable.Dispose()
         {
             EPService.OnEvent -= Service_OnEvent;
-
+            /*
             if (TextSearch != null)
                 TextSearch.OnValueChanged -= TextSearchValueChanged;
+            */
         }
     }
 }

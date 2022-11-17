@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Sufficit.Blazor.UI.Material;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;
@@ -25,8 +23,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         [SupplyParameterFromQuery(Name = "ContextId")]
         public Guid? ContextId { get; set; }
 
+        /*
         [CascadingParameter]
         public TextSearchControl? TextSearch { get; set; }
+        */
 
         protected bool ClientSearchVisible { get; set; }
 
@@ -50,6 +50,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
+            /*
             if(ContextId.HasValue && ContextId.Value != Guid.Empty)
             {
                 TextSearch?.Toggle(false);
@@ -59,11 +60,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
                 if (View.ContextId == Guid.Empty)
                     View.Update(Guid.Parse("d21cfb04-9d37-473b-837c-67591a26feed"));
             }
+            */
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
+            /*
             if (firstRender)
             {
                 if (TextSearch != null)
@@ -74,6 +77,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 
                 await DoCheckUp();
             }
+            */
         }
 
         private async void TextSearchValueChanged(string? obj)
@@ -111,10 +115,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         public async void OnClientSelect(Guid id)
         {
             await View.Update(id);
-
+            /*
             // Cleating filters
             TextSearch?.Update(null);
             await DoCheckUp();
+            */
         }
     }
 }

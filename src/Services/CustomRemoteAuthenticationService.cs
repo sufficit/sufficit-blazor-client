@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using Sufficit.Identity.Configuration;
-using Sufficit.Blazor;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +23,7 @@ namespace Sufficit.Blazor.Client.Services
             IOptionsSnapshot<RemoteAuthenticationOptions<OidcProviderOptions>> options, 
             NavigationManager navigation,
             CustomAccountClaimsPrincipalFactory accountClaimsPrincipalFactory) : 
-            base(jsRuntime, options, navigation, accountClaimsPrincipalFactory)
+            base(jsRuntime, options, navigation, accountClaimsPrincipalFactory, logger)
         {
             _accessor = httpContextAccessor;
             _options = options.Value;

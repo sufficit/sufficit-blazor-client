@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Sufficit.Blazor.UI.Material.Components;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
