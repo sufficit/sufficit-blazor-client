@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Sufficit.Blazor.BreadCrumb;
 using Sufficit.Blazor.Client.Models;
+using Sufficit.Blazor.Client.Models.BreadCrumbs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages
 {
@@ -11,7 +14,7 @@ namespace Sufficit.Blazor.Client.Pages
         protected NavigationManager NavigationManager { get; set; } = default!;
    
         [Inject]
-        protected IBreadcrumbService BreadcrumbService { get; set; } = default!;
+        protected IBreadCrumbService BreadCrumbService { get; set; } = default!;
 
         protected virtual string Title { get; } = default!;
 
@@ -19,31 +22,25 @@ namespace Sufficit.Blazor.Client.Pages
 
         protected virtual string Keywords { get; } = default!;
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override Task OnParametersSetAsync()
         {
-            // continuando o processo na base do componente
-            base.OnAfterRender(firstRender);
-
-            if (firstRender)
-            {
-                BreadcrumbService
-                .Set<HomeBreadcrumb>()
-                .Set<PagesBreadcrumb>()
-                .Set<PageBreadcrumb>(new Dictionary<string, object>
+            BreadCrumbService
+                .Set(new HomeBreadCrumb())
+                .Set(new PagesBreadCrumb())
+                .Set(new BreadCrumbItem()
                 {
-                    ["title"] = Title,
-                    ["description"] = Description,
-                    ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
+                    Title = Title,
+                    Description = Description,
+                    Disabled = true
                 });
 
-                BreadcrumbService.Description = Description;
-            }
+            return base.OnParametersSetAsync();
         }
 
         void IDisposable.Dispose()
         {
             // Limpando as informações no menu de navegação
-            BreadcrumbService.Clear();
+            BreadCrumbService.Clear();
         }
     }
 }

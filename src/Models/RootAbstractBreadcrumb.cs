@@ -7,7 +7,7 @@ using Sufficit.Blazor;
 namespace Sufficit.Blazor.Client.Models
 {
     [RootBreadcrumb]
-    public abstract class RootAbstractBreadcrumb : Breadcrumb
+    public abstract class RootAbstractBreadcrumb : BreadCrumb
     {
 
     }

@@ -1,4 +1,6 @@
-﻿@using Sufficit.Blazor.Client.Models
+﻿@using Sufficit.Blazor.BreadCrumb;
+@using Sufficit.Blazor.Client.Models
+@using Sufficit.Blazor.Client.Models.BreadCrumbs;
 @inherits BasePageComponent
 
 @code {
@@ -8,24 +10,22 @@
         base.OnAfterRender(firstRender);
 
         if (firstRender)
-        {
-            BreadcrumbService
-            .Set<HomeBreadcrumb>()
-            .Set<PagesBreadcrumb>()
-            .Set<PageBreadcrumb>(new Dictionary<string, object>
-            {
-                ["title"] = "Telefonia",
-                ["description"] = "Painel de telefonia",
-                ["link"] = "/pages/telephony"
-            })
-            .Set<PageBreadcrumb>(new Dictionary<string, object>
-            {
-                ["title"] = Title,
-                ["description"] = Description,
-                ["link"] = NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
-            });
-
-            BreadcrumbService.Description = Description;
+        {            
+            BreadCrumbService
+            .Set<HomeBreadCrumb>()
+            .Set<PagesBreadCrumb>()
+            .Set(new BreadCrumbItem()
+                {
+                    Title = "Telefonia",
+                    Description = "Painel de telefonia",
+                    Link = "/pages/telephony"
+                })
+            .Set(new BreadCrumbItem()
+                {
+                    Title = Title,
+                    Description = Description,
+                    Disabled = true
+                });
         }
     }
 }

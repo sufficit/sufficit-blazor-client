@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Models
 {
-    public abstract class Breadcrumb : ComponentBase
+    public abstract class BreadCrumb : ComponentBase
     {
         private readonly BreadcrumbBuilder _breadcrumbBuilder = new();
 
@@ -71,7 +71,7 @@ namespace Sufficit.Blazor.Client.Models
                 _breadcrumbBuilder.RightAction,
                 _breadcrumbBuilder.RightAttributes);
 
-        private void RenderIcon(RenderTreeBuilder builder, string icon, Action action, IEnumerable<KeyValuePair<string, object>> attributes)
+        private void RenderIcon(RenderTreeBuilder builder, string? icon, Action? action, IEnumerable<KeyValuePair<string, object>>? attributes)
         {
             if (icon != null)
             {

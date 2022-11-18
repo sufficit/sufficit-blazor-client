@@ -12,6 +12,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
             if (firstRender)
             {
+                /*
                 BreadcrumbService
                 .Set<HomeBreadcrumb>()
                 .Set<PagesBreadcrumb>()
@@ -35,6 +36,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 });
 
                 BreadcrumbService.Description = Description;
+                */
             }
         }
     }
