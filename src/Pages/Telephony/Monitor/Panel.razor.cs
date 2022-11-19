@@ -41,7 +41,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                         if (ep != null)
                         {
                             Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
-                            var options = new AMIHubClientOptions() { EndPoint = new Uri(ep.Endpoint) };
+                            var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
                             var client = new AMIHubClient(options);
                             Service.Configure(client);
                             ErrorConfig = null;
