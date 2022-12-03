@@ -1,0 +1,60 @@
+﻿@using Sufficit.Identity
+
+<MudTable @ref="Table"
+          RowStyle="cursor: pointer;"
+          T="Sufficit.Identity.Client.User"
+          Dense="true"
+          Hover="true"
+          Elevation="0"
+          Style="padding: 0;"
+          Breakpoint="Breakpoint.Sm"
+          LoadingProgressColor="Color.Info"
+          ServerData="GetData"
+          SelectedItemChanged="SelectedItemChanged">
+    <HeaderContent>
+        @if (DataItems.Any())
+        {
+            <MudTh></MudTh>
+            <MudTh Style="text-align: left">Titulo</MudTh>
+            <MudTh Style="text-align: center">Confirmação</MudTh>
+            <MudTh Style="text-align: left">Bloqueio</MudTh>
+        }
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
+            <ContactAvatar IDReference="@context.ID" Size="Size.Small" />
+        </MudTd>
+        <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.EMail</MudTd>
+        <MudTd DataLabel="Confirmação" Style="text-align: center; white-space: nowrap;">
+            <MudTooltip Text='@(context.EMailConfirmed ? "Confirmado" : "Pendente !")'>
+                <MudIconButton Icon="@Icons.Material.Filled.Email" Color="@(context.EMailConfirmed ? Color.Info : Color.Warning)"></MudIconButton>
+            </MudTooltip>
+        </MudTd>
+        <MudTd DataLabel="Bloqueio" Style="text-align: left">
+            <MudTooltip Text='@(context.LockoutEnabled ? "Acesso bloqueado !" : "Liberado")'>
+                <MudIconButton Icon="@(context.LockoutEnabled ? Icons.Material.Filled.Block : Icons.Material.Filled.Verified)" Color="@(context.LockoutEnabled ? Color.Error : Color.Info)"></MudIconButton>
+                @if (context.LockoutEnd >= DateTime.Now)
+                {
+                    @context.LockoutEnd?.ToString("dd/MM/yyyy HH:mm")
+                }
+            </MudTooltip>
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        @if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            @if (Filter.Length < Minimum)
+            {
+                <MudText>Para iniciar a pesquisa precisamos de pelo menos @Minimum caracteres.</MudText>
+            }
+            else
+            {
+                <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+            }
+        }
+        else
+        {
+            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+        }
+    </NoRecordsContent>
+</MudTable>

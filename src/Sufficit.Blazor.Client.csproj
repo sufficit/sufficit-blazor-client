@@ -69,6 +69,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MudBlazor" Version="6.1.2" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
 		

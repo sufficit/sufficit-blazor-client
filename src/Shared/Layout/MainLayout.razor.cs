@@ -28,6 +28,7 @@ namespace Sufficit.Blazor.Client.Shared.Layout
         protected override void OnInitialized()
         {
             base.OnInitialized();
+            MyCustomTheme.Shadows.Elevation[3] = "0px 2px 4px -1px rgba(200,200,200,0.2),0px 4px 5px 0px rgba(200,200,200,0.14),0px 1px 10px 0px rgba(200,200,200,0.12);";
             _themeManager.Theme = MyCustomTheme;
         }
 
@@ -43,7 +44,6 @@ namespace Sufficit.Blazor.Client.Shared.Layout
             },
             Typography = new Typography()
             {
-
                 Default = new Default()
                 {
                     FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
@@ -60,10 +60,10 @@ namespace Sufficit.Blazor.Client.Shared.Layout
                 DefaultBorderRadius = "0.5rem",
                 DrawerMiniWidthLeft = "120px",
                 DrawerWidthLeft = "260px",
-                DrawerWidthRight = "300px",
-            }
+                DrawerWidthRight = "300px",               
+            },            
         };
-
+                
         #region THEME MANAGER
 
         private ThemeManagerTheme _themeManager = new ThemeManagerTheme();

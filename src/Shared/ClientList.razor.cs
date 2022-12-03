@@ -35,7 +35,7 @@ namespace Sufficit.Blazor.Client.Shared
         private string? _filter = string.Empty;
 
         [EditorRequired]
-        protected MudTable<IClient>? Table { get; set; }
+        protected MudTable<IClient>? Table { get; set; } = default!;
 
         [Parameter]
         public EventCallback<string?> FilterChanged { get; set; }

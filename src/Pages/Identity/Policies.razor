@@ -1,146 +1,57 @@
 ﻿@page "/pages/identity/policies"
+@using Sufficit.Blazor.Client.Shared.Forms
+@using Sufficit.Blazor.Client.Shared.Tables
 @inherits BasePageComponent
 
-<div>
-    <h3><span>Identity Admin API Status: </span> @Status</h3>
-</div>
+<MudPaper Elevation="3" Class="pa-4 ma-1">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.ManageAccounts"></MudIcon>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">Personalizar o acesso de usuários as funções do sistema</MudText>
+            <MudText Typo="Typo.body2">Pesquise por nome de usuário ou e-mail.</MudText>
+            <MudText Typo="Typo.caption">Identity Admin API Status: @Status</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudDivider DividerType="DividerType.Inset"></MudDivider>
+    <MudCardContent>
 
-@if (UserID == Guid.Empty) {
-    <hr class="dark horizontal" />
+        @if (UserID == Guid.Empty) {
+            <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />            
+            <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
+            <UserSearchTable @ref="UserSearchTableReference" Filter="@Filter" SelectedItemChanged="OnUserSelect"></UserSearchTable>
+        }
+
+    </MudCardContent>
+</MudPaper>
+@if(UserSelected != null) {
+    <MudPaper Elevation="3" Class="pa-4 ma-1">
+        <MudCardHeader>
+        <CardHeaderAvatar>
+            <ContactAvatar IDReference="@UserSelected.ID" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">@UserSelected?.EMail</MudText>
+            <MudText Typo="Typo.body2">sem informação</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudDivider DividerType="DividerType.Inset"></MudDivider>
+    <MudCardContent>
+        <AuthorizeView Roles="administrator">
+            <div class="text-end ms-auto">
+                <Button 
+                    Icon="no_accounts" 
+                    Text="Remover Usuário Permanentemente" 
+                    Size="UI.Material.ComponentSize.Small" 
+                    CssClass="bg-gradient-primary mb-0" 
+                    OnClick="() => OnUserDelClick(UserSelected)"
+                    />
+            </div>
+        </AuthorizeView>
+        <UserDirectiveAdd></UserDirectiveAdd>
     <div class="card card-frame">
-        <div class="card-header d-flex align-items-center py-3">
-            <div class="d-block d-md-flex align-items-center">
-                <Icon Key="manage_accounts" />
-                <div class="mx-0 mx-md-3">
-                    <span>Personalizar o acesso de usuários as funções do sistema</span>
-                    <small class="d-block text-muted">*Pesquise por nome de usuário ou e-mail.</small>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <!--
-                    <InputGroup Size="UI.Material.ComponentSize.Medium" CssClass="input-group-outline input-group-icon mb-3">        
-                        <Icon Key="filter_alt" />
-                        <Label CssClass="form-label">Filtro</Label>
-                        <TextInput Type="search" OnValueChanged="@ValueChanged" @ref="TextInputReference" />
-                    </InputGroup>
-                    -->
-                </div>
-            </div>
-            <div class="row">
-                @if (UsersResponse != null && UsersResponse.Users != null)
-                {
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th class="text-left">E-Mail</th>
-                                    <th class="text-center">Confirmado</th>
-                                    <th class="text-left">Bloqueado Até</th>
-                                
-                                </tr>
-                            </thead>                             
-                            <tbody>
-                                @foreach (User user in UsersResponse.Users)
-                                {
-                                    <tr>
-                                        <td class="text-center">
-                                            <div class="dropstart">
-                                                <a href="javascript:;" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="material-icons text-xl" style="vertical-align: middle;">more_vert</i>
-                                                </a>
-                                            
-                                                <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard" >
-                                                    <li>
-                                                        <MudButton Text="Resetar senha" CssClass="m-0 dropdown-item border-radius-md" OnClick="async () => await ConfirmPasswordReset(user, default)" />
-                                                    </li>
-                                                    <li>
-                                                        <LinkButton Icon="face" Size="UI.Material.ComponentSize.Small" Text="Perfil do usuário" IsDisabled="true" CssClass="m-0 dropdown-item border-radius-md" Navigation="@("pages/identity/profile/" + user.ID)" />
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-left">
-                                            <Button 
-                                                Text="Selecionar" 
-                                                ToolTipDescription="Administrar políticas"
-                                                ToolTipPosition="UI.Material.ToolTipPosition.TOP_LEFT"
-                                                Icon="arrow_circle_right" 
-                                                Size="UI.Material.ComponentSize.Small" 
-                                                Color="UI.Material.ColorKind.Primary" 
-                                                CssClass="btn-icon-only m-0"
-                                                OnClick="async () => await SelectUser(user, default)" />
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- <ContactAvatar IDReference="user.ID" Size="Size.Small" /> -->
-                                        </td>
-                                        <td class="text-left">@user.EMail</td>
-                                        <td class="text-center">
-                                            <a data-tooltip="E-Mail confirmado ?">
-                                                <Icon CssClass='@(user.EMailConfirmed ? "text-info" : "text-light")' Key="mail"></Icon>
-                                            </a>
-                                        </td>
-                                        <td class="text-left">@user.LockoutEnd</td>                                    
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                } 
-                else
-                {
-                    <h6>@UsersMessage</h6>
-                }
-            </div>
-        </div>
-    </div>
-}
-@if(UserSelected != null){
-    <hr class="dark horizontal" />    
-    <div class="card card-frame">
-        <div class="card-header d-flex align-items-center py-3">
-            <div class="d-block d-md-flex align-items-center">
-                <ContactAvatar IDReference="@UserSelected.ID" />
-                <div class="mx-0 mx-md-3">
-                    <HyperText>@UserSelected?.EMail</HyperText>
-                    <small class="d-block text-muted">sem informação</small>
-                </div>
-            </div>
-            <AuthorizeView Roles="administrator">
-                <div class="text-end ms-auto">
-                    <Button 
-                        Icon="no_accounts" 
-                        Text="Remover Usuário Permanentemente" 
-                        Size="UI.Material.ComponentSize.Small" 
-                        CssClass="bg-gradient-primary mb-0" 
-                        OnClick="() => OnUserDelClick(UserSelected)"
-                        />
-                </div>
-            </AuthorizeView>
-        </div>
-        <div class="card-body">            
-            <div class="row">
-                <Form>
-                    <div class="col-md-4">
-                        <InputGroup CssClass="input-group-outline mb-3">
-                            <!--<SearchInput @ref="InputDirective" Label="Diretiva" GetItemsHandler="@BIService.GetDirectives"></SearchInput>-->
-                        </InputGroup>
-                    </div>
-                    <div class="col-md-5">
-                        <InputGroup CssClass="input-group-outline mb-3">
-                            <!--<SearchInput @ref="InputContext" Label="Contexto" GetItemsHandler="@BIService.GetContacts"></SearchInput>-->
-                        </InputGroup>
-                    </div>
-                    <div class="col-md-3" style="overflow: hidden;">
-                        <Button Text="Adicionar" Icon="add" CssClass="container mb-0 bg-gradient-primary" OnClick="@OnAddClick" />
-                    </div>
-                </Form>
-            </div>
+        <div class="card-body">        
             <div class="row">
             @if (UserPolicies != null && UserPolicies.Any())
             {
@@ -159,7 +70,8 @@
                             {
                                 <tr>
                                     <td style="width: 140px;">
-                                        <Button Text="Remover" Size="UI.Material.ComponentSize.Small" Icon="delete_outline" CssClass="container mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)" />
+                                        <MudButton></MudButton>
+                                        <Button Text="Remover" Size="Size.Small" Icon="delete_outline" CssClass="container mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)" />
                                     </td>
                                     <td>@item.Directive.Name</td>
                                     <td>
@@ -179,4 +91,6 @@
             </div>
         </div>
     </div>
+        </MudCardContent>
+</MudPaper>
 }

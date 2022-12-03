@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Sufficit.Blazor.Client.Shared.Tables;
+using Sufficit.Identity;
+using Sufficit.Client;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {
@@ -26,10 +29,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         private string? Status { get; set; }
 
-        private GetUsersResponse? UsersResponse { get; set; }
-
-        private string? UsersMessage { get; set; }
-
         private Sufficit.Identity.Client.User? UserSelected { get; set; }
 
         private IEnumerable<UserClaimPolicy>? UserPolicies { get; set; }
@@ -37,23 +36,35 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         private string? UserClaimsMessage { get; set; }
 
         [Parameter]
-        [SupplyParameterFromQuery]
-        public string? Filter { get; set; }
+        [SupplyParameterFromQuery(Name = "filter")]
+        public string? QueryFilter { get; set; }
 
         [Parameter]
         [SupplyParameterFromQuery]
         public Guid UserID { get; set; }
 
+        protected UserSearchTable? UserSearchTableReference { get; set; } = default;
+
+        protected async void OnTextChanged(string? value)
+        {            
+            if (UserSearchTableReference != null)
+                await UserSearchTableReference.SetFilter(value);            
+        }
+
+        protected string? Filter { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync();
 
+            if (QueryFilter != null)
+                Filter = QueryFilter;            
+
             if (UserID != Guid.Empty)
             {
                 var user = await BIService.Identity.Users.GetUserAsync(UserID);
                 if (user != null)
-                    await SelectUser(user);
+                    OnUserSelect(user);
             }
         }
 
@@ -61,56 +72,35 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (!string.IsNullOrWhiteSpace(Filter))
-            {
-                throw new NotImplementedException();
-                //TextInputReference.Update(Filter, true);
-                //TextInputReference.SetDisabled(true);
-            }
-
             var statusPrevious = Status;
             Status = (await BIService.Identity.Health())?.Status;
             if (statusPrevious != Status) 
                 await InvokeAsync(StateHasChanged);
         }
 
-        protected async Task ValueChanged(string? searchText)
-        {
-            if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
-            {
-                UsersResponse = await BIService.Identity.Users.GetUsersAsync(searchText);
-                if (UsersResponse == null)
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Problema na consulta";
-                }
-                else if (UsersResponse.Users == null || !UsersResponse.Users.Any())
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Nenhum resultado encontrado";
-                }
-                    
-                await InvokeAsync(StateHasChanged);                
-            }
-            else
-            {
-                UsersResponse = null;
-                UsersMessage = "Mínimo de 4 caracteres para consultar";
-            }
-        }
+        private GetUsersResponse? UsersResponse { get; set; }
+
+
+        
 
         protected async Task ReloadSearch()
         {
            // await ValueChanged(TextInputReference?.Value);
         }
 
-        protected async Task SelectUser(User? selected, CancellationToken cancellationToken = default)
+        public async void OnUserSelect(User selected)
         {
-            UserSelected = selected;
-            if(UserSelected != null)
-                UserPolicies = await BIService.GetUserPolicies(UserSelected, cancellationToken);
+            if (UserSelected != selected)
+            {
+                UserSelected = selected;
+                if (UserSelected != null)
+                {
+                    UserPolicies = await BIService.GetUserPolicies(UserSelected, default);
 
-            await InvokeAsync(StateHasChanged);
+                    //refreshing ui
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
         }
 
         protected async Task ConfirmPasswordReset(User selected, CancellationToken cancellationToken = default)
@@ -174,45 +164,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         protected SearchInput? InputContext { get; set; } = default!;
         */
 
-        protected async Task OnAddClick(MouseEventArgs e)
-        {/*
-            var user = UserSelected;
-            var directive = InputDirective?.Selected;
-            var context = InputContext?.Selected;
-
-            if (user != null)
-            {
-                if (!string.IsNullOrWhiteSpace(directive))
-                {
-                    if (!string.IsNullOrWhiteSpace(context))
-                    {
-                        if (Guid.TryParse(context, out Guid idcontext))
-                        {
-                            await BIService.UpdateUserPolicy(user, directive, idcontext, default);
-                            await SelectUser(UserSelected, default);
-                        }
-                        else
-                        {
-                            throw new FormValidationException("Contexto inválido.");
-                        }
-                    }
-                    else
-                    {
-                        throw new FormValidationException("Contexto em branco.");
-                    }
-                }
-                else
-                {
-                    throw new FormValidationException("Diretiva em branco.");
-                }
-            } 
-            else
-            {
-                throw new FormValidationException("Usuário não selecionado");
-            }
-            */
-        }
-
+        
         protected async void OnDelClick(int? id)
         {
             if (id.HasValue)
@@ -220,7 +172,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                 if (UserSelected != null)
                 {
                     await BIService.RemoveUserPolicy(UserSelected, id.Value, default);
-                    await SelectUser(UserSelected, default);
+                    OnUserSelect(UserSelected);
                 }
                 else throw new Exception("no user selected");
             }
