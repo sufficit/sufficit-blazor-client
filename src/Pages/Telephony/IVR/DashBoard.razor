@@ -10,69 +10,73 @@
                     <ClientMissing></ClientMissing>
                 </MudPaper>
             } else {
-                <div class="card p-4">
-                    <p class="text-sm ms-auto mb-0 text-capitalize">@DateTime.Now</p>
-                    <div class="card-body">
-                        <div class="row">
-                            @if (Items != null)
-                            {
-                                <Table class="table table-flush dataTable-table" id="datatable-search">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th></th>
-                                            <th>Extensão</th>
-                                            <th>Titulo</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var Item in Items.OrderBy(s => s.Extension).ThenBy(s => s.Title))
-                                        {
-                                            <DataRow>
-                                                <td>
-                                                    <NavigationButton ToolTipDescription='Modificar' CssClass="btn-outline-dark p-2 m-0" Navigation='@("/pages/telephony/ivr?id=" + Item.Id)'>
-                                                        <Icon Key="edit"></Icon>
-                                                    </NavigationButton>
-                                                </td>
-                                                <td class="text-sm font-weight-normal">@Item.Extension</td>
-                                                <td class="text-sm font-weight-normal">@Item.Title</td>
-                                                <td class="text-sm font-weight-normal text-end">             
-                                                    @if (Item.CanSkipAnnouncement)
-                                                    {
-                                                        <Button Icon="skip_next" ToolTipDescription="Ao escolher cancela o áudio !" ToolTipPosition="UI.Material.ToolTipPosition.LEFT_CENTER" CssClass="p-2 text-success"></Button>
-                                                    } else
-                                                    {
-                                                        <Button Icon="play" ToolTipDescription="Deve ouvir a saudação até o final" ToolTipPosition="UI.Material.ToolTipPosition.LEFT_CENTER" CssClass="p-2 text-danger"></Button>
-                                                    }
-                                                    @if (Item.DirectDial)
-                                                    {
-                                                        <Button Icon="person" ToolTipDescription="Permite discar para ramais" ToolTipPosition="UI.Material.ToolTipPosition.LEFT_CENTER" CssClass="p-2 text-success"></Button>
-                                                    } else
-                                                    {
-                                                        <Button Icon="person_off" ToolTipDescription="Não permite discar para ramais" ToolTipPosition="UI.Material.ToolTipPosition.LEFT_CENTER" CssClass="p-2 text-danger"></Button>
-                                                    }
-                                                    <Button Icon="calendar_today" ToolTipDescription='@("Última alteração: " + Item.Update.ToString())' ToolTipPosition="UI.Material.ToolTipPosition.LEFT_CENTER" CssClass="p-2"></Button>
-                                                </td>
-                                                <td>
-                                                    <LinkButton Navigation='@("https://www.sufficit.com.br/telefonia/relatorios/enquetes?IDEnquete=" + Item.Id)' Target="UI.Material.AnchorTarget.BLANK">
-                                                        <Icon Key="leaderboard"></Icon>
-                                                    </LinkButton>
-                                                </td>
-                                            </DataRow>
-                                        }                                
-                                    </tbody>
-                                </Table>
-                            }
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="text-end">
-                            <IconButton Icon="refresh" OnClick="GetItems" CssClass="btn-outline-secondary mb-0 ms-2" ToolTipDescription="Atualizar"></IconButton>
-                            <NavigationButton Navigation="/pages/telephony/ivr" CssClass="bg-gradient-secondary mb-0 ms-2" Text="Nova IVR/Menu"></NavigationButton>
-                        </div>
-                    </div>    
-                </div>
+                <MudPaper Class="pa-3">
+                    <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform:capitalize">@DateTime.Now</MudText>
+
+                    @if (Items != null)
+                    {
+                        <MudTable Items="Items.OrderBy(s => s.Extension).ThenBy(s => s.Title)" Breakpoint="Breakpoint.Sm" Hover Class="my-3">
+                            <HeaderContent>
+                                <MudTh Style="width: 130px"></MudTh>
+                                <MudTh Style="width: 250px">Extensão</MudTh>
+                                <MudTh>Titulo</MudTh>
+                                <MudTh Style="width: 280px"></MudTh>
+                            </HeaderContent>
+
+                            <RowTemplate>
+                                <MudTd DataLabel="Ação">
+                                    <MudLink Href="@("/pages/telephony/ivr?id=" + context.Id)" Underline="Underline.None">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudLink>
+                                </MudTd>
+                                <MudTd DataLabel="Extensão">@context.Extension</MudTd>
+                                <MudTd DataLabel="Titulo">@context.Title</MudTd>
+                                <MudTd DataLabel="Estado">
+                                    @if (context.CanSkipAnnouncement)
+                                    {
+                                        <MudTooltip Text="Ao escolher cancela o áudio !" Placement="Placement.Left">
+                                            <MudIconButton Icon="@Icons.Material.Filled.SkipNext" Color="Color.Success"></MudIconButton>
+                                        </MudTooltip>
+                                    } else
+                                    {
+                                        <MudTooltip Text="Deve ouvir a saudação até o final" Placement="Placement.Left">
+                                            <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" Color="Color.Warning"></MudIconButton>
+                                        </MudTooltip>
+                                    }
+
+                                    @if (context.DirectDial)
+                                    {
+                                        <MudTooltip Text="Permite discar para ramais" Placement="Placement.Left">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Success"></MudIconButton>
+                                        </MudTooltip>
+                                    } else
+                                    {
+                                        <MudTooltip Text="Não permite discar para ramais" Placement="Placement.Left">
+                                            <MudIconButton Icon="@Icons.Material.Filled.PersonOff" Color="Color.Warning"></MudIconButton>
+                                        </MudTooltip>
+                                    }
+                                    <MudTooltip Text="@("Última alteração: " + context.Update.ToString())" Placement="Placement.Left">
+                                        <MudIconButton Icon="@Icons.Material.Filled.CalendarToday" Class="mr-3"></MudIconButton>
+                                    </MudTooltip>
+
+                                    <MudLink Href="@("https://www.sufficit.com.br/telefonia/relatorios/enquetes?IDEnquete=" + context.Id)" Target="_blank">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Leaderboard" ></MudIconButton>
+                                    </MudLink>
+                                </MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                    }
+                
+                    <MudStack Row Justify="Justify.FlexEnd" AlignItems="AlignItems.Center">
+                        <MudTooltip Text="Atualizar">
+                            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Outlined" OnClick="GetItems"></MudIconButton>
+                        </MudTooltip>
+
+                        <MudLink Href="/pages/telephony/ivr">
+                            <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova IVR/Menu</MudButton>
+                        </MudLink>
+                    </MudStack>
+                </MudPaper>
             }
     </MudItem>
 </MudGrid>
