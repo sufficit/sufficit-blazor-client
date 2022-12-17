@@ -1,99 +1,101 @@
 ﻿<MudCard Class="ma-2" Elevation="25">
     <MudCardHeader>
-        <CardHeaderAvatar>
-            <MudIcon Icon="@Icons.Filled.FormatListBulleted"></MudIcon>
-        </CardHeaderAvatar>
-        <CardHeaderContent>
-            <MudText Typo="Typo.h6">Menu | Interactive Voice Response</MudText>
-            <MudText Typo="Typo.body2">id: @Item.Id</MudText>
-        </CardHeaderContent>        
-        <CardHeaderActions>
-            @if(Item.Update > DateTime.MinValue)
-            {
-                <MudElement Style="padding: 1rem; display: flex;">
-                    <MudTooltip Text="Última atualização">
-                        <MudStack Row="true">
-                            <MudText Typo="Typo.body2">@Item.Update</MudText>
-                            <MudIcon Size="Size.Small" Icon="@Icons.Filled.EditCalendar"></MudIcon>
+        <MudGrid>
+            <MudItem xs="12" md="6">
+                <MudHidden Breakpoint="Breakpoint.MdAndUp">
+                    <MudStack Row Justify="Justify.SpaceBetween" Class="align-center flex-wrap">
+                        <MudIcon Icon="@Icons.Filled.FormatListBulleted"></MudIcon>               
+
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.h6">Menu | Interactive Voice Response</MudText>
+                            <MudText Typo="Typo.body2">id: @Item.Id</MudText>
                         </MudStack>
-                    </MudTooltip>
-                </MudElement>
-            }
-        </CardHeaderActions>        
+                    </MudStack>
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                    <MudStack Row Justify="Justify.FlexStart" Class="align-center">
+                        <MudIcon Icon="@Icons.Filled.FormatListBulleted"></MudIcon>
+
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.h6">Menu | Interactive Voice Response</MudText>
+                            <MudText Typo="Typo.body2">id: @Item.Id</MudText>
+                        </MudStack>
+                    </MudStack>
+                </MudHidden>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudStack Justify="Justify.FlexEnd">
+                    @if(Item.Update > DateTime.MinValue)
+                    {
+                        <MudElement Style="padding: 1rem; display: flex; justify-content:end">
+                            <MudTooltip Text="Última atualização">
+                                <MudStack Row="true">
+                                    <MudText Typo="Typo.body2">@Item.Update</MudText>
+                                    <MudIcon Size="Size.Small" Icon="@Icons.Filled.EditCalendar"></MudIcon>
+                                </MudStack>
+                            </MudTooltip>
+                        </MudElement>
+                    }
+                </MudStack>
+            </MudItem>
+        </MudGrid>        
     </MudCardHeader>
     <MudDivider DividerType="DividerType.Middle" />
     <MudCardContent>
-        <div class="border-radius-xl bg-white js-active" data-animation="FadeIn">                
-            <div class="form-content">
-                <div class="row mt-3">
-                    <div class="col-12 col-sm-3">
-                        <div class="input-group input-group-static">
-                            <label for="title">Titulo</label>
-                            <input type="text" id="title" class="form-control" placeholder="Principal" @bind="@Item.Title">
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-9 mt-3 mt-sm-0">
-                        <div class="input-group input-group-static">
-                            <label for="description">Descrição</label>
-                            <input type="text" id="description" class="form-control" placeholder="Usado na entrada dos clientes" @bind="@Item.Description">
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12 col-sm-5 mt-3 mt-sm-0 text-start">  
-                        <div class="input-group input-group-static">
-                            <label>Áudio de saudação</label>
-                            <div class="choices is-open is-focused" data-type="select-one">
-                                <Select CssClass="form-control choices-list" Selected="@Item.IdAnnouncement?.ToString()" OnChanged="OnAnnouncementChange">
-                                    <Option Value="@Guid.Empty.ToString()">Nenhum áudio</Option>
-                                    @if (Audios != null)
-                                    {
-                                        @foreach (var item in Audios)
-                                        {
-                                            <Option Value="@item.Id.ToString()">@item.Title</Option>
-                                        }                                
-                                    }
-                                </Select>
-                            </div>
-                        </div>                  
-                    </div>
-                    <div class="col-12 col-sm-5 mt-3 mt-sm-0 text-start">
-                        <InputGroup CssClass="input-group-static">
-                            <Label>Áudio de despedida</Label>
-                            <Choices Selected="@Item.IdValediction?.ToString()" OnChanged="OnValedictionChange">
-                                <Option CssClass="choices-item" Value="@Guid.Empty.ToString()" Label="Nenhum áudio" Default="true" />
-                                @if (Audios != null)
-                                {
-                                    @foreach (var item in Audios)
-                                    {
-                                        <Option CssClass="choices-item" Value="@item.Id.ToString()" Label="@item.Title" />
-                                    }
-                                }
-                            </Choices>
-                        </InputGroup>         
-                    </div>
-                    <div class="col-12 col-sm-2 mt-3 mt-sm-0">
-                        <div class="input-group input-group-static">
-                            <label>Extensão</label>
-                            <input class="form-control" @bind="@Item.Extension">
-                        </div>
-                    </div>
-                </div>           
-            </div>
-        </div>         
+        <MudGrid>
+            <MudItem xs="12" md="6" lg="3">
+                <MudTextField @bind-Value="@Item.Title" Label="Titulo" Variant="Variant.Text"></MudTextField>
+            </MudItem>
+            <MudItem xs="12" md="6" lg="9">
+                <MudTextField @bind-Value="@Item.Description" Label="Descrição" Variant="Variant.Text"></MudTextField>
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12" md="6" lg="5">
+                <MudSelect T="String" Label="Áudio de saudação" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem Value="@Guid.Empty.ToString()"></MudSelectItem>
+                    @if (Audios != null)
+                    {
+                        @foreach (var item in Audios)
+                        {
+                            <MudSelectItem Value="@item.Id.ToString()">@item.Title</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" md="6" lg="5">
+                <MudAutocomplete 
+                    T="String"
+                    Label="Áudio de despedida"                
+                    SearchFunc="onSearch"> 
+                </MudAutocomplete>
+            </MudItem>
+            <MudItem xs="12" md="6" lg="2">
+                <MudTextField @bind-Value="@Item.Extension" Label="Extensão" Variant="Variant.Text"></MudTextField>
+            </MudItem>
+        </MudGrid>      
     </MudCardContent>
     <MudDivider DividerType="DividerType.Middle" />
     <MudCardActions Style="padding: .5rem 1.5rem .5rem 1.5rem;">
-        <MudStack Row="true">
-            <MudSwitch @bind-Checked="@Item.CanSkipAnnouncement" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
-                <MudText Typo="Typo.body1">Permite pular</MudText>
-                <MudText Typo="Typo.caption">Ao escolher cancela o áudio !</MudText>
-            </MudSwitch>
-            <MudDivider DividerType="DividerType.Middle" Vertical="true" />
-            <MudSwitch @bind-Checked="@Item.DirectDial" ThumbIcon="@Icons.Material.Filled.Person" Color="@Color.Primary">
-                <MudText Typo="Typo.body1">Discar para ramal diretamente</MudText>
-                <MudText Typo="Typo.caption">Permite discar uma extensão não listada, como um ramal diretamente, ex: 6001</MudText>
-            </MudSwitch>
-        </MudStack>
+        <MudGrid Class="align-center">
+            <MudItem xs="12" md="6" lg="3">
+                <MudSwitch @bind-Checked="@Item.CanSkipAnnouncement" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
+                    <MudText Typo="Typo.body1">Permite pular</MudText>
+                    <MudText Typo="Typo.caption">Ao escolher cancela o áudio !</MudText>
+                </MudSwitch>
+
+            </MudItem>
+            <MudHidden Breakpoint="Breakpoint.MdAndDown" xs>
+                <MudItem xs="0" md="0" lg="1" Class="d-flex justify-center">
+                    <MudDivider DividerType="DividerType.Middle" Vertical="true" Style="height: 35px" />
+                </MudItem>
+            </MudHidden>
+            <MudItem xs="12" md="6" lg="5">
+                <MudSwitch @bind-Checked="@Item.DirectDial" ThumbIcon="@Icons.Material.Filled.Person" Color="@Color.Primary">
+                    <MudText Typo="Typo.body1">Discar para ramal diretamente</MudText>
+                    <MudText Typo="Typo.caption">Permite discar uma extensão não listada, como um ramal diretamente, ex: 6001</MudText>
+                </MudSwitch>
+            </MudItem>
+        </MudGrid>
     </MudCardActions>
 </MudCard>

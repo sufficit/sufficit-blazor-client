@@ -28,6 +28,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
             await InvokeAsync(StateHasChanged).ConfigureAwait(false);
         }
+
         /*
         protected void OnValedictionChange(SelectedChangedEventArgs<string?> args)
         {
@@ -41,5 +42,28 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                 Item.IdAnnouncement = id;
         }   
         */
+
+        private async Task<IEnumerable<string>> onSearch(string value)
+        {
+            // In real life use an asynchronous function for fetching data from an api.
+            await Task.Delay(5);
+
+
+            // if text is null or empty, show complete list
+            if (string.IsNullOrEmpty(value))
+            {
+                return (IEnumerable<string>)Audios
+                    .Select(e => e.Title)
+                    .ToArray();
+            }
+            else
+            {
+                return (IEnumerable<string>)Audios
+                    .Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                    .Select(e => e.Title)
+                    .ToArray();
+            }
+
+        }
     }
 }

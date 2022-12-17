@@ -44,16 +44,20 @@
         </MudCardActions>
     </MudCard>
     <MudCard Class="ma-2" Elevation="25">
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h6">Publicar alterações</MudText>
-                <MudText Typo="Typo.body2">Vamos salvar essa bagaça pra atualizar a central e por pra rodar.</MudText>
-            </CardHeaderContent>
-            <CardHeaderActions>
-                <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
-                <MudButton Color="@Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Outlined.Save" OnClick="Save">Salvar</MudButton>
-            </CardHeaderActions>
-        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid Class="align-center">
+                <MudItem xs="12" lg="6">
+                    <MudText Typo="Typo.h6">Publicar alterações</MudText>
+                    <MudText Typo="Typo.body2">Vamos salvar essa bagaça pra atualizar a central e por pra rodar.</MudText>
+                </MudItem>
+                <MudItem xs="12" lg="6" Style="padding: 4px">
+                    <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
+                        <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
+                        <MudButton Color="@Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Outlined.Save" OnClick="Save">Salvar</MudButton>
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
     </MudCard>
 }
 else {
