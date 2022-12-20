@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly" ToolsVersion="Current">
 
 	<PropertyGroup Label="Sufficit Targeting">
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
 		<RootNamespace>Sufficit.Blazor.Client</RootNamespace>
 		<TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 	
 	<PropertyGroup Label="Sufficit Versioning">
@@ -17,7 +17,50 @@
 		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
 		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
 	</PropertyGroup>
+	
+	<PropertyGroup Label="Sufficit Product General">
+		<Company>SUFFICIT SOLUÇÕES EM TECNOLOGIA DA INFORMAÇÃO</Company>
+		<Authors>Hugo Castro de Deco</Authors>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<ProductName>Sufficit Blazor Client</ProductName>
 
+		<!-- Copia todas as dlls de dependencias para o diretório de publicação dos projetos que o utilizam -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<PreserveCompilationReferences>false</PreserveCompilationReferences>
+
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Sufficit Pacote NUGET">
+		<Name>Sufficit Blazor Client</Name>
+		<PackageId>Sufficit.Blazor.Client</PackageId>
+		<PackageDescription></PackageDescription>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/sufficit/sufficit-blazor-client</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/sufficit/sufficit-blazor-client</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/sufficit/sufficit-blazor-client/master/icon.ico</PackageIconUrl>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<PackageLicenseFile>license</PackageLicenseFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup Label="Sufficit Pacote NUGET Itens">
+		<None Include="../icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="../license">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="../readme.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	
 	<ItemGroup>
 		<Compile Remove="Models\Identity\**" />
 		<Compile Remove="NotInUse\**" />
