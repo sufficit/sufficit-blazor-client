@@ -5,13 +5,13 @@ requirejs.config({
     paths: {
         'sufficit/blazor-before': 'sufficit-blazor-before',
         'content/authentication': rootPath + '/_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService'
-    },
+    }/*,
     shim: {
         'content/authentication': { init: onAuthenticationLoaded },
         'sufficit/blazor-before': {
-            deps: ['content/authentication'], init: () => LoadBlazorScript(onBlazorFrameworkLoaded)
+            deps: ['content/authentication']//, init: () => LoadBlazorScript(onBlazorFrameworkLoaded)
         }
-    }
+    }*/
 });
 
 require(['sufficit/blazor-before']);
@@ -37,10 +37,14 @@ function onAuthenticationLoaded() {
     console.debug('SUFFICIT: Authentication system loaded');
 }
 
-let scriptId = 'sufficitBlazorLoader';
-let scriptUrl = '/_framework/blazor.webassembly.js';
+/**
+ * Not used anymore
+ * @param {any} onload
+ */
+async function LoadBlazorScriptOldMethod(onload) {
+    let scriptId = 'sufficitBlazorLoader';
+    let scriptUrl = '/_framework/blazor.webassembly.js';
 
-async function LoadBlazorScript(onload) {
     var node = document.getElementById(scriptId);
     if (!node) {
         node = document.createElement('script');

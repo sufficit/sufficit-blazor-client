@@ -1,0 +1,14 @@
+﻿.suff-toggle-drawer-xs {
+    position: fixed;
+    bottom: 2em;
+    width: 100%;
+    display: flex;
+    padding-right: 2em;
+    justify-content: flex-end;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
