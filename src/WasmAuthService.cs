@@ -23,6 +23,7 @@ namespace Sufficit.Blazor.Client
             httpClient = factory.CreateClient("BlazorHybrid");
         }
 
+        [HttpGet]
         public async Task<BlazorRemoteUser?> CurrentUser()
         {
             var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");
@@ -37,6 +38,7 @@ namespace Sufficit.Blazor.Client
             return null;
         }
 
+        [HttpGet]
         public async Task Login(string returnUrl)
         {
             var result = await httpClient.PostAsJsonAsync($"api/authentication/login", returnUrl);
