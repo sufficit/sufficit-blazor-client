@@ -1,0 +1,35 @@
+.card-channel {
+    .card-channel-actions {
+        [data-did], [data-outcallid] {
+            color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.card-extensions, .card-peers {
+    .card-channel {
+        .card-channel-actions [data-state] {
+            color: green;
+        }
+
+        &[data-initiator] {
+            .card-channel-actions [data-state] {
+                color: blue;
+            }
+        }
+    }
+}
+
+.card-trunks {
+    .card-channel {
+        .card-channel-actions [data-state] {
+            color: blue;
+        }
+
+        &[data-initiator] {
+            .card-channel-actions [data-state] {
+                color: green;
+            }
+        }
+    }
+}

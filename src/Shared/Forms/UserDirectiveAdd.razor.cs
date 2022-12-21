@@ -28,7 +28,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
         private async Task<IEnumerable<IContact>> GetContacts(string value, CancellationToken cancellationToken)
         {
             // if text is null or empty, show complete list
-            return await Endpoints.Contact.GetContacts(value, 10, cancellationToken);
+            return await Endpoints.Contact.Search(value, 10, cancellationToken);
         }
 
 

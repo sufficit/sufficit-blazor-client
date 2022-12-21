@@ -1,0 +1,27 @@
+.card[data-kind="queue"] {
+    max-width: 300px;
+
+    &[data-monitor] {
+        background: rgba(180, 240, 255, 0.1);
+    }
+
+    div[data-kind="member"] {
+        line-height: 1.8rem;
+
+        i {
+            font-size: 1.2rem;
+        }
+
+        &[data-status="unavailable"] {
+            i {
+                color: gray;
+            }
+        }
+
+        &[data-status="inuse"] {
+            i {
+                color: #ffbb68;
+            }
+        }
+    }
+}

@@ -5,14 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- MudBlazor -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-
-    <title>SufficitBlazor</title>
+    <title>Sufficit Blazor</title>
 
     <!-- setting internal root path -->
     <base href="/" />
@@ -20,21 +13,26 @@
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/icons/favicon.ico">
 
-    <!-- Nucleo Icons -->
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
-
     <link href="manifest.json" rel="manifest" />
     <!-- CSS Files -->
     <link href="Sufficit.Blazor.Client.styles.css" rel="stylesheet" />
-    <link href="_content/Sufficit.Blazor.UI.Material/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="_content/Sufficit.Blazor.UI.Material/assets/css/material-dashboard.css?v=3.0.1" rel="stylesheet" />
+    <link href="assets/css/sufficit.css" rel="stylesheet" />
     <link href="_content/Sufficit.Telephony.EventsPanel.Components/assets/css/eventspanel.min.css" rel="stylesheet" />
-    <script type="text/javascript" async src="https://requirejs.org/docs/release/2.3.6/minified/require.js" data-main="assets/js/main.js"></script>
+
+    <!-- MudBlazor -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="assets/css/mudblazor-customize.css" rel="stylesheet" />
+
+    <!-- MudBlazor ThemeManager -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor.ThemeManager/MudBlazorThemeManager.css" rel="stylesheet" />
 </head>
 
 <body class="bg-gray-200">
-    <component id="app">        
+    <component id="app">
         <div class="page-header align-items-start min-vh-100">
             <div class="progress" style="position: fixed; width: 100%;">
                 <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
@@ -57,7 +55,7 @@
                     </div>
 
                     <hr class="horizontal dark mt-5 mb-2">
-                    <h3 class="font-weight-normal text-center m-0" style="font-variant: all-petite-caps;">Sufficit</h3>
+                    <h3 class="font-weight-normal text-center m-0" style="font-variant: small-caps;">Sufficit</h3>
                     <small class="font-weight-light text-center">soluções em tecnologia da informação</small>
                 </div>
             </div>
@@ -65,21 +63,37 @@
     </component>
 
     <div id="blazor-error-ui" style="display: none;">
-        <div class="alert alert-danger alert-dismissible text-white fade show text-center" role="alert">
-            <span class="alert-icon align-middle">
-                <span class="material-icons text-md">thumb_up_off_alt</span>
-            </span>
-            <span class="alert-text"><strong>Ops !</strong> Algo inesperado que não estava planejado, aconteceu sem que tivéssemos previsto !</span>
-            <button type="button" class="btn text-white reload m-0 p-0 px-5">
-                <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
-                <span class="btn-inner--text">Recarregar página</span>
-            </button>
-            <button class="btn-close dismiss" data-bs-dismiss="alert" aria-label="Ignorar">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div role="alert" class="mud-alert mud-alert-filled-error mud-dense mud-elevation-3 my-2 py-2">
+            <div class="mud-alert-position justify-sm-center">
+                <div class="mud-alert-icon mud-alert-icon-left">
+                    <svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                    </svg>
+                </div>
+                <div class="mud-alert-message">
+                    <span class="alert-text"><strong>Ops !</strong> Algo inesperado que não estava planejado, aconteceu sem que tivéssemos previsto !</span>
+                    <button type="button" class="btn text-white reload m-0 p-0 px-5">
+                        <svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><title>Refresh</title><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></path></svg>
+                        <span class="btn-inner--text mx-3">Recarregar página</span>
+                    </button>
+                </div>
+            </div>
+            <div class="mud-alert-close dismiss" data-bs-dismiss="alert" aria-label="Ignorar">
+                <button aria-pressed="false" type="button" class="mud-button-root mud-icon-button mud-ripple mud-ripple-icon mud-icon-button-size-small">
+                    <span class="mud-icon-button-label">
+                        <svg class="mud-icon-root mud-svg-icon mud-icon-size-small" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                        </svg>
+                    </span>
+                </button>
+            </div>
         </div>
     </div>
 
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
 </body>

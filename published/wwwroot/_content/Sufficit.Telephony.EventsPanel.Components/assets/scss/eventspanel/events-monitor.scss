@@ -1,0 +1,37 @@
+.events-monitor {
+    .card {
+        height: fit-content;
+
+        .card-header {
+            small {
+                font-variant: petite-caps;
+            }
+
+            img.avatar {
+                border: 0.1px solid rgba(0, 0, 0, .3);
+            }
+        }
+
+        .card-channel {
+            &[data-hangup] {
+                text-decoration: line-through;
+            }
+
+            .card-channel-actions {
+                i {
+                    vertical-align: middle;
+                }
+            }
+
+            &:not([data-hangup]) {
+                .card-channel-actions {
+                    [data-state='Ring'], [data-state='Ringing'] {
+                        i {
+                            animation: blink-animation 0.5s steps(5, start) infinite;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
