@@ -1,6 +1,6 @@
 ﻿@page "/pages/telephony/ivr"
 @attribute [Authorize]
-@inherits TelephonyBasePageComponent 
+@inherits TelephonyBasePageComponent
 
 @if(Item != null) {
     <Properties Item="@Item"></Properties>
@@ -40,7 +40,7 @@
             }
         </MudCardContent>        
         <MudCardActions Class="justify-end p-3">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mb-0 ms-2" StartIcon="@Icons.Material.Outlined.Save" OnClick="NewOption">Nova opção de discagem</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Secondary" Class="mb-0 ms-2" StartIcon="@Icons.Material.Outlined.Add" OnClick="NewOption">Nova opção de discagem</MudButton>
         </MudCardActions>
     </MudCard>
     <MudCard Class="ma-2" Elevation="25">
@@ -53,7 +53,15 @@
                 <MudItem xs="12" lg="6" Style="padding: 4px">
                     <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
                         <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
-                        <MudButton Color="@Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Outlined.Save" OnClick="Save">Salvar</MudButton>
+                        <IconButton 
+                            Text="Salvar" 
+                            Variant="Variant.Filled" 
+                            ButtonIcon="@Icons.Material.Filled.Save" 
+                            BackgroundColor="@Color.Primary" 
+                            TextColor="@Color.Inherit" 
+                            OnClick="@Save"
+                            IsLoading="@IsLoading"
+                        />
                     </MudStack>
                 </MudItem>
             </MudGrid>
