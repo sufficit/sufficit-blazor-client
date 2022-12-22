@@ -1,0 +1,21 @@
+﻿@namespace Sufficit.Blazor.Client.Shared
+
+<MudDialog>
+    <DialogContent>
+        @content
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter]
+    public string content { get; set; } = "";
+
+    [CascadingParameter] MudDialogInstance? MudDialog { get; set; }
+
+    void Submit() => MudDialog?.Close(DialogResult.Ok(true));
+}
+
+
