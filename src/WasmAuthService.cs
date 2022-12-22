@@ -26,6 +26,9 @@ namespace Sufficit.Blazor.Client
         [HttpGet]
         public async Task<BlazorRemoteUser?> CurrentUser()
         {
+            // not implemented yet, should store user locally
+            return null;
+
             var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -33,14 +36,22 @@ namespace Sufficit.Blazor.Client
                 {
                     return await responseMessage.Content.ReadFromJsonAsync<BlazorRemoteUser>();
                 }
-                catch(Exception ex) { Console.WriteLine($"current user error: {ex.Message}"); }
+                catch(Exception ex) { 
+                    //var content = await responseMessage.Content.ReadAsStringAsync();
+                    //Console.WriteLine(content);
+                    Console.WriteLine($"wasm current user error: {ex.Message}"); 
+                }
             }
             return null;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task Login(string returnUrl)
         {
+            // not implemented yet, should store user locally
+            await Task.CompletedTask;
+            return;
+
             var result = await httpClient.PostAsJsonAsync($"api/authentication/login", returnUrl);
             result.EnsureSuccessStatusCode();
 
