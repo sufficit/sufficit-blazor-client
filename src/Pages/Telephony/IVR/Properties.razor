@@ -52,7 +52,7 @@
         </MudGrid>
         <MudGrid>
             <MudItem xs="12" md="6" lg="5">
-                <MudSelect T="Guid" Label="Áudio de saudação" Value="@(Item.IdValediction ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnValedictionChange">
+                <MudSelect T="Guid" Label="Áudio de saudação" Value="@(Item.IdAnnouncement ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnAnnouncementChange">
                     <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
                     @if (Audios != null)
                     {
@@ -64,11 +64,19 @@
                 </MudSelect>
             </MudItem>
             <MudItem xs="12" md="6" lg="5">
-                <MudAutocomplete 
-                    T="String"
-                    Label="Áudio de despedida"                
-                    SearchFunc="onSearch"> 
-                </MudAutocomplete>
+                <MudSelect T="Guid" Label="Áudio de despedida" Value="@(Item.IdValediction ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnValedictionChange"
+                 
+                
+                >
+                    <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
+                    @if (Audios != null)
+                    {
+                        @foreach (var item in Audios)
+                        {
+                            <MudSelectItem Value="@item.Id">@item.Title</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
             </MudItem>
             <MudItem xs="12" md="6" lg="2">
                 <MudTextField @bind-Value="@Item.Extension" Label="Extensão" Variant="Variant.Text"></MudTextField>

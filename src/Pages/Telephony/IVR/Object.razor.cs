@@ -135,7 +135,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                     parameters.Add("content", "Está salvo com sucesso.");
                     DialogService.Show<StatusDialog>("Sucesso !", parameters);
                     this.IsLoading = false;
-                } catch (Exception ex)
+                } catch 
                 {
                     parameters.Add("content", "Falha ao salvar.");
                     DialogService.Show<StatusDialog>("Fracassado !", parameters);

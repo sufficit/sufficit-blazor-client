@@ -20,23 +20,30 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected IEnumerable<Audio>? Audios { get; set; }
 
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            // Go get sounds
+            Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
+        }
+        /*
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
-            // Go get sounds
-            Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
-            await InvokeAsync(StateHasChanged).ConfigureAwait(false);            
+            
+            await InvokeAsync(StateHasChanged);            
         }
-
+        */
         
         protected void OnValedictionChange(Guid selected)
         {
             Item.IdValediction = selected;
         }
 
-        protected void OnAnnouncementChange(Guid? selected)
+        protected void OnAnnouncementChange(Guid selected)
         {
             Item.IdAnnouncement = selected;
         }   
