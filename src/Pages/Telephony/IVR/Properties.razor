@@ -52,13 +52,13 @@
         </MudGrid>
         <MudGrid>
             <MudItem xs="12" md="6" lg="5">
-                <MudSelect T="String" Label="Áudio de saudação" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem Value="@Guid.Empty.ToString()"></MudSelectItem>
+                <MudSelect T="Guid" Label="Áudio de saudação" Value="@(Item.IdValediction ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnValedictionChange">
+                    <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
                     @if (Audios != null)
                     {
                         @foreach (var item in Audios)
                         {
-                            <MudSelectItem Value="@item.Id.ToString()">@item.Title</MudSelectItem>
+                            <MudSelectItem Value="@item.Id">@item.Title</MudSelectItem>
                         }
                     }
                 </MudSelect>

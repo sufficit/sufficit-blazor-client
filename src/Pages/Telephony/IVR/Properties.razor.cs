@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;
@@ -26,22 +27,20 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
             // Go get sounds
             Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
-            await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+            await InvokeAsync(StateHasChanged).ConfigureAwait(false);            
         }
 
-        /*
-        protected void OnValedictionChange(SelectedChangedEventArgs<string?> args)
+        
+        protected void OnValedictionChange(Guid selected)
         {
-            if(Guid.TryParse(args.Current, out Guid id))
-                Item.IdValediction = id;
+            Item.IdValediction = selected;
         }
 
-        protected void OnAnnouncementChange(SelectedChangedEventArgs<string?> args)
+        protected void OnAnnouncementChange(Guid? selected)
         {
-            if (Guid.TryParse(args.Current, out Guid id))
-                Item.IdAnnouncement = id;
+            Item.IdAnnouncement = selected;
         }   
-        */
+        
 
         private async Task<IEnumerable<string>> onSearch(string value)
         {
