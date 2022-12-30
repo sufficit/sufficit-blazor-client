@@ -1,0 +1,49 @@
+.events-panel .card-trunks, .events-panel .card-queues {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 300px));
+}
+.events-panel .card-extensions > .card {
+    max-width: 220px;
+}
+
+.events-panel .card-extensions {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
+}
+
+.events-panel .events-monitor {
+    justify-content: center;
+    margin-left: auto;
+    display: grid;
+    grid-gap: .3rem;
+}
+
+.events-panel .card {
+    min-width: 150px;
+}
+
+.events-panel .card[data-state="Unknown"] {
+    opacity: 0.5;
+}
+
+.events-panel .card[data-state="Unregistered"] {
+    background: rgba(114, 114, 114, 0.1);
+}
+
+.events-panel .card[data-state="Unmonitored"] {
+    background: rgba(0, 150, 255, 0.1);
+}
+
+.events-panel .card[data-state="Registered"], .events-panel .card[data-state="Ok"] {
+    background: rgba(0, 241, 82, 0.1);
+}
+
+.events-panel .card[data-state="Reachable"] {
+    background: rgba(0, 231, 82, 0.1);
+}
+
+.events-panel .card[data-state="Unreachable"] {
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.events-panel .card[data-status] {
+    background: rgba(255, 150, 0, 0.1);
+}

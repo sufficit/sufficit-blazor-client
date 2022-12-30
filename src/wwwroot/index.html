@@ -15,7 +15,7 @@
 
     <link href="manifest.json" rel="manifest" />
     <!-- CSS Files -->
-    <link href="Sufficit.Blazor.Client.styles.css" rel="stylesheet" />
+    <!-- <link href="Sufficit.Blazor.Client.styles.css" rel="stylesheet" /> -->
     <link href="assets/css/sufficit.css" rel="stylesheet" />
     <link href="_content/Sufficit.Telephony.EventsPanel.Components/assets/css/eventspanel.min.css" rel="stylesheet" />
 
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-lg-4 col-md-8 col-12 mx-auto text-center align-items-center justify-content-center d-block" id="pssuccess">
                         <a class="blur-shadow-image">
-                            <img src="../../assets/img/logos/logo.png" alt="img-blur-shadow" class="img-fluid shadow p-3 border-radius-lg">
+                            <img src="assets/img/logos/logo.png" alt="img-blur-shadow" class="img-fluid shadow p-3 border-radius-lg">
                         </a>
                     </div>
 
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" defer></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
