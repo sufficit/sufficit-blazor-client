@@ -50,37 +50,31 @@
                 <MudTextField @bind-Value="@Item.Description" Label="Descrição" Variant="Variant.Text"></MudTextField>
             </MudItem>
         </MudGrid>
-        <MudGrid>
-            <MudItem xs="12" md="6" lg="5">
-                <MudSelect T="Guid" Label="Áudio de saudação" Value="@(Item.IdAnnouncement ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnAnnouncementChange">
-                    <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
-                    @if (Audios != null)
-                    {
+        <MudGrid> 
+            @if (Audios != null)
+            {
+                <MudItem xs="12" md="6" lg="5">
+                    <MudSelect T="Guid" Label="Áudio de saudação" Value="@(Item.IdAnnouncement ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnAnnouncementChange">
+                        <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
                         @foreach (var item in Audios)
                         {
                             <MudSelectItem Value="@item.Id">@item.Title</MudSelectItem>
                         }
-                    }
-                </MudSelect>
-            </MudItem>
-            <MudItem xs="12" md="6" lg="5">
-                <MudSelect T="Guid" Label="Áudio de despedida" Value="@(Item.IdValediction ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnValedictionChange"
-                 
-                
-                >
-                    <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>
-                    @if (Audios != null)
-                    {
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6" lg="5">
+                    <MudSelect T="Guid" Label="Áudio de despedida" Value="@(Item.IdValediction ?? Guid.Empty)" AnchorOrigin="Origin.BottomCenter" ValueChanged="OnValedictionChange">
+                        <MudSelectItem Value="Guid.Empty">Sem áudio</MudSelectItem>                        
                         @foreach (var item in Audios)
                         {
                             <MudSelectItem Value="@item.Id">@item.Title</MudSelectItem>
-                        }
-                    }
-                </MudSelect>
-            </MudItem>
-            <MudItem xs="12" md="6" lg="2">
-                <MudTextField @bind-Value="@Item.Extension" Label="Extensão" Variant="Variant.Text"></MudTextField>
-            </MudItem>
+                        }                       
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6" lg="2">
+                    <MudTextField @bind-Value="@Item.Extension" Label="Extensão" Variant="Variant.Text"></MudTextField>
+                </MudItem>
+            }
         </MudGrid>      
     </MudCardContent>
     <MudDivider DividerType="DividerType.Middle" />

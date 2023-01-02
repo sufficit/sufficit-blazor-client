@@ -19,25 +19,17 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         private APIClientService APIClient { get; set; } = default!;
 
         protected IEnumerable<Audio>? Audios { get; set; }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            await base.OnParametersSetAsync();
-
-            // Go get sounds
-            Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
-        }
-        /*
+                        
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
-            
-            await InvokeAsync(StateHasChanged);            
-        }
-        */
-        
+            // Go get sounds
+            Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
+            await InvokeAsync(StateHasChanged);           
+        }        
+
         protected void OnValedictionChange(Guid selected)
         {
             Item.IdValediction = selected;
@@ -46,30 +38,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         protected void OnAnnouncementChange(Guid selected)
         {
             Item.IdAnnouncement = selected;
-        }   
-        
-
-        private async Task<IEnumerable<string>> onSearch(string value)
-        {
-            // In real life use an asynchronous function for fetching data from an api.
-            await Task.Delay(5);
-
-
-            // if text is null or empty, show complete list
-            if (string.IsNullOrEmpty(value))
-            {
-                return (IEnumerable<string>)Audios
-                    .Select(e => e.Title)
-                    .ToArray();
-            }
-            else
-            {
-                return (IEnumerable<string>)Audios
-                    .Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase))
-                    .Select(e => e.Title)
-                    .ToArray();
-            }
-
-        }
+        }  
     }
 }
