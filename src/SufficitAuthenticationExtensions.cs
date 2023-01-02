@@ -22,9 +22,6 @@ namespace Sufficit.Blazor.Client
             // Importante ser dessa forma para o sistema acompanhar as mudanças no arquivo de configuração em tempo real 
             services.Configure<OpenIDOptions>(options => configuration.GetSection(OpenIDOptions.SECTIONNAME));
 
-            // Capturando para uso local
-            var oidOptions = configuration.GetSection(OpenIDOptions.SECTIONNAME).Get<OpenIDOptions>();
-
             // Usado na página /authentication
             services.AddScoped<RemoteAuthenticationState, CustomRemoteAuthenticationState>();
             services.AddScoped<RemoteUserAccount, CustomRemoteUserAccount>();
@@ -34,13 +31,18 @@ namespace Sufficit.Blazor.Client
             
             services.AddOidcAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
-                oidOptions.Bind(options.ProviderOptions);
+                // Capturando para uso local
+                var oidOptions = configuration.GetSection(OpenIDOptions.SECTIONNAME).Get<OpenIDOptions>();
+                if (oidOptions != null)
+                {
+                    oidOptions.Bind(options.ProviderOptions);
 
-                // oidOptions.GetClaimsFromUserInfoEndpoint = true;
-                // importante pois o nome padrão normalmente é o endereço completo da microsoft
-                // ex: https://micros...................role
-                options.UserOptions.NameClaim = "name";
-                options.UserOptions.RoleClaim = "role";
+                    // oidOptions.GetClaimsFromUserInfoEndpoint = true;
+                    // importante pois o nome padrão normalmente é o endereço completo da microsoft
+                    // ex: https://micros...................role
+                    options.UserOptions.NameClaim = "name";
+                    options.UserOptions.RoleClaim = "role";
+                }
             })
                 .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory>();
                         

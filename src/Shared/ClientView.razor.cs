@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
+using Sufficit.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,8 +18,8 @@ namespace Sufficit.Blazor.Client.Shared
         /// <summary>
         /// Checking if user is authenticated to get client document
         /// </summary>
-        [Inject]
-        IAuthenticationStateProvider StateProvider { get; set; } = default!;
+        [CascadingParameter]
+        protected UserPrincipal? User { get; set; }
 
         [Inject] 
         IDialogService Dialog { get; set; } = default!;
@@ -64,10 +65,8 @@ namespace Sufficit.Blazor.Client.Shared
             if (obj != Guid.Empty)
             {
                 ContextTitle = await View.GetTitle();
-                
-                var state = await StateProvider.GetAuthenticationStateAsync();
-                if (state.User?.Identity?.IsAuthenticated ?? false)
-                    ContextDocument = await View.GetDocument();                
+                if (User?.Identity?.IsAuthenticated ?? false)
+                    ContextDocument = await View.GetDocument();   
             }
 
             if(Rendered)
