@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;
@@ -18,7 +19,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         private APIClientService APIClient { get; set; } = default!;
 
         protected IEnumerable<Audio>? Audios { get; set; }
-
+                        
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
@@ -26,20 +27,17 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
             // Go get sounds
             Audios = await APIClient.Telephony.Audio.ByContext(Item.IdContext);
-            await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-        }
-        /*
-        protected void OnValedictionChange(SelectedChangedEventArgs<string?> args)
+            await InvokeAsync(StateHasChanged);           
+        }        
+
+        protected void OnValedictionChange(Guid selected)
         {
-            if(Guid.TryParse(args.Current, out Guid id))
-                Item.IdValediction = id;
+            Item.IdValediction = selected;
         }
 
-        protected void OnAnnouncementChange(SelectedChangedEventArgs<string?> args)
+        protected void OnAnnouncementChange(Guid selected)
         {
-            if (Guid.TryParse(args.Current, out Guid id))
-                Item.IdAnnouncement = id;
-        }   
-        */
+            Item.IdAnnouncement = selected;
+        }  
     }
 }

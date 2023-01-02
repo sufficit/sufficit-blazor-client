@@ -1,0 +1,14 @@
+﻿@namespace Sufficit.Blazor.Client.Shared
+<MudDialog>
+    <DialogContent>
+        @Content
+        @if(Ex != null)
+        {
+            <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
+            @Ex.Message
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>

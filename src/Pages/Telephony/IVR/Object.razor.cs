@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Sufficit.Blazor.Client.Shared;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 {
@@ -26,6 +27,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         [Inject]
         protected IContextView ContextView { get; set; } = default!;
 
+        [Inject]
+        private IDialogService DialogService { get; set; } = default!;
+
         [Parameter, SupplyParameterFromQuery(Name = "id")]
         public Guid ObjectId { get; set; } = default!;
 
@@ -35,7 +39,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         protected Sufficit.Telephony.IVR? Item { get; set; }
 
         protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
-                
+
+        protected bool IsLoading { get; set; } = false;
+
         private async void ContextViewChanged(Guid obj)
         {
             if (ContextView.ContextId != Guid.Empty)
@@ -115,13 +121,37 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         {
             if (Item != null)
             {
-                await APIClient.Telephony.IVR.Update(Item);
+                this.IsLoading = true;
+                
+                // updating loading state
+                await InvokeAsync(StateHasChanged);
 
-                // await APIClient.Telephony.IVR.Update(ObjectId, IVROptions).Toast(Toasts, new UI.Material.Toasts.UpdateSuccessToast());
+                var parameters = new DialogParameters();  
+                try
+                {
+                    // updating basic info
+                    await APIClient.Telephony.IVR.Update(Item);     
+                    
+                    // updating options
+                    await APIClient.Telephony.IVR.Update(ObjectId, IVROptions);
+
+                    parameters.Add("Content", "Está salvo com sucesso.");
+                    DialogService.Show<StatusDialog>("Sucesso !", parameters);
+                } 
+                catch (Exception ex)
+                {
+                    parameters.Add("Ex", ex);
+                    parameters.Add("Content", "Falha ao salvar.");
+                    DialogService.Show<StatusDialog>("Falha !", parameters);
+                }
+
+                this.IsLoading = false;
+
+                // finishing loading state
                 await InvokeAsync(StateHasChanged);
             }
         }        
-
+           
         void IDisposable.Dispose()
         {
             ContextView.OnChanged -= ContextViewChanged;
