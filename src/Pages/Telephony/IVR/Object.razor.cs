@@ -119,28 +119,36 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected async Task Save(MouseEventArgs _)
         {
-
             if (Item != null)
             {
                 this.IsLoading = true;
-                var parameters = new DialogParameters();            
+                
+                // updating loading state
+                await InvokeAsync(StateHasChanged);
 
+                var parameters = new DialogParameters();  
                 try
                 {
-                    await APIClient.Telephony.IVR.Update(Item);
-                
-                    // await APIClient.Telephony.IVR.Update(ObjectId, IVROptions).Toast(Toasts, new UI.Material.Toasts.UpdateSuccessToast());
-                    await InvokeAsync(StateHasChanged);
+                    // updating basic info
+                    await APIClient.Telephony.IVR.Update(Item);     
+                    
+                    // updating options
+                    await APIClient.Telephony.IVR.Update(ObjectId, IVROptions);
 
-                    parameters.Add("content", "Está salvo com sucesso.");
+                    parameters.Add("Content", "Está salvo com sucesso.");
                     DialogService.Show<StatusDialog>("Sucesso !", parameters);
-                    this.IsLoading = false;
-                } catch 
+                } 
+                catch (Exception ex)
                 {
-                    parameters.Add("content", "Falha ao salvar.");
-                    DialogService.Show<StatusDialog>("Fracassado !", parameters);
-                    this.IsLoading = false;
+                    parameters.Add("Ex", ex);
+                    parameters.Add("Content", "Falha ao salvar.");
+                    DialogService.Show<StatusDialog>("Falha !", parameters);
                 }
+
+                this.IsLoading = false;
+
+                // finishing loading state
+                await InvokeAsync(StateHasChanged);
             }
         }        
            
