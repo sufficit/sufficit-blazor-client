@@ -14,21 +14,11 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject]
         public NavigationManager Navigation { get; internal set; } = default!;
 
-        [CascadingParameter] 
-        MudDialogInstance? MudDialog { get; set; }
-
-        protected DialogOptions DialogOptions { get; }
-            = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, FullScreen = false };
+        [CascadingParameter]
+        [EditorRequired]
+        MudDialogInstance MudDialog { get; set; } = default!;
 
         protected string? FilterText { get; set; }
-        
-        //public TextSearchControl? TextSearch { get; internal set; }
-        
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            //TextSearch = new TextSearchControl(Navigation);
-        }
 
         public async void OnClientSelect(IClient client)
         {
@@ -38,9 +28,9 @@ namespace Sufficit.Blazor.Client.Shared
         public async void OnClearClicked(MouseEventArgs _)
         {
             await View.Update(Guid.Empty);
-            MudDialog?.Close();
+            MudDialog.Close();
         }
 
-        void Close() => MudDialog?.Close();
+        void Close() => MudDialog.Close();
     }
 }

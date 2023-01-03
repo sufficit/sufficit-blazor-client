@@ -14,13 +14,19 @@
     <HeaderContent>
         @if (DataItems.Any())
         {
-            <MudTh></MudTh>
-            <MudTh Style="text-align: left">Titulo</MudTh>
-            <MudTh Style="text-align: center">Confirmação</MudTh>
-            <MudTh Style="text-align: left">Bloqueio</MudTh>
+            <MudTh Style="width: 50px;"></MudTh>
+            <MudTh Style="width: 50px;"></MudTh>
+            <MudTh Style="width: 250px; text-align: left">Titulo</MudTh>
+            <MudTh Style="width: 100px; text-align: center">Confirmação</MudTh>
+            <MudTh Style="width: 100px; text-align: left">Bloqueio</MudTh>
         }
     </HeaderContent>
     <RowTemplate>
+        <MudTd DataLabel="Ações" Style="text-align: left; max-width: 50px;">
+            <MudTooltip Text="Resetar senha">
+                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Password" OnClick="() => PasswordReset(context)"></MudIconButton>
+            </MudTooltip>
+        </MudTd>
         <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
             <ContactAvatar IDReference="@context.ID" Size="Size.Small" />
         </MudTd>

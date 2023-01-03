@@ -53,15 +53,11 @@
                 <MudItem xs="12" lg="6" Style="padding: 4px">
                     <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
                         <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
-                        <IconButton 
-                            Text="Salvar" 
-                            Variant="Variant.Filled" 
-                            ButtonIcon="@Icons.Material.Filled.Save" 
-                            BackgroundColor="@Color.Primary" 
-                            TextColor="@Color.Inherit" 
-                            OnClick="@Save"
-                            IsLoading="@IsLoading"
-                        />
+                        <MudButtonEnchanted  
+                            Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Color="@Color.Primary" 
+                            OnClick="@Save">Salvar</MudButtonEnchanted>
                     </MudStack>
                 </MudItem>
             </MudGrid>

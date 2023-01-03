@@ -40,8 +40,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
 
-        protected bool IsLoading { get; set; } = false;
-
         private async void ContextViewChanged(Guid obj)
         {
             if (ContextView.ContextId != Guid.Empty)
@@ -121,11 +119,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         {
             if (Item != null)
             {
-                this.IsLoading = true;
-                
-                // updating loading state
-                await InvokeAsync(StateHasChanged);
-
                 var parameters = new DialogParameters();  
                 try
                 {
@@ -144,11 +137,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                     parameters.Add("Content", "Falha ao salvar.");
                     DialogService.Show<StatusDialog>("Falha !", parameters);
                 }
-
-                this.IsLoading = false;
-
-                // finishing loading state
-                await InvokeAsync(StateHasChanged);
             }
         }        
            

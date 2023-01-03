@@ -18,7 +18,7 @@
     <MudCardContent>
 
         @if (UserID == Guid.Empty) {
-            <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />            
+            <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Disabled="Disabled" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
             <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
             <UserSearchTable @ref="UserSearchTableReference" Filter="@Filter" SelectedItemChanged="OnUserSelect"></UserSearchTable>
         }
@@ -28,69 +28,29 @@
 @if(UserSelected != null) {
     <MudPaper Elevation="3" Class="pa-4 ma-1">
         <MudCardHeader>
-        <CardHeaderAvatar>
-            <ContactAvatar IDReference="@UserSelected.ID" />
-        </CardHeaderAvatar>
-        <CardHeaderContent>
-            <MudText Typo="Typo.body1">@UserSelected?.EMail</MudText>
-            <MudText Typo="Typo.body2">sem informação</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-    <MudDivider DividerType="DividerType.Inset"></MudDivider>
-    <MudCardContent>
-        <AuthorizeView Roles="administrator">
-            <div class="text-end ms-auto">
-                <Button 
-                    Icon="no_accounts" 
-                    Text="Remover Usuário Permanentemente" 
-                    Size="UI.Material.ComponentSize.Small" 
-                    CssClass="bg-gradient-primary mb-0" 
-                    OnClick="() => OnUserDelClick(UserSelected)"
-                    />
-            </div>
-        </AuthorizeView>
-        <UserDirectiveAdd></UserDirectiveAdd>
-    <div class="card card-frame">
-        <div class="card-body">        
-            <div class="row">
-            @if (UserPolicies != null && UserPolicies.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                                <td></td>
-                                <td class="center aligned" style="width: 30%;"></td>
-                                <td></td>
-                                <td class="center aligned"></td>
-                            </tr>
-                        </thead>                             
-                        <tbody>
-                            @foreach (var item in UserPolicies)
-                            {
-                                <tr>
-                                    <td style="width: 140px;">
-                                        <MudButton></MudButton>
-                                        <Button Text="Remover" Size="Size.Small" Icon="delete_outline" CssClass="container mb-0 bg-gradient-primary" OnClick="() => OnDelClick(item.UserClaimId)" />
-                                    </td>
-                                    <td>@item.Directive.Name</td>
-                                    <td>
-                                        <ContactAvatar IDReference="item.IDContext" Size="Size.Small" />                                   
-                                    </td>
-                                    <td><HyperText Value="@GetContactTitle(item.IDContext)" /></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            } 
-            else
-            {
-                <h6>@UserClaimsMessage</h6>
-            }
-            </div>
-        </div>
-    </div>
+            <CardHeaderAvatar>
+                <ContactAvatar IDReference="@UserSelected.ID" />
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.body1">@UserSelected?.EMail</MudText>
+                <MudText Typo="Typo.body2">sem informação</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <AuthorizeView Roles="administrator">                
+                    <MudButton
+                        Color="Color.Warning"
+                        StartIcon="@Icons.Material.Filled.NoAccounts" 
+                        Size="Size.Small"
+                        OnClick="() => OnUserDelClick(UserSelected)"
+                        >Remover Usuário Permanentemente</MudButton>
+                </AuthorizeView>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.Inset"></MudDivider>
+        <MudCardContent>
+            <UserDirectiveAdd User="@UserSelected" OnChanged="OnDirectiveAdded"></UserDirectiveAdd>
+            <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
+            <UserDirectivesTable @ref="UDTable" User="@UserSelected"></UserDirectivesTable>
         </MudCardContent>
-</MudPaper>
+    </MudPaper>
 }

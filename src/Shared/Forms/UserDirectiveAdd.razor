@@ -3,14 +3,15 @@
     <MudItem xs="12" sm="6" md="5">
         <MudAutocomplete T="Sufficit.Identity.IDirective" Label="Diretiva" SearchFuncWithCancel="@GetDirectives" Variant="Variant.Outlined" ShowProgressIndicator="true"
             ToStringFunc="@(e=> e.Name)"
-        />
+                        @bind-Value="@Directive" />
     </MudItem>
     <MudItem xs="12" sm="6" md="5">
         <MudAutocomplete T="Sufficit.Contacts.IContact" Label="Contexto" SearchFuncWithCancel="@GetContacts" Variant="Variant.Outlined" ShowProgressIndicator="true"
-            ToStringFunc="@(e => e.Title)" />
+            ToStringFunc="@(e => e.Title)"
+                         @bind-Value="@Contact" />
     </MudItem>
     <MudItem xs="12" sm="6" md="2">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnAddClick" Disabled="@Saving">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnAddClick" Disabled="@Saving" FullWidth="true">
             @if (Saving)
             {
                 <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>

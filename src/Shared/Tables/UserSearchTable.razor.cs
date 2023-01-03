@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using AsterNET;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Logging;
 using MudBlazor;
 using MudBlazor.Charts;
 using Sufficit.Identity.Client;
@@ -14,6 +16,15 @@ namespace Sufficit.Blazor.Client.Shared.Tables
     {
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;
+
+        [Inject]
+        protected IDialogService DialogService { get; set; } = default!;
+
+        [Inject]
+        protected ISnackbar Snackbar { get; set; } = default!;
+
+        [Inject]
+        protected ILogger<UserSearchTable> Logger { get; set; } = default!;
 
         [Parameter]
         public uint Limit { get; set; } = 5;
@@ -91,31 +102,34 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             return new TableData<User>() { Items = DataItems };
         }
 
-        /*
-        protected async Task ValueChanged(string? searchText)
+        protected async Task PasswordReset(User selected)
         {
-            if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
+            var options = new DialogOptions()
             {
-                UsersResponse = await BIService.Identity.Users.GetUsersAsync(searchText);
-                if (UsersResponse == null)
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Problema na consulta";
-                }
-                else if (UsersResponse.Users == null || !UsersResponse.Users.Any())
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Nenhum resultado encontrado";
-                }
+                CloseButton = false,
+                CloseOnEscapeKey = true,
+                Position = DialogPosition.TopCenter,
+                FullWidth = true,
+            };
 
-                await InvokeAsync(StateHasChanged);
-            }
-            else
+            var parameters = new DialogParameters();
+            parameters.Add("Question", $"Tem certeza que deseja redefinir a senha para o usuário, {selected.EMail} ?");
+            var dialogReferense = DialogService.Show<ConfirmDialog>("Redefinir senha", parameters, options);
+
+            var result = await dialogReferense.Result;
+            if (!result.Cancelled)
             {
-                UsersResponse = null;
-                UsersMessage = "Mínimo de 4 caracteres para consultar";
+                try
+                {
+                    var newPassword = await BIService.ResetPassword(selected.ID, default);
+                    Snackbar.Add($"Pronto ! Nova senha temporária: {newPassword}", Severity.Success);
+                } 
+                catch(Exception ex)
+                {
+                    Logger.LogError(ex, "error on password reset");
+                    Snackbar.Add("Deu ruim em algo, tente mais tarde.", Severity.Error);
+                }
             }
         }
-        */
     }
 }
