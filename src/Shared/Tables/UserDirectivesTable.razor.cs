@@ -40,18 +40,6 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public User? User { get; set; }
 
         private User? _user;
-        private User? _User
-        {
-            get => _user;
-            set
-            {
-                if (_user != value)
-                {
-                    _user = value;
-                    DataBind();
-                }
-            }
-        }
 
         [EditorRequired]
         protected MudTable<UserClaimPolicy>? Table { get; set; } = default!;
@@ -63,8 +51,11 @@ namespace Sufficit.Blazor.Client.Shared.Tables
 
         protected override void OnParametersSet()
         {
-            if (_User != User)            
-                _User = User;            
+            if (_user != User)
+            {
+                _user = User;
+                DataBind();
+            }
         }
 
         /// <summary>

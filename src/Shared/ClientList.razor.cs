@@ -20,17 +20,7 @@ namespace Sufficit.Blazor.Client.Shared
         IContextView View { get; set; } = default!;
 
         [Parameter]
-        public string? Filter {
-            get => _filter;
-            set
-            {
-                if (_filter != value)
-                {
-                    _filter = value;
-                    Table?.ReloadServerData();
-                }
-            }
-        }
+        public string? Filter { get; set; }
 
         private string? _filter = string.Empty;
 
@@ -61,6 +51,20 @@ namespace Sufficit.Blazor.Client.Shared
 
         CancellationTokenSource? TokenSource;
 
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            if(_filter != Filter) {
+                _filter = Filter;
+                
+                if(Table != null) 
+                    await Table.ReloadServerData();
+
+                await FilterChanged.InvokeAsync();
+            }
+        }
         protected async Task<TableData<IClient>> GetData(TableState _)
         {
             // only filter if text is set
