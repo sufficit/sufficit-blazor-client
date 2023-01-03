@@ -11,7 +11,7 @@ namespace Sufficit.Blazor.Client.Pages.Authentication
     public partial class AuthenticationComponent : ComponentBase
     {
         [Inject]
-        BlazorAuthenticationStateProvider AuthenticationState { get; set; } = default!;
+        IAuthenticationStateProvider AuthenticationState { get; set; } = default!;
 
         [Inject]
         IAuthService AuthService { get; set; } = default!;

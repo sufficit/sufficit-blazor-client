@@ -85,7 +85,7 @@
 
 @code {
     [Inject]
-    protected BlazorAuthenticationStateProvider AuthenticationService { get; set; } = default!;
+    protected IAuthenticationStateProvider AuthenticationService { get; set; } = default!;
 
     IEnumerable<UserPolicyBase>? CurrentUserPolicies { get; set; } 
 
