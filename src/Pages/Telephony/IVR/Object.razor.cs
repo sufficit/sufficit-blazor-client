@@ -33,9 +33,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         [Parameter, SupplyParameterFromQuery(Name = "id")]
         public Guid ObjectId { get; set; } = default!;
 
-        [CascadingParameter]
-        public MudTheme? Theme { get; set; }
-
         protected Sufficit.Telephony.IVR? Item { get; set; }
 
         protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
@@ -44,9 +41,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         {
             if (ContextView.ContextId != Guid.Empty)
             {
-                Item = new Sufficit.Telephony.IVR();
-                Item.Id = Guid.NewGuid();
-                Item.IdContext = ContextView.ContextId;
+                Item = new Sufficit.Telephony.IVR
+                {
+                    Id = Guid.NewGuid(),
+                    IdContext = ContextView.ContextId
+                };
             } 
             else 
             {
@@ -65,9 +64,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             {
                 if (ObjectId == Guid.Empty && ContextView.ContextId != Guid.Empty)
                 {
-                    Item = new Sufficit.Telephony.IVR();
-                    Item.Id = Guid.NewGuid();
-                    Item.IdContext = ContextView.ContextId;
+                    Item = new Sufficit.Telephony.IVR
+                    {
+                        Id = Guid.NewGuid(),
+                        IdContext = ContextView.ContextId
+                    };
                 }
             }
         }
@@ -88,7 +89,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                     if (Item.IdContext != ContextView.ContextId)
                     {
                         // changing before render, to avoid 
-                        await ContextView.Update(Item.IdContext);
+                        ContextView.Update(Item.IdContext);
                     }
                 } else throw new Exception($"Item not found: { ObjectId }");
 
@@ -102,9 +103,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected void NewOption(MouseEventArgs _)
         {
-            if (IVROptions == null)
-                IVROptions = new List<IVROption>();
-
+            IVROptions ??= new List<IVROption>();
             IVROptions.Add(new IVROption());
             StateHasChanged();
         }
@@ -142,6 +141,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
            
         void IDisposable.Dispose()
         {
+            GC.SuppressFinalize(this);
             ContextView.OnChanged -= ContextViewChanged;
         }
     }

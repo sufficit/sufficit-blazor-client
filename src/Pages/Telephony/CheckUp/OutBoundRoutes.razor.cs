@@ -112,9 +112,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
             }
         }
 
-        public async void OnClientSelect(Guid id)
+        public void OnClientSelect(Guid id)
         {
-            await View.Update(id);
+            View.Update(id);
             /*
             // Cleating filters
             TextSearch?.Update(null);

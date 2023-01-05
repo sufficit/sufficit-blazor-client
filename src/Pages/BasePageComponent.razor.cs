@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages
 {
-    public class BasePageComponent : ComponentBase, IDisposable
+    public class BasePageComponent : ComponentBase
     {
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
@@ -22,7 +22,12 @@ namespace Sufficit.Blazor.Client.Pages
 
         protected virtual string Keywords { get; } = default!;
 
-        protected override Task OnParametersSetAsync()
+        protected override void OnInitialized()
+        {
+            OnBreadCrumbLoad();
+        }
+
+        protected virtual void OnBreadCrumbLoad()
         {
             BreadCrumbService
                 .Set(new HomeBreadCrumb())
@@ -33,14 +38,6 @@ namespace Sufficit.Blazor.Client.Pages
                     Description = Description,
                     Disabled = true
                 });
-
-            return base.OnParametersSetAsync();
-        }
-
-        void IDisposable.Dispose()
-        {
-            // Limpando as informações no menu de navegação
-            BreadCrumbService.Clear();
         }
     }
 }

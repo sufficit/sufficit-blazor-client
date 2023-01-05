@@ -1,0 +1,60 @@
+﻿@page "/pages/telephony/did/dashboard"
+@attribute [Authorize]
+@inherits TelephonyBasePageComponent 
+
+<MudGrid>
+    <MudItem xs="12">    
+        @if(ContextView.ContextId == Guid.Empty)
+        {
+            <MudPaper Elevation="0" Style="background-color: transparent;" Class="pa-16 ma-2 d-flex align-center justify-center mud-width-full">
+                <ClientMissing></ClientMissing>
+            </MudPaper>
+        } else {
+            <MudPaper Class="pa-3">
+                <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform:capitalize">@DateTime.Now</MudText>
+
+                @if (Items != null)
+                {
+                    <MudTable Items="Items.OrderBy(s => s.Extension)" Breakpoint="Breakpoint.Sm" Hover Class="my-3" EditTrigger="TableEditTrigger.EditButton">
+                        <HeaderContent>
+                            <MudTh Style="width: 130px">Ações</MudTh>
+                            <MudTh Style="width: 250px">Extensão</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh Style="width: 280px">Tarifado</MudTh>
+                            <MudTh>Cadastro</MudTh>
+                            <MudTh>Fornecedor</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Ações">
+                                <MudLink Href="@("/pages/telephony/did?id=" + context.Id)" Underline="Underline.None">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                                </MudLink>
+                            </MudTd>
+                            <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
+                            <MudTd DataLabel="Descrição">@context.descricao</MudTd>
+                            <MudTd DataLabel="Tarifado">@context.Billed</MudTd>
+                            <MudTd DataLabel="Cadastro">@context.cadastro</MudTd>
+                            <MudTd DataLabel="Fornecedor">
+                                <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">
+                                    <MudTooltip Text="@Provedor">
+                                        <ContactAvatar ReferenceId="@context.ProviderId"></ContactAvatar>
+                                    </MudTooltip>
+                                </AsyncBlock>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                }
+                
+                <MudStack Row Justify="Justify.FlexEnd" AlignItems="AlignItems.Center">
+                    <MudTooltip Text="Atualizar">
+                        <MudIconButton Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Outlined" OnClick="GetItems"></MudIconButton>
+                    </MudTooltip>
+
+                    <MudLink Href="/pages/telephony/ivr">
+                        <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
+                    </MudLink>
+                </MudStack>
+            </MudPaper>
+        }
+    </MudItem>
+</MudGrid>

@@ -1,0 +1,145 @@
+﻿@page "/pages/telephony/did"
+@attribute [Authorize]
+@inherits TelephonyBasePageComponent
+
+@if(Item != null) {
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardHeader>
+            <MudGrid>
+                <MudItem xs="12" md="6">
+                    <MudHidden Breakpoint="Breakpoint.MdAndUp">
+                        <MudStack Row Justify="Justify.SpaceBetween" Class="align-center flex-wrap">
+                            <MudIcon Icon="@Icons.Material.Filled.TripOrigin"></MudIcon>
+
+                            <MudStack Spacing="0">
+                                <MudText Typo="Typo.h6">Entrada | Direct Inward Dialing</MudText>
+                                <MudText Typo="Typo.body2">id: @(Item.Id == default ? "rascunho" : Item.Id)</MudText>                                
+                            </MudStack>
+                        </MudStack>
+                    </MudHidden>
+                    <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                        <MudStack Row Justify="Justify.FlexStart" Class="align-center">
+                                <MudIcon Icon="@Icons.Material.Filled.TripOrigin"></MudIcon>
+
+                                <MudStack Spacing="0">
+                                    <MudText Typo="Typo.h6">Entrada | Direct Inward Dialing</MudText>
+                                    <MudText Typo="Typo.body2">id: @(Item.Id == default ? "'rascunho'" : Item.Id)</MudText>
+                                </MudStack>
+                        </MudStack>
+                    </MudHidden>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudStack Justify="Justify.FlexEnd">
+                        @if (Item.Update > DateTime.MinValue)
+                        {
+                            <MudElement Style="padding: 1rem; display: flex; justify-content:end">
+                                <MudTooltip Text="Última atualização">
+                                    <MudStack Row="true">
+                                        <MudText Typo="Typo.body2">@Item.Update</MudText>
+                                        <MudIcon Size="Size.Small" Icon="@Icons.Filled.EditCalendar"></MudIcon>
+                                    </MudStack>
+                                </MudTooltip>
+                            </MudElement>
+                        }
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
+        </MudCardHeader>        
+    </MudCard>
+    <MudDivider DividerType="DividerType.Middle" />
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Propriedades</MudText>
+                <MudText Typo="Typo.body2">Características principais e essenciais do objeto</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.Middle" />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12" md="6" lg="3">
+                    <MudTextField @bind-Value="@Item.Extension" 
+                    Label="Extensão" 
+                    Variant="Variant.Text" 
+                    Mask="@MaskOnlyNumbers" 
+                    AdornmentIcon="@Icons.Filled.Phone" 
+                    Adornment="Adornment.Start"
+                    HelperText="*Somente números"
+                    ReadOnly="@(Item.Id != default)"
+                    ></MudTextField>
+                </MudItem>
+                <MudItem xs="12" md="6" lg="9">
+                    <MudTextField @bind-Value="@Item.Description"
+                              Placeholder="ex: linha direta para clientes do rio de janeiro"
+                              Label="Descrição"
+                              HelperText="(Opcional) Qualquer nota a ser exibida junto com esta rota nas ferramentas de pesquisa"
+                              Variant="Variant.Text"></MudTextField>
+                </MudItem>
+                <MudItem xs="12" md="6" lg="3">
+                    <MudTextField T="DateTime" 
+                            Format="dd/MM/yyyy"
+                            Label="Cadastro" 
+                            InputType="InputType.Date"
+                            @bind-Value="@Item.Register" />
+                </MudItem>
+                @if (Providers != null)
+                {
+                    <MudItem xs="12" md="6" lg="5">
+                        <MudSelect T="Guid" Label="Fornecedor" Value="@(Item.ProviderId)" AnchorOrigin="Origin.CenterLeft" ValueChanged="OnProviderChange">
+                            <MudSelectItem Value="Guid.Empty">Sem fornecedor específico</MudSelectItem>
+                            @foreach (var item in Providers)
+                            {
+                                <MudSelectItem Value="@item.ID">
+                                    <ContactAvatar ReferenceId="@item.ID" MaxDiameter="20"></ContactAvatar> @item.Title
+                                </MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
+                <MudItem xs="12" md="6" lg="3">
+                    <MudSwitch @bind-Checked="@Item.Billed" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
+                        <MudText Typo="Typo.body1">Tarifado</MudText>
+                        <MudText Typo="Typo.caption">Executar tarifação nas chamadas desta rota ?</MudText>
+                    </MudSwitch>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>        
+        <MudCardActions Class="justify-end p-3">
+            
+        </MudCardActions>
+    </MudCard>
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardContent>
+            <MudGrid Class="align-center">
+                <MudItem xs="12" lg="6">
+                    <MudText Typo="Typo.h6">Publicar alterações</MudText>
+                    <MudText Typo="Typo.body2">Vamos salvar essa bagaça pra atualizar a central e por pra rodar.</MudText>
+                </MudItem>
+                <MudItem xs="12" lg="6" Style="padding: 4px">
+                    <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
+                        <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
+                        <MudButtonEnchanted  
+                            Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Color="@Color.Primary" 
+                            OnClick="@Save">Salvar</MudButtonEnchanted>
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+}
+else {
+    @if(ObjectId != Guid.Empty) {
+        <div class="card mt-4">
+            <div class="card-header pb-3">
+                <h5>Recuperando informações</h5>
+                <p class="text-sm">Aguarde enquanto recuperamos o objeto desejado ...</p>
+            </div>
+        </div>
+    } else {
+        <MudPaper Elevation="0" Style="background-color: transparent;" Class="pa-16 ma-2 d-flex align-center justify-center mud-width-full">
+            <ClientMissing></ClientMissing>
+        </MudPaper>
+    }      
+}

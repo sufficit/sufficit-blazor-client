@@ -10,11 +10,21 @@ namespace Sufficit.Blazor.Client.Components
     public partial class ContactAvatar
     {
         [Parameter]
-        public Guid? IDReference { get; set; }
+        [Obsolete("use ReferenceId instead")]
+        public Guid IDReference { get => ReferenceId; set => ReferenceId = value; }
+
+        [Parameter]
+        public Guid ReferenceId { get; set; }
 
         [Parameter]
         public Size Size { get; set; }
 
-        protected string SourceUrl => $"https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto={ IDReference }";
+        [Parameter]
+        public int? MaxDiameter { get; set; }
+
+        protected string? Style =>
+            MaxDiameter != null ? $"max-width: {MaxDiameter}px; max-height: {MaxDiameter}px;" : null;
+
+        protected string SourceUrl => $"https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto={ReferenceId}";
     }
 }

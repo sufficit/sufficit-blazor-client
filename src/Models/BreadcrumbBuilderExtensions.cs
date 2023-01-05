@@ -7,7 +7,7 @@ namespace Sufficit.Blazor.Client.Models
 {
     public static class BreadcrumbBuilderExtensions
     {
-        public static BreadcrumbBuilder Text(this BreadcrumbBuilder builder, string title, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder Text(this BreadcrumbBuilder builder, string title, params KeyValuePair<string, object>[] attributes)
         {
             builder.Title = title;
             builder.Action = null;
@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder Link(this BreadcrumbBuilder builder, string title, string? url, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder Link(this BreadcrumbBuilder builder, string title, string? url, params KeyValuePair<string, object>[] attributes)
         {
             builder.Title = title;
             builder.Action = null;
@@ -27,7 +27,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder Action(this BreadcrumbBuilder builder, string title, Action action, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder Action(this BreadcrumbBuilder builder, string title, Action action, params KeyValuePair<string, object>[] attributes)
         {
             builder.Title = title;
             builder.Action = action;
@@ -37,7 +37,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder LeftIcon(this BreadcrumbBuilder builder, string css, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder LeftIcon(this BreadcrumbBuilder builder, string css, params KeyValuePair<string, object>[] attributes)
         {
             builder.LeftIcon = css;
             builder.LeftAction = null;
@@ -46,7 +46,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder LeftIcon(this BreadcrumbBuilder builder, string css, Action action, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder LeftIcon(this BreadcrumbBuilder builder, string css, Action action, params KeyValuePair<string, object>[] attributes)
         {
             builder.LeftIcon = css;
             builder.LeftAction = action;
@@ -55,7 +55,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder RightIcon(this BreadcrumbBuilder builder, string css, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder RightIcon(this BreadcrumbBuilder builder, string css, params KeyValuePair<string, object>[] attributes)
         {
             builder.RightIcon = css;
             builder.RightAction = null;
@@ -64,7 +64,7 @@ namespace Sufficit.Blazor.Client.Models
             return builder;
         }
 
-        public static BreadcrumbBuilder RightIcon(this BreadcrumbBuilder builder, string css, Action action, params KeyValuePair<string, object?>[] attributes)
+        public static BreadcrumbBuilder RightIcon(this BreadcrumbBuilder builder, string css, Action action, params KeyValuePair<string, object>[] attributes)
         {
             builder.RightIcon = css;
             builder.RightAction = action;

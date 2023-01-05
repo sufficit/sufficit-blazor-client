@@ -20,14 +20,14 @@ namespace Sufficit.Blazor.Client.Shared
 
         protected string? FilterText { get; set; }
 
-        public async void OnClientSelect(IClient client)
+        public void OnClientSelect(IClient client)
         {
-            await View.Update(client.Id);
+            View.Update(client.Id);
         }
 
-        public async void OnClearClicked(MouseEventArgs _)
+        public void OnClearClicked(MouseEventArgs _)
         {
-            await View.Update(Guid.Empty);
+            View.Update(Guid.Empty);
             MudDialog.Close();
         }
 

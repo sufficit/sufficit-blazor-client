@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.JSInterop;
+using MudBlazor;
 using Sufficit.Identity;
+using Sufficit.Sales;
 using System;
 using System.Threading.Tasks;
 
@@ -29,32 +31,39 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject]
         protected NavigationManager uriHelper { get; set; } = default!;
 
+        [Inject]
+        protected IDialogService DialogService { get; set; } = default!;
+
         protected async Task Refresh(MouseEventArgs e)
         {
-            /*
-            var alert = new SweetAlert()
-            {
-                TimerProgressBar = true,
-                Timer = 8000,
-                Title = "Apagar cache",
-                Text = "Essa ação irá limpar todos os arquivos salvos (referentes a esta aplicação somente) em seu dispositivo.",
-                Icon = "question",
-                ShowDenyButton = true,
-                DenyButtonText = "Não",
-                ConfirmButtonText = "Continuar"
-            };
+            var parameters = new DialogParameters(); 
+            parameters.Add("content", "Está salvo com sucesso.");
+            DialogService.Show<StatusDialog>("Sucesso !", parameters);
 
-            var Swal = UIService.SweetAlerts;
-            var result = await Swal.Fire(alert);
-            if (result != null)
-            {
-                if (result.IsConfirmed)
+                /*
+                var alert = new SweetAlert()
                 {
-                    await Reload();
+                    TimerProgressBar = true,
+                    Timer = 8000,
+                    Title = "Apagar cache",
+                    Text = "Essa ação irá limpar todos os arquivos salvos (referentes a esta aplicação somente) em seu dispositivo.",
+                    Icon = "question",
+                    ShowDenyButton = true,
+                    DenyButtonText = "Não",
+                    ConfirmButtonText = "Continuar"
+                };
+
+                var Swal = UIService.SweetAlerts;
+                var result = await Swal.Fire(alert);
+                if (result != null)
+                {
+                    if (result.IsConfirmed)
+                    {
+                        await Reload();
+                    }
                 }
+                */
             }
-            */
-        }
 
         protected async Task Reload()
         {
