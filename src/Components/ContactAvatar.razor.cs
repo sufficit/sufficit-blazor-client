@@ -22,8 +22,10 @@ namespace Sufficit.Blazor.Client.Components
         [Parameter]
         public int? MaxDiameter { get; set; }
 
+        private string style => "background-color: white; vertical-align: middle;";
+
         protected string? Style =>
-            MaxDiameter != null ? $"max-width: {MaxDiameter}px; max-height: {MaxDiameter}px;" : null;
+            MaxDiameter != null ? $"{style} max-width: {MaxDiameter}px; max-height: {MaxDiameter}px;" : style;
 
         protected string SourceUrl => $"https://www.sufficit.com.br/Relacionamento/Avatar.ashx?IDContexto={ReferenceId}";
     }

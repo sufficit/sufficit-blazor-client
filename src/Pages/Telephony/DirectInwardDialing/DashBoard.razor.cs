@@ -31,7 +31,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             await GetItems();
         }
 
-        protected string ToE164Semantic(string extension)
+        protected static string ToE164Semantic(string extension)
             => Sufficit.Telephony.Utils.FormatToE164Semantic(extension);
 
         protected async Task<string> GetTitle(Guid id)
@@ -64,6 +64,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         void IDisposable.Dispose()
         {
+            GC.SuppressFinalize(this);
             ContextView.OnChanged -= ContextViewChanged;
         }
     }

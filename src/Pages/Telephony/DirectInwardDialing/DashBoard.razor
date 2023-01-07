@@ -17,24 +17,45 @@
                 {
                     <MudTable Items="Items.OrderBy(s => s.Extension)" Breakpoint="Breakpoint.Sm" Hover Class="my-3" EditTrigger="TableEditTrigger.EditButton">
                         <HeaderContent>
-                            <MudTh Style="width: 130px">Ações</MudTh>
-                            <MudTh Style="width: 250px">Extensão</MudTh>
+                            <MudTh Style="text-align: center; width: 130px">Ações</MudTh>
+                            <MudTh Style="width: 200px">Extensão</MudTh>
                             <MudTh>Descrição</MudTh>
-                            <MudTh Style="width: 280px">Tarifado</MudTh>
-                            <MudTh>Cadastro</MudTh>
-                            <MudTh>Fornecedor</MudTh>
+                            <MudTh Style="text-align: center; width: 50px"></MudTh>
+                            <MudTh Style="text-align: center; width: 50px">Canais</MudTh>
+                            <MudTh Style="text-align: center; width: 100px">Cadastro</MudTh>
+                            <MudTh Style="text-align: center; width: 50px">Fornecedor</MudTh>
                         </HeaderContent>
                         <RowTemplate>
                             <MudTd DataLabel="Ações">
                                 <MudLink Href="@("/pages/telephony/did?id=" + context.Id)" Underline="Underline.None">
-                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
                                 </MudLink>
                             </MudTd>
                             <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
-                            <MudTd DataLabel="Descrição">@context.descricao</MudTd>
-                            <MudTd DataLabel="Tarifado">@context.Billed</MudTd>
-                            <MudTd DataLabel="Cadastro">@context.cadastro</MudTd>
-                            <MudTd DataLabel="Fornecedor">
+                            <MudTd DataLabel="Descrição">@context.Description</MudTd>
+                            <MudTd DataLabel="Opções" Style="text-align: center;">
+                                <MudStack Row="true">
+                                    @if (!string.IsNullOrWhiteSpace(context.Filter))
+                                    {
+                                        <MudTooltip Text="@context.Filter">
+                                            <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>
+                                        </MudTooltip>                                    
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(context.Tags))
+                                    {
+                                        <MudTooltip Text="@context.Tags">
+                                            <MudIcon Icon="@Icons.Material.Filled.Tag" Size="Size.Small"></MudIcon>
+                                        </MudTooltip>
+                                    }
+                                    @if (context.Billed)
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Size="Size.Small"></MudIcon>
+                                    }
+                                </MudStack>
+                            </MudTd>
+                            <MudTd DataLabel="Canais" Style="text-align: center;">@context.MaxChannels</MudTd>
+                            <MudTd DataLabel="Cadastro" Style="text-align: center;">@context.Register.ToString("dd/MM/yyyy")</MudTd>
+                            <MudTd DataLabel="Fornecedor" Style="text-align: center;">
                                 <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">
                                     <MudTooltip Text="@Provedor">
                                         <ContactAvatar ReferenceId="@context.ProviderId"></ContactAvatar>

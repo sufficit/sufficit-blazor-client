@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Contacts;
+using System.Globalization;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
@@ -33,6 +34,14 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         public Guid ObjectId { get; set; } = default!;
 
         protected IEnumerable<IContact>? Providers { get; set; }
+
+        protected CultureInfo Culture = new CultureInfo("pt-BR");
+
+        protected Converter<DateTime> ConverterDateTime = new Converter<DateTime>
+        {
+            SetFunc = value => value.ToString("yyyy-MM-dd"),
+            GetFunc = DateTime.Parse
+        };
 
         protected Sufficit.Telephony.DirectInwardDialingV1? Item { get; set; }
 
