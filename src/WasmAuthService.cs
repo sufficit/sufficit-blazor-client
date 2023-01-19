@@ -24,11 +24,12 @@ namespace Sufficit.Blazor.Client
         }
 
         [HttpGet]
-        public async Task<BlazorRemoteUser?> CurrentUser()
+        public Task<BlazorRemoteUser?> CurrentUser()
         {
             // not implemented yet, should store user locally
-            return null;
+            throw new NotImplementedException();
 
+            /*
             var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -43,26 +44,27 @@ namespace Sufficit.Blazor.Client
                 }
             }
             return null;
+            */
         }
 
         [HttpPost]
-        public async Task Login(string returnUrl)
+        public Task Login(string returnUrl)
         {
             // not implemented yet, should store user locally
-            await Task.CompletedTask;
-            return;
+            throw new NotImplementedException();
 
+            /*
             var result = await httpClient.PostAsJsonAsync($"api/authentication/login", returnUrl);
             result.EnsureSuccessStatusCode();
 
             var response = await result.Content.ReadAsStringAsync();
             Console.WriteLine($"login: {response}");
+            */
         }
 
         public async Task Logout()
         {
             var result = await httpClient.PostAsync("api/authentication/logout", null);
-
             result.EnsureSuccessStatusCode();
         }
     }

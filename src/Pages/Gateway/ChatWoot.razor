@@ -89,7 +89,7 @@
                 else
                 {
                     Logger.LogTrace($"Context Id Found: {ContextId}");
-                    ContextView.Update(ContextId);
+                    await ContextView.Update(ContextId);
 
                     await InvokeAsync(StateHasChanged);
                 }

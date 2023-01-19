@@ -128,7 +128,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             var dialogReferense = DialogService.Show<ConfirmDialog>("Remover permanentemente", parameters, options);
 
             var result = await dialogReferense.Result;
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 try
                 {

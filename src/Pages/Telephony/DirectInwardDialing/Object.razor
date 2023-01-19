@@ -36,7 +36,7 @@
                                         <MudTooltip Text="Última atualização">
                                             <MudStack Row="true">
                                                 <MudText Typo="Typo.body2">@Item.Update</MudText>
-                                                <MudIcon Size="Size.Small" Icon="@Icons.Filled.EditCalendar"></MudIcon>
+                                                <MudIcon Size="Size.Small" Icon="@Icons.Material.Filled.EditCalendar"></MudIcon>
                                             </MudStack>
                                         </MudTooltip>
                                     </MudElement>
@@ -60,14 +60,14 @@
                     <MudGrid Spacing="3">
                         <MudItem xs="12" md="6" lg="2">
                             <MudTextField @bind-Value="@Item.Extension" 
-                            Label="Extensão" 
-                            Variant="Variant.Text" 
-                            Mask="@MaskOnlyNumbers" 
-                            AdornmentIcon="@Icons.Filled.Phone" 
-                            Adornment="Adornment.Start"
-                            HelperText="*Somente números"
-                            ReadOnly="@(Item.Id != default)"
-                            ></MudTextField>
+                                      Label="Extensão" 
+                                      Variant="Variant.Text" 
+                                      Mask="@MaskOnlyNumbers"
+                                      AdornmentIcon="@Icons.Material.Filled.Phone"
+                                      Adornment="Adornment.Start"
+                                      HelperText="*Somente números"
+                                      ReadOnly="@(Item.Id != default)"
+                                      ></MudTextField>
                         </MudItem>
                         @if (Providers != null)
                         {
@@ -208,7 +208,7 @@
                 <MudDivider DividerType="DividerType.Middle" />
                 <MudCardContent>
 
-                    <IDestinationSearch ContextId="@ContextView?.ContextId" Asterisk="@Item.Asterisk" ValueChanged="@((value) => Item.Asterisk = value.Asterisk)"></IDestinationSearch>
+                    <IDestinationSearch ContextId="@ContextView?.ContextId" Asterisk="@Item.Asterisk" ValueChanged="OnDestinationValueChanged"></IDestinationSearch>
 
                 </MudCardContent>
             </MudCard>

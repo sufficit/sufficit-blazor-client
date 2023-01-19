@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Contacts;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
@@ -120,7 +121,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
                     if (Item.ContextId != ContextView.ContextId)
                     {
                         // changing before render, to avoid 
-                        ContextView.Update(Item.ContextId);
+                        await ContextView.Update(Item.ContextId);
                     }
                 } else throw new Exception($"Item not found: { ObjectId }");
 
@@ -136,6 +137,17 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
             // tracking context changes
             ContextView.OnChanged += ContextViewChanged;                       
+        }
+
+        protected void OnDestinationValueChanged(IDestination? value)
+        {
+            if (Item != null)
+            {
+                if (value != null)
+                    Item.Asterisk = value.Asterisk;
+                else
+                    Item.Asterisk = string.Empty;
+            }
         }
 
         protected async Task Save(MouseEventArgs _)

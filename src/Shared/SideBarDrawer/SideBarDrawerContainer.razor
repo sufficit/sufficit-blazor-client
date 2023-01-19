@@ -13,18 +13,18 @@
     <AuthorizeView Context="IdentityContext">
         <Authorized>
             <MudNavGroupEnchanted Icon="@Avatar" IconAsAvatar="true" Title="@IdentityContext.User.Identity?.Name">
-                <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Face" Href="https://identity.sufficit.com.br">Perfil de usuário</MudNavLink>
-                <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Logout" OnClick="LogOut">Sair</MudNavLink>
+                <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Face" Href="https://identity.sufficit.com.br">Perfil de usuário</MudNavLink>
+                <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" OnClick="LogOut">Sair</MudNavLink>
             </MudNavGroupEnchanted>
         </Authorized>
         <NotAuthorized>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Login" OnClick="LogIn">Entrar</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" OnClick="LogIn">Entrar</MudNavLink>
         </NotAuthorized>
     </AuthorizeView>
 
     <MudDivider Class="my-2" DividerType="DividerType.Middle" />
     
-    <MudNavGroupEnchanted Icon="@Icons.Filled.Dashboard" Title="Dashboard" SubTitle="Modelos de painéis e exibições">
+    <MudNavGroupEnchanted Icon="@Icons.Material.Filled.Dashboard" Title="Dashboard" SubTitle="Modelos de painéis e exibições">
         <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="dashboard/material" Title="Default"></MudNavLinkEnchanted>
     </MudNavGroupEnchanted>
 

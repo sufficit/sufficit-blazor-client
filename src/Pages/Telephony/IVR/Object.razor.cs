@@ -89,7 +89,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                     if (Item.IdContext != ContextView.ContextId)
                     {
                         // changing before render, to avoid 
-                        ContextView.Update(Item.IdContext);
+                        await ContextView.Update(Item.IdContext);
                     }
                 } else throw new Exception($"Item not found: { ObjectId }");
 

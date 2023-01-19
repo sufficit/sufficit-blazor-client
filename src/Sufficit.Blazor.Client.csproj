@@ -83,9 +83,9 @@
   </ItemGroup>
 	
 	<ItemGroup Label="Hybrid Models">
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.3.0" />
-		<PackageReference Include="Grpc.Net.Client" Version="2.50.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.50.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.51.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.0.179" />
 	</ItemGroup>
@@ -97,12 +97,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
@@ -112,21 +112,21 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="6.1.2" />
+		<PackageReference Include="MudBlazor" Version="6.1.7" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
 		
 	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
-		<PackageReference Include="Sufficit.AsterNET" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Base" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Blazor" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Client" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Utils" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Telephony.EventsPanel.Components" Version="1.22.*" />
+		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.*" />
+		<PackageReference Include="Sufficit.Blazor" Version="1.*" />
+		<PackageReference Include="Sufficit.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Utils" Version="1.*" />
+		<PackageReference Include="Sufficit.Telephony.EventsPanel.Components" Version="1.*" />
 	</ItemGroup>
 
 	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">

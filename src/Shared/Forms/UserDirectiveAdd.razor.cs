@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MudBlazor;
 using Sufficit.Client;
 using Sufficit.Contacts;
@@ -40,8 +41,16 @@ namespace Sufficit.Blazor.Client.Shared.Forms
 
         private async Task<IEnumerable<IContact>> GetContacts(string value, CancellationToken cancellationToken)
         {
+            var items = new HashSet<IContact>();
+
+            if ("todos".Contains(value))            
+                items.Add(new Contact() { Title = "* Todos" });            
+
             // if text is null or empty, show complete list
-            return await Endpoints.Contact.Search(value, 10, cancellationToken);
+            foreach(var contact in await Endpoints.Contact.Search(value, 10, cancellationToken))            
+                items.Add(contact);
+
+            return items;
         }
 
 

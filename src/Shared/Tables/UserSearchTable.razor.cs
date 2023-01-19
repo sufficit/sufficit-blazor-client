@@ -117,7 +117,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             var dialogReferense = DialogService.Show<ConfirmDialog>("Redefinir senha", parameters, options);
 
             var result = await dialogReferense.Result;
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 try
                 {

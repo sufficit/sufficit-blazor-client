@@ -21,21 +21,21 @@ namespace Sufficit.Blazor.Client.Components
         public IDestination? Value { get; set; }
 
         [Parameter]
-        public string? Asterisk { 
-            set 
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    UpdateAsterisk(value);
-                }
-            } 
-        }
+        public string? Asterisk { get; set; }
 
         /// <summary>
         /// Fired when the Value property changes.
         /// </summary>
         [Parameter]
         public EventCallback<IDestination?> ValueChanged { get; set; }
+
+        protected override void OnParametersSet()
+        {
+            if (!string.IsNullOrWhiteSpace(Asterisk))
+            {
+                UpdateAsterisk(Asterisk);
+            }
+        }
 
         protected string? GetAsterisk() => Value?.Asterisk;
 
@@ -44,15 +44,14 @@ namespace Sufficit.Blazor.Client.Components
         protected string? GetAdornmentIcon()
         {
             if (Value == null) return Icons.Material.Filled.Search;
-            switch (Value.TypeName.Trim().ToLowerInvariant())
+            return Value.TypeName.Trim().ToLowerInvariant() switch
             {
-                case "mailbox":
-                case "freepbxmailbox": return Icons.Material.Filled.Voicemail;
-                case "enddestination": return Icons.Material.Filled.CallEnd;
-                case "directextensiondialing":
-                case "diddirect": return Icons.Material.Filled.Fax;
-                default: return Icons.Material.Filled.QuestionMark;
-            }
+                "mailbox" or "freepbxmailbox" => Icons.Material.Filled.Voicemail,
+                "enddestination" => Icons.Material.Filled.CallEnd,
+                "directextensiondialing" or "diddirect" => Icons.Material.Filled.Fax,
+                "timecondition" or "condicaotempo" => Icons.Material.Filled.AccessTime,
+                _ => Icons.Material.Filled.QuestionMark,
+            };
         }
 
         protected async Task<IEnumerable<IDestination>> Search(string filter)
