@@ -120,7 +120,7 @@
 		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
-		<PackageReference Include="Sufficit.Base" Version="1.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.23.*" />
 		<PackageReference Include="Sufficit.Blazor" Version="1.*" />
 		<PackageReference Include="Sufficit.Client" Version="1.*" />
 		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
