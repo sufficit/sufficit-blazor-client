@@ -74,6 +74,7 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Remove="Pages\Telephony\Monitor\Select.razor" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
@@ -97,7 +98,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
@@ -116,29 +117,19 @@
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
 		
-	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
-		<PackageReference Include="Sufficit.AsterNET" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Base" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Blazor" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Client" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Identity.Client" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Identity.Core" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Utils" Version="1.22.*" />
-		<PackageReference Include="Sufficit.Telephony.EventsPanel.Components" Version="1.22.*" />
+	<ItemGroup Label="Sufficit Dependencies on Packing">		
+		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.23.*" />
+		<PackageReference Include="Sufficit.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Utils" Version="1.*" />
 	</ItemGroup>
 
-	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
-		<ProjectReference Include="..\..\sufficit-asternet\Asterisk.2013\Asterisk.NET\Sufficit.AsterNET.csproj" />
-		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" />
-		<ProjectReference Include="..\..\sufficit-asterisk-core\src\Sufficit.Asterisk.Core.csproj" />
-		<ProjectReference Include="..\..\sufficit-base\src\Sufficit.Base.csproj" />
+	<ItemGroup Label="Sufficit Local Dependencies">
 		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
-		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" />
-		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
-		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
-		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
 	</ItemGroup>  
 		
@@ -152,6 +143,15 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Include="Pages\Telephony\Monitor\Select.razor" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Telephony\Monitor\Select.razor" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Telephony\Monitor\Select.razor" />
   </ItemGroup>
   
 </Project>
