@@ -1,7 +1,11 @@
 ﻿@using Sufficit.Identity
 
 <MudAppBar Elevation="0" Class="bg-gray-100">
-    <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+    <AuthorizeView>
+        <Authorized>
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        </Authorized>
+    </AuthorizeView>
     <BreadcrumbNavigation />
     <MudSpacer />
     <div class="ms-md-auto pe-md-3 d-flex w-100 align-items-center px-3"></div>
