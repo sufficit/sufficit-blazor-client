@@ -26,6 +26,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         [Inject]
         private IContextView ContextView { get; set; } = default!;
                 
+        /// <summary>
+        /// Used to show loading messages
+        /// </summary>
+        protected bool IsLoading { get; set; }
+
         private async void ContextViewChanged(Guid obj)
         {
             await GetItems();
@@ -54,11 +59,14 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         protected async Task GetItems()
         {
-            if(ContextView.ContextId != Guid.Empty)
+            IsLoading = true;     
+            if (ContextView.ContextId != Guid.Empty)
             {
+                await InvokeAsync(StateHasChanged);
                 Items = await APIClient.Telephony.DID.ByContext(ContextView.ContextId);                
             }
 
+            IsLoading = false;
             await InvokeAsync(StateHasChanged);
         }
 

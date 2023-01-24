@@ -23,13 +23,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         [Inject]
         private IContextView ContextView { get; set; } = default!;
 
-
-        protected override async Task OnParametersSetAsync()
-        {
-            await base.OnParametersSetAsync();
-            await GetItems();
-        }
-        
+        /// <summary>
+        /// Used to show loading messages
+        /// </summary>
+        protected bool IsLoading { get; set; }
+                
         private async void ContextViewChanged(Guid obj)
         {
             await GetItems();
@@ -39,25 +37,33 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-            if (!firstRender) return;            
-            
-            ContextView.OnChanged += ContextViewChanged;
+            if (!firstRender) return;
+
             _ = await ContextView.Default();
+
+            // getting items for the first time
+            await GetItems();
+
+            // if change, get items again
+            ContextView.OnChanged += ContextViewChanged;
         }
 
         protected async Task GetItems()
         {
-            if(ContextView.ContextId != Guid.Empty)
+            IsLoading = true;
+            if (ContextView.ContextId != Guid.Empty)
             {
+                await InvokeAsync(StateHasChanged);
                 Items = await APIClient.Telephony.IVR.ByContext(ContextView.ContextId);                
             }
 
+            IsLoading = false;
             await InvokeAsync(StateHasChanged);
         }
 
         void IDisposable.Dispose()
         {
+            GC.SuppressFinalize(this);
             ContextView.OnChanged -= ContextViewChanged;
         }
     }
