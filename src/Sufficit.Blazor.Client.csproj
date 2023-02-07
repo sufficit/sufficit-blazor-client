@@ -115,12 +115,12 @@
 		<PackageReference Include="MudBlazor" Version="6.1.7" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
-		
-	<ItemGroup Label="Sufficit Dependencies on Packing" Condition=" '$(Configuration)' == 'Packing' ">		
+
+	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">		
 		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
-		<PackageReference Include="Sufficit.Base" Version="1.23.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.*" />
 		<PackageReference Include="Sufficit.Blazor" Version="1.*" />
 		<PackageReference Include="Sufficit.Client" Version="1.*" />
 		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
@@ -129,7 +129,7 @@
 		<PackageReference Include="Sufficit.Telephony.EventsPanel.Components" Version="1.*" />
 	</ItemGroup>
 
-	<ItemGroup Label="Sufficit Local Dependencies" Condition=" '$(Configuration)' != 'Packing' ">
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'" Label="Sufficit Local Dependencies">
 		<ProjectReference Include="..\..\sufficit-asternet\Asterisk.2013\Asterisk.NET\Sufficit.AsterNET.csproj" />
 		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" />
 		<ProjectReference Include="..\..\sufficit-asterisk-core\src\Sufficit.Asterisk.Core.csproj" />
@@ -140,9 +140,22 @@
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
 		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
-	</ItemGroup>  
-		
-  <ItemGroup>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)'=='TortuTeam'" Label="Sufficit Dependencies for Tortu">
+		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Base" Version="1.*" />
+		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
+		<PackageReference Include="Sufficit.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
+		<PackageReference Include="Sufficit.Identity.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Utils" Version="1.*" />
+		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
