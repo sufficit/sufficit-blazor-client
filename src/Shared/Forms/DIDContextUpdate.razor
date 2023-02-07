@@ -1,0 +1,30 @@
+﻿@using MudBlazor.Components
+@using Sufficit.Blazor.Client.Shared.Forms.AutoComplete
+
+<MudCard Class="ma-2" Elevation="3">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Workspaces" Size="Size.Large"></MudIcon>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Cliente | Contexto</MudText>
+            <MudText Typo="Typo.body2">Domínio em que está sendo utilizada esta rota</MudText>
+            <MudText Typo="Typo.caption">workspace, dialplan, plano de discagem</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <ClientsAutoComplete Id="@Item!.ContextId" ValueChanged="OnValueChanged"></ClientsAutoComplete>
+    </MudCardContent>
+    <MudCardActions Class="justify-end pb-3 px-3">
+        <MudButtonEnchanted Variant="Variant.Filled"
+                            Style="height: fit-content"
+                            StartIcon="@Icons.Material.Filled.Recycling"
+                            Color="@Color.Primary">Desvincular</MudButtonEnchanted>
+        <MudButtonEnchanted Variant="Variant.Filled"
+                            Class="ml-3"
+                            Style="height: fit-content"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Color="@Color.Info"
+                            Disabled="@(!UpdatePending)">Atualizar</MudButtonEnchanted>
+    </MudCardActions>
+</MudCard>

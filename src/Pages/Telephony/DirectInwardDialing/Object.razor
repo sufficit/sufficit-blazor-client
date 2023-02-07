@@ -1,6 +1,8 @@
 ﻿@page "/pages/telephony/did"
 @attribute [Authorize]
 @inherits TelephonyBasePageComponent
+@using Sufficit.Blazor.Client.Shared.Forms.AutoComplete
+@using Sufficit.Blazor.Client.Shared.Forms
 
 @if(Item != null) {
     <MudGrid Spacing="0">
@@ -44,7 +46,7 @@
                             </MudStack>
                         </MudItem>
                     </MudGrid>
-                </MudCardHeader>        
+                </MudCardHeader>
             </MudCard>
         </MudItem>
         <MudItem xs="12" md="12" lg="12">
@@ -59,25 +61,24 @@
                 <MudCardContent>
                     <MudGrid Spacing="3">
                         <MudItem xs="12" md="6" lg="2">
-                            <MudTextField @bind-Value="@Item.Extension" 
-                                      Label="Extensão" 
-                                      Variant="Variant.Text" 
+                            <MudTextField @bind-Value="@Item.Extension"
+                                      Label="Extensão"
+                                      Variant="Variant.Text"
                                       Mask="@MaskOnlyNumbers"
                                       AdornmentIcon="@Icons.Material.Filled.Phone"
                                       Adornment="Adornment.Start"
                                       HelperText="*Somente números"
-                                      ReadOnly="@(Item.Id != default)"
-                                      ></MudTextField>
+                                      ReadOnly="@(Item.Id != default)"></MudTextField>
                         </MudItem>
                         @if (Providers != null)
                         {
-                            <MudItem xs="12" md="6" lg="5">
-                                <MudSelect T="Guid" Label="Fornecedor" Value="@(Item.ProviderId)" AnchorOrigin="Origin.CenterLeft" ValueChanged="OnProviderChange">
+                            <MudItem xs="12" md="6" lg="6">
+                                <MudSelect T="Guid" Label="Fornecedor" Value="@Item.ProviderId" AnchorOrigin="Origin.CenterLeft" ValueChanged="OnProviderChange">
                                     <MudSelectItem Value="Guid.Empty">Sem fornecedor específico</MudSelectItem>
                                     @foreach (var item in Providers)
                                     {
-                                        <MudSelectItem Value="@item.ID" Style="padding-left: 1em;">
-                                            <ContactAvatar ReferenceId="@item.ID" MaxDiameter="20"></ContactAvatar><span style="padding-left: 1em;">@item.Title</span>
+                                        <MudSelectItem Value="@item.Id" Style="padding-left: 1em;">
+                                            <ContactAvatar ReferenceId="@item.Id" MaxDiameter="20"></ContactAvatar><span style="padding-left: 1em;">@item.Title</span>
                                         </MudSelectItem>
                                     }
                                 </MudSelect>
@@ -88,23 +89,65 @@
                                       Variant="Variant.Outlined"
                                       Converter="@ConverterDateTime"
                                       Format="dd/MM/yyyy"
-                                      Label="Cadastro" 
+                                      Label="Cadastro"
                                       InputType="InputType.Date"
-                                      @bind-Value="@Item.Register" />
+                                      Value="@Item.Register"
+                                      ValueChanged="OnRegisterChange"
+                                      />
                         </MudItem>
                         <MudItem xs="12" md="6" lg="2">
-                            <MudNumericField Label="Máximo Canais" HelperText="Limite de chamadas simultâneas" @bind-Value="Item.MaxChannels" Variant="Variant.Outlined" Min="0" Max="200" />
+                            <MudNumericField T="int" Label="Máximo Canais" HelperText="Limite de chamadas simultâneas"
+                                        Value="@Item.MaxChannels"
+                                        ValueChanged="OnMaxChannelsChange" 
+                                        Variant="Variant.Outlined" 
+                                        Min="0" 
+                                        Max="200" />
                         </MudItem>
-                        <MudItem xs="12" md="6" lg="3">
-                            <MudSwitch @bind-Checked="@Item.Billed" ThumbIcon="@Icons.Material.Filled.AttachMoney" Color="@Color.Primary">
+                        <MudItem xs="12" md="6" lg="4">
+                            <MudSwitch T="bool"
+                                    Checked="@Item.Billed"
+                                    CheckedChanged="OnBilledChange" 
+                                    ThumbIcon="@Icons.Material.Filled.AttachMoney" 
+                                    Color="@Color.Primary">
                                 <MudText Typo="Typo.body1">Tarifado</MudText>
                                 <MudText Typo="Typo.caption">Executar tarifação nas chamadas desta rota ?</MudText>
                             </MudSwitch>
-                        </MudItem>                               
+                        </MudItem>
                     </MudGrid>
-                </MudCardContent>        
-                <MudCardActions Class="justify-end p-3">
-            
+                </MudCardContent>
+                <MudCardActions Class="justify-end pb-3 px-3">
+                    <MudButtonEnchanted Variant="Variant.Filled"
+                                    Disabled="!PropertiesPending"
+                                    Style="height: fit-content"
+                                    StartIcon="@Icons.Material.Filled.Save"
+                                    Color="@Color.Primary"
+                                    OnClick="UpdateProperties">Atualizar</MudButtonEnchanted>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="12" lg="12">
+            <MudCard Class="ma-2" Elevation="3">
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudIcon Icon="@Icons.Material.Filled.Domain" Size="Size.Large"></MudIcon>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Proprietário</MudText>
+                        <MudText Typo="Typo.body2">Responsável oficial perante ANATEL</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid Spacing="3">
+                        <MudItem xs="12" md="6">
+                            <ContactsAutoComplete Id="@Item.OwnerId" ValueChanged="OwnerChanged"></ContactsAutoComplete>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+                <MudCardActions Class="justify-end pb-3 px-3">
+                    <MudButtonEnchanted Variant="Variant.Filled" Disabled="!OwnerPending"
+                                    StartIcon="@Icons.Material.Filled.Save"
+                                    Color="@Color.Primary"
+                                    OnClick="@UpdateOwner">Atualizar</MudButtonEnchanted>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -112,8 +155,8 @@
             <MudCard Class="ma-2" Elevation="25">
                 <MudCardHeader>
                     <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Opções</MudText>
-                        <MudText Typo="Typo.body2">Itens personalizaveis</MudText>
+                        <MudText Typo="Typo.h6">Informações Extras</MudText>
+                        <MudText Typo="Typo.body2">Itens personalizaveis <MudText Typo="Typo.caption">(não afeta o fluxo de chamadas)</MudText></MudText>                        
                     </CardHeaderContent>
                 </MudCardHeader>
                 <MudDivider DividerType="DividerType.Middle" />
@@ -134,38 +177,14 @@
                                     </CardHeaderContent>                            
                                 </MudCardHeader>
                                 <MudCardContent Class="pt-0">
-                                    <MudTextField @bind-Value="@Item.Tags"
+                                    <MudTextField T="string" Value="@Item.Tags" ValueChanged="OnTagsChange"
                                           Placeholder="COMERCIAL SUPORTE FINANCEIRO"
                                           HelperText="(Opcional) máximo 50 caracteres"
                                           Variant="Variant.Text"></MudTextField>
                                 </MudCardContent>                        
                             </MudCard>
-                        </MudItem>
+                        </MudItem>                        
                         <MudItem xs="12" md="12" lg="6">
-                            <MudCard Elevation="3">
-                                <MudCardHeader Class="pb-0">
-                                    <CardHeaderAvatar>
-                                        <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Large"></MudIcon>
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.h6">Restrição de Origem</MudText>
-                                        <MudText Typo="Typo.caption">
-                                            Critérios (REGEX) a serem adotados para o chamador, somente serão aceitas as chamadas que NÃO ATENDEM ao critério.
-                                        </MudText>
-                                        <MudText Typo="Typo.caption">
-                                            ex: ^55[1-9][1-9][6-9], proibe telefones móveis do Brasil.
-                                        </MudText>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                                <MudCardContent Class="pt-0">
-                                    <MudTextField @bind-Value="@Item.Filter"
-                                              Placeholder="^55[1-9][1-9][6-9]"
-                                              HelperText="(Opcional) máximo 150 caracteres"
-                                              Variant="Variant.Text"></MudTextField>
-                                </MudCardContent>
-                            </MudCard>                    
-                        </MudItem>
-                        <MudItem xs="12" md="12" lg="12">
                             <MudCard Elevation="3">
                                 <MudCardHeader Class="pb-0">
                                     <CardHeaderAvatar>
@@ -179,7 +198,7 @@
                                     </CardHeaderContent>
                                 </MudCardHeader>
                                 <MudCardContent Class="pt-0">
-                                    <MudTextField @bind-Value="@Item.Description"
+                                    <MudTextField T="string" Value="@Item.Description" ValueChanged="OnDescriptionChange"
                                               Placeholder="ex: linha direta para clientes do rio de janeiro"
                                               HelperText="(Opcional) máximo 150 caracteres"
                                               Variant="Variant.Text"></MudTextField>
@@ -188,10 +207,48 @@
                         </MudItem>                
                     </MudGrid>
                 </MudCardContent>
-                <MudCardActions Class="justify-end p-3">
-
+                <MudCardActions Class="justify-end pb-3 px-3">
+                    <MudButtonEnchanted Variant="Variant.Filled"
+                                    Style="height: fit-content"
+                                    StartIcon="@Icons.Material.Filled.Save"
+                                    Color="@Color.Primary"
+                                    Disabled="!ExtraPending"
+                                    OnClick="UpdateExtra">Atualizar</MudButtonEnchanted>
                 </MudCardActions>
             </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="12" lg="6">
+            <MudCard Elevation="3" Class="ma-2">
+                <MudCardHeader Class="pb-0">
+                    <CardHeaderAvatar>
+                        <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Large"></MudIcon>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Restrição de Origem</MudText>
+                        <MudText Typo="Typo.caption">
+                            Critérios (REGEX) a serem adotados para o chamador, somente serão aceitas as chamadas que NÃO ATENDEM ao critério.
+                        </MudText>
+                        <MudText Typo="Typo.caption">
+                            ex: ^55[1-9][1-9][6-9], proibe telefones móveis do Brasil.
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent Class="pt-0">
+                    <MudTextField T="string" Value="@Item.Filter" ValueChanged="OnFilterChange"
+                                Placeholder="^55[1-9][1-9][6-9]"
+                                HelperText="(Opcional) máximo 150 caracteres"
+                                Variant="Variant.Text"></MudTextField>
+                </MudCardContent>
+                <MudCardActions Class="justify-end pb-3 px-3">
+                    <MudButtonEnchanted Variant="Variant.Filled"                                    
+                                    Style="height: fit-content"
+                                    StartIcon="@Icons.Material.Filled.Save"
+                                    Color="@Color.Primary"
+                                    Disabled="!FilterPending"
+                                    OnClick="UpdateFilter"
+                                    >Atualizar</MudButtonEnchanted>
+                </MudCardActions>
+            </MudCard>                    
         </MudItem>
         <MudItem xs="12" md="12" lg="6">
             <MudCard Class="ma-2" Elevation="3">
@@ -201,81 +258,27 @@
                     </CardHeaderAvatar>
                     <CardHeaderContent>
                         <MudText Typo="Typo.h6">Destino</MudText>
-                        <MudText Typo="Typo.body2">Para onde a chamada deverá ser encaminhada, item obrigatório</MudText>
+                        <MudText Typo="Typo.body2">Para onde a chamada deverá ser encaminhada</MudText>
                         <MudText Typo="Typo.caption">* item obrigatório</MudText>
                     </CardHeaderContent>
                 </MudCardHeader>
                 <MudDivider DividerType="DividerType.Middle" />
                 <MudCardContent>
-
-                    <IDestinationSearch ContextId="@ContextView?.ContextId" Asterisk="@Item.Asterisk" ValueChanged="OnDestinationValueChanged"></IDestinationSearch>
-
+                    <IDestinationSearch ContextId="@ContextView?.ContextId" Asterisk="@Item.Asterisk" ValueChanged="OnDestinationChanged"></IDestinationSearch>
                 </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" md="12" lg="6">
-            <MudCard Class="ma-2" Elevation="3">
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudIcon Icon="@Icons.Material.Filled.Workspaces" Size="Size.Large"></MudIcon>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Cliente | Contexto</MudText>
-                        <MudText Typo="Typo.body2">Domínio em que está sendo utilizada esta rota</MudText>
-                        <MudText Typo="Typo.caption">workspace, dialplan, plano de discagem</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent>
-
-                    <MudTextField @bind-Value="@Item.ContextId"
-                              HelperText="(Opcional) máximo 50 caracteres"
-                              Variant="Variant.Text"></MudTextField>
-
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" md="12" lg="6">
-            <MudCard Class="ma-2" Elevation="3">
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudIcon Icon="@Icons.Material.Filled.Domain" Size="Size.Large"></MudIcon>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Proprietário</MudText>
-                        <MudText Typo="Typo.body2">Responsável oficial perante ANATEL</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent>
-
-                    <MudTextField @bind-Value="@Item.OwnerId"
-                              HelperText="(Opcional) máximo 50 caracteres"
-                              Variant="Variant.Text"></MudTextField>
-
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" md="12" lg="12">
-            <MudCard Class="ma-2" Elevation="3">
-                <MudCardContent>
-                    <MudGrid Class="align-center">
-                        <MudItem xs="12" lg="6">
-                            <MudText Typo="Typo.h6">Publicar alterações</MudText>
-                            <MudText Typo="Typo.body2">Vamos salvar essa bagaça pra atualizar a central e por pra rodar.</MudText>
-                        </MudItem>
-                        <MudItem xs="12" lg="6" Style="padding: 4px">
-                            <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
-                                <MudButton Color="@Color.Secondary" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Clear" Disabled="true">Cancelar</MudButton>
-                                <MudButtonEnchanted  
-                                    Variant="Variant.Filled"
+                <MudCardActions Class="justify-end pb-3 px-3">
+                    <MudButtonEnchanted Variant="Variant.Filled"
+                                    Disabled="!DestinationPending"
+                                    Style="height: fit-content"
                                     StartIcon="@Icons.Material.Filled.Save"
-                                    Color="@Color.Primary" 
-                                    OnClick="@Save">Salvar</MudButtonEnchanted>
-                            </MudStack>
-                        </MudItem>
-                    </MudGrid>
-                </MudCardContent>
+                                    Color="@Color.Primary"
+                                    OnClick="UpdateDestination">Atualizar</MudButtonEnchanted>
+                </MudCardActions>
             </MudCard>
         </MudItem>
+        <MudItem xs="12" md="12" lg="6">
+            <DIDContextUpdate Item="@Item"></DIDContextUpdate>
+        </MudItem>  
     </MudGrid>
 }
 else {

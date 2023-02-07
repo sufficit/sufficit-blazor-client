@@ -1,0 +1,26 @@
+﻿@inherits GenericAutoComplete<Sufficit.Contacts.IContact>
+<MudAutocomplete T="Sufficit.Contacts.IContact"
+                Label="Contato"
+                Value="@Value"
+                Variant="Variant.Outlined"
+                Margin="Margin.Dense"
+                SearchFunc="Search"
+                ValueChanged="CurrentValueChanged"
+                Adornment="Adornment.Start"
+                AdornmentIcon="@Icons.Material.Filled.Search"
+                IconSize="Size.Small"
+                CoerceText="false"
+                MinCharacters="4"
+                ResetValueOnEmptyText="true"
+                ShowProgressIndicator="true"
+                Converter="@IContactConverter.Instance"
+                HelperText="Mínimo de 4 caracteres">
+    <NoItemsTemplate>
+        <MudText Align="Align.Center" Class="px-4 py-1">
+            Nenhum item encontrado 
+        </MudText>
+    </NoItemsTemplate>
+    <ItemTemplate>
+        <IIdTitlePairItemTemplate Item="@context" />
+    </ItemTemplate>                                
+</MudAutocomplete>

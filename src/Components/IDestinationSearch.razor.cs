@@ -33,7 +33,7 @@ namespace Sufficit.Blazor.Client.Components
         {
             if (!string.IsNullOrWhiteSpace(Asterisk))
             {
-                UpdateAsterisk(Asterisk);
+                UpdateInformation(Asterisk);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Sufficit.Blazor.Client.Components
             }
         }
 
-        protected async void UpdateAsterisk(string asterisk)
+        protected async void UpdateInformation(string asterisk)
         {
             if (!string.IsNullOrWhiteSpace(asterisk) && asterisk != Value?.Asterisk)
             {

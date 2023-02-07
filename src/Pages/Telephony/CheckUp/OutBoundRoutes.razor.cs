@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Sufficit.CheckUp;
 using Sufficit.Client;
-using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
 using System.Linq;

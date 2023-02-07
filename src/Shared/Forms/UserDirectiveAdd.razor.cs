@@ -62,7 +62,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                 {
                     if (Contact != null)
                     {
-                        await BIService.UpdateUserPolicy(User, Directive.Key, Contact.ID, default);
+                        await BIService.UpdateUserPolicy(User, Directive.Key, Contact.Id, default);
 
                         // Refresh
                         await OnChanged.InvokeAsync();
