@@ -18,11 +18,17 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
         [Parameter]
         public Guid? Id { get; set; }
 
+        [Parameter]
+        public bool? Disabled { get; set; }
+
         /// <summary>
         /// Fired when the Value property changes.
         /// </summary>
         [Parameter]
         public virtual EventCallback<T?> ValueChanged { get; set; }
+
+        protected virtual bool IsDisabled =>
+            Disabled ?? false;
 
         protected virtual T? Value
         {

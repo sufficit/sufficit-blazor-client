@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
 {
     public partial class ClientsAutoComplete : GenericAutoComplete<IIdTitlePair>
-    {      
+    {     
         protected async override Task<IEnumerable<IIdTitlePair>> Search(string filter)
         {
             if (!string.IsNullOrWhiteSpace(filter))
