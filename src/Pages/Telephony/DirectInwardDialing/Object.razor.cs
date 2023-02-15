@@ -45,7 +45,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             GetFunc = DateTime.Parse
         };
 
-        protected Sufficit.Telephony.DirectInwardDialingV1? Item { get; set; }
+        protected Sufficit.Telephony.DirectInwardDialing? Item { get; set; }
 
         protected IMask MaskOnlyNumbers = new RegexMask(@"^\d+$");
 
@@ -53,7 +53,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (ContextView.ContextId != Guid.Empty)
             {
-                Item = new Sufficit.Telephony.DirectInwardDialingV1
+                Item = new Sufficit.Telephony.DirectInwardDialing
                 {
                     Id = Guid.NewGuid(),
                     ContextId = ContextView.ContextId
@@ -120,7 +120,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             {
                 if (ObjectId == Guid.Empty && ContextView.ContextId != Guid.Empty)
                 {
-                    Item = new Sufficit.Telephony.DirectInwardDialingV1
+                    Item = new Sufficit.Telephony.DirectInwardDialing
                     {
                         ContextId = ContextView.ContextId                        
                     };
@@ -334,6 +334,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
                     dialogParameters.Add("Content", "Falha ao salvar.");
                     DialogService.Show<StatusDialog>("Falha !", dialogParameters);
                 }
+            }
+        }
+
+        protected void GoToHistory(MouseEventArgs _)
+        {
+            if (Item != null)
+            {
+                var query = $"classname={nameof(DirectInwardDialing)}&contextid={Item.Id}";
+                NavigationManager.NavigateTo($"/pages/logging/events?{query}", true);
             }
         }
 

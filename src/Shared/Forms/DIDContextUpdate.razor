@@ -13,18 +13,23 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <ClientsAutoComplete Id="@Item!.ContextId" ValueChanged="OnValueChanged"></ClientsAutoComplete>
+        <ClientsAutoComplete Id="@Item?.ContextId" ValueChanged="OnValueChanged"></ClientsAutoComplete>
     </MudCardContent>
     <MudCardActions Class="justify-end pb-3 px-3">
-        <MudButtonEnchanted Variant="Variant.Filled"
+        @if (UnBindIsVisible)
+        {
+            <MudButtonEnchanted Variant="Variant.Filled"
                             Style="height: fit-content"
                             StartIcon="@Icons.Material.Filled.Recycling"
-                            Color="@Color.Primary">Desvincular</MudButtonEnchanted>
+                            Color="@Color.Primary"
+                            OnClick="UnBind">Desvincular</MudButtonEnchanted>
+        }
         <MudButtonEnchanted Variant="Variant.Filled"
                             Class="ml-3"
                             Style="height: fit-content"
                             StartIcon="@Icons.Material.Filled.Save"
                             Color="@Color.Info"
+                            OnClick="Update"
                             Disabled="@(!UpdatePending)">Atualizar</MudButtonEnchanted>
     </MudCardActions>
 </MudCard>
