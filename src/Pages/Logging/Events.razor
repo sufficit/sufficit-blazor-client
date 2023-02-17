@@ -1,0 +1,25 @@
+﻿@page "/pages/logging/events"
+@attribute [Authorize]
+@inherits BasePageComponent
+
+<MudGrid Class="mt-5">
+    <MudItem xs="12">   
+        @if (Items != null)
+        {
+            <MudTimeline TimelineAlign="TimelineAlign.Default" TimelinePosition="TimelinePosition.Start" TimelineOrientation="TimelineOrientation.Vertical">
+                @foreach(var item in Items) {
+                    <MudTimelineItem>
+                        <MudCard Outlined="true" Elevation="25">
+                            <MudCardContent>
+                                <MudText Typo="Typo.h6">@item.Message</MudText>
+                                <MudText Color="Color.Dark" Typo="Typo.caption" Class="mud-text-secondary">@item.Timestamp</MudText>
+                                <MudDivider Class="ma-2"></MudDivider>
+                                <MudText Typo="Typo.body2">@item.Text</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudTimelineItem>
+                }
+            </MudTimeline>
+        }
+    </MudItem>
+</MudGrid>

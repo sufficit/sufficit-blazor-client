@@ -1,6 +1,7 @@
 ﻿@page "/pages/telephony/did"
 @attribute [Authorize]
 @inherits TelephonyBasePageComponent
+@using Sufficit.Telephony
 @using Sufficit.Blazor.Client.Shared.Forms.AutoComplete
 @using Sufficit.Blazor.Client.Shared.Forms
 
@@ -46,7 +47,10 @@
                             </MudStack>
                         </MudItem>
                     </MudGrid>
-                </MudCardHeader>
+                    <MudCardActions>
+                        <MudFab StartIcon="@Icons.Material.Outlined.History" Size="Size.Small" DisableElevation="true" OnClick="GoToHistory" />
+                    </MudCardActions>
+                </MudCardHeader>                
             </MudCard>
         </MudItem>
         <MudItem xs="12" md="12" lg="12">

@@ -14,7 +14,8 @@
                  ResetValueOnEmptyText="false"
                  ShowProgressIndicator="true"
                  Converter="@IIdTitlePairContactConverter.Instance"
-                 HelperText="Mínimo de 4 caracteres">
+                 HelperText="Mínimo de 4 caracteres"
+                 Disabled="@IsDisabled">
     <NoItemsTemplate>
         <MudText Align="Align.Center" Class="px-4 py-1">
             Nenhum item encontrado
