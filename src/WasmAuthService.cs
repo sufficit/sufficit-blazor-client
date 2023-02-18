@@ -26,8 +26,11 @@ namespace Sufficit.Blazor.Client
         [HttpGet]
         public Task<BlazorRemoteUser?> CurrentUser()
         {
+            BlazorRemoteUser? current = null;
+            return Task.FromResult(current);
+
             // not implemented yet, should store user locally
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             /*
             var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");

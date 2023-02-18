@@ -32,9 +32,16 @@
                             </HeaderContent>
                             <RowTemplate>
                                 <MudTd DataLabel="Ações">
-                                    <MudLink Href="@("/pages/telephony/did?id=" + context.Id)" Underline="Underline.None">
-                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
-                                    </MudLink>
+                                    <MudTooltip Text="Editar opções">
+                                        <MudLink Href="@("/pages/telephony/did?id=" + context.Id)" Underline="Underline.None" Class="mx-1">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
+                                        </MudLink>
+                                    </MudTooltip>
+                                    <MudTooltip Text="Histórico de atualizações">
+                                        <MudLink Href="@($"/pages/logging/events?classname={nameof(DirectInwardDialing)}&event.contextid={context.Id}")" Underline="Underline.None" Class="mx-1">
+                                            <MudIconButton Icon="@Icons.Material.Filled.History" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
+                                        </MudLink>                                    
+                                    </MudTooltip>
                                 </MudTd>
                                 <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
                                 <MudTd DataLabel="Descrição">@context.Description</MudTd>

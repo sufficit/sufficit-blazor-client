@@ -341,7 +341,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (Item != null)
             {
-                var query = $"classname={nameof(DirectInwardDialing)}&contextid={Item.Id}";
+                var query = $"classname={nameof(DirectInwardDialing)}&event.contextid={Item.Id}";
                 NavigationManager.NavigateTo($"/pages/logging/events?{query}", true);
             }
         }

@@ -60,7 +60,7 @@
 			<PackagePath></PackagePath>
 		</None>
 	</ItemGroup>
-	
+		
 	<ItemGroup>
 		<Compile Remove="Models\Identity\**" />
 		<Compile Remove="NotInUse\**" />
@@ -139,19 +139,6 @@
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" />
 		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
 		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
-		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='TortuTeam'" Label="Sufficit Dependencies for Tortu">
-		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
-		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
-		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
-		<PackageReference Include="Sufficit.Base" Version="1.*" />
-		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" />
-		<PackageReference Include="Sufficit.Client" Version="1.*" />
-		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
-		<PackageReference Include="Sufficit.Identity.Core" Version="1.*" />
-		<PackageReference Include="Sufficit.Utils" Version="1.*" />
 		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
 	</ItemGroup>
 
