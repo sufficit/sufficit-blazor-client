@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
+using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "telephony")]
-    public partial class Panel : MonitorTelephonyBasePageComponent
+    public partial class Panel : MonitorTelephonyBasePageComponent, IDisposable
     {
         protected override string Title => "Painel";
 
@@ -23,13 +27,39 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService Service { get; set; } = default!;
 
+        [Inject]
+        private IContextView ContextView { get; set; } = default!;
+
+        protected Sufficit.Telephony.EventsPanel.Panel? PanelCurrent { get; set; }
+
+
         protected Exception? ErrorConfig { get; set; }
 
-        protected bool FirstRendered { get; set; }
+        protected bool IsRendered { get; set; }
 
-        protected override async Task OnParametersSetAsync()
+        protected override void OnParametersSet()
+        {            
+            ContextView.OnChanged += ContextView_OnChanged;            
+        }
+
+        private async void ContextView_OnChanged(Guid contextId)
         {
-            await base.OnParametersSetAsync();
+            if (IsRendered)
+            {
+                await LoadPanel(contextId, default);                
+            }
+        }
+
+        public void Dispose() 
+        {            
+            ContextView.OnChanged -= ContextView_OnChanged;            
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (!firstRender) 
+                return;
+
             if (!Service.IsConfigured)
             {
                 try
@@ -56,13 +86,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
             // Getting cards
             try
-            {
-                var options = await APIClient.Telephony.EventsPanel.GetServiceOptions();
-                if (options != null)
-                {
-                    Service.Panel.Cards.Clear();
-                    Service.OnConfigure(options);
-                }
+            {          
+                await LoadPanel(ContextView.ContextId, default);
             }
             catch (Exception ex)
             {
@@ -72,7 +97,31 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             if (Service.CardAvatarHandler == null)
                 Service.CardAvatarHandler = GetAvatarUrl;
 
-            FirstRendered = true;
+            IsRendered = true;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        protected async Task LoadPanel(Guid contextId, CancellationToken cancellationToken)
+        {
+            IEnumerable<EventsPanelCardInfo> info;
+            if (contextId != Guid.Empty)            
+                info = await APIClient.Telephony.EventsPanel.GetCardsByContext(contextId, cancellationToken);            
+            else            
+                info = await APIClient.Telephony.EventsPanel.GetCardsByUser(cancellationToken);            
+
+            var cards = new EventsPanelCardCollection();
+            foreach (var card in info)
+            {
+                var cardMonitor = EventsPanelCardExtensions.CardCreate(card, Service);
+                cards.Add(cardMonitor);
+            }
+
+            if (Service.Options != null) {
+                Service.Options.AutoFill = false;
+                Service.Options.ShowTrunks = false;
+            }
+            PanelCurrent = new Sufficit.Telephony.EventsPanel.Panel(cards, Service);       
+            await InvokeAsync(StateHasChanged);
         }
 
         protected async Task<string> GetAvatarUrl(EventsPanelCard monitor)

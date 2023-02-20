@@ -3,7 +3,7 @@
     "Watch": {
       "commandName": "Executable",
       "executablePath": "dotnet.exe",
-      "commandLineArgs": "watch run",
+      "commandLineArgs": "watch",
       "workingDirectory": "$(ProjectDir)",
       "launchBrowser": true,
       "environmentVariables": {

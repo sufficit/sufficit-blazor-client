@@ -1,14 +1,22 @@
 ﻿@using System.Text.Json
 @using System.Text.Json.Serialization
+
 <MudCard Elevation="0">
     <MudCardHeader>
-        <h2>GitHub</h2>
-        <h6>
-            Estamos em constante desenvolvimento
-            <small class="d-block">Acompanhe nossos trabalhos diretamente pelo <a href="https://github.com/orgs/sufficit" target="_blank">GitHub</a></small>
-        </h6>
+        <MudText Typo="Typo.h2">GitHub</MudText>
+        <MudText Typo="Typo.h6">
+            Estamos em constante desenvolvimento !
+        </MudText>      
+        <MudText Typo="Typo.caption">
+            Acompanhe nossos trabalhos diretamente pelo <a href="https://github.com/orgs/sufficit" target="_blank">GitHub</a>
+        </MudText>
     </MudCardHeader>
     <MudCardContent>
+        <MudTimeline>
+            <MudTimelineItem>
+
+            </MudTimelineItem>
+        </MudTimeline>
         <div class="timeline timeline-one-side">                
             @if (Result == null)
             {

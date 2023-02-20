@@ -27,7 +27,7 @@ namespace Sufficit.Blazor.Client.Pages.Logging
         [Parameter]
         public string? ClassName { get; set; }
 
-        [SupplyParameterFromQuery]
+        [SupplyParameterFromQuery(Name = "event.contextid")]
         [Parameter]
         public Guid? ContextId { get; set; }
 
@@ -46,6 +46,5 @@ namespace Sufficit.Blazor.Client.Pages.Logging
             Items = await APIClient.Logging.GetEventsWithContent(parameters, default);
             await InvokeAsync(StateHasChanged);
         }
-
     }
 }

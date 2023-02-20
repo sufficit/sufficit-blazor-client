@@ -26,35 +26,41 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
-        protected EventsPanelUserOptions? Options { get; set; }
+        protected EventsPanelUserOptions? UserOptions { get; set; }
 
-        protected override async Task OnParametersSetAsync()
+        /// <summary>
+        /// Indicates that it was rendered by first time to avoid javascript interop error
+        /// </summary>
+        protected bool IsRendered { get; set; }
+
+        protected override void OnParametersSet()
         {
-            await base.OnParametersSetAsync();
-            Options = await APIClient.Telephony.EventsPanel.GetUserOptions();
+            AMIOptionsMonitor.OnChange(AMIOptionsChanged);
         }
 
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {            
             if (!firstRender) return;
+            IsRendered = true;
 
-            AMIOptionsMonitor.OnChange(OptionsChanged);
-        }
-
-        protected async void OptionsChanged(AMIHubClientOptions? _, string __)
-        {
+            UserOptions = await APIClient.Telephony.EventsPanel.GetUserOptions();
             await InvokeAsync(StateHasChanged);
         }
 
-        protected async Task OnCheckBoxChanged(ChangeEventArgs e)
+        protected async void AMIOptionsChanged(AMIHubClientOptions? _, string? __)
         {
-            if (Options != null)
+            if (IsRendered)
+                await InvokeAsync(StateHasChanged);
+        }
+
+        protected async Task OnCheckBoxChanged(bool value)
+        {
+            if (UserOptions != null)
             {
-                if (bool.TryParse(e.Value?.ToString(), out bool newValue)) 
+                if (UserOptions.ShowTrunks != value) 
                 {
-                    Options.ShowTrunks = newValue;
-                    await APIClient.Telephony.EventsPanel.PostUserOptions(Options); 
+                    UserOptions.ShowTrunks = value;
+                    await APIClient.Telephony.EventsPanel.PostUserOptions(UserOptions); 
                 }
             }
         }

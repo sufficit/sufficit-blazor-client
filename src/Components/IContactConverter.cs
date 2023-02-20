@@ -7,6 +7,7 @@ namespace Sufficit.Blazor.Client.Components
     {
         public IContactConverter()
         {
+            //
             SetFunc = x => x == null || x.Id == Guid.Empty ? string.Empty : x.Title ?? "Desconhecido, não encontrado !";
         }
 
