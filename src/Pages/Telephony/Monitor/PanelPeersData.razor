@@ -1,80 +1,51 @@
-﻿<div class="table-responsive">
-    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-height fixed-columns search-results">
-        <div class="dataTable-top">
-            <div class="dataTable-dropdown">
-                <label>
-                    <Select CssClass="dataTable-selector" Selected="@MaxSelected" OnChanged="SelectPageSize_OnChanged">
-                        <Option Label="5" />
-                        <Option Label="10" />
-                        <Option Label="15" />
-                        <Option Label="20" />
-                        <Option Label="25" />
-                    </Select> entries per page
-                </label>
-            </div>
-            <div class="dataTable-search is-filled">
-                <input class="dataTable-input" placeholder="Search..." type="text" @bind="FilterText">
-            </div>
-        </div>
-        <div class="dataTable-container">
-            <Table class="table table-flush dataTable-table" id="datatable-search">
-                <thead class="thead-light">
-                    <tr>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Protocolo</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Ramal</a>
-                        </th>                        
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Estado</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Endereço</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Motivo</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Tempo</a>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(var Item in @GetItems())
-                    {
-                        <DataRow>
-                            <td class="text-sm font-weight-normal">@Item.Protocol</td>
-                            <td class="text-sm font-weight-normal">@Item.Name</td>
-                            <td class="text-sm font-weight-normal">@Item.Status</td>
-                            <td class="text-sm font-weight-normal">@Item.Address</td>
-                            <td class="text-sm font-weight-normal">@Item.Cause</td>
-                            <td class="text-sm font-weight-normal">@Item.Time</td>
-                            <td class="text-sm font-weight-normal">
-                                <a href="pages/telephony/monitor/events?FilterText=@Item.Name" data-tooltip="Monitorar Eventos" data-tooltip-position="left center">
-                                    <i class="material-icons text-primary text-sm">visibility</i>
-                                </a>
-                            </td>
-                        </DataRow>
-                    }                                
-                </tbody>
-            </Table>
-        </div>
-        <div class="dataTable-bottom">
-            <div class="dataTable-info">Exibindo 1 até 10 de @Items.Count Resultados</div>
-            <nav class="dataTable-pagination">
-                <ul class="dataTable-pagination-list">
-                    <li class="pager"><a href="#" data-page="1">‹</a></li>
-                    <li class="active"><a href="#" data-page="1">1</a></li>
-                    <li class=""><a href="#" data-page="2">2</a></li>
-                    <li class=""><a href="#" data-page="3">3</a></li>
-                    <li class=""><a href="#" data-page="4">4</a></li>
-                    <li class=""><a href="#" data-page="5">5</a></li>
-                    <li class=""><a href="#" data-page="6">6</a></li>
-                    <li class="pager"><a href="#" data-page="2">›</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>       
+﻿<MudTable 
+    Class="mt-10" 
+    Hover="true" 
+    SortLabel="Sort By"
+    Items="@GetItems()"
+    Filter="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, bool>(OnSearch)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Periodic Elements</MudText>
+        <MudSpacer />
+        <MudTextField 
+            T="string"
+            Class="mt-0"
+            Placeholder="Search" 
+            Adornment="Adornment.Start" 
+            AdornmentIcon="@Icons.Material.Filled.Search" 
+            IconSize="Size.Medium"
+            @bind-Value="FilterText">
+        </MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Protocol)">Protocal</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Name)">Ramal</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Status)">Estado</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Address != null ? x.Address : new Char())">Endereço</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Cause != null ? x.Cause : new Char())">Motivo</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Time != null ? x.Time : 0)">Tempo</MudTableSortLabel>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Protocal">@context.Protocol</MudTd>
+        <MudTd DataLabel="Ramal">@context.Name</MudTd>
+        <MudTd DataLabel="Estado">@context.Status</MudTd>
+        <MudTd DataLabel="Endereço">@context.Address</MudTd>
+        <MudTd DataLabel="Motivo">@context.Cause</MudTd>
+        <MudTd DataLabel="Tempo">@context.Time</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{10, 20, 50, 100}" />
+    </PagerContent>
+</MudTable>

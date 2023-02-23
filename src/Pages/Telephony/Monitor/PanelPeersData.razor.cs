@@ -4,7 +4,6 @@ using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
@@ -13,7 +12,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
-        protected Exception? ErrorConfig { get; set; }
+          protected Exception? ErrorConfig { get; set; }
 
         public string? FilterText { get; set; }
 
@@ -21,7 +20,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         public string? MaxSelected { get; internal set; }
 
-        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList<PeerInfoMonitor>();
+        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList<PeerInfoMonitor>();    
 
         public IEnumerable<PeerInfo> GetItems()
         {
@@ -35,16 +34,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                     yield return item;
             }            
         }
-                /*
-        private async void SelectPageSize_OnChanged(SelectedChangedEventArgs<string?> e)
-        {
-            if(int.TryParse(e.Current, out int size) && PageSize != size)
-            {
-                PageSize = size;
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-                */
+
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
@@ -70,6 +60,18 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         public void Dispose()
         {
             EPService.Peers.OnChanged -= Peers_OnChanged;
+        }
+
+        public bool OnSearch(PeerInfo element)
+        {
+            if (string.IsNullOrWhiteSpace(FilterText))
+                return true;
+            if (element.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.Time}".Contains(FilterText))
+                return true;
+            return false;
+
         }
     }
 }
