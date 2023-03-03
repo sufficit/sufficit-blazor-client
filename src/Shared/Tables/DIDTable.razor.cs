@@ -21,7 +21,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         private APIClientService APIClient { get; set; } = default!;
 
         [Parameter]
-        public FilterUpdateParameters TimeOut { get; set; } = 1500;
+        public FilterUpdateParameters? Parameters { get; set; } 
 
         [Parameter]
         public uint Limit { get; set; } = 5;
@@ -98,8 +98,9 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             TokenSource = new CancellationTokenSource((int)TimeOut);
             try
             {
-                var response = await APIClient.Telephony.DID.Filter(uid.Empty, TokenSource.Token);
-                DataItems = response ?? Array.Empty<DirectInwardDialing>();
+                //Parameters ??= new FilterUpdateParameters();
+                //var response = await APIClient.Telephony.DID.Filter(Parameters, TokenSource.Token);
+                //DataItems = response ?? Array.Empty<DirectInwardDialing>();
             }
             catch (TaskCanceledException) { DataItems = Array.Empty<DirectInwardDialing>(); }            
 

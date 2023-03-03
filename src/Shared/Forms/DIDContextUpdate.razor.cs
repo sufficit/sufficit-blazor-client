@@ -29,7 +29,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
         /// Should UnBind button be visible ?
         /// </summary>
         protected bool UnBindIsVisible 
-            => Item != null && Item.ContextId != Guid.Empty && Item.ContextId != Telephony.IContacts.DIDIsolatedId;
+            => Item != null && Item.ContextId != Guid.Empty;
 
         protected override void OnParametersSet()
         {
