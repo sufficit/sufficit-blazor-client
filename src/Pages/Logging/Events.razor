@@ -1,25 +1,83 @@
-﻿@page "/pages/logging/events"
+﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @inherits BasePageComponent
 
 <MudGrid Class="mt-5">
     <MudItem xs="12">   
-        @if (Items != null)
+        @if (Items == null)
         {
+            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
+            </MudSkeleton>
+        } 
+        else 
+        {
+            <MudCard Class="pa-3 mx-2">
+                <MudGrid>
+                    <MudItem lg="6" md="6" sm="12">
+                        <MudText Typo="Typo.h6">@Items.Count() Evento(s) encontrado(s)</MudText>
+                    </MudItem>
+                    <MudItem lg="6" md="6" sm="12">
+                        <MudTooltip Text="Filtros utilizados">
+                            <MudStack AlignItems="AlignItems.Start" Row="false" Spacing="1">
+                                @if (ClassName != null)
+                                {
+                                    <MudText Color="Color.Dark" Typo="Typo.caption" Class="mud-text-secondary"><b>* Classe:</b> @ClassName</MudText>
+                                }
+                                @if (EventContextId != null)
+                                {
+                                    <MudText Color="Color.Dark" Typo="Typo.caption" Class="mud-text-secondary"><b>* Id do Contexto:</b> @EventContextId</MudText>
+                                }
+                            </MudStack>
+                        </MudTooltip>
+                    </MudItem>
+                </MudGrid>                
+            </MudCard>
+
             <MudTimeline TimelineAlign="TimelineAlign.Default" TimelinePosition="TimelinePosition.Start" TimelineOrientation="TimelineOrientation.Vertical">
                 @foreach(var item in Items) {
                     <MudTimelineItem>
                         <MudCard Outlined="true" Elevation="25">
-                            <MudCardContent>
-                                <MudText Typo="Typo.h6">@item.Message</MudText>
-                                <MudText Color="Color.Dark" Typo="Typo.caption" Class="mud-text-secondary">@item.Timestamp</MudText>
-                                <MudDivider Class="ma-2"></MudDivider>
-                                <MudText Typo="Typo.body2">@item.Text</MudText>
-                            </MudCardContent>
+                            <MudCardHeader>
+                                <CardHeaderAvatar>
+                                    <ContactAvatar ReferenceId="@(item.UserId ?? Guid.Empty)"></ContactAvatar>
+                                </CardHeaderAvatar>
+                                <CardHeaderContent>
+                                    <MudGrid>
+                                        <MudItem lg="6" md="6" sm="12">
+                                            <MudText Typo="Typo.h6">@item.Message</MudText>
+                                            <MudText Color="Color.Dark" Typo="Typo.caption" Class="mud-text-secondary">@item.Timestamp</MudText>
+                                        </MudItem>
+                                        <MudItem lg="6" md="6" sm="12">
+                                            <MudStack AlignItems="AlignItems.Start" Row="false" Spacing="1">
+                                                @if (ClassName == null || !item.ClassName.Contains(ClassName))
+                                                {
+                                                    <MudText Typo="Typo.caption"><b>Classe:</b> @item.ClassName</MudText>
+                                                }
+                                                @if (item.ContextId != EventContextId)
+                                                {
+                                                    <MudText Typo="Typo.caption"><b>Id do Contexto:</b> @item.ContextId</MudText>
+                                                }
+                                                @if (item.Reference != Reference)
+                                                {
+                                                    <MudText Typo="Typo.caption"><b>Chave de Referência:</b> @item.Reference</MudText>
+                                                }
+                                            </MudStack>
+                                        </MudItem>
+                                    </MudGrid>                                    
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                            @if (item.Text != null)
+                            {
+                                <MudDivider DividerType="DividerType.Middle"></MudDivider>
+                                <MudCardContent>
+                                    <MudText Typo="Typo.body2">@item.Text</MudText>                                
+                                </MudCardContent>   
+                            }
                         </MudCard>
                     </MudTimelineItem>
                 }
             </MudTimeline>
         }
+
     </MudItem>
 </MudGrid>

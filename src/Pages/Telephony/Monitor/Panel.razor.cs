@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
@@ -29,6 +29,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         [Inject]
         private IContextView ContextView { get; set; } = default!;
+
+        [Inject]
+        private IServiceProvider Provider { get; set; } = default!;
 
         protected Sufficit.Telephony.EventsPanel.Panel? PanelCurrent { get; set; }
 
@@ -71,8 +74,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                         if (ep != null)
                         {
                             Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
-                            var options = new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) };
-                            var client = new AMIHubClient(options);
+                            var amiOptions = Options.Create(new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) });
+                            var amiLogger = Provider.GetRequiredService<ILogger<AMIHubClient>>();
+                            var client = new AMIHubClient(amiOptions, amiLogger);
                             Service.Configure(client);
                             ErrorConfig = null;
                         }

@@ -44,14 +44,7 @@ namespace Sufficit.Blazor.Client.Components
         protected string? GetAdornmentIcon()
         {
             if (Value == null) return Icons.Material.Filled.Search;
-            return Value.TypeName.Trim().ToLowerInvariant() switch
-            {
-                "mailbox" or "freepbxmailbox" => Icons.Material.Filled.Voicemail,
-                "enddestination" => Icons.Material.Filled.CallEnd,
-                "directextensiondialing" or "diddirect" => Icons.Material.Filled.Fax,
-                "timecondition" or "condicaotempo" => Icons.Material.Filled.AccessTime,
-                _ => Icons.Material.Filled.QuestionMark,
-            };
+            return Value.GetIcon();
         }
 
         protected async Task<IEnumerable<IDestination>> Search(string filter)

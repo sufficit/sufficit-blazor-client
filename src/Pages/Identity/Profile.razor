@@ -2,7 +2,7 @@
 @using Microsoft.Extensions.Logging
 @attribute [Authorize]
 
-<HyperText>@id</HyperText>
+<MudText>@id</MudText>
 
 <div class="row mt-4 mb-5">
     <div class="col-md-4">
@@ -35,21 +35,8 @@
 
 @code {
     [Parameter]
-    public string id { get; set; }
+    public string? id { get; set; }
 
     [Inject]
     protected ILogger<Profile> Logger { get; set; } = default!;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {               
-        /*
-        await base.OnAfterRenderAsync(firstRender);
-        var Swal = UIService.SweetAlerts;
-        var alert = new SweetAlert() { Toast = true, TimerProgressBar = true, Timer = 3000, Title = "Are you sure ?", ShowCancelButton = true };
-
-        var result = await Swal.Fire(alert).ContinueWith((previous) => { Swal.Fire(alert).ConfigureAwait(false); return previous; });
-        var jsonResult = System.Text.Json.JsonSerializer.SerializeToElement(result);
-        Logger.LogInformation($"result received: { jsonResult }");
-        */
-    }
 }

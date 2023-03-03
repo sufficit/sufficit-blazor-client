@@ -1,0 +1,22 @@
+﻿@using Sufficit.Blazor.Client.Shared.Tables
+@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits TelephonyBasePageComponent 
+
+<MudGrid Class="mt-5">
+    <MudItem xs="12">            
+        <MudCard Class="pa-3">
+            <MudCardHeader >
+                <MudGrid>
+                    <MudItem lg="6" md="6" sm="6" Class="justify-end">
+                        <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+                    </MudItem>
+                </MudGrid>
+            </MudCardHeader>
+            <MudCardContent>
+                <DIDTable></DIDTable>                
+            </MudCardContent>
+        </MudCard>
+       
+    </MudItem>
+</MudGrid>

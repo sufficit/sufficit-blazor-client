@@ -1,10 +1,10 @@
 ﻿using Sufficit.Blazor.BreadCrumb;
+using Sufficit.Blazor.Components;
 using Sufficit.Blazor.Client.Models;
-using Sufficit.Blazor.Client.Models.BreadCrumbs;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
-    public partial class TelephonyBasePageComponent : BasePageComponent
+    public abstract class TelephonyBasePageComponent : BasePageComponent
     {
         protected override void OnBreadCrumbLoad()
         {

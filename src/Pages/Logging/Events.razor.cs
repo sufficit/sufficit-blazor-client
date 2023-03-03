@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using MudBlazor;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Logging;
 using Sufficit.Telephony;
@@ -14,8 +15,10 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Logging
 {
     [Authorize(Roles = "manager")]
-    public partial class Events : BasePageComponent
+    public partial class Events : BasePageComponent, IPage
     {
+        public const string RouteParameter = "/pages/logging/events";
+
         protected override string Title => "Events";
 
         protected override string Description => "Registro de eventos";
@@ -27,9 +30,13 @@ namespace Sufficit.Blazor.Client.Pages.Logging
         [Parameter]
         public string? ClassName { get; set; }
 
-        [SupplyParameterFromQuery(Name = "event.contextid")]
+        [SupplyParameterFromQuery]
         [Parameter]
-        public Guid? ContextId { get; set; }
+        public string? Reference { get; set; }
+
+        [SupplyParameterFromQuery]
+        [Parameter]
+        public Guid? EventContextId { get; set; }
 
         protected IEnumerable<JsonLog>? Items { get; set; }
 
@@ -39,7 +46,9 @@ namespace Sufficit.Blazor.Client.Pages.Logging
                 return;
 
             var parameters = new LogSearchParameters();
-            parameters.ContextId = ContextId;
+            parameters.ContextId = EventContextId;
+            parameters.Reference = Reference;
+
             if (!string.IsNullOrWhiteSpace(ClassName))
                 parameters.ClassName = ClassName;
 

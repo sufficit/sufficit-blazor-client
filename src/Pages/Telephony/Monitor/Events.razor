@@ -29,7 +29,7 @@
             @if(!Items.Any())
             {
                 <div class="card m-1 p-2">                    
-                    <HyperText CssClass="blinking">Aguardando eventos ....</HyperText>
+                    <MudText Class="blinking">Aguardando eventos ....</MudText>
                 </div>
             } else {
                 <EventsData Items="@Items.Reverse()"></EventsData>

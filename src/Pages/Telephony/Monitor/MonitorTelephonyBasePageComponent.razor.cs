@@ -1,9 +1,10 @@
 ﻿using Sufficit.Blazor.Client.Models;
+using Sufficit.Blazor.Components;
 using System.Collections.Generic;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    public partial class MonitorTelephonyBasePageComponent : BasePageComponent
+    public abstract class MonitorTelephonyBasePageComponent : BasePageComponent
     {
         protected override void OnAfterRender(bool firstRender)
         {

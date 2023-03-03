@@ -83,7 +83,7 @@
   </ItemGroup>
 	
 	<ItemGroup Label="Hybrid Models">
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.51.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
@@ -112,11 +112,11 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="6.1.8" />
+		<PackageReference Include="MudBlazor" Version="6.1.9" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
 	</ItemGroup>
 
-	<ItemGroup>		
+	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">		
 		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
 		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
@@ -127,9 +127,17 @@
 		<PackageReference Include="Sufficit.Utils" Version="1.*" /> 
 	</ItemGroup>
 
-	<ItemGroup> 
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'" Label="Sufficit Local Dependencies"> 
+		<ProjectReference Include="..\..\sufficit-asterisk-core\src\Sufficit.Asterisk.Core.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-asternet\Asterisk.2013\Asterisk.NET\Sufficit.AsterNET.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-base\src\Sufficit.Base.csproj" /> 
 		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" /> 
-		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
+		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 	</ItemGroup> 
 
 	<ItemGroup>

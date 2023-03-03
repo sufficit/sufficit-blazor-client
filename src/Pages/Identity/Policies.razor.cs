@@ -14,6 +14,7 @@ using Sufficit.Client;
 using MudBlazor;
 using Sufficit.Blazor.Client.Shared;
 using AsterNET;
+using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {

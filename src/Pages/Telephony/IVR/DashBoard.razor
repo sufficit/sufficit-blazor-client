@@ -1,4 +1,4 @@
-﻿@page "/pages/telephony/ivr/dashboard"
+﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @inherits TelephonyBasePageComponent 
 
@@ -27,7 +27,7 @@
 
                                 <RowTemplate>
                                     <MudTd DataLabel="Ação">
-                                        <MudLink Href="@("/pages/telephony/ivr?id=" + context.Id)" Underline="Underline.None">
+                                        <MudLink Href="@(Pages.Telephony.IVR.Object.RouteParameter + "?id=" + context.Id)" Underline="Underline.None">
                                             <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
                                         </MudLink>
                                     </MudTd>
@@ -62,7 +62,7 @@
                                         </MudTooltip>
 
                                         <MudLink Href="@("https://www.sufficit.com.br/telefonia/relatorios/enquetes?IDEnquete=" + context.Id)" Target="_blank">
-                                            <MudIconButton Icon="@Icons.Material.Filled.Leaderboard" ></MudIconButton>
+                                            <MudIconButton Icon="@Icons.Material.Filled.Leaderboard"></MudIconButton>
                                         </MudLink>
                                     </MudTd>
                                 </RowTemplate>
@@ -79,7 +79,7 @@
                         <MudIconButton Icon="@Icons.Material.Filled.Refresh" Class="mx-5" Variant="Variant.Outlined" OnClick="GetItems"></MudIconButton>
                         </MudTooltip>
 
-                        <MudLink Href="/pages/telephony/ivr">
+                        <MudLink Href="@Pages.Telephony.IVR.Object.RouteParameter">
                             <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova IVR/Menu</MudButton>
                         </MudLink>
                     </MudCardActions>

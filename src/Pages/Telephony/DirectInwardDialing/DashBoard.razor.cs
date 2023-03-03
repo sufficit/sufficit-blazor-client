@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
-using MudBlazor;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
-using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
     [Authorize(Roles = "telephony")]
-    public partial class DashBoard : TelephonyBasePageComponent, IDisposable
+    public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
+        public const string RouteParameter = "/pages/telephony/did/dashboard";
+
         protected override string Title => "Direct Inward Dialing";
 
         protected override string Description => "Rotas de entrada";
@@ -25,7 +24,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         [Inject]
         private IContextView ContextView { get; set; } = default!;
-                
+
+        [Inject]
+        private NavigationManager Navigation { get; set; } = default!;
+
         /// <summary>
         /// Used to show loading messages
         /// </summary>

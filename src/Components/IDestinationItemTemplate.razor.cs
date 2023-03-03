@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Sufficit.Blazor.Client.Models;
 using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,8 @@ namespace Sufficit.Blazor.Client.Components
         [Parameter]
         [EditorRequired]
         public IDestination Destination { get; set; } = default!;
+
+        protected string Icon
+            => Destination.GetIcon();
     }
 }

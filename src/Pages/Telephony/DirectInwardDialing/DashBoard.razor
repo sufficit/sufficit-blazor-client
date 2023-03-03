@@ -1,4 +1,4 @@
-﻿@page "/pages/telephony/did/dashboard"
+﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @inherits TelephonyBasePageComponent 
 
@@ -6,16 +6,32 @@
     <MudItem xs="12">    
         @if(ContextView.ContextId == Guid.Empty)
         {
+            <DIDFreeOption></DIDFreeOption>
             <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
                 <ClientMissing></ClientMissing>
             </MudPaper>
         } else {
             <MudCard Class="pa-3">
-                <MudCardHeader Class="justify-end">
-                    <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+                <MudCardHeader >
+                    <MudGrid>
+                        @if (Items != null)
+                        {
+                            <MudItem lg="6" md="6" sm="6" Class="justify-start">
+                                    <MudText Typo="Typo.body1" Align="Align.Left"><b>@Items.Count()</b> Item(s) encontrado(s)</MudText>
+                            </MudItem>                            
+                        }
+                        <MudItem lg="6" md="6" sm="6" Class="justify-end">
+                            <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+                        </MudItem>
+                    </MudGrid>
                 </MudCardHeader>
                 <MudCardContent>
-                    @if (Items != null && !IsLoading)
+                    @if (Items == null || IsLoading)
+                    {
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
+                        </MudSkeleton>                        
+                    }
+                    else
                     {
                         <MudTable Items="Items.OrderBy(s => s.Extension)" Breakpoint="Breakpoint.Sm" Hover Class="my-3" Loading="IsLoading">
                             <LoadingContent>
@@ -40,7 +56,7 @@
                                     <MudTooltip Text="Histórico de atualizações">
                                         <MudLink Href="@($"/pages/logging/events?classname={nameof(DirectInwardDialing)}&event.contextid={context.Id}")" Underline="Underline.None" Class="mx-1">
                                             <MudIconButton Icon="@Icons.Material.Filled.History" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
-                                        </MudLink>                                    
+                                        </MudLink>
                                     </MudTooltip>
                                 </MudTd>
                                 <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
@@ -51,7 +67,7 @@
                                         {
                                             <MudTooltip Text="@context.Filter">
                                                 <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>
-                                            </MudTooltip>                                    
+                                            </MudTooltip>
                                         }
                                         @if (!string.IsNullOrWhiteSpace(context.Tags))
                                         {
@@ -77,18 +93,12 @@
                             </RowTemplate>
                         </MudTable>
                     }
-                    else
-                    {
-                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
-                        </MudSkeleton>
-                    }
                 </MudCardContent>
                 <MudCardActions Class="justify-end">
                     <MudTooltip Text="Atualizar">
                         <MudIconButton Icon="@Icons.Material.Filled.Refresh" Class="mx-5" Variant="Variant.Outlined" OnClick="GetItems"></MudIconButton>
                     </MudTooltip>
-
-                    <MudLink Href="/pages/telephony/did">
+                    <MudLink Href="Object.RouteParameter">
                         <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
                     </MudLink>                    
                 </MudCardActions>

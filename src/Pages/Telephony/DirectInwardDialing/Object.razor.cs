@@ -15,12 +15,15 @@ using Sufficit.Contacts;
 using System.Globalization;
 using System.Security.Cryptography;
 using Sufficit.Telephony.DIDs;
+using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
     [Authorize(Roles = "telephony")]
-    public partial class Object : TelephonyBasePageComponent, IDisposable
+    public partial class Object : TelephonyBasePageComponent, IDisposable, IPage
     {
+        public const string RouteParameter = "/pages/telephony/did";
+
         protected override string Title => "DID | Entrada";
 
         [Inject]
@@ -341,8 +344,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (Item != null)
             {
-                var query = $"classname={nameof(DirectInwardDialing)}&event.contextid={Item.Id}";
-                NavigationManager.NavigateTo($"/pages/logging/events?{query}", true);
+                var query = $"classname={nameof(DirectInwardDialing)}&eventcontextid={Item.Id}";
+                NavigationManager.NavigateTo<Logging.Events>(false, query);
             }
         }
 

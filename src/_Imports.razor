@@ -1,4 +1,5 @@
-﻿@using System.Net.Http
+﻿@using Blazored.LocalStorage
+@using System.Net.Http
 @using System.Net.Http.Json
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
@@ -9,6 +10,10 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Http
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.JSInterop
+@using Sufficit
+@using Sufficit.Asterisk
+@using Sufficit.Asterisk.Manager
+@using Sufficit.Asterisk.Manager.Events
 @using Sufficit.Blazor.Client
 @using Sufficit.Blazor.Client.Components
 @using Sufficit.Blazor.Client.Shared
@@ -16,13 +21,9 @@
 @using Sufficit.Blazor.Client.Shared.Layout
 @using Sufficit.Blazor.Client.Shared.Services
 @using Sufficit.Blazor.Client.Services
-@using Sufficit
-@using Sufficit.Asterisk
-@using Sufficit.Asterisk.Manager
-@using Sufficit.Asterisk.Manager.Events
-@using Sufficit.Telephony.JsSIP
-@using Blazored.LocalStorage
+@using Sufficit.Blazor.Components
 @using Sufficit.Client
+@using Sufficit.Telephony.JsSIP
 @using Sufficit.Identity.Client
 @using Sufficit.Telephony.EventsPanel
 @using Sufficit.Telephony.EventsPanel.Components
