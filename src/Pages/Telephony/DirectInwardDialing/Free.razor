@@ -6,17 +6,22 @@
 <MudGrid Class="mt-5">
     <MudItem xs="12">            
         <MudCard Class="pa-3">
-            <MudCardHeader >
+            <MudCardHeader>
                 <MudGrid>
+                    @if (Items != null)
+                    {
+                        <MudItem lg="6" md="6" sm="6" Class="justify-start">
+                            <MudText Typo="Typo.body1" Align="Align.Left"><b>@Items.Count()</b> Item(s) encontrado(s)</MudText>
+                        </MudItem>
+                    }
                     <MudItem lg="6" md="6" sm="6" Class="justify-end">
                         <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
                     </MudItem>
                 </MudGrid>
             </MudCardHeader>
             <MudCardContent>
-                <DIDTable></DIDTable>                
+                <DIDTable @ref="Table" GetData="GetServerData"></DIDTable>
             </MudCardContent>
-        </MudCard>
-       
+        </MudCard>       
     </MudItem>
 </MudGrid>

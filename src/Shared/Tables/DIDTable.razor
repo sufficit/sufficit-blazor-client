@@ -1,14 +1,36 @@
 ﻿@using Sufficit.Telephony;
-
 <MudTable @ref="Table"
           T="DirectInwardDialing"
           LoadingProgressColor="Color.Info"
-          ServerData="GetData"
-          Breakpoint="Breakpoint.Sm" 
+          ServerData="InternalGetData"
+          Breakpoint="Breakpoint.Sm"
           Hover="true"
-          Class="my-3">
+          Class="my-3"               
+>
+    <ToolBarContent>
+        @if (LastData != null)
+        {
+            <MudText Typo="Typo.body1" Align="Align.Left">
+                <b>@Totals</b>
+                Item(s)
+            </MudText>
+        }
+        <MudSpacer />
+        <MudTextField T="string"
+                      Class="mt-0"
+                      Placeholder="Filtrar"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Value="@Filter"
+                      ValueChanged="FilterChanged"
+                      Immediate="true"
+        >
+        </MudTextField>
+    </ToolBarContent>
     <LoadingContent>
-        <MudSkeleton Animation="Animation.Wave" Height="200px" />
+        <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
+        <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
     </LoadingContent>
     <HeaderContent>
         <MudTh Style="text-align: center; width: 130px">Ações</MudTh>
@@ -19,6 +41,23 @@
         <MudTh Style="text-align: center; width: 100px">Cadastro</MudTh>
         <MudTh Style="text-align: center; width: 50px">Fornecedor</MudTh>
     </HeaderContent>
+    <NoRecordsContent>
+        @if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            @if (Filter.Length < Minimum)
+            {
+                <MudText>Para iniciar a pesquisa precisamos de pelo menos @Minimum caracteres.</MudText>
+            }
+            else
+            {
+                <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+            }
+        }
+        else
+        {
+            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+        }        
+    </NoRecordsContent>
     <RowTemplate>
         <MudTd DataLabel="Ações">
             <MudTooltip Text="Editar opções">

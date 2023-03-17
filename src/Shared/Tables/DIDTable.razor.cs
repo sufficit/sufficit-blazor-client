@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
-using MudBlazor.Charts;
-using Newtonsoft.Json.Linq;
 using Sufficit.Client;
-using Sufficit.Identity;
-using Sufficit.Identity.Client;
 using Sufficit.Telephony;
 using Sufficit.Telephony.DIDs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +18,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         private APIClientService APIClient { get; set; } = default!;
 
         [Parameter]
-        public FilterUpdateParameters? Parameters { get; set; } 
+        public DIDSearchParameters? Parameters { get; set; }
 
         [Parameter]
         public uint Limit { get; set; } = 5;
@@ -34,16 +31,36 @@ namespace Sufficit.Blazor.Client.Shared.Tables
 
         [Parameter]
         public uint TimeOut { get; set; } = 1500;
+               
+        [Parameter]
+        public EventCallback OnChanged { get; set; }
 
         [Parameter]
-        public string? Filter { get; set; }
+        public Func<DIDSearchParameters, CancellationToken, ValueTask<IEnumerable<DirectInwardDialing>>>? GetData { get; set; } 
 
         [EditorRequired]
-        protected MudTable<DirectInwardDialing>? Table { get; set; } = default!;
+        protected MudTable<DirectInwardDialing>? Table { get; set; }
+
+        protected string? Filter { get; set; }
+
+        protected string Totals
+        {
+            get
+            {
+                string result = string.Empty;
+                if (LastData != null) {
+                    if (LastData.Items != null) {
+                        int count = LastData.Items.Count();
+                        result += count.ToString();
+                        if (LastData.TotalItems > 0 && count != LastData.TotalItems)
+                            result += " / " + LastData.TotalItems.ToString();
+                    }
+                }
+                return result;
+            }
+        }
 
         private CancellationTokenSource? TokenSource;
-
-        protected IEnumerable<DirectInwardDialing> DataItems { get; set; } = Array.Empty<DirectInwardDialing>();
 
         protected static string ToE164Semantic(string extension)
             => Sufficit.Telephony.Utils.FormatToE164Semantic(extension);
@@ -56,55 +73,66 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             if (!firstRender)
                 return;
 
-            DataBind();
+            if(Table != null)
+                Table.Context.TableStateHasChanged = () => OnChanged.InvokeAsync();
         }
 
-        /// <summary>
-        /// Update filter parameter and reload server data
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public async Task SetFilter(string? value)
+        protected async void FilterChanged(string text)
         {
-            if(Filter != value)
-            {
-                Filter = value;
+            if (Parameters == null)
+                Parameters = new DIDSearchParameters();
 
-                if (Table != null)
-                {
-                    await Table.ReloadServerData();
-                    await InvokeAsync(StateHasChanged);
-                }
+            Parameters.Extension = text;
+
+            if (Table != null)            
+                await Table.ReloadServerData();            
+        }
+
+        protected override void OnParametersSet()
+        {
+            if (Parameters != null)
+            {
+                if(Parameters.Extension != null)
+                    Filter = Parameters.Extension;
             }
         }
 
         /// <summary>
         /// Reload server data
         /// </summary>
-        public async void DataBind()
+        public async Task DataBind()
         {
             if (Table != null)
             {
-                await Table.ReloadServerData(); 
+                await Table.ReloadServerData();
                 await InvokeAsync(StateHasChanged);
             }
         }
 
-        protected async Task<TableData<DirectInwardDialing>> GetData(TableState _)
+        protected TableData<DirectInwardDialing>? LastData;
+
+        protected async Task<TableData<DirectInwardDialing>> InternalGetData(TableState _)
         {
+            LastData = new TableData<DirectInwardDialing>();
+
+            if (GetData == null)
+                return LastData;
+
+            // advertise that is loading
+            await InvokeAsync(StateHasChanged);
+
             if (TokenSource != null)
                 TokenSource.Cancel(false);
                         
             TokenSource = new CancellationTokenSource((int)TimeOut);
             try
             {
-                //Parameters ??= new FilterUpdateParameters();
-                //var response = await APIClient.Telephony.DID.Filter(Parameters, TokenSource.Token);
-                //DataItems = response ?? Array.Empty<DirectInwardDialing>();
+                var parameters = Parameters ?? new DIDSearchParameters();
+                var response = await GetData(parameters, TokenSource.Token);
+                LastData.Items = response ?? Array.Empty<DirectInwardDialing>();
             }
-            catch (TaskCanceledException) { DataItems = Array.Empty<DirectInwardDialing>(); }            
-
-            return new TableData<DirectInwardDialing>() { Items = DataItems };
+            catch (TaskCanceledException) { }
+            return LastData;
         }
     }
 }

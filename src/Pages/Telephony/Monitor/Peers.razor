@@ -11,8 +11,8 @@
 @if (ErrorConfig != null)
 {
     <div class="alert alert-danger mb-0 m-3">
-        <h4 class="alert-heading">Erro interno !</h4>
-        <p>@ErrorConfig.GetType(): <small>@ErrorConfig.Message</small></p>
+        <MudText Typo="Typo.h4" class="alert-heading">Erro interno !</MudText>
+        <MudText Typo="Typo.body2">@ErrorConfig.GetType(): <small>@ErrorConfig.Message</small></MudText>
     </div>
 }
 
@@ -21,10 +21,10 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-                <h5 class="mb-0">Monitoramento do estado de pares</h5>
-                <p class="text-sm mb-0">
+                <MudText Typo="Typo.h5">Monitoramento do estado de pares</MudText>
+                <MudText Typo="Typo.body2">
                     Exibe em tempo real o estado e as informações básicas do pares | extensões | ramais do PABX.
-                </p>
+                </MudText>
             </div>
             <PanelPeersData></PanelPeersData>
         </div>

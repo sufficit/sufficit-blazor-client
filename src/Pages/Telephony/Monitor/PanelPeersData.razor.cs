@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
@@ -13,17 +15,22 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
-        protected Exception? ErrorConfig { get; set; }
+          protected Exception? ErrorConfig { get; set; }
+
+        [EditorRequired]
+        protected MudTable<PeerInfo>? Table { get; set; } = default!;
 
         public string? FilterText { get; set; }
 
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 10;
 
         public string? MaxSelected { get; internal set; }
 
-        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList<PeerInfoMonitor>();
+        public int Counter => EPService.Peers.Count;
 
-        public IEnumerable<PeerInfo> GetItems()
+        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList();    
+
+        public IEnumerable<Sufficit.Telephony.EventsPanel.PeerInfo> GetItems()
         {
             if (!string.IsNullOrWhiteSpace(FilterText))
             {
@@ -35,16 +42,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                     yield return item;
             }            
         }
-                /*
-        private async void SelectPageSize_OnChanged(SelectedChangedEventArgs<string?> e)
+
+        protected async Task<TableData<Sufficit.Telephony.EventsPanel.PeerInfo>> GetData(TableState _)
         {
-            if(int.TryParse(e.Current, out int size) && PageSize != size)
-            {
-                PageSize = size;
-                await InvokeAsync(StateHasChanged);
-            }
+            await Task.Yield();
+            return new TableData<Sufficit.Telephony.EventsPanel.PeerInfo>() { Items = GetItems() };
         }
-                */
+
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
@@ -70,6 +74,18 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         public void Dispose()
         {
             EPService.Peers.OnChanged -= Peers_OnChanged;
+        }
+
+        public bool OnSearch(PeerInfo element)
+        {
+            if (string.IsNullOrWhiteSpace(FilterText))
+                return true;
+            if (element.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.Time}".Contains(FilterText))
+                return true;
+            return false;
+
         }
     }
 }
