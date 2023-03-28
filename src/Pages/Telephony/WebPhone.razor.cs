@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sufficit.Identity;
+using Sufficit.Telephony;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -35,8 +36,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         protected override string Title => "Telefone Web";
 
         protected override string Description => "Aplicativo de telefone virtual";
-
-        protected string? Destination { get; set; }
 
         /// <summary>
         /// key used to connect on asterisk server
@@ -78,8 +77,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             }
         }
 
-        protected async Task VoiceCall() => await JsSIPService.Call(Destination, false);
-        protected async Task VideoCall() => await JsSIPService.Call(Destination, true);
+        protected async Task VoiceCall(string Destination) => await JsSIPService.Call(Destination, false);
+        protected async Task VideoCall(string Destination) => await JsSIPService.Call(Destination, true);
 
         protected void SetDevice(JsSIPMediaDeviceKind kind, string id)
         {
