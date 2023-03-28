@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -73,10 +71,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                         var ep = endpoints.FirstOrDefault();
                         if (ep != null)
                         {
-                            Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
-                            var amiOptions = Options.Create(new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) });
-                            var amiLogger = Provider.GetRequiredService<ILogger<AMIHubClient>>();
-                            var client = new AMIHubClient(amiOptions, amiLogger);
+                            //Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
+                            //var amiOptions = Options.Create(new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) });
+                            //var amiLogger = Provider.GetRequiredService<ILogger<AMIHubClient>>();
+                            var scope = Provider.CreateScope();
+                            var client = scope.ServiceProvider.GetRequiredService<AMIHubClient>();
                             Service.Configure(client);
                             ErrorConfig = null;
                         }

@@ -57,7 +57,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                await JsSIPService.TestDevices();
+                var responseTest = await JsSIPService.TestDevices(new Sufficit.Telephony.JsSIP.Methods.TestDevicesRequest() { Audio = true, Video = true });
+                Logger.LogWarning("testing devices status: {success}, message: {message}", responseTest.Success, responseTest.Message);
 
                 JsSIPService.OnChanged += (sender, args) => StateHasChanged();
                 if (string.IsNullOrWhiteSpace(JsSIPService.Status))
