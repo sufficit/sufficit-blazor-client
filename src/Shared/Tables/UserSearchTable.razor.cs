@@ -91,7 +91,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                     try
                     {
                         var response = await BIService.Identity.Users.GetUsersAsync(Filter, 1, (int)Limit, TokenSource.Token);
-                        DataItems = response?.Users ?? Array.Empty<User>();
+                        DataItems = response?.Users ?? Array.Empty<User>();                       
                     }
                     catch (TaskCanceledException) { DataItems = Array.Empty<User>(); }
                 }

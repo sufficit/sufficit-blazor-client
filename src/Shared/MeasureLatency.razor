@@ -1,14 +1,16 @@
 ﻿<MudCard Elevation="0">
     <MudCardHeader>
-        <h2>Cálculo de latência</h2>
-        @if (latency is null)
-        {
-            <span>Calculando ...</span>
-        }
-        else
-        {
-            <span>@(latency.Value.TotalMilliseconds)ms</span>
-        }
+        <MudStack Spacing="0">
+            <MudText Typo="Typo.h3">Cálculo de latência</MudText>
+            @if (latency is null)
+            {
+                <MudText Typo="Typo.body1">Calculando ... </MudText>
+            }
+            else
+            {
+                <MudText Typo="Typo.body1">@(latency.Value.TotalMilliseconds)ms</MudText>
+            }
+        </MudStack>        
     </MudCardHeader>
 </MudCard>
 @code {

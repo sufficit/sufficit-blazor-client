@@ -1,0 +1,243 @@
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits BasePageComponent 
+
+<MudGrid Class="mt-5">
+    <MudItem xs="12">    
+            @if(ContextView.ContextId == Guid.Empty)
+            {
+                <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
+                    <ClientMissing></ClientMissing>
+                </MudPaper>
+            } else {
+                <MudCard Class="pa-3">
+                    <MudCardHeader Class="justify-end">
+                        <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <div class="row">
+                            <div class="ui container grid">
+
+                                <div class="column suff-gateway-receitanet" data-idcontext="<%= IDObjeto() %>">
+                                    <div class="ui basic form segment">
+                                        <asp:HiddenField ID="HFIDIntegracao" runat="server" />
+                                        <div class="ui horizontal divider header" style="padding-bottom: 12px;">
+                                            <div class="content">
+                                                <i class="bar chart icon"></i>
+                                                Última atualização
+                                                <div class="sub header">
+                                                    <asp:Label ID="LBUpdate" runat="server" Text=""></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="equal width fields">
+                                            <div class="field" style="text-align: center; position: relative;">
+                                                <div class="ui left aligned header" style="margin-bottom: 50px">
+                                                    <div class="content">
+                                                        <i class="power off icon"></i> Habilitado
+                                                        <div class="sub header" style="padding-top: 10px;">Ativar / Desativar</div>
+                                                        <div class="sub header" style="padding-top: 5px;">Ao desativar, todas as chamadas serão encaminhadas automaticamente para o destino de falha.</div>
+                                                    </div>
+                                                </div>
+                                                <div style="display: block;width: 100%;margin: 0px;position: absolute;text-align: center;bottom: 0;right: 0;left: 2px;padding: 0px 10px 0px 10px;">
+                                                    <asp:HyperLink ID="HyperLink3" runat="server" CssClass="ui toggle button" style="display: block;">
+                                                        <asp:HiddenField ID="HFEnabled" runat="server" Value="true" />
+                                                        <i class="power off icon"></i> habilitado
+                                                    </asp:HyperLink>
+                                                </div>
+                                            </div>
+                                            <div class="field" style="text-align: center; position: relative;">
+                                                <div class="ui left aligned header" style="margin-bottom: 50px">
+                                                    <div class="content">
+                                                        <i class="key icon"></i> Protocolo
+                                                        <div class="sub header" style="padding-top: 10px;">Informar protocolo sempre que estiver disponível ?</div>
+                                                        <div class="sub header" style="padding-top: 5px;">Normalmente após algum relato de problema técnico ou financeiro.</div>
+                                                    </div>
+                                                </div>
+                                                <div style="display: block;width: 100%;margin: 0px;position: absolute;text-align: center;bottom: 0;right: 0;left: 2px;padding: 0px 10px 0px 10px;">
+                                                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="ui toggle button" style="display: block;">
+                                                        <asp:HiddenField ID="HFProtocol" runat="server" Value="true" />
+                                                        <i class="key icon"></i> protocolo
+                                                    </asp:HyperLink>
+                                                </div>
+                                            </div>
+                                            <div class="field" style="text-align: center; position: relative;">
+                                                <div class="ui left aligned header" style="margin-bottom: 50px">
+                                                    <div class="content">
+                                                        <i class="money icon"></i> Financeiro
+                                                        <div class="sub header" style="padding-top: 10px;">Informar opções financeiras mesmo sem fatura em atraso ?</div>
+                                                        <div class="sub header" style="padding-top: 5px;">A opção de emissão e envio de faturas será disponibilizada sempre que houver algum boleto disponível no sistema.</div>
+                                                    </div>
+                                                </div>
+                                                <div style="display: block;width: 100%;margin: 0px;position: absolute;text-align: center;bottom: 0;right: 0;left: 2px;padding: 0px 10px 0px 10px;">
+                                                    <asp:HyperLink ID="HyperLink2" runat="server" CssClass="ui toggle button" style="display: block;">
+                                                        <asp:HiddenField ID="HFBilling" runat="server" Value="true" />
+                                                        <i class="money icon"></i> financeiro
+                                                    </asp:HyperLink>
+                                                </div>
+                                            </div>
+                                            <div class="field" style="text-align: center; position: relative;">
+                                                <div class="ui left aligned header" style="margin-bottom: 50px">
+                                                    <div class="content">
+                                                        <i class="microphone icon"></i> Locução
+                                                        <div class="sub header" style="padding-top: 10px;">Será usada essa voz para todos os áudios fixos do menu, não se aplica as respostas personalizadas como Protocolo.</div>
+                                                    </div>
+                                                </div>
+                                                <label>Voz de locução</label>
+                                                <div style="display: block;width: 100%;margin: 0px;position: absolute;text-align: center;bottom: 0;right: 0;left: 2px;padding: 0px 10px 0px 10px;">
+                                                    <div class="ui fluid selection labeled icon dropdown">
+                                                        <i class="microphone icon"></i>
+                                                        <asp:HiddenField ID="HFAnnouncer" runat="server" Value="2" />
+                                                        <div class="text"></div>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div class="item" data-value='1'>Ricardo (Voz Masculina)</div>
+                                                            <div class="item" data-value='2'>Raquel (Voz Feminina)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui divider"></div>
+                                        <div class="field">
+                                            <div class="ui header">
+                                                <div class="content">
+                                                    <i class="hashtag icon"></i> Tokens
+                                                    <div class="sub header">Chaves fornecidas pelo desenvolvedor do software. (há custos mensais)</div>
+                                                    <div class="sub header">Caso você possua mais de um provedor ou mais de uma chave de acesso, coloque-as separadas por ";"</div>
+                                                </div>
+                                            </div>
+                                            <div class="ui input">
+                                                <asp:TextBox ID="TBTokens" runat="server" MaxLength="200" placeholder="TOKENS :: 00000000-0000-0000-0000-000000000000;00000000-0000-0000-0000-000000000000" autocomplete="off"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="ui divider"></div>
+                                        <div class="ui secondary segment">
+                                            <div class="ui sub header">Opções de destino</div>
+                                            <asp:HiddenField ID="HFOpcoes" runat="server" />
+                                            <div class="ui vertical segment suff-opcao">
+                                                <div class="fields">
+                                                    <div class="one wide field" data-tooltip="Saída usada caso o sistema apresente qualquer tipo de falha">
+                                                        <a class="ui basic icon button"><i class="blue info icon"></i></a>
+                                                    </div>
+                                                    <div class="three wide field">
+                                                        <input type="text" class="suff-numero" value="Falha" readonly="" style="border: none; cursor: pointer;" />
+                                                    </div>
+                                                    <div class="eleven wide field ui category search suff-pesquisa">
+                                                        <asp:HiddenField ID="HFDESTFalha" runat="server" />
+                                                        <div class="ui left icon right labeled input">
+                                                            <i class="search icon"></i>
+                                                            <input type="text" class="prompt" placeholder="Destino" />
+                                                            <label class="ui tag label categoria">Personalizado</label>
+                                                        </div>
+                                                        <div class="results"></div>
+                                                    </div>
+                                                    <div class="one wide field suff-acoes" style="text-align: right;">
+                                                        <div class="ui basic icon button suff-excluirlinha"><i class="red trash icon"></i></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="one wide field" data-tooltip="Chamada encerrada com sucesso | Atendimento concluído e cliente satisfeito">
+                                                        <a class="ui basic icon button"><i class="blue info icon"></i></a>
+                                                    </div>
+                                                    <div class="three wide field">
+                                                        <input type="text" class="suff-numero" value="Desligar" readonly="" style="border: none; cursor: pointer;" />
+                                                    </div>
+                                                    <div class="eleven wide field ui category search suff-pesquisa">
+                                                        <asp:HiddenField ID="HFDESTDesligar" runat="server" />
+                                                        <div class="ui left icon right labeled input">
+                                                            <i class="search icon"></i>
+                                                            <input type="text" class="prompt" placeholder="Destino" />
+                                                            <label class="ui tag label categoria">Personalizado</label>
+                                                        </div>
+                                                        <div class="results"></div>
+                                                    </div>
+                                                    <div class="one wide field suff-acoes" style="text-align: right;">
+                                                        <div class="ui basic icon button suff-excluirlinha"><i class="red trash icon"></i></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="one wide field" data-tooltip="Saída usada caso o cliente foi identificado e por algum motivo solicitou ser atendido por uma pessoa | Normalmente tecla 9">
+                                                        <a class="ui basic icon button"><i class="blue info icon"></i></a>
+                                                    </div>
+                                                    <div class="three wide field">
+                                                        <input type="text" class="suff-numero" value="Conhecido" readonly="" style="border: none; cursor: pointer;" />
+                                                    </div>
+                                                    <div class="eleven wide field ui category search suff-pesquisa">
+                                                        <asp:HiddenField ID="HFDESTConhecido" runat="server" />
+                                                        <div class="ui left icon right labeled input">
+                                                            <i class="search icon"></i>
+                                                            <input type="text" class="prompt" placeholder="Destino" />
+                                                            <label class="ui tag label categoria">Personalizado</label>
+                                                        </div>
+                                                        <div class="results"></div>
+                                                    </div>
+                                                    <div class="one wide field suff-acoes" style="text-align: right;">
+                                                        <div class="ui basic icon button suff-excluirlinha"><i class="red trash icon"></i></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="one wide field" data-tooltip="Saída usada caso o cliente foi identificado e está conectado | Outros assuntos ou provável instabilidade na conexão">
+                                                        <a class="ui basic icon button"><i class="blue info icon"></i></a>
+                                                    </div>
+                                                    <div class="three wide field">
+                                                        <input type="text" class="suff-numero" value="Conectado" readonly="" style="border: none; cursor: pointer;" />
+                                                    </div>
+                                                    <div class="eleven wide field ui category search suff-pesquisa">
+                                                        <asp:HiddenField ID="HFDESTConectado" runat="server" />
+                                                        <div class="ui left icon right labeled input">
+                                                            <i class="search icon"></i>
+                                                            <input type="text" class="prompt" placeholder="Destino" />
+                                                            <label class="ui tag label categoria">Personalizado</label>
+                                                        </div>
+                                                        <div class="results"></div>
+                                                    </div>
+                                                    <div class="one wide field suff-acoes" style="text-align: right;">
+                                                        <div class="ui basic icon button suff-excluirlinha"><i class="red trash icon"></i></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="one wide field" data-tooltip="Saída usada quando o chamador não é cliente ou não conseguiu se identificar">
+                                                        <a class="ui basic icon button"><i class="blue info icon"></i></a>
+                                                    </div>
+                                                    <div class="three wide field">
+                                                        <input type="text" class="suff-numero" value="Desconhecido" readonly="" style="border: none; cursor: pointer;" />
+                                                    </div>
+                                                    <div class="eleven wide field ui category search suff-pesquisa">
+                                                        <asp:HiddenField ID="HFDESTDesconhecido" runat="server" />
+                                                        <div class="ui left icon right labeled input">
+                                                            <i class="search icon"></i>
+                                                            <input type="text" class="prompt" placeholder="Destino" />
+                                                            <label class="ui tag label categoria">Personalizado</label>
+                                                        </div>
+                                                        <div class="results"></div>
+                                                    </div>
+                                                    <div class="one wide field suff-acoes" style="text-align: right;">
+                                                        <div class="ui basic icon button suff-excluirlinha"><i class="red trash icon"></i></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui horizontal divider header">
+                                            <div class="content">
+                                                <asp:LinkButton ID="LBAtualizar" CssClass="ui blue basic button" data-acao="adicionar" runat="server" OnClick="LBAtualizar_Click"><i class="calendar plus outline icon"></i> Atualizar</asp:LinkButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </MudCardContent>
+                    <MudCardActions Class="justify-end">
+                        <MudTooltip Text="Atualizar">
+                            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Class="mx-5" Variant="Variant.Outlined" OnClick="DataBind"></MudIconButton>
+                        </MudTooltip>
+                    </MudCardActions>
+                </MudCard>
+            }
+    </MudItem>
+</MudGrid>

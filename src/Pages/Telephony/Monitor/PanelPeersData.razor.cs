@@ -15,7 +15,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
-          protected Exception? ErrorConfig { get; set; }
+        protected Exception? ErrorConfig { get; set; }
 
         [EditorRequired]
         protected MudTable<PeerInfo>? Table { get; set; } = default!;
