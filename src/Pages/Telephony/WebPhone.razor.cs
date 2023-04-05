@@ -56,7 +56,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                await JsSIPService.TestDevices();
+                //await JsSIPService.TestDevices();
 
                 JsSIPService.OnChanged += (sender, args) => StateHasChanged();
                 if (string.IsNullOrWhiteSpace(JsSIPService.Status))

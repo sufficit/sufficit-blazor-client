@@ -168,7 +168,7 @@
     private string? Destination { get; set; }
     private ElementReference testRef;
 
-    private void HandleKeyDown(KeyboardEventArgs e)
+    private async void HandleKeyDown(KeyboardEventArgs e)
     {
         if(e.Key == "Backspace")
         {
@@ -179,7 +179,7 @@
         }
         else if (e.Key == "Enter")
         {
-            VideoCall.InvokeAsync(Destination);
+            await VideoCall.InvokeAsync(Destination);
         }
         else
         {
