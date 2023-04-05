@@ -1,7 +1,7 @@
 ﻿@page "/pages/telephony/webphone"
-@inherits TelephonyBasePageComponent 
+@inherits TelephonyBasePageComponent
 
-<MudStack Style="display:flex; flex-flow:column; min-height:100%; padding:6">
+<MudStack Style="display:flex; flex-flow:column; flex:1; padding:6">
     <MudStack Style="flex:none">
         <MudText Typo="Typo.h3"><span>Estado: </span> @JsSIPService.Status</MudText>
         <MudText Typo="Typo.h6"><span>Session Key: </span> @WebRTCKey</MudText>
@@ -16,7 +16,7 @@
              PanelClass="pa-6"
              TabPanelClass="pa-6"
              ApplyEffectsToContainer="true"
-             Style="background:white">
+             Style="background:white; flex:1; min-height:500px;">s
         <MudTabPanel Icon="@Icons.Material.Filled.PhoneAndroid" Text="Device" Style="text-align:left">
             <Device AudioInputDevices="@AudioInputDevices"
                     AudioOutputDevices="@AudioOutputDevices"
@@ -27,13 +27,29 @@
             <CallLog JsSIPService="@JsSIPService" />
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Dialpad" Text="Keypad">
-            <Keypad VideoCall="VideoCall" />
+            @if (IsCalling == true)
+            {
+                <Dialog PhoneNumber="@PhoneNumber" SetIsCalling=@((Number) => SetIsCalling(Number)) />
+            } else
+            {
+                <Keypad SetIsCalling=@((Number) => SetIsCalling(Number)) VideoCall="VideoCall" />
+            }
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Settings" Text="Settings">
             <Settings />
         </MudTabPanel>
     </MudTabs>
 </MudStack>
+
+@code {
+    private bool IsCalling = false;
+    private string PhoneNumber = string.Empty;
+    protected void SetIsCalling(string Number)
+    {
+        IsCalling = !IsCalling;
+        PhoneNumber = Number;
+    }
+}
 
 
 

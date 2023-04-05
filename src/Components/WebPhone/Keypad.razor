@@ -1,5 +1,7 @@
-﻿<div @ref="testRef" tabindex="0" @onkeydown="HandleKeyDown" style="outline:none; width:100%; height: 100%">
-<MudStack Style="margin:auto; margin-top:30px; width:fit-content" Spacing="3">
+﻿@inject IDialogService DialogService
+
+<div @ref="testRef" tabindex="0" @onkeydown="HandleKeyDown" style="outline:none; width:100%; height: 100%; display:flex; align-items:center; justify-content:center">
+<MudStack Style="width:fit-content; height:fit-content" Spacing="3">
     <MudGrid Style="position: relative; width:100%; bottom:10px">
         <MudInput @bind-Value="@Destination" Style="width:100%; padding-right:30px; font-size:24px" />
         <MudIconButton OnClick=@(() => {if(@Destination != null && @Destination.Length>0) {@Destination=@Destination.Remove(@Destination.Length - 1, 1);}}) Icon="@Icons.Material.Filled.Backspace" aria-label="backspace" Style="position:absolute; right: 0; bottom:6px; cursor:pointer; padding:0; border-radius:0 "></MudIconButton>
@@ -137,7 +139,7 @@
             <MudButton Color="Color.Primary"
                        Variant="Variant.Outlined"
                        Style="width:70px; height:70px; border-radius:100%;"
-                       OnClick=@(() => @Destination=@Destination+0)>
+                           OnClick=@(() => @Destination=@Destination+0)>
                 <MudStack Style="margin:auto">
                     <MudText Typo="Typo.h4">0</MudText>
                     <MudText Typo="Typo.body2" Style="margin-top:-20px">+</MudText>
@@ -147,14 +149,13 @@
 
         <MudItem>
             <MudIconButton Color="Color.Primary"
-                           Variant="Variant.Filled"
-                           Icon="@Icons.Material.Filled.Phone"
-                           Style="width:70px; height:70px; border-radius:100%;"
-                           OnClick=@(() => VideoCall.InvokeAsync(@Destination))>
-                <MudStack Style="margin:auto">
-                    <MudText Typo="Typo.h4">1</MudText>
-                    <MudText Typo="Typo.body2" Style="margin-top:-20px">ABC</MudText>
-                </MudStack>
+                Variant="Variant.Filled"
+                Icon="@Icons.Material.Filled.Phone"
+                Style="width:70px; height:70px; border-radius:100%;"
+                OnClick=@(() => {
+                    VideoCall.InvokeAsync(@Destination);
+                    SetIsCalling.InvokeAsync(@Destination);
+                })>
             </MudIconButton>
         </MudItem>
     </MudGrid>
@@ -163,6 +164,7 @@
 
 @code {
     [Parameter] public EventCallback<string> VideoCall { get; set; }
+    [Parameter] public EventCallback<string> SetIsCalling { get; set; }
     private string? Destination { get; set; }
     private ElementReference testRef;
 
@@ -181,7 +183,7 @@
         }
         else
         {
-            Destination = Destination + e.Key;
+            Destination += e.Key;
         }
     }
 
