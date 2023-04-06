@@ -1,0 +1,33 @@
+﻿<MudTable Items="@JsSIPService.Sessions" Style="width:100%">
+    <HeaderContent>
+        <MudTh>Ações</MudTh>
+        <MudTh><MudText Align="Align.Center">ID</MudText></MudTh>
+        <MudTh><MudText Align="Align.Center">Direção</MudText></MudTh>
+        <MudTh><MudText Align="Align.Left">Estado</MudText></MudTh>
+        <MudTh><MudText Align="Align.Left">Motivo</MudText></MudTh>
+        <MudTh><MudText Align="Align.Left">Atualização</MudText></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.VolumeUp" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.VideoCall" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.ViewKanban" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PhoneDisabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PhoneEnabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PauseCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudButton OnClick="() => JsSIPService.Sessions.Action(context)">action</MudButton>
+        </MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Key" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+        </MudTd>
+        <MudTd>@context.Direction</MudTd>
+        <MudTd class="center aligned"><MudText Align="Align.Center">@context.Status</MudText></MudTd>
+        <MudTd class="center aligned"><MudText Align="Align.Center">@context.Cause</MudText></MudTd>
+        <MudTd class="center aligned"><MudText Align="Align.Center">@context.Update().ToLocalTime()</MudText></MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter] public JsSIPService JsSIPService { get; set; }
+}

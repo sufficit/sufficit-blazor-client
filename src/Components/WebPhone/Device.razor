@@ -1,0 +1,33 @@
+﻿<MudGrid>
+    <MudItem xs="6">
+        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher microfone" Variant="Variant.Text">
+            @foreach (var device in @AudioInputDevices)
+            {
+                <MudSelectItem Value="@(@device.Label)" OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, device.ID)" />
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="6">
+        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher auto-falante" Variant="Variant.Text">
+            @foreach (var device in @AudioOutputDevices)
+            {
+                <MudSelectItem OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, device.ID)" Value="@(@device.Label)" />
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem md="6">
+        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher câmera" Variant="Variant.Text">
+            @foreach (var device in VideoInputDevices)
+            {
+                <MudSelectItem OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, device.ID)" Value="@(@device.Label)" />
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter] public IEnumerable<JsSIPMediaDevice> AudioInputDevices { get; set; }
+    [Parameter] public IEnumerable<JsSIPMediaDevice> AudioOutputDevices { get; set; }
+    [Parameter] public IEnumerable<JsSIPMediaDevice> VideoInputDevices { get; set; }
+    [Parameter] public JsSIPService JsSIPService { get; set; }
+}
