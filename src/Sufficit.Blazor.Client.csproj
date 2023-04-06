@@ -61,17 +61,6 @@
 		</None>
 	</ItemGroup>
 	
-	<ItemGroup>
-		<Compile Remove="Models\Identity\**" />
-		<Compile Remove="NotInUse\**" />
-		<Content Remove="Models\Identity\**" />
-		<Content Remove="NotInUse\**" />
-		<EmbeddedResource Remove="Models\Identity\**" />
-		<EmbeddedResource Remove="NotInUse\**" />
-		<None Remove="Models\Identity\**" />
-		<None Remove="NotInUse\**" />
-	</ItemGroup>
-
   <ItemGroup>
     <Content Remove="appsettings.json" />
     <Content Remove="Pages\Telephony\Monitor\Select.razor" />
@@ -146,20 +135,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="appsettings.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Include="Pages\Telephony\Monitor\Select.razor" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Telephony\Monitor\Select.razor" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Telephony\Monitor\Select.razor" />
-  </ItemGroup>
-  
+    
 </Project>

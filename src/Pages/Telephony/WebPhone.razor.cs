@@ -33,6 +33,17 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         [Inject]
         APIClientService APIClient { get; set; } = default!;
 
+        protected JsSIPSessionMonitor? CallSession { get; set; }
+
+
+        private bool IsCalling = false;
+        private string PhoneNumber = string.Empty;
+        protected void SetIsCalling(string Number)
+        {
+            IsCalling = !IsCalling;
+            PhoneNumber = Number;
+        }
+
         protected override string Title => "Telefone Web";
 
         protected override string Description => "Aplicativo de telefone virtual";
@@ -42,7 +53,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         /// </summary>
         protected Guid WebRTCKey { get; set; }
 
-        protected IEnumerable<JsSIPMediaDevice> MediaDevices { get; set; } = new JsSIPMediaDevice[] { };
+        protected IEnumerable<JsSIPMediaDevice> MediaDevices { get; set; } = Array.Empty<JsSIPMediaDevice>();
 
         protected IEnumerable<JsSIPMediaDevice> AudioInputDevices => MediaDevices.Where(s => s.Kind == "audioinput");
 
@@ -67,7 +78,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                     if (UserID != Guid.Empty)
                     {
                         WebRTCKey = await APIClient.Telephony.WebRTCKey();
-                        var endpoint = $"{UserID.ToString("N")}{WebRTCKey.ToString("N")}";
+                        var endpoint = $"{UserID:N}{WebRTCKey:N}";
                         var options = Options.Value;
                         options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
                         await JsSIPService.Start(options);
@@ -75,6 +86,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 }
 
                 MediaDevices = await JsSIPService.MediaDevices();
+            }
+        }
+
+        protected async Task CallStart(string? destination)
+        {
+            if (!string.IsNullOrWhiteSpace(destination))
+            {
+                CallSession = await JsSIPService.CallMonitor(destination, false);
+                SetIsCalling(destination);
             }
         }
 

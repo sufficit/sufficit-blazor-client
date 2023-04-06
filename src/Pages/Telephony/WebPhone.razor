@@ -14,10 +14,21 @@
              Position="Position.Left"
              Rounded="true"
              Border="true"
+             ActivePanelIndex="0"
              PanelClass="pa-6"
              TabPanelClass="pa-6"
              ApplyEffectsToContainer="true"
              Style="background:white; flex:1; min-height:500px;">
+        <MudTabPanel Icon="@Icons.Material.Filled.Dialpad" Text="Keypad">
+            @if (IsCalling == true)
+            {
+                <Dialog PhoneNumber="@PhoneNumber" SetIsCalling=@((Number) => SetIsCalling(Number)) />
+            }
+            else
+            {
+                <Keypad CallStart=@CallStart />
+            }
+        </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.PhoneAndroid" Text="Device" Style="text-align:left">
             <Device AudioInputDevices="@AudioInputDevices"
                     AudioOutputDevices="@AudioOutputDevices"
@@ -26,32 +37,9 @@
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.PhoneCallback" Text="Call Log">
             <CallLog JsSIPService="@JsSIPService" />
-        </MudTabPanel>
-        <MudTabPanel Icon="@Icons.Material.Filled.Dialpad" Text="Keypad">
-            @if (IsCalling == true)
-            {
-                <Dialog PhoneNumber="@PhoneNumber" SetIsCalling=@((Number) => SetIsCalling(Number)) />
-            } else
-            {
-                <Keypad SetIsCalling=@((Number) => SetIsCalling(Number)) VideoCall="VideoCall" />
-            }
-        </MudTabPanel>
+        </MudTabPanel>        
         <MudTabPanel Icon="@Icons.Material.Filled.Settings" Text="Settings">
             <Settings />
         </MudTabPanel>
     </MudTabs>
 </MudStack>
-
-@code {
-    private bool IsCalling = false;
-    private string PhoneNumber = string.Empty;
-    protected void SetIsCalling(string Number)
-    {
-        IsCalling = !IsCalling;
-        PhoneNumber = Number;
-    }
-}
-
-
-
-
