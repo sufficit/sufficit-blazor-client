@@ -74,6 +74,7 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Remove="Pages\Telephony\Monitor\Select.razor" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
@@ -150,6 +151,15 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Include="Pages\Telephony\Monitor\Select.razor" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Telephony\Monitor\Select.razor" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Telephony\Monitor\Select.razor" />
   </ItemGroup>
   
 </Project>
