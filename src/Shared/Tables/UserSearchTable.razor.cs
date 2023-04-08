@@ -1,9 +1,6 @@
-﻿using AsterNET;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
-using MudBlazor.Charts;
 using Sufficit.Identity.Client;
 using System;
 using System.Collections.Generic;
