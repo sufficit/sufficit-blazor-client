@@ -5,7 +5,7 @@
     <MudStack Style="width:fit-content; flex:1; justify-content:center; margin:auto">
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </MudStack>
-    <MudIconButton OnClick=@(() => SetIsCalling.InvokeAsync())
+    <MudIconButton OnClick=@(() => CallSession.Terminate())
         Color="Color.Primary"
         Variant="Variant.Filled"
         Icon="@Icons.Material.Filled.Phone"
@@ -14,6 +14,13 @@
 </MudStack>
 
 @code {
-    [Parameter] public string PhoneNumber { get; set; } = string.Empty;
-    [Parameter] public EventCallback<string> SetIsCalling { get; set; }
+    [Parameter] 
+    public string? PhoneNumber { get; set; }
+
+    [EditorRequired]
+    [Parameter] 
+    public JsSIPSessionMonitor? CallSession { get; set; }
+
+    [Parameter] 
+    public EventCallback<string> SetIsCalling { get; set; }
 }

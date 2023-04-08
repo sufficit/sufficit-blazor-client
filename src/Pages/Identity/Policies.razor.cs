@@ -4,16 +4,12 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using Sufficit.Identity.Client;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared.Tables;
-using Sufficit.Identity;
-using Sufficit.Client;
 using MudBlazor;
 using Sufficit.Blazor.Client.Shared;
-using AsterNET;
 using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Identity

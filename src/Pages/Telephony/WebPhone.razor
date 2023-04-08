@@ -20,9 +20,9 @@
              ApplyEffectsToContainer="true"
              Style="background:white; flex:1; min-height:500px;">
         <MudTabPanel Icon="@Icons.Material.Filled.Dialpad" Text="Keypad">
-            @if (IsCalling == true)
+            @if (CallSession != null)
             {
-                <Dialog PhoneNumber="@PhoneNumber" SetIsCalling=@((Number) => SetIsCalling(Number)) />
+                <Dialog PhoneNumber="@PhoneNumber" CallSession="@CallSession" />
             }
             else
             {
