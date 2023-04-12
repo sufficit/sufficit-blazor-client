@@ -94,8 +94,25 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             if (!string.IsNullOrWhiteSpace(destination))
             {
                 CallSession = await JsSIPService.CallMonitor(destination, false);
+                CallSession.OnChanged += CallSessionChanged;
                 SetIsCalling(destination);
             }
+        }
+
+        private async ValueTask CallSessionChanged(JsSIPSessionMonitor monitor)
+        {
+            if(monitor.Status == JsSIPSessionStatus.STATUS_TERMINATED)
+            {
+                monitor.OnChanged -= CallSessionChanged;
+                if (CallSession == monitor)
+                {
+                    // waiting a while before refresh
+                    await Task.Delay(2500); 
+                    CallSession = null;
+
+                    await InvokeAsync(StateHasChanged);
+                }
+            }            
         }
 
         protected async Task VoiceCall(string Destination) => await JsSIPService.Call(Destination, false);
@@ -106,6 +123,5 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             JsSIPService.Devices.Update(kind, id);
             Console.WriteLine($"{kind} :: {id}");
         }
-
     }
 }

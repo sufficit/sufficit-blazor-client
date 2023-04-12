@@ -16,40 +16,30 @@
     </div>
 }
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            @if(Count == 0)
-            {
-                <div class="card m-1 p-2">                    
-                    <HyperText CssClass="blinking">Aguardando canais ....</HyperText>
-                </div>
-            } else {
-                <Table class="table table-flush dataTable-table" id="datatable-search">
-                <thead class="thead-light">
-                    <tr>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Canal</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Ínicio</a>
-                        </th>                        
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Estado</a>
-                        </th>
-                        <th data-sortable="">
-                            <a href="#" class="dataTable-sorter">Desligado</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(var Item in @GetItems())
-                    {
-                        <ChannelsDataItem Item="@Item"></ChannelsDataItem>
-                    }                                
-                </tbody>
-            </Table>
-            }
-        </div>
-    </div>
-</div>
+<MudItem xs="12">
+    <MudCard Class="pa-5">
+        @if(Count == 0)
+        {                                    
+            <MudText Class="blinking">Aguardando canais ....</MudText>               
+        } else {
+            <MudCardHeader>
+                Total @Count itens
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTable Items="@GetItems()">
+                    <HeaderContent>
+                        <MudTh>Canal</MudTh>
+                        <MudTh>Ínicio</MudTh>
+                        <MudTh>DID</MudTh>
+                        <MudTh>Estado</MudTh>
+                        <MudTh>Exten</MudTh>
+                        <MudTh>Desligado</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <ChannelsDataItem Item="@context"></ChannelsDataItem>
+                    </RowTemplate>
+                </MudTable>
+            </MudCardContent>
+        }
+    </MudCard>
+</MudItem>

@@ -35,7 +35,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         protected async ValueTask<IEnumerable<Sufficit.Telephony.DirectInwardDialing>> GetServerData(DIDSearchParameters parameters, CancellationToken cancellationToken)
         {
             parameters.ContextId = Guid.Empty;
-            //Items = await APIClient.Telephony.DID.Search(parameters, cancellationToken);
+            Items = await APIClient.Telephony.DID.Search(parameters, cancellationToken);
             await InvokeAsync(StateHasChanged);
             return Items;
         }

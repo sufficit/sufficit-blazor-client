@@ -54,19 +54,16 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         /*
         [CascadingParameter]
         public TextSearchControl? TextSearch { get; set; }
+        */
 
         protected override void OnAfterRender(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
             if (!firstRender) return;
-
-            Service.Channels.OnChanged += Channels_OnChanged;
-            if (TextSearch != null)
-                TextSearch.OnValueChanged += TextSearchValueChanged;
+            Service.Channels.OnChanged += OnChannelsCollectionChanged;
         }
-        */
+        
 
-        private async void Channels_OnChanged(IMonitor? sender, object? state)
+        private async void OnChannelsCollectionChanged(IMonitor? sender, object? state)
         {            
             await InvokeAsync(StateHasChanged);
         }
@@ -82,7 +79,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         void IDisposable.Dispose()
         {
-            Service.Channels.OnChanged -= Channels_OnChanged;
+            Service.Channels.OnChanged -= OnChannelsCollectionChanged;
+
             /*
             if(TextSearch != null)
                 TextSearch.OnValueChanged -= TextSearchValueChanged;
