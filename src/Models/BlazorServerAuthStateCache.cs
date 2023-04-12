@@ -15,15 +15,15 @@ namespace Sufficit.Blazor.Client.Models
             _logger = logger;
         }
 
-        private ConcurrentDictionary<string, BlazorServerAuthData> Cache
-            = new ConcurrentDictionary<string, BlazorServerAuthData>();
+        private readonly ConcurrentDictionary<string, BlazorServerAuthData> Cache
+            = new();
 
         public bool HasSubjectId(string subjectId)
             => Cache.ContainsKey(subjectId);
 
         public void Add(string subjectId, DateTimeOffset expiration, string accessToken, string refreshToken)
         {
-            _logger.LogDebug($"caching sid minor: {subjectId}");
+            _logger.LogDebug("caching sid minor: {subject}", subjectId);
 
             var data = new BlazorServerAuthData
             {
@@ -38,7 +38,7 @@ namespace Sufficit.Blazor.Client.Models
 
         public void Add(string subjectId, DateTimeOffset expiration, string idToken, string accessToken, string refreshToken, DateTimeOffset refreshAt)
         {
-            _logger.LogDebug($"caching sid: {subjectId}");
+            _logger.LogDebug("caching sid: {subject}", subjectId);
 
             var data = new BlazorServerAuthData
             {
@@ -53,7 +53,7 @@ namespace Sufficit.Blazor.Client.Models
             Cache.AddOrUpdate(subjectId, data, (k, v) => data);
         }
 
-        public BlazorServerAuthData Get(string subjectId)
+        public BlazorServerAuthData? Get(string subjectId)
         {
             Cache.TryGetValue(subjectId, out var data);
             return data;
