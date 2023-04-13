@@ -1,0 +1,36 @@
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits BasePageComponent
+
+<MudGrid Class="mt-5">
+    <MudItem xs="12">               
+        <MudCard Class="pa-3">
+            <MudCardHeader Class="justify-end">
+                <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                @if (Items != null)
+                {
+                    <MudTable Items="Items.OrderBy(s => s.Title)" Breakpoint="Breakpoint.Sm" Hover Class="my-3">
+                        <RowTemplate>
+                            <MudTd DataLabel="Avatar">
+                                <ContactAvatar ReferenceId="@context.Id" Size="Size.Large"></ContactAvatar> 
+                            </MudTd>
+                            <MudTd DataLabel="Titulo">@context.Title</MudTd>
+                            <MudTd DataLabel="Ação">
+                                <MudLink Href="@(Pages.Contacts.Object.RouteParameter + "?id=" + context.Id)" Underline="Underline.None">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                                </MudLink>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                }
+                else
+                {
+                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
+                    </MudSkeleton>
+                }
+            </MudCardContent>
+        </MudCard>          
+    </MudItem>
+</MudGrid>

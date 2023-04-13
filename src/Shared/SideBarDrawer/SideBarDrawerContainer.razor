@@ -28,6 +28,15 @@
         <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="dashboard/material" Title="Default"></MudNavLinkEnchanted>
     </MudNavGroupEnchanted>
 
+    <AuthorizeView Context="Contacts">
+        <Authorized>
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
+            <MudNavGroup Title="Contatos" Icon="@Icons.Material.Filled.Contacts">
+                <MudNavLink Icon="@Icons.Material.Filled.ManageAccounts" Href="pages/contacts/dashboard">DashBoard</MudNavLink>
+            </MudNavGroup>
+        </Authorized>
+    </AuthorizeView>
+
     <AuthorizeView Context="Identity">
         <Authorized>
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />

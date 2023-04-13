@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Components
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using Sufficit.Identity;
+@implements IDisposable
+
+@foreach(var ex in Exceptions.ViewExceptions(User.GetUserId()))
+{
+    <MudAlert>@ex.Message</MudAlert>
+}
+
+@code
+{
+    [Inject] 
+    ExceptionControlService Exceptions { get; set; } = default!;
+
+    [EditorRequired]
+    [CascadingParameter]
+    public UserPrincipal User { get; set; } = default!;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        Exceptions.OnError += Error;
+    }
+
+    protected async void Error(object? _, Exception __)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Exceptions.OnError -= Error;
+    }
+}
