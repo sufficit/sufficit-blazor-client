@@ -20,7 +20,7 @@
                             <MudStack>
                                 <MudStack Style="padding-bottom: 12px;padding-bottom: 12px;width: fit-content;margin: auto; background:white; padding:0 12px; z-index:10">
                                     <MudStack Style="text-align:center">
-                                        <MudStack Row="true">
+                                        <MudStack Row="true" Style="align-items:center">
                                             <MudIcon Icon="@Icons.Material.Filled.PowerSettingsNew" Title="PowerSettingsNew" />
                                             <MudText Typo="Typo.h5">
                                                 Última atualização
@@ -175,20 +175,118 @@
                                     <MudGrid>
                                         <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
                                             <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
-                                                <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
-                                                <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudTooltip Text="Saída usada caso o sistema apresente qualquer tipo de falha" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                                <MudIconButton OnClick=@(() => @failSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudTooltip Text="Saída usada caso o sistema apresente qualquer tipo de falha" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
                                             </MudHidden>
                                             <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@fail" Variant="Variant.Outlined" />
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="@destiny" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="failSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => @failSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudHidden>
+                                        </MudItem>
+                                    </MudGrid>
+                                    <MudGrid>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+                                            <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
+                                                <MudTooltip Text="Chamada encerrada com sucesso | Atendimento concluído e cliente satisfeito" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                                <MudIconButton OnClick=@(() => @hangSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudItem>
+                                        </MudHidden>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudTooltip Text="Chamada encerrada com sucesso | Atendimento concluído e cliente satisfeito" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                            </MudHidden>
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@hang" Variant="Variant.Outlined" />
+                                        </MudItem>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="hangSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudIconButton OnClick=@(() => @hangSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudHidden>
+                                        </MudItem>
+                                    </MudGrid>
+                                    <MudGrid>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+                                            <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
+                                                <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => @knownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudItem>
+                                        </MudHidden>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudTooltip Text="Saída usada caso o cliente foi identificado e por algum motivo solicitou ser atendido por uma pessoa | Normalmente tecla 9" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                            </MudHidden>
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@known" Variant="Variant.Outlined" />
+                                        </MudItem>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="knownSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudIconButton OnClick=@(() => @knownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudHidden>
+                                        </MudItem>
+                                    </MudGrid>
+                                    <MudGrid>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+                                            <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
+                                                <MudTooltip Text="Saída usada caso o cliente foi identificado e está conectado | Outros assuntos ou provável instabilidade na conexão" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                                <MudIconButton OnClick=@(() => @connectedSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudItem>
+                                        </MudHidden>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudTooltip Text="Saída usada caso o cliente foi identificado e está conectado | Outros assuntos ou provável instabilidade na conexão" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                            </MudHidden>
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@connected" Variant="Variant.Outlined" />
+                                        </MudItem>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="connectedSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudIconButton OnClick=@(() => @connectedSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudHidden>
+                                        </MudItem>
+                                    </MudGrid>
+                                    <MudGrid>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+                                            <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
+                                                <MudTooltip Text="Saída usada quando o chamador não é cliente ou não conseguiu se identificar" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                                <MudIconButton OnClick=@(() => @unknownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                            </MudItem>
+                                        </MudHidden>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudTooltip Text="Saída usada quando o chamador não é cliente ou não conseguiu se identificar" Placement="Placement.Right" Arrow="true">
+                                                    <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                </MudTooltip>
+                                            </MudHidden>
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@unknown" Variant="Variant.Outlined" />
+                                        </MudItem>
+                                        <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="unknownSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
+                                                <MudIconButton OnClick=@(() => @unknownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -196,12 +294,11 @@
                             </MudPaper>
 
                             <MudStack Style="width: fit-content; padding:0 20px; margin: auto; background: white; z-index: 10;">
-                                <MudButton Href="https://github.com/MudBlazor/MudBlazor"
-                                           Target="_blank"
-                                           Variant="Variant.Outlined"
+                                <MudButton Variant="Variant.Outlined"
                                            StartIcon="@Icons.Material.Filled.SecurityUpdateGood"
                                            Color="Color.Primary"
-                                           Style="width:fit-content">
+                                           Style="width:fit-content"
+                                           OnClick="@Save">
                                     Atualizar
                                 </MudButton>
                             </MudStack>
@@ -220,5 +317,13 @@
     private string type = "Ricardo (Voz Masculina)";
     private string token = "66ed31f3-687d-4243-b14e-0031e19bfffa";
     private string fail = "Falha";
-    private string destiny = "Destino";
+    private string failSearchValue = "Principal";
+    private string hang = "Desligar";
+    private string hangSearchValue { get; set; }
+    private string known = "Conhecido";
+    private string knownSearchValue { get; set; }
+    private string connected = "Conectado";
+    private string connectedSearchValue { get; set; }
+    private string unknown = "Desconhecido";
+    private string unknownSearchValue { get; set; }
 }
