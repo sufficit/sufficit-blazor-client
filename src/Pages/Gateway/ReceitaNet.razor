@@ -1,6 +1,7 @@
 ﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @inherits BasePageComponent
+@using Sufficit.Gateway.ReceitaNet
 
 <MudGrid Class="mt-5">
     <MudItem xs="12">
@@ -34,13 +35,13 @@
 
                                 <MudDivider Style="margin-top: -40px" />
 
-                                <MudGrid Row="true" Style="margin-top:30px">
+                                <MudGrid>
                                     <MudItem xs="12" lg="3">
-                                        <MudCard Style="box-shadow:none">
+                                        <MudCard>
                                             <MudCardHeader>
                                                 <CardHeaderContent>
-                                                    <MudStack Row="true" Style="display:flex; align-items:center">
-                                                        <MudIcon Icon="@Icons.Material.Filled.Key" Title="Key" />
+                                                    <MudStack Row="true">
+                                                        <MudIcon Icon="@Icons.Material.Filled.PowerSettingsNew" />
                                                         <MudText Typo="Typo.h6">
                                                             Habilitado
                                                         </MudText>
@@ -48,112 +49,110 @@
                                                 </CardHeaderContent>
                                             </MudCardHeader>
                                             <MudCardContent Style="min-height: 160px">
-                                                <MudText>Ativar / Desativar</MudText>
                                                 <MudText Style="margin-top:8px">
                                                     Ao desativar, todas as chamadas serão
                                                     encaminhadas automaticamente para o destino de falha.
                                                 </MudText>
                                             </MudCardContent>
                                             <MudCardActions>
-                                                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth>
-                                                <MudIcon Icon="@Icons.Material.Filled.Key" Title="Key" />
-                                                <MudText Style="margin-left:10px">
-                                                    habilitado
+                                                <MudSwitchButton @bind-Checked="Options.Enabled">
+                                                    <MudIcon Icon="@Icons.Material.Filled.PowerSettingsNew" />
+                                                    <MudText Style="margin-left:10px">
+                                                        habilitado
+                                                    </MudText>
+                                                </MudSwitchButton>
+                                            </MudCardActions>
+                                        </MudCard>
+                                    </MudItem>
+                                    <MudItem xs="12" lg="3">
+                                        <MudCard Style="box-shadow:none">
+                                            <MudCardHeader>
+                                                <CardHeaderContent>
+                                                    <MudStack Row="true" Style="display:flex; align-items:center">
+                                                        <MudIcon Icon="@Icons.Material.Filled.Key" />
+                                                        <MudText Typo="Typo.h6">
+                                                            Protocolo
+                                                        </MudText>
+                                                    </MudStack>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
+                                            <MudCardContent Style="min-height: 160px">
+                                                <MudText>Informar protocolo sempre que estiver disponível ?</MudText>
+                                                <MudText Style="margin-top:8px">
+                                                    Normalmente após algum relato de problema
+                                                    técnico ou financeiro.
                                                 </MudText>
-                                            </MudButton>
-                                        </MudCardActions>
-                                    </MudCard>
-                                </MudItem>
-                                <MudItem xs="12" lg="3">
-                                    <MudCard Style="box-shadow:none">
-                                        <MudCardHeader>
-                                            <CardHeaderContent>
-                                                <MudStack Row="true" Style="display:flex; align-items:center">
+                                            </MudCardContent>
+                                            <MudCardActions>
+                                                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth>
                                                     <MudIcon Icon="@Icons.Material.Filled.PowerSettingsNew"
                                                              Title="PowerSettingsNew" />
-                                                    <MudText Typo="Typo.h6">
-                                                        Protocolo
+                                                    <MudText Style="margin-left:10px">
+                                                        protocolo
                                                     </MudText>
-                                                </MudStack>
-                                            </CardHeaderContent>
-                                        </MudCardHeader>
-                                        <MudCardContent Style="min-height: 160px">
-                                            <MudText>Informar protocolo sempre que estiver disponível ?</MudText>
-                                            <MudText Style="margin-top:8px">
-                                                Normalmente após algum relato de problema
-                                                técnico ou financeiro.
-                                            </MudText>
-                                        </MudCardContent>
-                                        <MudCardActions>
-                                            <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth>
-                                                <MudIcon Icon="@Icons.Material.Filled.PowerSettingsNew"
-                                                         Title="PowerSettingsNew" />
-                                                <MudText Style="margin-left:10px">
-                                                    protocolo
+                                                </MudButton>
+                                            </MudCardActions>
+                                        </MudCard>
+                                    </MudItem>
+                                    <MudItem xs="12" lg="3">
+                                        <MudCard Style="box-shadow:none">
+                                            <MudCardHeader>
+                                                <CardHeaderContent>
+                                                    <MudStack Row="true" Style="display:flex; align-items:center">
+                                                        <MudIcon Icon="@Icons.Material.Filled.AccountBalance" Title="Money" />
+                                                        <MudText Typo="Typo.h6">
+                                                            Financeiro
+                                                        </MudText>
+                                                    </MudStack>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
+                                            <MudCardContent Style="min-height: 160px">
+                                                <MudText>Informar opções financeiras mesmo sem fatura em atraso ?</MudText>
+                                                <MudText Style="margin-top:8px">
+                                                    A opção de emissão e envio de faturas será
+                                                    disponibilizada sempre que houver algum boleto disponível no sistema.
                                                 </MudText>
-                                            </MudButton>
-                                        </MudCardActions>
-                                    </MudCard>
-                                </MudItem>
-                                <MudItem xs="12" lg="3">
-                                    <MudCard Style="box-shadow:none">
-                                        <MudCardHeader>
-                                            <CardHeaderContent>
-                                                <MudStack Row="true" Style="display:flex; align-items:center">
+                                            </MudCardContent>
+                                            <MudCardActions>
+                                                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth>
                                                     <MudIcon Icon="@Icons.Material.Filled.AccountBalance" Title="Money" />
-                                                    <MudText Typo="Typo.h6">
-                                                        Financeiro
+                                                    <MudText Style="margin-left:10px">
+                                                        financeiro
                                                     </MudText>
-                                                </MudStack>
-                                            </CardHeaderContent>
-                                        </MudCardHeader>
-                                        <MudCardContent Style="min-height: 160px">
-                                            <MudText>Informar opções financeiras mesmo sem fatura em atraso ?</MudText>
-                                            <MudText Style="margin-top:8px">
-                                                A opção de emissão e envio de faturas será
-                                                disponibilizada sempre que houver algum boleto disponível no sistema.
-                                            </MudText>
-                                        </MudCardContent>
-                                        <MudCardActions>
-                                            <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth>
-                                                <MudIcon Icon="@Icons.Material.Filled.AccountBalance" Title="Money" />
-                                                <MudText Style="margin-left:10px">
-                                                    financeiro
+                                                </MudButton>
+                                            </MudCardActions>
+                                        </MudCard>
+                                    </MudItem>
+                                    <MudItem xs="12" lg="3">
+                                        <MudCard Style="box-shadow:none">
+                                            <MudCardHeader>
+                                                <CardHeaderContent>
+                                                    <MudStack Row="true" Style="display:flex; align-items:center">
+                                                        <MudIcon Icon="@Icons.Material.Filled.KeyboardVoice"
+                                                                 Title="KeyboardVoice" />
+                                                        <MudText Typo="Typo.h6">
+                                                            Locução
+                                                        </MudText>
+                                                    </MudStack>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
+                                            <MudCardContent Style="min-height: 160px">
+                                                <MudText>Ativar / Desativar</MudText>
+                                                <MudText Style="margin-top:8px">
+                                                    Será usada essa voz para todos os áudios
+                                                    fixos do menu, não se aplica as respostas personalizadas como Protocolo.
                                                 </MudText>
-                                            </MudButton>
-                                        </MudCardActions>
-                                    </MudCard>
-                                </MudItem>
-                                <MudItem xs="12" lg="3">
-                                    <MudCard Style="box-shadow:none">
-                                        <MudCardHeader>
-                                            <CardHeaderContent>
-                                                <MudStack Row="true" Style="display:flex; align-items:center">
-                                                    <MudIcon Icon="@Icons.Material.Filled.KeyboardVoice"
-                                                             Title="KeyboardVoice" />
-                                                    <MudText Typo="Typo.h6">
-                                                        Locução
-                                                    </MudText>
-                                                </MudStack>
-                                            </CardHeaderContent>
-                                        </MudCardHeader>
-                                        <MudCardContent Style="min-height: 160px">
-                                            <MudText>Ativar / Desativar</MudText>
-                                            <MudText Style="margin-top:8px">
-                                                Será usada essa voz para todos os áudios
-                                                fixos do menu, não se aplica as respostas personalizadas como Protocolo.
-                                            </MudText>
-                                        </MudCardContent>
-                                        <MudCardActions>
-                                            <MudSelect Style="margin-top: -2px" Margin="Margin.Dense" @bind-Value="type" T="string"
-                                                       Variant="Variant.Outlined">
-                                                <MudSelectItem Value="@(" Ricardo (Voz Masculina)")" />
-                                                <MudSelectItem Value="@(" Raquel (Voz Feminina)")" />
-                                            </MudSelect>
-                                        </MudCardActions>
-                                    </MudCard>
-                                </MudItem>
-                            </MudGrid>
+                                            </MudCardContent>
+                                            <MudCardActions>
+                                                <MudSelect Margin="Margin.Dense" @bind-Value="Options.Announcer" T="RNAnnouncer" Variant="Variant.Outlined">
+                                                    @foreach(var announcer in Enum.GetValues<RNAnnouncer>()) {
+                                                        <MudSelectItem Value="@announcer">@Sufficit.EnumExtensions.GetEnumDescription(announcer)</MudSelectItem>
+                                                    }
+                                                </MudSelect>
+                                            </MudCardActions>
+                                        </MudCard>
+                                    </MudItem>
+                                </MudGrid>
 
                             <MudDivider />
 
@@ -164,7 +163,7 @@
                                     Caso você possua mais de um provedor ou mais de uma chave de acesso, coloque-as
                                     separadas por ";"
                                 </MudText>
-                                <MudTextField Style="margin-top:10px" @bind-Value="token" Variant="Variant.Outlined" />
+                                <MudTextField Style="margin-top:10px" Variant="Variant.Outlined" T="string" Text="" />
                             </MudStack>
 
                             <MudDivider />
@@ -178,7 +177,7 @@
                                                 <MudTooltip Text="Saída usada caso o sistema apresente qualquer tipo de falha" Placement="Placement.Right" Arrow="true">
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
-                                                <MudIconButton OnClick=@(() => @failSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
@@ -187,12 +186,12 @@
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
                                             </MudHidden>
-                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@fail" Variant="Variant.Outlined" />
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" Variant="Variant.Outlined" T="string" Text=""/>
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="failSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" T="string" Text="" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton OnClick=@(() => @failSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -202,7 +201,7 @@
                                                 <MudTooltip Text="Chamada encerrada com sucesso | Atendimento concluído e cliente satisfeito" Placement="Placement.Right" Arrow="true">
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
-                                                <MudIconButton OnClick=@(() => @hangSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
@@ -211,12 +210,12 @@
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
                                             </MudHidden>
-                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@hang" Variant="Variant.Outlined" />
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" Variant="Variant.Outlined" T="string" Text="" />
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="hangSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" T="string" Text="" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton OnClick=@(() => @hangSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() =>null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -224,7 +223,7 @@
                                         <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
                                             <MudItem xs="12" Style="display:flex; justify-content:space-between; margin-bottom:-16px; margin-top:16px">
                                                 <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
-                                                <MudIconButton OnClick=@(() => @knownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
@@ -233,12 +232,12 @@
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
                                             </MudHidden>
-                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@known" Variant="Variant.Outlined" />
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" Variant="Variant.Outlined" T="string" Text="" />
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="knownSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" Label="Destino" T="string" Text="" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton OnClick=@(() => @knownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -248,7 +247,7 @@
                                                 <MudTooltip Text="Saída usada caso o cliente foi identificado e está conectado | Outros assuntos ou provável instabilidade na conexão" Placement="Placement.Right" Arrow="true">
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
-                                                <MudIconButton OnClick=@(() => @connectedSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
@@ -257,12 +256,12 @@
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
                                             </MudHidden>
-                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@connected" Variant="Variant.Outlined" />
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" T="string" Text="" Variant="Variant.Outlined" />
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="connectedSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                                <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" T="string" Text="" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton OnClick=@(() => @connectedSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -272,7 +271,7 @@
                                                 <MudTooltip Text="Saída usada quando o chamador não é cliente ou não conseguiu se identificar" Placement="Placement.Right" Arrow="true">
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
-                                                <MudIconButton OnClick=@(() => @unknownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudItem>
                                         </MudHidden>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="4" xs="12">
@@ -281,12 +280,12 @@
                                                     <MudIconButton Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.TwoTone.Info" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                                 </MudTooltip>
                                             </MudHidden>
-                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" @bind-Value="@unknown" Variant="Variant.Outlined" />
+                                            <MudTextField Margin="Margin.Dense" Style="margin-top:10px" Variant="Variant.Outlined" T="string" Text="" />
                                         </MudItem>
                                         <MudItem Style="display: flex; align-items:end; gap:24px" md="8" xs="12">
-                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" @bind-Value="unknownSearchValue" Label="Destino" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
+                                            <MudTextField Margin="Margin.Dense" Style="min-width:100%" DebounceInterval="500" Label="Destino" T="string" Text="" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" />
                                             <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="false">
-                                                <MudIconButton OnClick=@(() => @unknownSearchValue="") Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+                                                <MudIconButton OnClick=@(() => null!) Style="height:39px; width:39px; margin-bottom:3px" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
                                             </MudHidden>
                                         </MudItem>
                                     </MudGrid>
@@ -305,25 +304,10 @@
 
                             <MudDivider Style="margin-top:-30px; margin-bottom:40px" />
                         </MudStack>
-                    </MudGrid>
-                </MudStack>
-            </MudCardContent>
-        </MudCard>
+                        </MudGrid>
+                    </MudStack>
+                </MudCardContent>
+            </MudCard>
         }
     </MudItem>
 </MudGrid>
-
-@code {
-    private string type = "Ricardo (Voz Masculina)";
-    private string token = "66ed31f3-687d-4243-b14e-0031e19bfffa";
-    private string fail = "Falha";
-    private string failSearchValue = "Principal";
-    private string hang = "Desligar";
-    private string hangSearchValue { get; set; }
-    private string known = "Conhecido";
-    private string knownSearchValue { get; set; }
-    private string connected = "Conectado";
-    private string connectedSearchValue { get; set; }
-    private string unknown = "Desconhecido";
-    private string unknownSearchValue { get; set; }
-}

@@ -1,0 +1,63 @@
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits BasePageComponent
+
+@if(Item != null) {
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@Item.MACAddress</MudText>
+                <MudText Typo="Typo.body2">Aqui segue uma listagem das possíveis interações que o cliente poderá executar.</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.Middle" />
+        <MudCardContent>
+            
+            <MudCard>
+                Escolha de cliente
+            </MudCard>
+            <MudDivider></MudDivider>
+            <MudCard>
+                Escolha de extensão
+                @EndPoint?.Title
+            </MudCard>
+
+        </MudCardContent>        
+        <MudCardActions Class="justify-end p-6">
+            <MudButton Variant="Variant.Filled" Color="Color.Secondary" Class="mb-0 ms-2" StartIcon="@Icons.Material.Outlined.Add">Nova opção de discagem</MudButton>
+        </MudCardActions>
+    </MudCard>
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardContent>
+            <MudGrid Class="align-center">
+                <MudItem xs="12" lg="6">
+                    <MudText Typo="Typo.h6">Publicar alterações</MudText>
+                    <MudText Typo="Typo.body2">Vamos salvar essa bagaça pra atualizar a central e por pra rodar.</MudText>
+                </MudItem>
+                <MudItem xs="12" lg="6" Style="padding: 4px">
+                    <MudStack Row Justify="Justify.FlexEnd" Class="align-center">
+                        <MudButtonEnchanted  
+                            Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Color="@Color.Primary" 
+                            OnClick="@Save">Salvar</MudButtonEnchanted>
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+}
+else {
+    @if(!string.IsNullOrWhiteSpace(MACAddress)) {
+        <div class="card mt-4">
+            <div class="card-header pb-3">
+                <h5>Recuperando informações</h5>
+                <p class="text-sm">Aguarde enquanto recuperamos o objeto desejado ...</p>
+            </div>
+        </div>
+    } else {
+        <MudPaper Elevation="0" Style="background-color: transparent;" Class="pa-16 ma-2 d-flex align-center justify-center mud-width-full">
+            <ClientMissing></ClientMissing>
+        </MudPaper>
+    }
+}

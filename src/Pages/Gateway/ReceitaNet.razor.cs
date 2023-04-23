@@ -40,16 +40,16 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
         protected RNOptions Options { get; set; } = default!;
 
         protected ICollection<RNDestination> Destinations { get; set; } = default!;
-
-        public ReceitaNet() => Clear();
-        
-        protected void Clear()
+                
+        protected void Defaults()
         {
             // default empty settings
             Options = new RNOptions();
             Options.Title = "default";
             Destinations = new List<RNDestination>();
         }
+
+        public ReceitaNet() { Defaults(); }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -73,7 +73,7 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
             IsLoading = true;
 
             // clearing form
-            Clear();
+            Defaults();
 
             if (ContextView.ContextId != Guid.Empty)
             {

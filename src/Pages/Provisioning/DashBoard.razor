@@ -1,0 +1,37 @@
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits BasePageComponent
+
+<MudGrid Class="mt-5">
+    <MudItem xs="12">               
+        <MudCard Class="pa-3">
+            <MudCardHeader Class="justify-end">
+                <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                @if (Items != null)
+                {
+                    <MudTable Items="Items.OrderByDescending(s => s.Timestamp)" Breakpoint="Breakpoint.Sm" Hover Class="my-3">
+                        <RowTemplate>
+                            <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
+                            <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
+                            <MudTd DataLabel="ContextId">@context.ContextId</MudTd>
+                            <MudTd DataLabel="ExtensionId">@context.ExtensionId</MudTd>
+                            <MudTd DataLabel="Timestamp">@context.Timestamp</MudTd>
+                            <MudTd DataLabel="Ação">
+                                <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                                </MudLink>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                }
+                else
+                {
+                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
+                    </MudSkeleton>
+                }
+            </MudCardContent>
+        </MudCard>          
+    </MudItem>
+</MudGrid>
