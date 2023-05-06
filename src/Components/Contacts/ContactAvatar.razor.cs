@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sufficit.Blazor.Client.Components
+namespace Sufficit.Blazor.Client.Components.Contacts
 {
     public partial class ContactAvatar
     {

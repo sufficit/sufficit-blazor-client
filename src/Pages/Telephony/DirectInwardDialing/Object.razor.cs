@@ -130,9 +130,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
                 }
             }
 
-            if(Providers == null)
-            {
-                Providers = new List<IContact>()
+            Providers ??= new List<IContact>()
                 {
                     new Contact() { Id = Guid.Parse("7b0f2ebd-de91-4688-b206-a97acab03d11"), Title = "Flux Telecom"},
                     new Contact() { Id = Guid.Parse("73d4e817-90bf-4f17-82f3-87f52115c969"), Title = "BRDID - TIP | TVN"},
@@ -150,7 +148,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
                     new Contact() { Id = Guid.Parse("d21cfb04-9d37-473b-837c-67591a26feed"), Title = "Sufficit Soluções"},
                     new Contact() { Id = Guid.Parse("934f107b-4008-46e2-b011-81a021e257e0"), Title = "Red Telecom"}
                 };
-            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -344,7 +341,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (Item != null)
             {
-                var query = $"classname={nameof(DirectInwardDialing)}&eventcontextid={Item.Id}";
+                var query = $"classname={nameof(DirectInwardDialing)}&event.contextid={Item.Id}";
                 NavigationManager.NavigateTo<Logging.Events>(false, query);
             }
         }

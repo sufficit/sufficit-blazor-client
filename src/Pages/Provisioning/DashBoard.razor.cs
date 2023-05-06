@@ -44,13 +44,13 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         {
             if (!firstRender) return;
 
-            await GetItems(default!);
+            await GetItems(CancellationToken.None);
         }
 
         protected async Task GetItems(CancellationToken cancellationToken)
         {
             IsLoading = true;
-            try
+            //try
             {
                 var parameters = new DeviceSearchParameters();
                 parameters.Limit = PageSize;
@@ -58,7 +58,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
                 await InvokeAsync(StateHasChanged);
                 Items = await APIClient.Provisioning.Search(parameters, cancellationToken);
             }
-            catch (Exception ex){ Exceptions.Append(User.GetUserId(), ex); }
+            //catch (Exception ex){ Exceptions.Append(User.GetUserId(), ex); }
             IsLoading = false;
             await InvokeAsync(StateHasChanged);
         }

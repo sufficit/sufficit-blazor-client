@@ -65,7 +65,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             */
         }
 
-        private async void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
+        private void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
         {
             /*
             var json = e.GetType() + " :: " + JsonSerializer.Serialize(e, e.GetType());

@@ -1,4 +1,5 @@
-﻿<MudTable @ref="Table"
+﻿@using Sufficit.Blazor.Client.Components.Contacts
+<MudTable @ref="Table"
           RowStyle="cursor: pointer;"
           T="UserClaimPolicy"
           Dense="true"
@@ -31,7 +32,7 @@
             <ContactAvatar ReferenceId="@context.IDContext" Size="Size.Small" />
         </MudTd>
         <MudTd DataLabel="Contexto" Style="text-align: left">
-            <RenderElement Value="@GetContactTitle(context.IDContext)" />
+            <ContactTitle ReferenceId="@context.IDContext" />
         </MudTd>
     </RowTemplate>
     <NoRecordsContent>

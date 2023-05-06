@@ -8,6 +8,7 @@ using Sufficit.Identity;
 using Sufficit.Identity.Client;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
     public partial class UserDirectiveAdd : ComponentBase
     {
         [Inject]
-        public APIClientService Endpoints { get; set; } = default!;
+        public APIClientService APIClient { get; set; } = default!;
 
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;
@@ -36,7 +37,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
         private async Task<IEnumerable<IDirective>> GetDirectives(string value, CancellationToken cancellationToken)
         {
             // if text is null or empty, show complete list
-            return await Endpoints.Identity.GetDirectives(value, 10, cancellationToken);
+            return await APIClient.Identity.GetDirectives(value, 10, cancellationToken);
         }
 
         private async Task<IEnumerable<IContact>> GetContacts(string value, CancellationToken cancellationToken)
@@ -47,7 +48,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                 items.Add(new Contact() { Title = "* Todos" });            
 
             // if text is null or empty, show complete list
-            foreach(var contact in await Endpoints.Contact.Search(value, 10, cancellationToken))            
+            foreach(var contact in await APIClient.Contact.Search(value, 10, cancellationToken))            
                 items.Add(contact);
 
             return items;
@@ -62,6 +63,11 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                 {
                     if (Contact != null)
                     {
+                        var policies = await BIService.GetUserPolicies(User, default);
+                        var exists = policies.Any(s => s.IDDirective == Directive.ID && s.IDContext == Contact.Id);
+                        if (exists)
+                            throw new Exception("Já possui");
+
                         await BIService.UpdateUserPolicy(User, Directive.Key, Contact.Id, default);
 
                         // Refresh

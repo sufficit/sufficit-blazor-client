@@ -29,12 +29,9 @@ namespace Sufficit.Blazor.Client.Shared
         protected IJSRuntime JSRuntime { get; set; } = default!;
 
         [Inject]
-        protected NavigationManager uriHelper { get; set; } = default!;
-
-        [Inject]
         protected IDialogService DialogService { get; set; } = default!;
 
-        protected async Task Refresh(MouseEventArgs e)
+        protected void Refresh(MouseEventArgs e)
         {
             var parameters = new DialogParameters(); 
             parameters.Add("content", "Está salvo com sucesso.");
@@ -68,28 +65,28 @@ namespace Sufficit.Blazor.Client.Shared
         protected async Task Reload()
         {
             await JSRuntime.InvokeVoidAsync("caches.delete", "blazor-resources-/");
-            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
         }
 
         [Inject]
         NavigationManager Navigation { get; set; } = default!;
 
         [Inject]
-        IAuthService Auth { get; set; } = default!;
+        IAuthService Authentication { get; set; } = default!;
 
         [CascadingParameter]
         protected UserPrincipal? User { get; set; }
 
         protected async Task LogOut(MouseEventArgs _)
         {
-            await Auth.Logout();
+            await Authentication.Logout();
             await InvokeAsync(StateHasChanged);
         }
 
         protected async Task LogIn(MouseEventArgs _)
         {
             string returnUrl = Navigation.Uri;
-            await Auth.Login(returnUrl);
+            await Authentication.Login(returnUrl);
             await InvokeAsync(StateHasChanged);
         }
     }

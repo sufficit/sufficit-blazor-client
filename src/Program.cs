@@ -35,7 +35,7 @@ namespace Sufficit.Blazor.Client
                     Console.WriteLine($"appsettings eventspanel from json: {jsonFile}");
                     builder.Configuration.AddJsonStream(stream);
                 }
-            } catch { }
+            } catch (Exception ex) { Console.WriteLine($"error: {ex.Message}"); }
 
             #endregion
 

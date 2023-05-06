@@ -17,6 +17,8 @@ namespace Sufficit.Blazor.Client.Pages.Identity
     [Authorize(Roles = "manager")]
     public partial class Policies : BasePageComponent
     {
+        public const string RouteParameter = "/pages/identity/policies";
+
         protected override string Title => "Políticas de usuário";
 
         protected override string Description => "Diretivas de acesso";

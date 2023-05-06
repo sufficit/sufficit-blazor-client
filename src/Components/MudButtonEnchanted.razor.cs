@@ -11,15 +11,17 @@ namespace MudBlazor
 
         protected new async Task OnClickHandler(MouseEventArgs ev)
         {
-            if (Disabled)
-                return;
             IsLoading = true;
-            await OnClick.InvokeAsync(ev);
-            if (Command?.CanExecute(CommandParameter) ?? false)
+            if (!GetDisabledState())
             {
-                Command.Execute(CommandParameter);
+                await OnClick.InvokeAsync(ev);
+                if (Command?.CanExecute(CommandParameter) ?? false)
+                {
+                    Command.Execute(CommandParameter);
+                }
+
+                Activateable?.Activate(this, ev);
             }
-            Activateable?.Activate(this, ev);
             IsLoading = false;
         }
     }

@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Sufficit.EndPoints.Configuration;
 using Sufficit.Identity.Configuration;
 using Sufficit.Blazor;
 using Sufficit.Blazor.Client.Services;
@@ -14,22 +12,21 @@ namespace Sufficit.Blazor.Client
     public static class SufficitAuthenticationExtensions
     {
         public static IServiceCollection AddSufficitAuthentication(this IServiceCollection services)
-        {
+        {            
             var provider = services.BuildServiceProvider();
             var configuration = provider.GetRequiredService<IConfiguration>();
-
+            
             // Definindo o local da configuração global
             // Importante ser dessa forma para o sistema acompanhar as mudanças no arquivo de configuração em tempo real 
             services.Configure<OpenIDOptions>(options => configuration.GetSection(OpenIDOptions.SECTIONNAME));
 
-            // Usado na página /authentication
-            services.AddScoped<RemoteAuthenticationState, CustomRemoteAuthenticationState>();
-            services.AddScoped<RemoteUserAccount, CustomRemoteUserAccount>();
+            // importante para incluir propriedades extras ao usuario
+            services.AddScoped<WasmAuthenticationService>();
+            services.AddScoped<AuthenticationStateProvider, WasmAuthenticationService>((provider) => provider.GetRequiredService<WasmAuthenticationService>());
+            services.AddScoped<IRemoteAuthenticationService<RemoteAuthenticationState>>((provider) => provider.GetRequiredService<WasmAuthenticationService>());
+            services.AddScoped<IAccessTokenProvider>((provider) => provider.GetRequiredService<WasmAuthenticationService>());
 
-            services.AddScoped<CustomAccountClaimsPrincipalFactory>();
-            services.AddScoped<AccountClaimsPrincipalFactory<CustomRemoteUserAccount>, CustomAccountClaimsPrincipalFactory>();
-            
-            services.AddOidcAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
+            services.AddOidcAuthentication(options =>
             {
                 // Capturando para uso local
                 var oidOptions = configuration.GetSection(OpenIDOptions.SECTIONNAME).Get<OpenIDOptions>();
@@ -42,13 +39,11 @@ namespace Sufficit.Blazor.Client
                     // ex: https://micros...................role
                     options.UserOptions.NameClaim = "name";
                     options.UserOptions.RoleClaim = "role";
+
+                    options.ProviderOptions.PostLogoutRedirectUri = $".{AuthenticationController.RouteParameter}/logout-callback";
+                    options.ProviderOptions.RedirectUri = $".{AuthenticationController.RouteParameter}/login-callback";
                 }
-            })
-                .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory>();
-                        
-            // importante para incluir propriedades extras ao usuario
-            services.AddScoped<CustomRemoteAuthenticationService>();
-            services.AddScoped<AuthenticationStateProvider, CustomRemoteAuthenticationService>((provider) => provider.GetRequiredService<CustomRemoteAuthenticationService>());
+            });
 
             return services;
         }

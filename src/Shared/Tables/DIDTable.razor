@@ -1,4 +1,5 @@
 ﻿@using Sufficit.Telephony;
+@using Sufficit.Blazor.Client.Components.Contacts
 <MudTable @ref="Table"
           T="DirectInwardDialing"
           LoadingProgressColor="Color.Info"
@@ -66,7 +67,7 @@
                 </MudLink>
             </MudTooltip>
             <MudTooltip Text="Histórico de atualizações">
-                <MudLink Href="@(Pages.Logging.Events.RouteParameter + $"?classname={nameof(DirectInwardDialing)}&eventcontextid={context.Id}")" Underline="Underline.None" Class="mx-1">
+                <MudLink Href="@(Pages.Logging.Events.RouteParameter + $"?classname={nameof(DirectInwardDialing)}&event.contextid={context.Id}")" Underline="Underline.None" Class="mx-1">
                     <MudIconButton Icon="@Icons.Material.Filled.History" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
                 </MudLink>
             </MudTooltip>

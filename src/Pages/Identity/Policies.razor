@@ -1,6 +1,8 @@
-﻿@page "/pages/identity/policies"
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
 @using Sufficit.Blazor.Client.Shared.Forms
 @using Sufficit.Blazor.Client.Shared.Tables
+@using Sufficit.Blazor.Client.Components.Contacts
 @inherits BasePageComponent
 
 <MudPaper Elevation="3" Class="pa-4 ma-1">

@@ -82,19 +82,18 @@
 	
   <ItemGroup>	  
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
-    <PackageReference Include="GraphQL.Client" Version="5.1.1" />
     <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="5.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.*" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -102,8 +101,8 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="6.2.0" />
-		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.7" />
+		<PackageReference Include="MudBlazor" Version="6.*" />
+		<PackageReference Include="MudBlazor.ThemeManager" Version="1.*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">		
@@ -134,6 +133,10 @@
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup> 
+
+	<ItemGroup>
+	  <Folder Include="Components\Telephony\" />
+	</ItemGroup>
     
 </Project>

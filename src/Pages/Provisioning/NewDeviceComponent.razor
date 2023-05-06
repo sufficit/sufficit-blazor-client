@@ -1,0 +1,111 @@
+﻿@using Sufficit.Provisioning;
+@using Sufficit.Telephony;
+
+<MudCard Class="ma-2" Elevation="25">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Devices" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Incluir dispositivo</MudText>
+            <MudText Typo="Typo.body2">Ao incluir um novo dispositivo, saiba que qualquer configuração prévia será apagada.</MudText>
+            <MudText Typo="Typo.caption">Os dispositivos normalmente são reconhecidos automaticamente pelo sistema.</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudDivider DividerType="DividerType.Middle" />
+    <MudCardContent>
+        <MudTextField @bind-Value="InternalMACAddress" Label="Endereço MAC" AutoFocus Error="@TextInputError" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Grid3x3" />
+    </MudCardContent>
+    <MudCardActions Class="justify-end">
+        <MudButtonEnchanted Variant="Variant.Outlined"
+                            StartIcon="@Icons.Material.Filled.Clear"
+                            Color="@Color.Tertiary"
+                            ButtonType="ButtonType.Submit"
+                            OnClick="@Check">Verificar</MudButtonEnchanted>
+    </MudCardActions>    
+</MudCard>
+@if (IsFree.GetValueOrDefault())
+{
+    <MudCard Class="ma-2" Elevation="25">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudIcon Icon="@Icons.Material.Filled.Devices" />
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">------------</MudText>
+                <MudText Typo="Typo.body2">Ao incluir um novo dispositivo, saiba que qualquer configuração prévia será apagada.</MudText>
+                <MudText Typo="Typo.caption">Os dispositivos normalmente são reconhecidos automaticamente pelo sistema.</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.Middle" />
+        <MudCardContent>
+            @if (!ContextId.HasValue || ContextId.Value == Guid.Empty)
+            {
+                <ClientMissing></ClientMissing>
+            } else {
+                <ExtensionSearchComponent ContextId="ContextId" EndPoint="EndPoint" EndPointChanged="EndPointChanged" />
+            }
+        </MudCardContent>
+    </MudCard>
+}
+
+@code {
+    [Inject]
+    private APIClientService APIClient { get; set; } = default!;
+
+    [Parameter]
+    public string? MACAddress { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> MACAddressChanged { get; set; }
+
+    [Parameter]
+    public Guid? ContextId { get; set; }
+
+    [Parameter]
+    public EndPoint? EndPoint { get; set; }
+
+    [Parameter]
+    public EventCallback<EndPoint?> EndPointChanged { get; set; }
+
+    bool? IsFree { get; set; }
+
+    bool TextInputError { get; set; }
+
+    string? InternalMACAddress { get; set; }
+
+
+    protected async void Check(MouseEventArgs _)
+    {
+        if (InternalMACAddress.IsValidMACBytes())
+        {
+            TextInputError = false;
+
+            var device = await APIClient.Provisioning.ByMAC(InternalMACAddress!, System.Threading.CancellationToken.None);
+            IsFree = device == null;
+            if (IsFree.Value)
+            {
+                if (MACAddress != InternalMACAddress)
+                {
+                    MACAddress = InternalMACAddress;
+                    await MACAddressChanged.InvokeAsync(MACAddress);
+                }
+            }
+        }
+        else TextInputError = true;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        InternalMACAddress = MACAddress;
+        if (InternalMACAddress.IsValidMACBytes())
+        {
+            var device = await APIClient.Provisioning.ByMAC(InternalMACAddress!, System.Threading.CancellationToken.None);
+            IsFree = device == null;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

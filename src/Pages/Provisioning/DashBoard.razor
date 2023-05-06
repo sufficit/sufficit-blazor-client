@@ -1,6 +1,7 @@
 ﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @inherits BasePageComponent
+@using Sufficit.Blazor.Client.Components.Contacts
 
 <MudGrid Class="mt-5">
     <MudItem xs="12">               
@@ -15,8 +16,24 @@
                         <RowTemplate>
                             <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
                             <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
-                            <MudTd DataLabel="ContextId">@context.ContextId</MudTd>
-                            <MudTd DataLabel="ExtensionId">@context.ExtensionId</MudTd>
+                            <MudTd DataLabel="ContextId">
+                                @if (context.ContextId.HasValue)
+                                {
+                                    <MudStack Row="true">
+                                        <MudItem>
+                                            <ContactAvatar ReferenceId="@context.ContextId.Value" />
+                                        </MudItem>
+                                        <MudItem>
+                                            <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
+                                                <ContactTitle ReferenceId="@context.ContextId.Value" />
+                                            </MudText>
+                                        </MudItem>
+                                    </MudStack>
+                                }
+                            </MudTd>
+                            <MudTd DataLabel="ExtensionId">
+                                <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
+                             </MudTd>
                             <MudTd DataLabel="Timestamp">@context.Timestamp</MudTd>
                             <MudTd DataLabel="Ação">
                                 <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">

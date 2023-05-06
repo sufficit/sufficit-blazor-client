@@ -35,13 +35,13 @@ namespace Sufficit.Blazor.Client.Shared.Layout
         protected CancellationTokenSource CancellationTokenSource { get; set; } = new CancellationTokenSource();
 
         MudTheme MyCustomTheme = new MudTheme()
-        {
-            Palette = new Palette()
+        {            
+            Palette = new PaletteLight()
             {
                 Primary = Colors.Red.Darken1,
                 Secondary = Colors.Green.Accent4,
                 AppbarBackground = Colors.Shades.White
-            },
+            },            
             Typography = new Typography()
             {
                 Default = new Default()

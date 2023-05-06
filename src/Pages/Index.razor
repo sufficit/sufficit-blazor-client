@@ -1,4 +1,10 @@
-﻿@page "/"
+﻿@implements IPage
+@attribute [Route(RouteParameter)]
+<AuthorizeView>
+    <Authorized>
+        Hello user!
+    </Authorized>
+</AuthorizeView>
 <MudContainer Style="padding-top: 1rem;" MaxWidth="MaxWidth.False">
     <MudPaper Elevation="12" Style="min-height: 300px; background-position: center; background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
     </MudPaper>
@@ -13,3 +19,6 @@
         </MudGrid>
     </MudPaper>
 </MudContainer>
+@code{
+    public const string RouteParameter = "/";
+}

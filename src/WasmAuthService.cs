@@ -1,74 +1,43 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Sufficit.Blazor.Client.Services;
 using Sufficit.Identity;
-using Sufficit.Identity.Client;
 using System;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client
 {
     public class WasmAuthService : IAuthService
     {
-        private readonly HttpClient httpClient;
-        private readonly HttpContextAccessor _accessor;
+        private readonly WasmAuthenticationService _service;
 
-        public WasmAuthService(IHttpClientFactory factory, HttpContextAccessor httpContextAccessor)
+        public WasmAuthService(WasmAuthenticationService service)
         {
-            _accessor = httpContextAccessor;
-            httpClient = factory.CreateClient("BlazorHybrid");
+            _service = service;
+            _service.AuthenticationStateChanged += OnAuthenticationStateChanged;
         }
 
-        [HttpGet]
-        public Task<BlazorRemoteUser?> CurrentUser()
+        private async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
         {
-            BlazorRemoteUser? current = null;
-            return Task.FromResult(current);
-
-            // not implemented yet, should store user locally
-            //throw new NotImplementedException();
-
-            /*
-            var responseMessage = await httpClient.GetAsync("api/authentication/currentuser");
-            if (responseMessage.IsSuccessStatusCode)
+            if (AuthenticationStateChanged != null)
             {
-                try
-                {
-                    return await responseMessage.Content.ReadFromJsonAsync<BlazorRemoteUser>();
-                }
-                catch(Exception ex) { 
-                    //var content = await responseMessage.Content.ReadAsStringAsync();
-                    //Console.WriteLine(content);
-                    Console.WriteLine($"wasm current user error: {ex.Message}"); 
-                }
+                var state = await task;
+                AuthenticationStateChanged.Invoke(state);
             }
-            return null;
-            */
         }
 
-        [HttpPost]
+        public event Action<AuthenticationState>? AuthenticationStateChanged;
+
+        public async Task<UserPrincipal> CurrentUser()
+        {
+            var state = await _service.GetAuthenticationStateAsync();
+            return (state.User as Sufficit.Identity.UserPrincipal)!;
+        }
+
         public Task Login(string returnUrl)
-        {
-            // not implemented yet, should store user locally
-            throw new NotImplementedException();
+            => _service.SignInAsync(returnUrl);
 
-            /*
-            var result = await httpClient.PostAsJsonAsync($"api/authentication/login", returnUrl);
-            result.EnsureSuccessStatusCode();
-
-            var response = await result.Content.ReadAsStringAsync();
-            Console.WriteLine($"login: {response}");
-            */
-        }
-
-        public async Task Logout()
-        {
-            var result = await httpClient.PostAsync("api/authentication/logout", null);
-            result.EnsureSuccessStatusCode();
-        }
+        public Task Logout()
+            => _service.LogoutAsync();
     }
 }

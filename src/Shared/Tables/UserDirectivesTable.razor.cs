@@ -102,14 +102,6 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             return new TableData<UserClaimPolicy>() { Items = DataItems };
         }
 
-        protected async Task<string> GetContactTitle(Guid idcontact, CancellationToken cancellationToken = default)
-        {
-            if (idcontact == Guid.Empty) return "* Todos";
-            
-            var contact = await BIService.GetContact(idcontact, cancellationToken);
-            if (contact == null) return string.Empty;
-            return contact.Title ?? "* Desconhecido";
-        }
         protected async void OnDelClick(int? id)
         {
             if (id.HasValue)

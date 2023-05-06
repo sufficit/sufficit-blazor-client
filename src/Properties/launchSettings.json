@@ -1,4 +1,12 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:26509",
+      "sslPort": 26508
+    }
+  },
   "profiles": {
     "Watch": {
       "commandName": "Executable",

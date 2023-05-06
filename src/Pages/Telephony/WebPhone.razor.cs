@@ -25,13 +25,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         public ILogger<WebPhone> Logger { get; set; } = default!;
 
         [Inject]
-        IAuthenticationStateProvider AuthenticationService { get; set; } = default!;
-
-        [Inject]
         IOptions<JsSIPOptions> Options { get; set; } = default!;
 
         [Inject]
         APIClientService APIClient { get; set; } = default!;
+
+        [CascadingParameter]
+        public UserPrincipal User { get; set; } = default!;
 
         protected JsSIPSessionMonitor? CallSession { get; set; }
 
@@ -73,12 +73,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 JsSIPService.OnChanged += (sender, args) => StateHasChanged();
                 if (string.IsNullOrWhiteSpace(JsSIPService.Status))
                 {
-                    var authstate = await AuthenticationService.GetAuthenticationStateAsync();
-                    var UserID = authstate.User.GetUserId();
-                    if (UserID != Guid.Empty)
+                    var userid = User.GetUserId();
+                    if (userid != Guid.Empty)
                     {
                         WebRTCKey = await APIClient.Telephony.WebRTCKey();
-                        var endpoint = $"{UserID:N}{WebRTCKey:N}";
+                        var endpoint = $"{userid:N}{WebRTCKey:N}";
                         var options = Options.Value;
                         options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
                         await JsSIPService.Start(options);

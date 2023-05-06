@@ -1,0 +1,51 @@
+﻿@using Sufficit.Blazor.Client.Components.Contacts
+@using Sufficit.Telephony;
+@if (ExtensionId.HasValue)
+{
+    @if (EndPoint != null)
+    {
+        <MudStack Row="true">
+            @if (EndPoint.UserId.HasValue && EndPoint.UserId.Value != Guid.Empty)
+            {
+                <MudItem>
+                    <ContactAvatar ReferenceId="@EndPoint.UserId.Value" />
+                </MudItem>
+            }
+            <MudItem>
+                <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
+                    @EndPoint.Title
+                </MudText>
+            </MudItem>        
+        </MudStack>
+    } else
+    {
+        <MudSkeleton Animation="Animation.Pulse"></MudSkeleton>   
+    }
+}
+
+@code {
+    [Inject]
+    private APIClientService APIClient { get; set; } = default!;
+
+    [Parameter]
+    public Guid? ExtensionId { get; set; }
+
+    protected Sufficit.Telephony.EndPoint? EndPoint { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        if (ExtensionId.HasValue && ExtensionId.Value != Guid.Empty)
+        {
+            var parameters = new EndPointSearchParameters();
+            parameters.Id = ExtensionId.Value;
+            parameters.Limit = 1;
+            var endpoints = await APIClient.Telephony.EndPoint.GetEndPoints(parameters);
+            if (endpoints.Any())
+                EndPoint = endpoints.FirstOrDefault();
+            else throw new Exception("device extension not found");
+
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

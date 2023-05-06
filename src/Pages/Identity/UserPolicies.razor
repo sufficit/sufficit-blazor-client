@@ -1,18 +1,13 @@
 ﻿@page "/pages/identity/userpolicies"
-@using Microsoft.Extensions.Logging
-@using System.Net.Http.Headers
-@using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
 @using Sufficit.Identity
-@using Sufficit.Blazor
-@using System.Text.Json
 @attribute [Authorize]
 
 <div>
-    <span>@User?.GetType() :: Authenticated: @User?.Identity?.IsAuthenticated</span>
+    <span>@User.GetType() :: Authenticated: @User.Identity?.IsAuthenticated</span>
 </div>
 <div>
-    <span>Policies: </span> (@CurrentUserPolicies?.Count()) @CurrentUserPolicies?.GetType()
+    <span>Policies: </span> (@User.Policies.Count()) @User.Policies.GetType()
 </div>
 
 <hr class="dark horizontal" />   
@@ -26,25 +21,22 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-                @if (User != null)
+            <tbody>                
+                @foreach (var userpolicy in User.Claims)
                 {
-                    @foreach (var userpolicy in User.Claims)
-                    {
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2">
-                                    @userpolicy.Type
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex px-2">
-                                    @userpolicy.Value
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                }
+                    <tr>
+                        <td>
+                            <div class="d-flex px-2">
+                                @userpolicy.Type
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-2">
+                                @userpolicy.Value
+                            </div>
+                        </td>
+                    </tr>
+                }                
             </tbody>
         </table>
     </div>
@@ -60,43 +52,27 @@
             </tr>
             </thead>
             <tbody>
-                @if (CurrentUserPolicies != null)
+                @foreach (var userpolicy in User.Policies)
                 {
-                    @foreach (var userpolicy in CurrentUserPolicies)
-                    {
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2">
-                                    @userpolicy.IDDirective
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex px-2">
-                                    @userpolicy.IDContext
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                }
+                    <tr>
+                        <td>
+                            <div class="d-flex px-2">
+                                @userpolicy.IDDirective
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex px-2">
+                                @userpolicy.IDContext
+                            </div>
+                        </td>
+                    </tr>
+                }                
             </tbody>
         </table>
     </div>
 </div>
 
 @code {
-    [Inject]
-    protected IAuthenticationStateProvider AuthenticationService { get; set; } = default!;
-
-    IEnumerable<UserPolicyBase>? CurrentUserPolicies { get; set; } 
-
-    ClaimsPrincipal? User { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        User = (await AuthenticationService.GetAuthenticationStateAsync()).User;
-        if(User is Sufficit.Identity.UserPrincipal user)
-        {
-            CurrentUserPolicies = user.Policies;            
-        }        
-    }
+    [CascadingParameter]
+    public UserPrincipal User { get; set; } = default!;
 }

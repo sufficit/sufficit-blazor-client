@@ -1,8 +1,9 @@
-﻿@if (View.ContextId != Guid.Empty)
+﻿@using Sufficit.Blazor.Client.Components.Contacts
+@if (View.ContextId != Guid.Empty)
 {
     <MudCard Elevation="0" Style="background: transparent" data-animation="true">
         <MudCardHeader Class="justify-center py-0" Style="position: relative; z-index: 1">
-            <ContactAvatar IDReference="View.ContextId" Size="Size.Large"></ContactAvatar>
+            <ContactAvatar ReferenceId="View.ContextId" Size="Size.Large"></ContactAvatar>
         </MudCardHeader>
         <MudCardActions>
             <MudButtonGroup Class="d-flex mx-auto justify-center" Variant="Variant.Text" Size="Size.Small" DisableElevation="true">

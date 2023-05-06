@@ -1,5 +1,5 @@
 ﻿@inject NavigationManager Navigation
-@inject IAuthenticationStateProvider StateProvider
+@inject IAuthService Authentication
 
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -8,7 +8,7 @@
         if (firstRender)
         {
             string returnUrl = Navigation.Uri;
-            await StateProvider.Login(returnUrl); 
+            await Authentication.Login(returnUrl);
             await InvokeAsync(StateHasChanged);            
         }
     }

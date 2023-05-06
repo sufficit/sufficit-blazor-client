@@ -1,4 +1,5 @@
-﻿<MudTable @ref="Table"    
+﻿@using Sufficit.Blazor.Client.Components.Contacts
+<MudTable @ref="Table"    
     RowClassFunc="RowClass" 
     RowStyle="cursor: pointer;" 
     T="Sufficit.Sales.IClient" 
@@ -20,7 +21,7 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
-            <ContactAvatar IDReference="@context.Id" Size="Size.Small" />
+            <ContactAvatar ReferenceId="@context.Id" Size="Size.Small" />
         </MudTd>
         <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
         <MudTd DataLabel="Vencimento" Style="text-align:center">@context.Expiration.ToString("dd/MM/yyyy")</MudTd>
