@@ -14,13 +14,21 @@
         <MudCardContent>
             <MudStack>
                 <MudItem>
-                    <ClientView></ClientView>
+                    @if (ContextView.ContextId != Guid.Empty)
+                    {
+                        <ClientView></ClientView>
+                    }
+                    else
+                    {
+                        <ClientMissing></ClientMissing>
+                    }
                 </MudItem>
                 <MudDivider></MudDivider>
                 <ExtensionSearchComponent ContextId="ContextView.ContextId" @bind-EndPoint="EndPoint" />
             </MudStack>
         </MudCardContent>   
     </MudCard>    
+    <DeviceAttributesComponent MACAddress="@Item.MACAddress"></DeviceAttributesComponent>
 }
 else {    
     @if (Loading) {
