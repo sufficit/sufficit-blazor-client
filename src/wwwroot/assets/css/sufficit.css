@@ -1,9 +1,5 @@
-﻿html {
-    min-height: 100%;
-}
-
-html > body {
-    min-height: 100%;
+﻿html, html > body, html > body > div#app {
+    height: 100%;
 }
 
 .suff-toggle-drawer-xs {
