@@ -105,14 +105,16 @@
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.*" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">		
-		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
-		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
+	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">			
 		<PackageReference Include="Sufficit.Asterisk.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Asterisk.Manager" Version="1.*" />
+		<PackageReference Include="Sufficit.AsterNET" Version="1.*" />
 		<PackageReference Include="Sufficit.Base" Version="1.*" /> 
+		<PackageReference Include="Sufficit.Blazor" Version="1.*" /> 
 		<PackageReference Include="Sufficit.Client" Version="1.*" />
 		<PackageReference Include="Sufficit.Identity.Client" Version="1.*" />
 		<PackageReference Include="Sufficit.Identity.Core" Version="1.*" />
+		<PackageReference Include="Sufficit.Telephony.EventsPanel.Components" Version="1.*" />
 		<PackageReference Include="Sufficit.Utils" Version="1.*" /> 
 	</ItemGroup>
 
