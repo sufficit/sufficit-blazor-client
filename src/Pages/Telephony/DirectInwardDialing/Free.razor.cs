@@ -18,7 +18,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
     [Authorize(Roles = "telephony")]
     public partial class Free : TelephonyBasePageComponent, IPage
     {
-        public const string RouteParameter = "/pages/telephony/did/free";
+        public const string RouteParameter = "pages/telephony/did/free";
 
         protected override string Title => "DID Disponíveis";
 

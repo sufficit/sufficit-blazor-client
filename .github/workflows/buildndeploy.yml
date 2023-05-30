@@ -26,10 +26,6 @@ jobs:
       working-directory: ./src
       run: dotnet build --configuration Packing
       
-    - name: DotNet Publish
-      working-directory: ./src
-      run: dotnet publish --configuration Packing
-      
     - name: Deploy Package 
       working-directory: ./src
       run: dotnet pack --configuration Packing --output ./nupkgs
@@ -41,6 +37,10 @@ jobs:
     - name: Publish to GitHub
       working-directory: ./src
       run: dotnet nuget push --skip-duplicate ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/${{github.repository_owner}}/index.json --api-key ${{github.token}}
+            
+    - name: DotNet Publish
+      working-directory: ./src
+      run: dotnet publish --configuration Packing
       
     - uses: actions/upload-artifact@v3
       with:
@@ -67,11 +67,11 @@ jobs:
     
     # changes the base-tag in index.html from '/' to working directory to match GitHub Pages repository subdirectory
     - name: Change base-tag in main.js from / to working directory
-      run: sed -i 's/rootPath\ =\ \"\";/rootPath\ =\ \"\/sufficit-blazor-client\";/g' release/assets/js/main.js
+      run: sed -i 's/rootPath\ =\ \"\";/rootPath\ =\ \"\/${{ github.event.repository.name }}\";/g' release/assets/js/main.js
       
     # changes the base-tag in index.html from '/' to working directory to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to working directory
-      run: sed -i 's/<base href="\/" \/>/<base href="\/sufficit-blazor-client\/" \/>/g' release/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/${{ github.event.repository.name }}\/" \/>/g' release/index.html
     
     # copy index.html to 404.html to serve the same file when a file is not found
     - name: copy index.html to 404.html
@@ -82,7 +82,7 @@ jobs:
       run: touch release/.nojekyll
       
     - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages

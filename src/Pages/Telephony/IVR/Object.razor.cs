@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
     [Authorize(Roles = "telephony")]
     public partial class Object : TelephonyBasePageComponent, IDisposable
     {
-        public const string RouteParameter = "/pages/telephony/ivr";
+        public const string RouteParameter = "pages/telephony/ivr";
 
         protected override string Title => "IVR";
 

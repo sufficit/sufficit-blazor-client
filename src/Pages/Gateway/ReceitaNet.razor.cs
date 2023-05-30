@@ -15,7 +15,7 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
     [Authorize(Roles = "telephony")]
     public partial class ReceitaNet : BasePageComponent, IDisposable
     {
-        public const string RouteParameter = "/pages/gateway/receitanet";
+        public const string RouteParameter = "pages/gateway/receitanet";
 
         protected override string Title => "ReceitaNet";
 

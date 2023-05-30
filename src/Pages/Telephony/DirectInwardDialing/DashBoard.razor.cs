@@ -13,7 +13,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
     [Authorize(Roles = "telephony")]
     public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "/pages/telephony/did/dashboard";
+        public const string RouteParameter = "pages/telephony/did/dashboard";
 
         protected override string Title => "Direct Inward Dialing";
 

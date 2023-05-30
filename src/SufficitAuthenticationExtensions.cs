@@ -40,8 +40,8 @@ namespace Sufficit.Blazor.Client
                     options.UserOptions.NameClaim = "name";
                     options.UserOptions.RoleClaim = "role";
 
-                    options.ProviderOptions.PostLogoutRedirectUri = $".{AuthenticationController.RouteParameter}/logout-callback";
-                    options.ProviderOptions.RedirectUri = $".{AuthenticationController.RouteParameter}/login-callback";
+                    options.ProviderOptions.PostLogoutRedirectUri = $"./{AuthenticationController.RouteParameter}/logout-callback";
+                    options.ProviderOptions.RedirectUri = $"./{AuthenticationController.RouteParameter}/login-callback";
                 }
             });
 

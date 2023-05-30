@@ -16,7 +16,7 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 {
     public partial class DashBoard : BasePageComponent
     {
-        public const string RouteParameter = "/pages/contacts/dashboard";
+        public const string RouteParameter = "pages/contacts/dashboard";
 
         protected override string Title => "DashBoard";
 

@@ -20,7 +20,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 {
     public partial class Device : BasePageComponent
     {
-        public const string RouteParameter = "/pages/provisioning/device";
+        public const string RouteParameter = "pages/provisioning/device";
 
         protected override string Title => "Dispositivo";
 

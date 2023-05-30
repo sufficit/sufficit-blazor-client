@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client
     [Route($"{RouteParameter}/{{action}}")]
     public class AuthenticationController : ComponentBase
     {
-        public const string RouteParameter = "/clientauth";
+        public const string RouteParameter = "clientauth";
 
         [Inject]
         NavigationManager Navigation { get; set; } = default!;

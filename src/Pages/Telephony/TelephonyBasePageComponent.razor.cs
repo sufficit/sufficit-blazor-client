@@ -15,7 +15,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 {
                     Title = "Telefonia",
                     Description = "Painel de telefonia",
-                    Link = "/pages/telephony"
+                    Link = "pages/telephony"
                 })
                 .Set(new BreadCrumbItem()
                 {

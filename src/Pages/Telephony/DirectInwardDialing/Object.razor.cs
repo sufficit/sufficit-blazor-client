@@ -22,7 +22,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
     [Authorize(Roles = "telephony")]
     public partial class Object : TelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "/pages/telephony/did";
+        public const string RouteParameter = "pages/telephony/did";
 
         protected override string Title => "DID | Entrada";
 
@@ -45,7 +45,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         protected Converter<DateTime> ConverterDateTime = new Converter<DateTime>
         {
             SetFunc = value => value.ToString("yyyy-MM-dd"),
-            GetFunc = DateTime.Parse
+            GetFunc = DateTime.Parse!
         };
 
         protected Sufficit.Telephony.DirectInwardDialing? Item { get; set; }

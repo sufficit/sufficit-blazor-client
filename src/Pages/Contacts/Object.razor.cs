@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 {
     public partial class Object : BasePageComponent, IDisposable
     {
-        public const string RouteParameter = "/pages/contacts/contact";
+        public const string RouteParameter = "pages/contacts/contact";
 
         protected override string Title => "IVR";
 
