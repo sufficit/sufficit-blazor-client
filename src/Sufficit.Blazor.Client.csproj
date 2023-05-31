@@ -59,11 +59,15 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="wwwroot\.nojekyll">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	
   <ItemGroup>
     <Content Remove="appsettings.json" />
     <Content Remove="Pages\Telephony\Monitor\Select.razor" />
+    <Content Remove="wwwroot\.nojekyll" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
@@ -132,9 +136,6 @@
 	</ItemGroup> 
 
 	<ItemGroup>
-    <Content Update="wwwroot\.nojekyll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
