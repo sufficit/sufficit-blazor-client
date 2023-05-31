@@ -118,7 +118,7 @@
 		<PackageReference Include="Sufficit.Utils" Version="1.*" /> 
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'" Label="Sufficit Local Dependencies"> 
+	<ItemGroup Condition="'$(Configuration)' != 'Packing'" Label="Sufficit Local Dependencies"> 
 		<ProjectReference Include="..\..\sufficit-asterisk-core\src\Sufficit.Asterisk.Core.csproj" /> 
 		<ProjectReference Include="..\..\sufficit-asterisk-manager\src\Sufficit.Asterisk.Manager.csproj" /> 
 		<ProjectReference Include="..\..\sufficit-asternet\Asterisk.2013\Asterisk.NET\Sufficit.AsterNET.csproj" /> 
@@ -132,13 +132,12 @@
 	</ItemGroup> 
 
 	<ItemGroup>
+    <Content Update="wwwroot\.nojekyll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup> 
-
-	<ItemGroup>
-	  <Folder Include="Components\Telephony\" />
-	</ItemGroup>
     
 </Project>
