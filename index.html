@@ -35,13 +35,13 @@
 
 <body class="bg-gray-200">
     <div id="app">
-        <div class="page-header align-items-start min-vh-100">
-            <div class="progress" style="position: fixed; width: 100%;">
-                <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
+        <div id="splash" class="page-header align-items-start min-vh-100">
+            <div style="position: fixed; width: 100%;">
+                <div id="progressbar" role="progressbar"></div>
             </div>
-            <div class="container my-auto">
-                <div class="row">
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto align-items-center justify-content-center d-none" id="progress">
+            <div class="my-auto">
+                <div>
+                    <div class="mx-auto align-items-center d-none" id="progress">
                         <div class="d-flex align-items-center justify-content-center">
                             <div class="spinner-grow text-danger" role="status"></div>
                         </div>
@@ -50,15 +50,13 @@
                         </h5>
                         <p class="mb-0 text-center" id="progressmsg"></p>
                     </div>
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto text-center align-items-center justify-content-center d-block" id="pssuccess">
-                        <a class="blur-shadow-image">
-                            <img src="assets/img/logos/logo.png" alt="img-blur-shadow" class="img-fluid shadow p-3 border-radius-lg">
-                        </a>
+                    <div id="pssuccess">
+                        <img src="assets/img/logos/logo.png" alt="sufficit logo" class="mud-image object-fill object-center mud-elevation-25 rounded-lg">
                     </div>
 
-                    <hr class="horizontal dark mt-5 mb-2">
+                    <hr class="mt-5 mb-2">
                     <h3 class="font-weight-normal text-center m-0" style="font-variant: small-caps;">Sufficit</h3>
-                    <small class="font-weight-light text-center">soluções em tecnologia da informação</small>
+                    <small class="">soluções em tecnologia da informação</small>
                 </div>
             </div>
         </div>
@@ -96,9 +94,9 @@
 
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
-    
+
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js" defer></script>
-    
+
 </body>
 </html>
