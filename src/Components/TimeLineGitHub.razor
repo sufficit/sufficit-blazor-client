@@ -44,7 +44,7 @@
                             <MudText Color="Color.Dark" Typo="Typo.body1">@Item.CreatedAt.ToLocalTime().ToString("g")</MudText>
                         </ItemOpposite>
                         <ItemContent>
-                            <MudCard Outlined="true" Elevation="25">
+                            <MudCard Outlined="true" Elevation="25" Style="overflow: hidden;">
                                 <MudCardContent>
                                     <MudLink Href="@Item.Repo.GetPublicUrl()" Typo="Typo.body2" Target="_blank">@Item.Repo.Name</MudLink>
                                     @foreach (var message in @Item.Payload.GetMessages())

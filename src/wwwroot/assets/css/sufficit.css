@@ -16,3 +16,19 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+#splash {
+    max-width: 700px;
+    height: auto;
+    line-height: 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

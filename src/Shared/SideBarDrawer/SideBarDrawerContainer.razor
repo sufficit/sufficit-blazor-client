@@ -1,6 +1,8 @@
 ﻿@using System.Security.Claims
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Mvc.Infrastructure
+@using Microsoft.Extensions.Options;
+@using Sufficit.Contacts;
 @using Sufficit.Identity
 @namespace Sufficit.Blazor.Client.Shared
 
@@ -111,6 +113,9 @@
     [Inject]
     IAuthService Authentication { get; set; } = default!;
 
+    [Inject]
+    IOptions<ContactsOptions> Options { get; set; } = default!;
+
     [CascadingParameter]
     protected UserPrincipal User { get; set; } = default!;
 
@@ -130,10 +135,10 @@
     {
         get
         {
-            string result = "https://endpoints.sufficit.com.br/contact/avatar?contextid=";
+            string result = Options.Value.AvatarPath.ToString();
             if (User != null)
             {
-                result += User.GetUserId();
+                result += "?contextid=" + User.GetUserId();
             }
             return result;
         }

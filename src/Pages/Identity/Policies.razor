@@ -1,9 +1,9 @@
 ﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
+@inherits BasePageComponent
 @using Sufficit.Blazor.Client.Shared.Forms
 @using Sufficit.Blazor.Client.Shared.Tables
 @using Sufficit.Blazor.Client.Components.Contacts
-@inherits BasePageComponent
 
 <MudPaper Elevation="3" Class="pa-4 ma-1">
     <MudCardHeader>
@@ -27,11 +27,11 @@
 
     </MudCardContent>
 </MudPaper>
-@if(UserSelected != null) {
+@if (UserSelected != null) {
     <MudPaper Elevation="3" Class="pa-4 ma-1">
         <MudCardHeader>
             <CardHeaderAvatar>
-                <ContactAvatar ReferenceId="@UserSelected.ID" />
+                <ContactAvatar ReferenceId="@UserSelected.ID"></ContactAvatar>
             </CardHeaderAvatar>
             <CardHeaderContent>
                 <MudText Typo="Typo.body1">@UserSelected?.EMail</MudText>

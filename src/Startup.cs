@@ -42,7 +42,7 @@ namespace Sufficit.Blazor.Client
 
             services.AddScoped<IAuthService, WasmAuthService>();
             services.AddScoped<ITokenProvider, WasmTokenProvider>();
-            services.ConfigureCommonServices();
+            services.ConfigureCommonServices(_builder.Configuration);
 
             services.AddSingleton<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
             services.AddSingleton<IAuthorizationService, DefaultAuthorizationService>();

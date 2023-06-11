@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Components.Contacts
 {
-    public partial class ContactAvatar
+    public partial class ContactAvatar : ComponentBase
     {
         [Inject]
         public IOptions<ContactsOptions> Options { get; set; } = default!;
@@ -33,6 +33,6 @@ namespace Sufficit.Blazor.Client.Components.Contacts
         protected string? Style =>
             MaxDiameter != null ? $"{style} max-width: {MaxDiameter}px; max-height: {MaxDiameter}px;" : style;
 
-        protected string SourceUrl => $"{Options.Value.AvatarPath}?IDContexto={ReferenceId}";
+        protected string SourceUrl => $"{Options.Value.AvatarPath}?contextid={ReferenceId}";
     }
 }

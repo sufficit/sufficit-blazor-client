@@ -26,6 +26,12 @@
             <MudTooltip Text="Resetar senha">
                 <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Password" OnClick="() => PasswordReset(context)"></MudIconButton>
             </MudTooltip>
+            @if (!context.EMailConfirmed)
+            {
+                <MudTooltip Text="Reenviar Confirmação de E-Mail">
+                        <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.ConfirmationNumber" OnClick="() => ResendEMailConfirmation(context)"></MudIconButton>
+                </MudTooltip>
+            }
         </MudTd>
         <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
             <ContactAvatar ReferenceId="@context.ID" Size="Size.Small" />

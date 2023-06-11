@@ -62,12 +62,16 @@
 		<None Include="wwwroot\.nojekyll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Include="wwwroot\appsettings.Development.json">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	
   <ItemGroup>
     <Content Remove="appsettings.json" />
     <Content Remove="Pages\Telephony\Monitor\Select.razor" />
     <Content Remove="wwwroot\.nojekyll" />
+    <Content Remove="wwwroot\appsettings.Development.json" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />

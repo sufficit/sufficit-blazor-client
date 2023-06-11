@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
-using MudBlazor;
-using Sufficit.Contacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Components.Contacts
 {
-    public partial class ContactTitle
+    public partial class ContactTitle : ComponentBase
     {
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;

@@ -33,7 +33,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public uint Minimum { get; set; } = 4;
 
         [Parameter]
-        public uint TimeOut { get; set; } = 1500;
+        public uint TimeOut { get; set; } = 4000;
 
         [Parameter]
         public string? Filter { get; set; }
@@ -97,6 +97,19 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             else DataItems = Array.Empty<User>();
 
             return new TableData<User>() { Items = DataItems };
+        }
+
+        protected async Task ResendEMailConfirmation(User selected)
+        {
+            try
+            {
+                await BIService.Identity.ResendEMailConfirmation(selected.EMail!);
+                Snackbar.Add($"Pronto ! E-Mail de confirmação re-enviado", Severity.Success);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
         }
 
         protected async Task PasswordReset(User selected)
