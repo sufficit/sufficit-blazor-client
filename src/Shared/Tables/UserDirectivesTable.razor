@@ -11,7 +11,7 @@
           ServerData="GetData"
           SelectedItemChanged="SelectedItemChanged">
     <HeaderContent>
-        @if (DataItems.Any())
+        @if(DataItems.Any())
         {
             <MudTh Style="text-align: center; width: 150px;">Ações</MudTh>
             <MudTh Style="text-align: left; width: 300px;">Diretiva</MudTh>
@@ -21,7 +21,7 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Ações" Style="text-align: center; max-width: 150px;">
-            <MudButton Size="Size.Small" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteOutline" OnClick="() => OnDelClick(context.UserClaimId)">
+            <MudButton Size="Size.Small" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteOutline" OnClick="(_) => OnDelClick(context.UserClaimId)">
                 Remover
             </MudButton>
         </MudTd>

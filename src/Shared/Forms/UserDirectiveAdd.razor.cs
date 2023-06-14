@@ -54,7 +54,6 @@ namespace Sufficit.Blazor.Client.Shared.Forms
             return items;
         }
 
-
         protected async Task OnAddClick(MouseEventArgs e)
         { 
             if (User != null)

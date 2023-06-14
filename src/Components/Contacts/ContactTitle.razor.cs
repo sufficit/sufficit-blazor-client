@@ -16,7 +16,6 @@ namespace Sufficit.Blazor.Client.Components.Contacts
         [Parameter]
         public Guid ReferenceId { get; set; }
 
-
         protected async Task<string> GetContactTitle(Guid idcontact, CancellationToken cancellationToken = default)
         {
             if (idcontact == Guid.Empty) return "* Todos";

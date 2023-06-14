@@ -27,7 +27,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public uint Minimum { get; set; } = 4;
 
         [Parameter]
-        public uint TimeOut { get; set; } = 1500;
+        public uint TimeOut { get; set; } = 4000;
 
         [Parameter]
         public string? Filter { get; set; }
@@ -69,8 +69,11 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             {
                 Filter = value;
 
-                if(Table != null)
+                if (Table != null)
+                {
                     await Table.ReloadServerData();
+                    await InvokeAsync(StateHasChanged);
+                }
             }
         }
 
@@ -79,8 +82,11 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         /// </summary>
         public async void DataBind()
         {
-            if (Table != null)            
-                await Table.ReloadServerData();            
+            if (Table != null)
+            {
+                await Table.ReloadServerData();
+                await InvokeAsync(StateHasChanged);
+            }
         }
 
         protected async Task<TableData<UserClaimPolicy>> GetData(TableState _)
