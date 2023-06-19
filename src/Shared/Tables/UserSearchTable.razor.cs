@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
 using Sufficit.Identity.Client;
@@ -59,8 +60,11 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             {
                 Filter = value;
 
-                if(Table != null)
+                if (Table != null)
+                {
                     await Table.ReloadServerData();
+                    await InvokeAsync(StateHasChanged);
+                }
             }
         }
 
@@ -69,8 +73,11 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         /// </summary>
         public async void DataBind()
         {
-            if (Table != null)            
-                await Table.ReloadServerData();            
+            if (Table != null)
+            {
+                await Table.ReloadServerData();
+                await InvokeAsync(StateHasChanged);
+            }
         }
 
         protected async Task<TableData<User>> GetData(TableState _)
@@ -104,7 +111,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             try
             {
                 await BIService.Identity.ResendEMailConfirmation(selected.EMail!);
-                Snackbar.Add($"Pronto ! E-Mail de confirmação re-enviado", Severity.Success);
+                Snackbar.Add("Pronto ! E-Mail de confirmação re-enviado", Severity.Success);
             }
             catch (Exception ex)
             {

@@ -24,12 +24,12 @@
     <RowTemplate>
         <MudTd DataLabel="Ações" Style="text-align: left; max-width: 50px;">
             <MudTooltip Text="Resetar senha">
-                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Password" OnClick="() => PasswordReset(context)"></MudIconButton>
+                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Password" OnClick="(_) => PasswordReset(context)"></MudIconButton>
             </MudTooltip>
             @if (!context.EMailConfirmed)
             {
                 <MudTooltip Text="Reenviar Confirmação de E-Mail">
-                        <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.ConfirmationNumber" OnClick="() => ResendEMailConfirmation(context)"></MudIconButton>
+                        <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.ConfirmationNumber" OnClick="(_) => ResendEMailConfirmation(context)"></MudIconButton>
                 </MudTooltip>
             }
         </MudTd>

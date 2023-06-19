@@ -52,6 +52,9 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         [EditorRequired]
         protected UserDirectivesTable? UDTable { get; set; }
 
+        [EditorRequired]
+        protected MudTextField<string>? FilterTextFiled { get; set; }
+
         protected UserSearchTable? UserSearchTableReference { get; set; } = default;
 
         protected async void OnTextChanged(string? value)
@@ -79,7 +82,8 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
+            if (!firstRender)
+                return;
 
             var statusPrevious = Status;
             try
@@ -94,6 +98,9 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
             if (statusPrevious != Status) 
                 await InvokeAsync(StateHasChanged);
+
+            if (string.IsNullOrWhiteSpace(Filter))            
+                await FilterTextFiled!.FocusAsync();            
         }
 
         protected void OnDirectiveAdded()

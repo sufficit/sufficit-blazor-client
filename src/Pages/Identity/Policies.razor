@@ -20,7 +20,7 @@
     <MudCardContent>
 
         @if (UserID == Guid.Empty) {
-            <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Disabled="Disabled" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
+            <MudTextField @ref=FilterTextFiled T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Disabled="Disabled" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
             <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
             <UserSearchTable @ref="UserSearchTableReference" Filter="@Filter" SelectedItemChanged="OnUserSelect"></UserSearchTable>
         }
