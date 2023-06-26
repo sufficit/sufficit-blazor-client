@@ -1,49 +1,6 @@
-﻿console.debug("SUFFICIT: Loading from RequireJs");
-let rootPath = "/sufficit-blazor-client";
-requirejs.config({
-    baseUrl: rootPath + '/assets/js',
-    paths: {
-        'sufficit/blazor-before': 'sufficit-blazor-before',
-        'content/authentication': rootPath + '/_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService'
-    }/*,
-    shim: {
-        'content/authentication': { init: onAuthenticationLoaded },
-        'sufficit/blazor-before': {
-            deps: ['content/authentication']//, init: () => LoadBlazorScript(onBlazorFrameworkLoaded)
-        }
-    }*/
-});
-
-require(['sufficit/blazor-before']);
-
-function ToggleVisibility(element, visible) {
-    if (visible) {
-        if (element.classList.contains("d-none"))
-            element.classList.remove("d-none");
-
-        if (!element.classList.contains("d-block"))
-            element.classList.add("d-block");
-    } else {
-        if (element.classList.contains("d-block"))
-            element.classList.remove("d-block");
-
-        if (!element.classList.contains("d-none"))
-            element.classList.add("d-none");
-    }
-}
-
-/** Carregando sistema de autenticação */
-function onAuthenticationLoaded() {
-    console.debug('SUFFICIT: Authentication system loaded');
-}
-
-/**
- * Not used anymore
- * @param {any} onload
- */
-async function LoadBlazorScriptOldMethod(onload) {
-    let scriptId = 'sufficitBlazorLoader';
-    let scriptUrl = '/_framework/blazor.webassembly.js';
+﻿async function LoadBlazorScriptMethod(onload) {
+    const scriptId = 'SufficitBlazorLoader';
+    const scriptUrl = '_framework/blazor.webassembly.js?version=net7.0';
 
     var node = document.getElementById(scriptId);
     if (!node) {
@@ -59,57 +16,49 @@ async function LoadBlazorScriptOldMethod(onload) {
     } else { await onload(); }
 }
 
-/** Carregando framework principal, Blazor */
-function onBlazorFrameworkLoaded() {
-    console.debug("SUFFICIT: Blazor Framework loaded");
-    var i = 0;
-    var allResourcesBeingLoaded = [];
+async function StartBlazor() {
+    let loadedCount = 0;
+    const resourcesToLoad = [];
     Blazor.start({
-        loadBootResource: function (type, name, defaultUri, integrity) {
-            if (type == "dotnetjs")
-                return defaultUri;
+        loadBootResource:
+            function (type, filename, defaultUri, integrity) {
+                if (type == "dotnetjs")
+                    return defaultUri;
 
-            var f = fetch(defaultUri, {
-                cache: 'no-cache',
-                integrity: integrity
-            });
+                const fetchResources = fetch(defaultUri, {
+                    cache: 'no-cache',
+                    integrity: integrity
+                });
 
-            allResourcesBeingLoaded.push(f);
-            f.then((r) => {
-                i++;
-                if (i > 1) {
-                    let l = allResourcesBeingLoaded.length;
-                    let percent = 100 * i / l;
+                resourcesToLoad.push(fetchResources);
 
-                    if (percent < 100) {
-                        // console.debug("percent: " + percent + " %");
-                        let elProgressBar = document.getElementById("progressbar");
-                        elProgressBar.style.width = percent + "%";
-                    }
+                fetchResources.then((r) => {
+                    loadedCount += 1;
+                    if (filename == "blazor.boot.json")
+                        return;
 
-                    let elProgressStatus = document.getElementById("progressstatus");
-                    elProgressStatus.innerHTML = parseInt(percent, 10);
+                    const totalCount = resourcesToLoad.length;
+                    const percentLoaded = 10 + parseInt((loadedCount * 90.0) / totalCount);
 
-                    let elProgressMsg = document.getElementById("progressmsg");
-                    if (percent < 100) {
-                        elProgressMsg.innerText = "Baixando novos arquivos para o funcionamento do aplicativo !";
+                    const progressbar = document.getElementById('splash-progress');
+                    const elProgressStatus = document.getElementById('splash-status');
+                    const elProgressMsg = document.getElementById('splash-message');
+
+                    if (percentLoaded < 100) {
+                        progressbar.style.width = percentLoaded + '%';
+                        elProgressStatus.innerHTML = parseInt(percentLoaded, 10) + ' %';
+                        elProgressMsg.innerText = 'baixando arquivos para o funcionamento do aplicativo !';
                     } else {
-                        elProgressMsg.innerText = "Pronto ! Já baixamos tudo o que era necessário. Inicializando ...";
+                        elProgressMsg.innerText = 'soluções em tecnologia da informação';
+                        elProgressStatus.innerHTML = 'sufficit';
                     }
 
-                    let elProgress = document.getElementById("progress");
-                    let elPSuccess = document.getElementById("pssuccess");
+                    progressbar.style.width = percentLoaded + '%';
+                });
 
-                    if (percent == 100) {
-                        ToggleVisibility(elProgress, false);
-                        ToggleVisibility(elPSuccess, true);
-                    } else {
-                        ToggleVisibility(elProgress, true);
-                        ToggleVisibility(elPSuccess, false);
-                    }
-                }
-            });
-            return f;
-        }
+                return fetchResources;
+            }
     });
 }
+
+LoadBlazorScriptMethod(StartBlazor);
