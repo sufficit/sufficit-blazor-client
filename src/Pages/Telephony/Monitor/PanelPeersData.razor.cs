@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    public partial class PanelPeersData : IDisposable
+    public partial class PanelPeersData : ComponentBase, IDisposable
     {
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
