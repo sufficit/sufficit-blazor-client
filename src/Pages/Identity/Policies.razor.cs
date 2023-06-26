@@ -35,7 +35,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         [Inject]
         protected ISnackbar Snackbar { get; set; } = default!;
 
-        private string? Status { get; set; }
 
         protected bool Disabled => Status == null || Status.ToLowerInvariant() != "healthy";
 
@@ -56,6 +55,11 @@ namespace Sufficit.Blazor.Client.Pages.Identity
         protected MudTextField<string>? FilterTextFiled { get; set; }
 
         protected UserSearchTable? UserSearchTableReference { get; set; } = default;
+
+        private string Status
+            => Health?.Status ?? "Não disponível";
+
+        protected HealthResponse? Health { get; set; }
 
         protected async void OnTextChanged(string? value)
         {            
@@ -86,15 +90,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                 return;
 
             var statusPrevious = Status;
-            try
-            {
-                Status = (await BIService.Identity.Health())?.Status;
-            }
-            catch (Exception ex)
-            {
-                Status = "Não disponível";
-                Logger.LogError(ex, statusPrevious, ex.Message);
-            }
+            Health = await BIService.Identity.Health();            
 
             if (statusPrevious != Status) 
                 await InvokeAsync(StateHasChanged);

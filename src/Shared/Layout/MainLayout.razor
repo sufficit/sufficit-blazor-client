@@ -16,8 +16,9 @@
                 <AppBarDefault @bind-SideBarExtended="SideBarExtended"></AppBarDefault>            
                 <SideBarDrawer SideBarExtended="@SideBarExtended" />            
                 <MudMainContent Class="pt-16 px-md-16 bg-gray-100">
-                    <ExceptionControl></ExceptionControl>
-                    @Body
+                    <ExceptionControl>
+                        @Body
+                    </ExceptionControl>
                     <div class="fillheight"></div>
                     <FooterMaterial />
                 </MudMainContent>

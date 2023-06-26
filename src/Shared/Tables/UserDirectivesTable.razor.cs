@@ -17,6 +17,9 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;
 
+        [Inject]
+        protected ISnackbar Snackbar { get; set; } = default!;
+
         [Parameter]
         public uint Limit { get; set; } = 5;
 
@@ -27,7 +30,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public uint Minimum { get; set; } = 4;
 
         [Parameter]
-        public uint TimeOut { get; set; } = 4000;
+        public uint TimeOut { get; set; } = 10000;
 
         [Parameter]
         public string? Filter { get; set; }
@@ -102,7 +105,10 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                     var response = await BIService.GetUserPolicies(User, TokenSource.Token);
                     DataItems = response ?? Array.Empty<UserClaimPolicy>();
                 }
-                catch (TaskCanceledException) { DataItems = Array.Empty<UserClaimPolicy>(); }
+                catch (TaskCanceledException ex) {
+                    Snackbar.Add(ex.Message, Severity.Error);
+                    DataItems = Array.Empty<UserClaimPolicy>(); 
+                }
             } else { DataItems = Array.Empty<UserClaimPolicy>(); }
 
             return new TableData<UserClaimPolicy>() { Items = DataItems };

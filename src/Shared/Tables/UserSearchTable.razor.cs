@@ -34,7 +34,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public uint Minimum { get; set; } = 4;
 
         [Parameter]
-        public uint TimeOut { get; set; } = 4000;
+        public uint TimeOut { get; set; } = 10000;
 
         [Parameter]
         public string? Filter { get; set; }
@@ -97,7 +97,10 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                         var response = await BIService.Identity.Users.GetUsersAsync(Filter, 1, (int)Limit, TokenSource.Token);
                         DataItems = response?.Users ?? Array.Empty<User>();                       
                     }
-                    catch (TaskCanceledException) { DataItems = Array.Empty<User>(); }
+                    catch (TaskCanceledException ex) {
+                        Snackbar.Add(ex.Message, Severity.Error);
+                        DataItems = Array.Empty<User>(); 
+                    }
                 }
                 else DataItems = Array.Empty<User>();
             }

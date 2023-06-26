@@ -5,10 +5,21 @@
 @using Sufficit.Identity;
 @implements IDisposable
 
-@foreach(var ex in Exceptions.ViewExceptions(User.GetUserId()))
+@foreach (var ex in Exceptions.ViewExceptions(User.GetUserId()))
 {
     <MudAlert>@ex.Message</MudAlert>
 }
+
+<ErrorBoundary>
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+    <ErrorContent>
+        From ErrorBoundary
+        <MudAlert>@context.Message</MudAlert>
+    </ErrorContent>
+</ErrorBoundary>
+
 
 @code
 {
@@ -18,6 +29,9 @@
     [EditorRequired]
     [CascadingParameter]
     public UserPrincipal User { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
