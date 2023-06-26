@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sufficit.Client;
 using Sufficit.Identity;
 using Blazored.LocalStorage;
+using MudBlazor;
 
 namespace Sufficit.Blazor.Client
 {
@@ -39,7 +40,8 @@ namespace Sufficit.Blazor.Client
             services.AddAuthenticationCore();
             services.AddSufficitAuthentication();
             services.AddBlazoredLocalStorage();
-
+            
+            services.AddScoped<IScrollManager, ScrollManager>();
             services.AddScoped<IAuthService, WasmAuthService>();
             services.AddScoped<ITokenProvider, WasmTokenProvider>();
             services.ConfigureCommonServices(_builder.Configuration);
