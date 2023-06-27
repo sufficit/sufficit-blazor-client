@@ -12,6 +12,10 @@ namespace Sufficit.Blazor.Client.Shared
 {
     public partial class AppBarDefault : ComponentBase
     {
+        public EventCallback<ScrollEventArgs> OnScroll { get; set; }
+        public string classAppBar { get; set; } = "m-fadeIn";
+
+
         [Parameter]
         public bool SideBarExtended { get; set; }
 
@@ -30,6 +34,12 @@ namespace Sufficit.Blazor.Client.Shared
 
         [Inject]
         protected IDialogService DialogService { get; set; } = default!;
+
+        [Inject]
+        protected IScrollManager scrollManager { get; set; } = default!;
+
+        [Inject]
+        protected IScrollListener _scrollListener { get; set; } = default!;
 
         protected void Refresh(MouseEventArgs e)
         {
@@ -89,5 +99,36 @@ namespace Sufficit.Blazor.Client.Shared
             await Authentication.Login(returnUrl);
             await InvokeAsync(StateHasChanged);
         }
+
+        protected override void OnInitialized()
+        {
+            if (scrollManager == null) { return; }
+
+            _scrollListener.OnScroll += OnScrollEvent;
+        }
+
+        public void Dispose()
+        {
+            if (_scrollListener == null) { return; }
+
+            _scrollListener.OnScroll -= OnScrollEvent;
+            _scrollListener.Dispose();
+        }
+
+        private async void OnScrollEvent(object? sender, ScrollEventArgs e)
+        {
+            await OnScroll.InvokeAsync(e);
+
+            var topOffset = e.NodeName == "#document"
+                ? e.FirstChildBoundingClientRect.Top * -1
+                : e.ScrollTop;
+
+            Console.WriteLine($"Scroll: {topOffset}");
+
+            this.classAppBar = topOffset >= 10 ? "m-fadeOut" : "m-fadeIn";
+
+            await InvokeAsync(() => StateHasChanged());
+        }
+
     }
 }

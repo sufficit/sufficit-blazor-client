@@ -1,8 +1,6 @@
 ﻿@using Sufficit.Identity
-@inject IScrollManager scrollManager
-@inject IScrollListener _scrollListener;
 
-<MudAppBar Elevation="0" Class="bg-gray-100" Style="@this.classAppBar">
+<MudAppBar Elevation="0" Class="@($"bg-gray-100 {this.classAppBar}")">
     <AuthorizeView>
         <Authorized>
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
@@ -22,43 +20,3 @@
     </AuthorizeView>
     <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/sufficit" Target="_blank" />
 </MudAppBar>
-
-@code {
-    public EventCallback<ScrollEventArgs> OnScroll { get; set; }
-    
-    public string classAppBar { get; set; } = "display: block";
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (scrollManager == null) { return; }
-
-        _scrollListener.OnScroll += OnScrollEvent;
-    }
-
-    public void Dispose()
-    {
-        if (_scrollListener == null) { return; }
-
-        _scrollListener.OnScroll -= OnScrollEvent;
-        _scrollListener.Dispose();
-    }
-
-    private async void OnScrollEvent(object? sender, ScrollEventArgs e)
-    {
-        await OnScroll.InvokeAsync(e);
-
-        var topOffset = e.NodeName == "#document"
-            ? e.FirstChildBoundingClientRect.Top * -1
-            : e.ScrollTop;
-
-        //Console.WriteLine($"Scroll: {topOffset}");
-
-        if (topOffset >= 50)
-            classAppBar = "display: none";
-        else
-            classAppBar = "display: block";
-
-        await InvokeAsync(() => StateHasChanged());
-    }
-
-}
