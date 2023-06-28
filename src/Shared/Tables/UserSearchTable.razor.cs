@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
 using Sufficit.Identity.Client;
@@ -52,11 +51,9 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         /// <summary>
         /// Update filter parameter and reload server data
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public async Task SetFilter(string? value)
         {
-            if(Filter != value)
+            if (Filter != value)
             {
                 Filter = value;
 

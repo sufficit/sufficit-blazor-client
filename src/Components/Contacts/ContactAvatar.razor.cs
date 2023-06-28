@@ -30,7 +30,7 @@ namespace Sufficit.Blazor.Client.Components.Contacts
 
         private string style => "background-color: white; vertical-align: middle;";
 
-        protected string? Style =>
+        protected string Style =>
             MaxDiameter != null ? $"{style} max-width: {MaxDiameter}px; max-height: {MaxDiameter}px;" : style;
 
         protected string SourceUrl => $"{Options.Value.AvatarPath}?contextid={ReferenceId}";

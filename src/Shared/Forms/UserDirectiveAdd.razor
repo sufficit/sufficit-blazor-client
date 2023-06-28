@@ -11,16 +11,8 @@
                          @bind-Value="@Contact" />
     </MudItem>
     <MudItem xs="12" sm="6" md="2">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnAddClick" Disabled="@Saving" FullWidth="true">
-            @if (Saving)
-            {
-                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
-                <MudText Class="ms-2">Salvando</MudText>
-            }
-            else
-            {
-                <MudText>Adicionar</MudText>
-            }
-        </MudButton>
+        <MudButtonEnchanted Variant="Variant.Filled" Color="Color.Primary" OnClick="OnAddClick" FullWidth="true">
+            <MudText>Adicionar</MudText>
+        </MudButtonEnchanted>
     </MudItem>
 </MudGrid>

@@ -14,6 +14,9 @@ namespace MudBlazor
             if (!GetDisabledState())
             {
                 IsLoading = true;
+                await InvokeAsync(StateHasChanged);
+
+                // normal handling
                 await base.OnClickHandler(ev);
                 IsLoading = false;
             }
