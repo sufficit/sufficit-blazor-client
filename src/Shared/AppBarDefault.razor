@@ -1,6 +1,6 @@
-﻿@using Sufficit.Identity
+﻿@implements IDisposable
 
-<MudAppBar Elevation="0" Class="bg-gray-100">
+<MudAppBar Elevation="0" Style="@AppBarStyle">
     <AuthorizeView>
         <Authorized>
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
@@ -18,5 +18,5 @@
             <MudIconButton Icon="@Icons.Material.Filled.Login" OnClick="LogIn" />
         </NotAuthorized>
     </AuthorizeView>
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Link="https://github.com/sufficit" Target="_blank" />
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/sufficit" Target="_blank" />
 </MudAppBar>
