@@ -123,9 +123,9 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                     await BIService.RemoveUserPolicy(User, id.Value, default);
                     DataBind();
                 }
-                else throw new Exception("no user selected");
+                else Snackbar.Add("no user selected", Severity.Error);
             }
-            else throw new Exception("id not recognized");
+            else Snackbar.Add("id not recognized", Severity.Error);
         }
 
         /*
