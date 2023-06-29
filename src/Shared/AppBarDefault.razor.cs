@@ -1,21 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.JSInterop;
 using MudBlazor;
 using Sufficit.Identity;
-using Sufficit.Sales;
 using System;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Shared
 {
-    public partial class AppBarDefault : ComponentBase
+    public partial class AppBarDefault : ComponentBase, IDisposable
     {
-        public EventCallback<ScrollEventArgs> OnScroll { get; set; }
-        public string classAppBar { get; set; } = "m-fadeIn";
-
-
         [Parameter]
         public bool SideBarExtended { get; set; }
 
@@ -36,10 +30,7 @@ namespace Sufficit.Blazor.Client.Shared
         protected IDialogService DialogService { get; set; } = default!;
 
         [Inject]
-        protected IScrollManager scrollManager { get; set; } = default!;
-
-        [Inject]
-        protected IScrollListener _scrollListener { get; set; } = default!;
+        protected IScrollListener ScrollListener { get; set; } = default!;
 
         protected void Refresh(MouseEventArgs e)
         {
@@ -100,35 +91,57 @@ namespace Sufficit.Blazor.Client.Shared
             await InvokeAsync(StateHasChanged);
         }
 
-        protected override void OnInitialized()
+        protected override void OnAfterRender(bool firstRender)
         {
-            if (scrollManager == null) { return; }
+            if (!firstRender) return;
 
-            _scrollListener.OnScroll += OnScrollEvent;
+            ScrollListener.OnScroll += OnScrollEvent;
         }
 
         public void Dispose()
         {
-            if (_scrollListener == null) { return; }
-
-            _scrollListener.OnScroll -= OnScrollEvent;
-            _scrollListener.Dispose();
+            if (ScrollListener != null)
+            {
+                ScrollListener.OnScroll -= OnScrollEvent;
+                ScrollListener.Dispose();
+            }
         }
+
+        protected string? AppBarStyle { get; set; }
+        double lastMaxPosition = 0;
+        double lastFixedPosition = 0;
+        double lastScrollTop = 0;
 
         private async void OnScrollEvent(object? sender, ScrollEventArgs e)
         {
-            await OnScroll.InvokeAsync(e);
+            int scrollPosition = e.NodeName == "#document"
+                ? (int)(e.FirstChildBoundingClientRect.Top * -1) : (int)e.ScrollTop;
+                       
+            double opacity = 0;
+            if (scrollPosition < lastScrollTop)
+            {
+                lastFixedPosition = scrollPosition;
+                opacity = - (scrollPosition - lastMaxPosition) / 100;
+            }
+            else
+            {
+                lastMaxPosition = scrollPosition;
+                opacity = 1 - (scrollPosition - lastFixedPosition) / 100;
+            }
 
-            var topOffset = e.NodeName == "#document"
-                ? e.FirstChildBoundingClientRect.Top * -1
-                : e.ScrollTop;
+            // Normalizing opacity to css format
+            if (opacity < 0) opacity = 0;
+            else if (opacity > 1) opacity = 1;
 
-            Console.WriteLine($"Scroll: {topOffset}");
+            AppBarStyle = $"opacity: {opacity}; ";            
+            if (opacity > 0)
+                AppBarStyle += "display: flex;";
+            else
+                AppBarStyle += "display: none;";
 
-            this.classAppBar = topOffset >= 10 ? "m-fadeOut" : "m-fadeIn";
-
-            await InvokeAsync(() => StateHasChanged());
+            // Console.WriteLine($"scroll: {e.FirstChildBoundingClientRect.Top} => {scrollPosition} => {AppBarStyle}");
+            lastScrollTop = scrollPosition;
+            await InvokeAsync(StateHasChanged);
         }
-
     }
 }

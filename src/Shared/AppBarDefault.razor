@@ -1,6 +1,6 @@
-﻿@using Sufficit.Identity
+﻿@implements IDisposable
 
-<MudAppBar Elevation="0" Class="@($"bg-gray-100 {this.classAppBar}")">
+<MudAppBar Elevation="0" Style="@AppBarStyle">
     <AuthorizeView>
         <Authorized>
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
