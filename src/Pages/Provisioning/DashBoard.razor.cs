@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Provisioning
 {
@@ -62,5 +63,25 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
             IsLoading = false;
             await InvokeAsync(StateHasChanged);
         }
+
+
+        private string searchString1 = "";
+        private bool FilterFunc1(Sufficit.Telephony.Device element) => FilterFunc(element, searchString1);
+        private bool FilterFunc(Sufficit.Telephony.Device element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.MACAddress.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.IPAddress.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            //if (element.ExtensionId.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             //   return true;
+            //if ($"{element.Number} {element.Position} {element.Molar}".Contains(searchString))
+            //    return true;
+            return false;
+        }
+
+
     }
 }

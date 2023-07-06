@@ -12,7 +12,13 @@
             <MudCardContent>
                 @if (Items != null)
                 {
-                    <MudTable Items="Items.OrderByDescending(s => s.Timestamp)" Breakpoint="Breakpoint.Sm" Hover Class="my-3">
+                    <MudTable Items="Items.OrderBy(s => s.ContextId)" Breakpoint="Breakpoint.Sm" Hover Class="my-3" Filter="new Func<Sufficit.Telephony.Device,bool>(FilterFunc1)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">@this.Description</MudText>
+                            <MudSpacer />
+                            <MudTextField T="string" @bind-Value="searchString1" onchange="@this.FilterFunc1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+
                         <RowTemplate>
                             <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
                             <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
@@ -41,6 +47,10 @@
                                 </MudLink>
                             </MudTd>
                         </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }" />
+                        </PagerContent>
+
                     </MudTable>
                 }
                 else
