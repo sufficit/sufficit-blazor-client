@@ -1,33 +1,131 @@
 ﻿<MudGrid>
-    <MudItem xs="6">
-        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher microfone" Variant="Variant.Text">
-            @foreach (var device in @AudioInputDevices)
+    <MudItem xs="7">
+        <MudSelect Label="Escolher Microfone" Variant="Variant.Text" Class="" Dense="true" Margin="Margin.Dense" AnchorOrigin="Origin.BottomCenter" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.PermCameraMic" AdornmentColor="Color.Default"
+                   T="DeviceSelect" ValueChanged="DeviceMicrofoneSelectChanged">
+            @foreach (var device in AudioInputDevices)
             {
-                <MudSelectItem Value="@(@device.Label)" OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, device.ID)" />
+                <MudSelectItem OnClick="()=> JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, device.ID)" Value="@(new DeviceSelect(device.ID))">@device.Label</MudSelectItem>
             }
         </MudSelect>
+
     </MudItem>
-    <MudItem xs="6">
-        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher auto-falante" Variant="Variant.Text">
-            @foreach (var device in @AudioOutputDevices)
+    <MudItem xs="7">
+        <MudSelect Label="Escolher auto-falante" Variant="Variant.Text" Class="" Dense="true" Margin="Margin.Dense" AnchorOrigin="Origin.BottomCenter" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.SurroundSound" AdornmentColor="Color.Default"
+                   T="DeviceSelect" ValueChanged="DeviceAutoFalanteSelectChanged">
+            @foreach (var device in AudioOutputDevices)
             {
-                <MudSelectItem OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, device.ID)" Value="@(@device.Label)" />
+                <MudSelectItem OnClick="()=> JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, device.ID)" Value="@(new DeviceSelect(device.ID))">@device.Label</MudSelectItem>
             }
         </MudSelect>
+
     </MudItem>
-    <MudItem md="6">
-        <MudSelect Margin="Margin.Dense" T="string" Label="Escolher câmera" Variant="Variant.Text">
+    <MudItem md="7">
+
+        <MudSelect Label="Escolher câmera" Variant="Variant.Text" Class="" Dense="true" Margin="Margin.Dense" AnchorOrigin="Origin.BottomCenter" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Videocam" AdornmentColor="Color.Default"
+                   T="DeviceSelect" ValueChanged="DeviceCameraSelectChanged">
             @foreach (var device in VideoInputDevices)
             {
-                <MudSelectItem OnClick="() => JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, device.ID)" Value="@(@device.Label)" />
+                <MudSelectItem OnClick="()=> {JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, device.ID);}" Value="@(new DeviceSelect(device.ID))">@device.Label</MudSelectItem>
             }
         </MudSelect>
+
     </MudItem>
 </MudGrid>
 
 @code {
+    [Parameter] public string SessionKey { get; set; }
+
     [Parameter] public IEnumerable<JsSIPMediaDevice> AudioInputDevices { get; set; }
     [Parameter] public IEnumerable<JsSIPMediaDevice> AudioOutputDevices { get; set; }
     [Parameter] public IEnumerable<JsSIPMediaDevice> VideoInputDevices { get; set; }
     [Parameter] public JsSIPService JsSIPService { get; set; }
+
+    private string _deviceIDMicroFone = string.Empty;
+    private string _deviceIDAutoFalante = string.Empty;
+    private string _deviceIDCamera = string.Empty;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        this.LoadConfigDeviceAsync();
+    }
+
+    public void LoadConfigDeviceAsync()
+    {
+        Console.WriteLine($"LoadConfigDeviceAsync");
+
+        //MicroFone: [typeKind]: AUDIOOUTPUT - [device]: 44db0cb42f5d7ea48edae8e15025f81cff31a1ee843690e323f2c05960eb9934
+        //Auto-Falante: [typeKind]: AUDIOOUTPUT - [device]: 3b0c734512bcb6cf04d4544a6703d0f2c59e72025e860a098fa911619f159dd9
+        //Camera: [typeKind]: VIDEOINPUT - [device]: 18c77ef9e62b4dff841188d16d4f211dcc8c124f27f26d3df9909fe1acdb7782
+
+        //Microfone
+        this._deviceIDMicroFone = "44db0cb42f5d7ea48edae8e15025f81cff31a1ee843690e323f2c05960eb9934";
+        JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOINPUT, this._deviceIDMicroFone);
+
+        //Camera
+        this._deviceIDCamera = "18c77ef9e62b4dff841188d16d4f211dcc8c124f27f26d3df9909fe1acdb7782";
+        JsSIPService.Devices.Update(JsSIPMediaDeviceKind.VIDEOINPUT, this._deviceIDCamera);
+
+        //Auto-Falante  TODO: dadndo erro para setar por padrao no LOAD
+        this._deviceIDAutoFalante = "3b0c734512bcb6cf04d4544a6703d0f2c59e72025e860a098fa911619f159dd9";
+        if (AudioOutputDevices.Any(s => s.ID == _deviceIDAutoFalante))        
+            JsSIPService.Devices.Update(JsSIPMediaDeviceKind.AUDIOOUTPUT, this._deviceIDAutoFalante);
+
+        //await InvokeAsync(StateHasChanged);
+    }
+
+    public async void RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind typeKind, string deviceId)
+    {        
+        Console.WriteLine($"RegistrarConfigDeviceAsync: [SessionKey]: {SessionKey} - [typeKind]: {typeKind} - [device]: {deviceId}");
+    }
+
+    public void DeviceMicrofoneSelectChanged(object? value)
+    {
+        this._deviceIDMicroFone = (value ?? string.Empty).ToString();
+        //Console.WriteLine("DeviceMicrofoneSelectChanged:" + _deviceIDMicroFone);
+        if (!string.IsNullOrEmpty(this._deviceIDMicroFone))
+            RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.AUDIOINPUT, this._deviceIDMicroFone);
+    }
+
+    public void DeviceAutoFalanteSelectChanged(object? value)
+    {
+        this._deviceIDAutoFalante = (value ?? string.Empty).ToString();
+        //Console.WriteLine("DeviceAutoFalanteSelectChanged:" + _deviceIDAutoFalante);
+        if (!string.IsNullOrEmpty(this._deviceIDAutoFalante))
+            RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.AUDIOOUTPUT, this._deviceIDAutoFalante);
+    }
+
+    public void DeviceCameraSelectChanged(object? value)
+    {
+        this._deviceIDCamera = (value ?? string.Empty).ToString();
+        //Console.WriteLine("DeviceCameraSelectChanged:" + _deviceIDCamera);
+        if (!string.IsNullOrEmpty(this._deviceIDCamera))
+            RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.VIDEOINPUT, this._deviceIDCamera);
+    }  
+
+
+    public class DeviceSelect
+    {
+        public DeviceSelect(string name)
+        {
+            Name = name;
+        }
+
+        public readonly string Name;
+
+        // Note: this is important so the MudSelect can compare DeviceSelect
+        public override bool Equals(object o)
+        {
+            var other = o as DeviceSelect;            
+            return other?.Name == Name;
+        }
+
+        // Note: this is important too!
+        public override int GetHashCode() => Name?.GetHashCode() ?? 0;
+
+        // Implement this for the DeviceSelect to display correctly in MudSelect
+        public override string ToString() => Name;
+    }
+
+
 }
