@@ -70,7 +70,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 var responseTest = await JsSIPService.TestDevices(new Sufficit.Telephony.JsSIP.Methods.TestDevicesRequest() { Audio = true, Video = true });
                 Logger.LogWarning("testing devices status: {success}, message: {message}", responseTest.Success, responseTest.Message);
 
-                JsSIPService.OnChanged += (sender, args) => StateHasChanged();
+                JsSIPService.OnChanged += ServiceChanged;
                 if (string.IsNullOrWhiteSpace(JsSIPService.Status))
                 {
                     var userid = User.GetUserId();
@@ -87,6 +87,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 MediaDevices = await JsSIPService.MediaDevices();
             }
         }
+
+        protected async void ServiceChanged(object? sender, EventArgs args)
+            => await InvokeAsync(StateHasChanged);
+        
 
         protected async Task CallStart(string? destination)
         {
