@@ -1,4 +1,8 @@
-﻿.suff-toggle-drawer-xs {
+﻿html, html > body, html > body > div#app {
+    height: 100%;
+}
+
+.suff-toggle-drawer-xs {
     position: fixed;
     bottom: 2em;
     width: 100%;

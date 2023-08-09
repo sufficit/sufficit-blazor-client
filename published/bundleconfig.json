@@ -1,0 +1,10 @@
+[
+  {
+    "outputFileName": "wwwroot/jssip-service.min.js",
+    "inputFiles": [ "wwwroot/jssip-service.js" ]
+  },
+  {
+    "outputFileName": "wwwroot/jssip-sessions.min.js",
+    "inputFiles": [ "wwwroot/jssip-sessions.js" ]
+  }
+]

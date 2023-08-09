@@ -1,22 +1,25 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
 
     <title>Sufficit Blazor</title>
 
     <!-- setting internal root path -->
     <base href="/" />
 
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="assets/img/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/img/logos/logotipo-512x512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/img/logos/logotipo-192x192.png" />
+
+    <link rel="icon" type="image/png" href="assets/img/icons/favicon.ico" />
 
     <link href="manifest.json" rel="manifest" />
     <!-- CSS Files -->
     <!-- <link href="Sufficit.Blazor.Client.styles.css" rel="stylesheet" /> -->
     <link href="assets/css/sufficit.css" rel="stylesheet" />
+    <link href="assets/css/loading-screen.css" rel="stylesheet" />
     <link href="_content/Sufficit.Telephony.EventsPanel.Components/assets/css/eventspanel.min.css" rel="stylesheet" />
 
     <!-- MudBlazor -->
@@ -32,35 +35,20 @@
 </head>
 
 <body class="bg-gray-200">
-    <component id="app">
-        <div class="page-header align-items-start min-vh-100">
-            <div class="progress" style="position: fixed; width: 100%;">
-                <div id="progressbar" class="progress-bar bg-primary" role="progressbar"></div>
-            </div>
-            <div class="container my-auto">
-                <div class="row">
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto align-items-center justify-content-center d-none" id="progress">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="spinner-grow text-danger" role="status"></div>
-                        </div>
-                        <h5 class="font-weight-normal mt-3 text-center">
-                            <span id="progressstatus"></span> %
-                        </h5>
-                        <p class="mb-0 text-center" id="progressmsg"></p>
-                    </div>
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto text-center align-items-center justify-content-center d-block" id="pssuccess">
-                        <a class="blur-shadow-image">
-                            <img src="assets/img/logos/logo.png" alt="img-blur-shadow" class="img-fluid shadow p-3 border-radius-lg">
-                        </a>
-                    </div>
-
-                    <hr class="horizontal dark mt-5 mb-2">
-                    <h3 class="font-weight-normal text-center m-0" style="font-variant: small-caps;">Sufficit</h3>
-                    <small class="font-weight-light text-center">soluções em tecnologia da informação</small>
+    <div id="app">
+        <div id="splash-progress" role="progressbar"></div> 
+        <div id="splash">            
+            <div>
+                <div id="splash-card">
+                    <img src="assets/img/logos/logo.png" alt="sufficit logo">
                 </div>
-            </div>
+
+                <hr class="mud-divider mud-divider-middle my-6" />
+                <span id="splash-status">sufficit</span>
+                <span id="splash-message">soluções em tecnologia da informação</span>
+            </div>            
         </div>
-    </component>
+    </div>
 
     <div id="blazor-error-ui" style="display: none;">
         <div role="alert" class="mud-alert mud-alert-filled-error mud-dense mud-elevation-3 my-2 py-2">
@@ -92,9 +80,10 @@
         </div>
     </div>
 
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js" defer></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
 
 </body>
 </html>

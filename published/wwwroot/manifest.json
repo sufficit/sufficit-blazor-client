@@ -1,7 +1,8 @@
 {
   "short_name": "Sufficit Blazor",
+  "id": "Sufficit Blazor Applications",
   "name": "Sufficit Blazor Applications",
-  "start_url": "/",
+  "start_url": "./",
   "icons": [
     {
       "src": "assets/img/icons/icon-sufficit-960.png",
