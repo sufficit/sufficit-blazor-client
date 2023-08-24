@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Contacts;
@@ -22,6 +23,13 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 
         protected override string Description => "Provisioning Manager";
 
+        [Parameter]
+        public uint Limit { get; set; } = 25;
+
+        [Parameter]
+        public uint TimeOut { get; set; } = 1500;
+
+        [Parameter]
         public uint PageSize { get; set; } = 25;
 
         [Inject]
@@ -34,51 +42,59 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         [CascadingParameter]
         protected UserPrincipal User { get; set; } = default!;
 
-        /// <summary>
-        /// Used to show loading messages
-        /// </summary>
-        protected bool IsLoading { get; set; }
-                
-        protected IEnumerable<Sufficit.Telephony.Device>? Items { get; set; }
+        [EditorRequired]
+        protected MudTable<Sufficit.Telephony.Device>? Table { get; set; } = default!;
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (!firstRender) return;
+        [EditorRequired]
+        protected string FilterText { get; set; } = string.Empty;
 
-            await GetItems(CancellationToken.None);
+        protected IEnumerable<Sufficit.Telephony.Device> Items { get; set; } = Array.Empty<Sufficit.Telephony.Device>();
+
+
+        CancellationTokenSource? TokenSource;
+        protected async Task<TableData<Sufficit.Telephony.Device>> GetData(TableState _)
+        {            
+            if (TokenSource != null)
+                TokenSource.Cancel(false);
+
+            var parameters = new DeviceSearchParameters();
+            if (!string.IsNullOrWhiteSpace(FilterText)) 
+                parameters.Filter = FilterText;
+            parameters.Limit = PageSize;
+
+            TokenSource = new CancellationTokenSource((int)TimeOut);
+            Items = await APIClient.Provisioning.Search(parameters, TokenSource.Token);            
+
+            return new TableData<Sufficit.Telephony.Device>() { Items = Items.OrderBy(s => s.ContextId) };
         }
 
-        protected async Task GetItems(CancellationToken cancellationToken)
+        protected async Task OnFilterChanged(string text)
         {
-            IsLoading = true;
-            //try
+            FilterText = text;
+
+            if (Table != null)
+                await Table.ReloadServerData();
+        }
+
+        private bool FilterFunc(Sufficit.Telephony.Device element)
+        {
+            if (string.IsNullOrWhiteSpace(FilterText))
+                return true;
+
+            if (Guid.TryParse(FilterText, out var id))
             {
-                var parameters = new DeviceSearchParameters();
-                parameters.Limit = PageSize;
-
-                await InvokeAsync(StateHasChanged);
-                Items = await APIClient.Provisioning.Search(parameters, cancellationToken);
+                if (element.ExtensionId == id || element.ContextId == id)
+                    return true;
             }
-            //catch (Exception ex){ Exceptions.Append(User.GetUserId(), ex); }
-            IsLoading = false;
-            await InvokeAsync(StateHasChanged);
-        }
-
-
-        private string searchString1 = "";
-        private bool FilterFunc1(Sufficit.Telephony.Device element) => FilterFunc(element, searchString1);
-        private bool FilterFunc(Sufficit.Telephony.Device element, string searchString)
-        {
-            if (string.IsNullOrWhiteSpace(searchString))
-                return true;
-            if (element.MACAddress.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if (element.IPAddress.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            //if (element.ExtensionId.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             //   return true;
-            //if ($"{element.Number} {element.Position} {element.Molar}".Contains(searchString))
-            //    return true;
+            else
+            {
+                if (element.MACAddress.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                    return true;
+              
+                if (element.IPAddress != null && element.IPAddress.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            
             return false;
         }
 
