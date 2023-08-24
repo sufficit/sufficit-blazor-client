@@ -10,44 +10,60 @@
                 <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
             </MudCardHeader>
             <MudCardContent>
-                @if (Items != null)
-                {
-                    <MudTable Items="Items.OrderByDescending(s => s.Timestamp)" Breakpoint="Breakpoint.Sm" Hover Class="my-3">
-                        <RowTemplate>
-                            <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
-                            <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
-                            <MudTd DataLabel="ContextId">
-                                @if (context.ContextId.HasValue)
-                                {
-                                    <MudStack Row="true">
-                                        <MudItem>
-                                            <ContactAvatar ReferenceId="@context.ContextId.Value" />
-                                        </MudItem>
-                                        <MudItem>
-                                            <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
-                                                <ContactTitle ReferenceId="@context.ContextId.Value" />
-                                            </MudText>
-                                        </MudItem>
-                                    </MudStack>
-                                }
+                
+                <MudTable @ref="Table"
+                    Breakpoint="Breakpoint.Sm" Hover Class="my-3"
+                    T="Sufficit.Telephony.Device"
+                    ServerData="GetData" 
+                    LoadingProgressColor="Color.Info">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">@this.Description</MudText>
+                        <MudSpacer />
+                         <MudTextField T="string" Value="FilterText" ValueChanged="OnFilterChanged" Immediate="true" Placeholder="Texto para filtrar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>                    
+                    <RowTemplate>
+                        <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
+                        <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
+                        <MudTd DataLabel="ContextId">
+                            @if (context.ContextId.HasValue)
+                            {
+                                <MudStack Row="true">
+                                    <MudItem>
+                                        <ContactAvatar ReferenceId="@context.ContextId.Value" />
+                                    </MudItem>
+                                    <MudItem>
+                                        <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
+                                            <ContactTitle ReferenceId="@context.ContextId.Value" />
+                                        </MudText>
+                                    </MudItem>
+                                </MudStack>
+                            }
+                        </MudTd>
+                        <MudTd DataLabel="ExtensionId">
+                            <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
                             </MudTd>
-                            <MudTd DataLabel="ExtensionId">
-                                <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
-                             </MudTd>
-                            <MudTd DataLabel="Timestamp">@context.Timestamp</MudTd>
-                            <MudTd DataLabel="Ação">
-                                <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">
-                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
-                                </MudLink>
-                            </MudTd>
-                        </RowTemplate>
-                    </MudTable>
-                }
-                else
-                {
-                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
-                    </MudSkeleton>
-                }
+                        <MudTd DataLabel="Timestamp">@context.Timestamp</MudTd>
+                        <MudTd DataLabel="Ação">
+                            <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                            </MudLink>
+                        </MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }" />
+                    </PagerContent>
+                    <NoRecordsContent>
+                        @if (!string.IsNullOrWhiteSpace(FilterText))
+                        {
+                            <MudText>Nenhum resultado encontrado para (@FilterText) ! ...</MudText>
+                        }
+                        else
+                        {
+                            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+                        }
+                    </NoRecordsContent>
+                </MudTable>
+                
             </MudCardContent>
         </MudCard>          
     </MudItem>

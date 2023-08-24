@@ -56,15 +56,16 @@ namespace Sufficit.Blazor.Client.Shared
         {
             await base.OnParametersSetAsync();
 
-            if(_filter != Filter) {
+            if (_filter != Filter) {
                 _filter = Filter;
                 
-                if(Table != null) 
+                if (Table != null) 
                     await Table.ReloadServerData();
 
                 await FilterChanged.InvokeAsync();
             }
         }
+
         protected async Task<TableData<IClient>> GetData(TableState _)
         {
             // only filter if text is set

@@ -3,6 +3,7 @@
 @using Sufficit.Client
 @using Sufficit.Telephony
 @using Sufficit.Blazor.Client.Models
+@using System.Threading;
 @inherits TelephonyBasePageComponent 
 
 @if (View.ContextId == Guid.Empty)
@@ -104,7 +105,7 @@
 
             try
             {
-                CallList = await Service.Telephony.CallSearchAsync(parameters);                
+                CallList = await Service.Telephony.CallSearchAsync(parameters, CancellationToken.None);                
             }
             catch (UnauthorizedAccessException)
             {
