@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
@@ -23,6 +24,10 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 
         protected override string Description => "Provisioning Manager";
 
+        [Parameter, SupplyParameterFromQuery(Name = "filter")]
+        [EditorRequired]
+        public string? FilterParameter { get; set; }
+
         [Parameter]
         public uint Limit { get; set; } = 25;
 
@@ -35,9 +40,6 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
 
-        [Inject]
-        private ExceptionControlService Exceptions { get; set; } = default!;
-
         [EditorRequired]
         [CascadingParameter]
         protected UserPrincipal User { get; set; } = default!;
@@ -46,10 +48,21 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         protected MudTable<Sufficit.Telephony.Device>? Table { get; set; } = default!;
 
         [EditorRequired]
-        protected string FilterText { get; set; } = string.Empty;
+        protected bool CanFilter => string.IsNullOrWhiteSpace(FilterParameter);
+
+        /// <summary>
+        ///     Internal filter text
+        /// </summary>
+        [EditorRequired]
+        protected string? Filter { get; set; }
 
         protected IEnumerable<Sufficit.Telephony.Device> Items { get; set; } = Array.Empty<Sufficit.Telephony.Device>();
 
+        protected override void OnParametersSet()
+        {
+            if (!string.IsNullOrWhiteSpace(FilterParameter))
+                Filter = FilterParameter;
+        }
 
         CancellationTokenSource? TokenSource;
         protected async Task<TableData<Sufficit.Telephony.Device>> GetData(TableState _)
@@ -58,46 +71,29 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
                 TokenSource.Cancel(false);
 
             var parameters = new DeviceSearchParameters();
-            if (!string.IsNullOrWhiteSpace(FilterText)) 
-                parameters.Filter = FilterText;
             parameters.Limit = PageSize;
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                parameters.Order = new OrderBy() { Property = nameof(Sufficit.Telephony.Device.ContextId) };
+                parameters.Filter = Filter;
+            }
+            else
+            {
+                parameters.Order = new OrderBy() { Property = nameof(Sufficit.Telephony.Device.Timestamp), Descending = true };
+            }
 
             TokenSource = new CancellationTokenSource((int)TimeOut);
-            Items = await APIClient.Provisioning.Search(parameters, TokenSource.Token);            
+            Items = await APIClient.Provisioning.Search(parameters, TokenSource.Token);
 
-            return new TableData<Sufficit.Telephony.Device>() { Items = Items.OrderBy(s => s.ContextId) };
+            return new TableData<Sufficit.Telephony.Device>() { Items = this.Items };
         }
 
         protected async Task OnFilterChanged(string text)
         {
-            FilterText = text;
+            Filter = text;
 
             if (Table != null)
                 await Table.ReloadServerData();
         }
-
-        private bool FilterFunc(Sufficit.Telephony.Device element)
-        {
-            if (string.IsNullOrWhiteSpace(FilterText))
-                return true;
-
-            if (Guid.TryParse(FilterText, out var id))
-            {
-                if (element.ExtensionId == id || element.ContextId == id)
-                    return true;
-            }
-            else
-            {
-                if (element.MACAddress.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
-                    return true;
-              
-                if (element.IPAddress != null && element.IPAddress.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
-                    return true;
-            }
-            
-            return false;
-        }
-
-
     }
 }
