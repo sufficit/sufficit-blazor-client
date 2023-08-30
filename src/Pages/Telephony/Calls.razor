@@ -105,7 +105,11 @@
 
             try
             {
+<<<<<<< HEAD
                 CallList = await Service.Telephony.CallSearchAsync(parameters, CancellationToken.None);                
+=======
+                CallList = await Service.Telephony.CallSearchAsync(parameters, System.Threading.CancellationToken.None);                
+>>>>>>> task-telephony-web
             }
             catch (UnauthorizedAccessException)
             {
