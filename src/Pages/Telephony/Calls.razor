@@ -104,7 +104,7 @@
 
             try
             {
-                CallList = await Service.Telephony.CallSearchAsync(parameters);                
+                CallList = await Service.Telephony.CallSearchAsync(parameters, System.Threading.CancellationToken.None);                
             }
             catch (UnauthorizedAccessException)
             {
