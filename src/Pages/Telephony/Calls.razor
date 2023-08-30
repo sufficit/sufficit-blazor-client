@@ -11,9 +11,9 @@
     <ClientMissing></ClientMissing>
 }
 
-@if (!string.IsNullOrWhiteSpace(error))
+@if (!string.IsNullOrWhiteSpace(Error))
 {
-    <div class="card card-error">@error</div>
+    <div class="card card-error">@Error</div>
 }
 
 @if (CallList != null) {
@@ -76,7 +76,7 @@
 
     protected IEnumerable<ICallRecordBasic>? CallList;
 
-    private string error;
+    private string? Error;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -95,7 +95,7 @@
     protected async Task Filter(Guid ContextId)
     {
         CallList = null;
-        error = string.Empty;
+        Error = string.Empty;
 
         if (ContextId != Guid.Empty)
         {
@@ -105,19 +105,15 @@
 
             try
             {
-<<<<<<< HEAD
-                CallList = await Service.Telephony.CallSearchAsync(parameters, CancellationToken.None);                
-=======
-                CallList = await Service.Telephony.CallSearchAsync(parameters, System.Threading.CancellationToken.None);                
->>>>>>> task-telephony-web
+                CallList = await Service.Telephony.CallSearchAsync(parameters, CancellationToken.None);     
             }
             catch (UnauthorizedAccessException)
             {
-                error = "Não autorizado";
+                Error = "Não autorizado";
             }
             catch (Exception ex)
             {
-                error = ex.Message;
+                Error = ex.Message;
             }
         }
 
