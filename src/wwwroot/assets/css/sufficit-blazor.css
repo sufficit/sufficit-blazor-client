@@ -1,0 +1,82 @@
+﻿#splash-progress {
+  height: 4px;
+  background-color: #e97715;
+  top: 0;
+  position: fixed;
+  left: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+#splash {
+  max-width: 700px;
+  height: auto;
+  line-height: 50px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "serif";
+  letter-spacing: 1px;
+  text-transform: none;
+  font-variant: small-caps;
+}
+
+#splash hr {
+  border-color: #e0e0e0;
+}
+
+#splash #splash-status {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.167;
+  display: block;
+}
+
+#splash #splash-message {
+  font-size: 1rem;
+  font-weight: 100;
+  line-height: 1.167;
+  display: block;
+}
+
+#splash div#splash-card {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  width: 125px;
+  height: 115px;
+  background-color: white;
+  border-radius: 0.5rem;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 2px 4px -1px rgba(200, 200, 200, 0.2), 0px 4px 5px 0px rgba(200, 200, 200, 0.14), 0px 1px 10px 0px rgba(200, 200, 200, 0.12);
+}
+
+#splash div#splash-card img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+html, html > body, html > body > div#app {
+  height: 100%;
+}
+
+.suff-toggle-drawer-xs {
+  position: fixed;
+  bottom: 2em;
+  width: 100%;
+  display: flex;
+  padding-right: 2em;
+  justify-content: flex-end;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
