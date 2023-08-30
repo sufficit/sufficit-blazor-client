@@ -5,8 +5,11 @@ using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 using System.Threading;
+=======
+>>>>>>> monitor-peers
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
@@ -15,7 +18,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
-        protected Exception? ErrorConfig { get; set; }
+          protected Exception? ErrorConfig { get; set; }
 
         [EditorRequired]
         protected MudTable<PeerInfo>? Table { get; set; } = default!;
@@ -26,7 +29,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         public string? MaxSelected { get; internal set; }
 
+<<<<<<< HEAD
         public int Counter => EPService.Peers.Count;
+=======
+        public IList<PeerInfoMonitor> Items => EPService.Peers.ToList<PeerInfoMonitor>();    
+>>>>>>> monitor-peers
 
         public IList<PeerInfoMonitor> Items => EPService.Peers.ToList();    
 
@@ -43,12 +50,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             }            
         }
 
+<<<<<<< HEAD
         protected async Task<TableData<Sufficit.Telephony.EventsPanel.PeerInfo>> GetData(TableState _)
         {
             await Task.Yield();
             return new TableData<Sufficit.Telephony.EventsPanel.PeerInfo>() { Items = GetItems() };
         }
 
+=======
+>>>>>>> monitor-peers
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
