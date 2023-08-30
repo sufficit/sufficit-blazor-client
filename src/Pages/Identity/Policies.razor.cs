@@ -46,7 +46,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
 
         [Parameter]
         [SupplyParameterFromQuery]
-        public Guid UserID { get; set; }
+        public Guid UserId { get; set; }
 
         [EditorRequired]
         protected UserDirectivesTable? UDTable { get; set; }
@@ -76,12 +76,6 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             if (QueryFilter != null)
                 Filter = QueryFilter;            
 
-            if (UserID != Guid.Empty)
-            {
-                var user = await BIService.Identity.Users.GetUserAsync(UserID);
-                if (user != null)
-                    OnUserSelect(user);
-            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -89,14 +83,35 @@ namespace Sufficit.Blazor.Client.Pages.Identity
             if (!firstRender)
                 return;
 
-            var statusPrevious = Status;
-            Health = await BIService.Identity.Health();            
+            try
+            {
+                var statusPrevious = Status;
+                Health = await BIService.Identity.Health();
 
-            if (statusPrevious != Status) 
-                await InvokeAsync(StateHasChanged);
+                if (statusPrevious != Status)
+                    await InvokeAsync(StateHasChanged);
 
-            if (string.IsNullOrWhiteSpace(Filter))            
-                await FilterTextFiled!.FocusAsync();            
+                if (string.IsNullOrWhiteSpace(Filter) && FilterTextFiled != null)
+                    await FilterTextFiled.FocusAsync();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "error on get status");
+                Snackbar.Add("Deu ruim ao verificar estado do servidor", Severity.Error);
+            }
+
+            try
+            {
+                if (UserId != Guid.Empty)
+                {
+                    var user = await BIService.Identity.Users.GetUserAsync(UserId);
+                    if (user != null)
+                        OnUserSelect(user);
+                }
+            } catch (Exception ex) {
+                Logger.LogError(ex, "error on searching for user: {0}", UserId);
+                Snackbar.Add("Deu ruim em algo, tente mais tarde.", Severity.Error);
+            }       
         }
 
         protected void OnDirectiveAdded()
