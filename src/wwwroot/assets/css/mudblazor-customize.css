@@ -53,6 +53,11 @@
   display: inline-flex;
 }
 
+.mud-nav-group > .mud-nav-link > .mud-nav-link-text {
+  overflow: hidden;
+  line-height: 1.5rem;
+}
+
 .mud-nav-link,
 .mud-drawer--closed.mud-drawer-mini .mud-nav-group * .mud-navmenu .mud-nav-item .mud-nav-link, .mud-nav-link,
 .mud-drawer--closed.mud-drawer-mini .mud-nav-group * .mud-navmenu .mud-nav-item .mud-nav-link {
@@ -66,12 +71,14 @@
 }
 
 .mud-nav-link-text .mud-nav-link-subtitle {
-  min-width: 144px;
   color: #7b809a;
   font-weight: lighter;
   display: block;
   font-size: small;
   line-height: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .mud-nav-link-expand-icon, .mud-nav-link .mud-nav-link-expand-icon {

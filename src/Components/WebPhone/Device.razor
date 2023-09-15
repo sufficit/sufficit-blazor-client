@@ -33,12 +33,20 @@
 </MudGrid>
 
 @code {
-    [Parameter] public string SessionKey { get; set; }
+    [Parameter] 
+    public string? SessionKey { get; set; }
 
-    [Parameter] public IEnumerable<JsSIPMediaDevice> AudioInputDevices { get; set; }
-    [Parameter] public IEnumerable<JsSIPMediaDevice> AudioOutputDevices { get; set; }
-    [Parameter] public IEnumerable<JsSIPMediaDevice> VideoInputDevices { get; set; }
-    [Parameter] public JsSIPService JsSIPService { get; set; }
+    [Parameter] 
+    public IEnumerable<JsSIPMediaDevice>? AudioInputDevices { get; set; }
+
+    [Parameter] 
+    public IEnumerable<JsSIPMediaDevice>? AudioOutputDevices { get; set; }
+
+    [Parameter] 
+    public IEnumerable<JsSIPMediaDevice>? VideoInputDevices { get; set; }
+
+    [Parameter] 
+    public JsSIPService? JsSIPService { get; set; }
 
     private string _deviceIDMicroFone = string.Empty;
     private string _deviceIDAutoFalante = string.Empty;
@@ -74,14 +82,14 @@
         //await InvokeAsync(StateHasChanged);
     }
 
-    public async void RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind typeKind, string deviceId)
+    public void RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind typeKind, string deviceId)
     {        
         Console.WriteLine($"RegistrarConfigDeviceAsync: [SessionKey]: {SessionKey} - [typeKind]: {typeKind} - [device]: {deviceId}");
     }
 
     public void DeviceMicrofoneSelectChanged(object? value)
     {
-        this._deviceIDMicroFone = (value ?? string.Empty).ToString();
+        this._deviceIDMicroFone = (value?.ToString() ?? string.Empty).ToString();
         //Console.WriteLine("DeviceMicrofoneSelectChanged:" + _deviceIDMicroFone);
         if (!string.IsNullOrEmpty(this._deviceIDMicroFone))
             RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.AUDIOINPUT, this._deviceIDMicroFone);
@@ -89,7 +97,7 @@
 
     public void DeviceAutoFalanteSelectChanged(object? value)
     {
-        this._deviceIDAutoFalante = (value ?? string.Empty).ToString();
+        this._deviceIDAutoFalante = (value?.ToString() ?? string.Empty).ToString();
         //Console.WriteLine("DeviceAutoFalanteSelectChanged:" + _deviceIDAutoFalante);
         if (!string.IsNullOrEmpty(this._deviceIDAutoFalante))
             RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.AUDIOOUTPUT, this._deviceIDAutoFalante);
@@ -97,7 +105,7 @@
 
     public void DeviceCameraSelectChanged(object? value)
     {
-        this._deviceIDCamera = (value ?? string.Empty).ToString();
+        this._deviceIDCamera = (value?.ToString() ?? string.Empty).ToString();
         //Console.WriteLine("DeviceCameraSelectChanged:" + _deviceIDCamera);
         if (!string.IsNullOrEmpty(this._deviceIDCamera))
             RegistrarConfigDeviceAsync(JsSIPMediaDeviceKind.VIDEOINPUT, this._deviceIDCamera);
@@ -114,7 +122,7 @@
         public readonly string Name;
 
         // Note: this is important so the MudSelect can compare DeviceSelect
-        public override bool Equals(object o)
+        public override bool Equals(object? o)
         {
             var other = o as DeviceSelect;            
             return other?.Name == Name;

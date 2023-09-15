@@ -61,6 +61,17 @@
         </Authorized>
     </AuthorizeView>
 
+    <AuthorizeView Context="Sales">
+        <Authorized>
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
+            <MudNavGroupEnchanted Title="Vendas" Icon="@Icons.Material.Filled.Store" SubTitle="Serviços">
+                <AuthorizeView Roles="salesmanager">
+                    <MudNavLinkEnchanted Href="pages/sales/contracts" Title="Recorrentes"></MudNavLinkEnchanted>
+                </AuthorizeView>
+            </MudNavGroupEnchanted>
+        </Authorized>
+    </AuthorizeView>
+
     <AuthorizeView Context="Telephony">
         <Authorized>
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />

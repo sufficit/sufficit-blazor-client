@@ -1,0 +1,89 @@
+﻿@page "/pages/sales/contracts"
+@attribute [Authorize(Roles = "salesmanager")]
+@using Sufficit.Client
+@using Sufficit.Sales;
+@using Sufficit.Telephony
+@using Sufficit.Blazor.Client.Models
+@using System.Threading;
+
+@if (View.ContextId == Guid.Empty)
+{
+    <ClientMissing></ClientMissing>
+}
+
+@if (!string.IsNullOrWhiteSpace(Error))
+{
+    <div class="card card-error">@Error</div>
+}
+<MudCard>
+    <MudCardContent>
+        <MudTable Items="@Items" Hover="true" Breakpoint="Breakpoint.Sm" FixedHeader="true">
+            <HeaderContent>
+                <MudTh>Titulo</MudTh>
+                <MudTh>Chave</MudTh>
+                <MudTh>Valor</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Titulo">@context.Title</MudTd>
+                <MudTd DataLabel="Chave">@context.Key</MudTd>
+                <MudTd DataLabel="Valor">@context.Value</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Inject] 
+    APIClientService Service { get; set; } = default!;
+
+    [Inject]
+    IContextView View { get; set; } = default!;
+
+
+    protected IEnumerable<Contract>? Items;
+
+    private string? Error;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        View.OnChanged += ContextChanged;
+
+        if (View.ContextId != Guid.Empty)
+            await Filter(View.ContextId);
+    }
+
+    protected async void ContextChanged(Guid context)
+        => await Filter(View.ContextId);
+
+
+    protected async Task Filter(Guid ContextId)
+    {
+        Items = null;
+        Error = string.Empty;
+
+        if (ContextId != Guid.Empty)
+        {
+            var parameters = new ContractSearchParameters();
+            parameters.ContextId = ContextId;
+
+            try
+            {
+                Items = await Service.Sales.GetContracts(parameters, CancellationToken.None);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Error = "Não autorizado";
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+            }
+        }
+
+        // refresh front end
+        await InvokeAsync(StateHasChanged);
+    }
+}
