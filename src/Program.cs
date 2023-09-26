@@ -14,7 +14,7 @@ namespace Sufficit.Blazor.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             // Para finalizar vamos construir o aplicativo para o usuário final
-            builder.RootComponents.Add<App>("#app");
+            builder.RootComponents.Add<Main>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             #region CONFIGURATIONS

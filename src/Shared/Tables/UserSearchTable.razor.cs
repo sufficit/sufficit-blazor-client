@@ -92,11 +92,13 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                     try
                     {
                         var response = await BIService.Identity.Users.GetUsersAsync(Filter, 1, (int)Limit, TokenSource.Token);
-                        DataItems = response?.Users ?? Array.Empty<User>();                       
+                        DataItems = response?.Users ?? Array.Empty<User>();
                     }
-                    catch (TaskCanceledException ex) {
+                    catch (OperationCanceledException) { }
+                    catch (Exception ex) 
+                    {
                         Snackbar.Add(ex.Message, Severity.Error);
-                        DataItems = Array.Empty<User>(); 
+                        DataItems = Array.Empty<User>();
                     }
                 }
                 else DataItems = Array.Empty<User>();
@@ -112,7 +114,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             {
                 await BIService.Identity.ResendEMailConfirmation(selected.EMail!);
                 Snackbar.Add("Pronto ! E-Mail de confirmação re-enviado", Severity.Success);
-            }
+            }            
             catch (Exception ex)
             {
                 Snackbar.Add(ex.Message, Severity.Error);

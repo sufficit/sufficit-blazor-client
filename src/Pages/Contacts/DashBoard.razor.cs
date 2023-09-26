@@ -53,9 +53,11 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
             IsLoading = true;
             try
             {
-                var parameters = new ContactSearchParameters();
-                parameters.ContextId = User.GetUserId();
-                parameters.Limit = PageSize;
+                var parameters = new ContactSearchParameters
+                {
+                    ContextId = User.GetUserId(),
+                    Limit = PageSize
+                };
 
                 await InvokeAsync(StateHasChanged);
                 Items = await APIClient.Contact.Search(parameters, cancellationToken);
