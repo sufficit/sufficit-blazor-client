@@ -2,21 +2,15 @@
   {
     "outputFile": "wwwroot/assets/css/sufficit-blazor.css",
     "inputFile": "wwwroot/assets/scss/sufficit.scss",
-    "minify": {
-      "enabled": true
-    },
-    "options": {
-      "sourceMap": false
-    }
+    "minify": { "enabled": true },
+    "includeInProject": true,
+    "options": { "sourceMap": false }
   },
   {
     "outputFile": "wwwroot/assets/css/mudblazor-customize.css",
     "inputFile": "wwwroot/assets/scss/mudblazor.scss",
-    "minify": {
-      "enabled": true
-    },
-    "options": {
-      "sourceMap": false
-    }
+    "minify": { "enabled": true },
+    "includeInProject": true,
+    "options": { "sourceMap": false }
   }
 ]

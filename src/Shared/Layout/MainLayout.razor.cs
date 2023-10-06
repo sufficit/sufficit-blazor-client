@@ -40,7 +40,8 @@ namespace Sufficit.Blazor.Client.Shared.Layout
             {
                 Primary = Colors.Red.Darken1,
                 Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.Shades.White
+                AppbarBackground = Colors.Shades.White,
+                Info = Colors.Blue.Lighten3
             },            
             Typography = new Typography()
             {

@@ -19,9 +19,13 @@ namespace Sufficit.Blazor.Client.Pages.Logging
     {
         public const string RouteParameter = "pages/logging/events";
 
-        protected override string Title => "Events";
+        protected override string Title => "Eventos";
 
         protected override string Description => "Registro de eventos";
+
+        protected override string? Icon => @Icons.Material.Filled.Event;
+
+        protected override string? Area => "Logging";
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

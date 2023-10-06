@@ -1,5 +1,7 @@
-﻿@implements IPage
+﻿@using Sufficit.Blazor.BreadCrumb;
+@implements IPage
 @attribute [Route(RouteParameter)]
+@inherits BasePageComponent
 <AuthorizeView>
     <Authorized>
         Hello user!
@@ -21,4 +23,10 @@
 </MudContainer>
 @code {
     public const string RouteParameter = "/";
+
+    protected override void OnBreadCrumbLoad()
+    {
+        BreadCrumbService
+                .Set(new HomeBreadCrumb());
+    }    
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sufficit.Client;
 using Sufficit.Identity;
 using Blazored.LocalStorage;
+using System.Globalization;
 
 namespace Sufficit.Blazor.Client
 {
@@ -23,6 +24,10 @@ namespace Sufficit.Blazor.Client
         public WebAssemblyHost Build()
         {
             ConfigureServices(_builder.Services);
+
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("pt-BR");
+
             return _builder.Build();
         }
 

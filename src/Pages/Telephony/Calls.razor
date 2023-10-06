@@ -8,7 +8,9 @@
 
 @if (View.ContextId == Guid.Empty)
 {
-    <ClientMissing></ClientMissing>
+    <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
+        <ClientMissing></ClientMissing>
+    </MudPaper>
 }
 
 @if (!string.IsNullOrWhiteSpace(Error))

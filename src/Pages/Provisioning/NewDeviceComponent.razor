@@ -41,7 +41,9 @@
         <MudCardContent>
             @if (!ContextId.HasValue || ContextId.Value == Guid.Empty)
             {
-                <ClientMissing></ClientMissing>
+                <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
+                    <ClientMissing></ClientMissing>
+                </MudPaper>
             } else {
                 <ExtensionSearchComponent ContextId="ContextId" EndPoint="EndPoint" EndPointChanged="EndPointChanged" />
             }

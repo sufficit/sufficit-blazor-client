@@ -63,6 +63,7 @@
     padding-left: 2.5rem !important;
     padding-top: 0.725rem !important;
     padding-bottom: 0.725rem !important;
+    white-space: nowrap;
 }
 
     .mud-nav-link-text .mud-nav-link-title {
@@ -97,7 +98,7 @@
 }
 
 .shadow {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
 .fillheight {
@@ -144,16 +145,16 @@ hr {
 }
 
     div#blazor-error-ui {
-    bottom: 0;
-    left: 0;
-    display: none;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 9999;
-    box-shadow: none;
-    background: none;
-}
+        bottom: 0;
+        left: 0;
+        display: none;
+        padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+        position: fixed;
+        width: 100%;
+        z-index: 9999;
+        box-shadow: none;
+        background: none;
+    }
 
     div#blazor-error-ui .dismiss {
         cursor: pointer;

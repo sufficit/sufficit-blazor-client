@@ -7,7 +7,8 @@
 		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
 		<RootNamespace>Sufficit.Blazor.Client</RootNamespace>
 		<TypeScriptRemoveComments>True</TypeScriptRemoveComments>
-		<IsPackable>true</IsPackable> 
+		<IsPackable>true</IsPackable>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
 	
 	<PropertyGroup Label="Sufficit Versioning">
@@ -59,6 +60,7 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="bundleconfig.json" />
 		<None Include="wwwroot\.nojekyll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -66,6 +68,7 @@
 	
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Remove="bundleconfig.json" />
     <Content Remove="Pages\Telephony\Monitor\Select.razor" />
     <Content Remove="wwwroot\.nojekyll" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
@@ -77,14 +80,15 @@
   </ItemGroup>
 	
 	<ItemGroup Label="Hybrid Models">
-		<PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.52.0" />
+		<PackageReference Include="FluentValidation" Version="11.7.1" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.57.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.57.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+		<PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
@@ -105,6 +109,8 @@
 	<ItemGroup>
 		<PackageReference Include="MudBlazor" Version="6.*" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.*" />
+		<PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+		<PackageReference Include="BuildWebCompiler" Version="1.12.405" Condition="$([MSBuild]::IsOsPlatform('Windows'))" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Packing'" Label="Sufficit Dependencies on Packing">			
@@ -137,6 +143,20 @@
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup> 
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="bundleconfig.json" />
+		<Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="bundleconfig.json" />
+		<None Include="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\assets\css\" />
+	</ItemGroup>
     
 </Project>
