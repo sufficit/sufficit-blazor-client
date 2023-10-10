@@ -83,7 +83,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         {
             Loading = true;
             if (!string.IsNullOrWhiteSpace(value))            
-                return await APIClient.Contact.Search(value, 10, cancellationToken);
+                return await APIClient.Contacts.Search(value, 10, cancellationToken);
             
             Loading = false;
             return Array.Empty<Contact>();

@@ -66,7 +66,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             => Sufficit.Telephony.Utils.FormatToE164Semantic(extension);
 
         protected async Task<string> GetTitle(Guid id)
-            => (await APIClient.Contact.GetContact(id, default))?.Title ?? "*Desconhecido";
+            => (await APIClient.Contacts.GetContact(id, default))?.Title ?? "*Desconhecido";
 
         protected override void OnAfterRender(bool firstRender)
         {

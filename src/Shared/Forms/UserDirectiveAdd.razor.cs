@@ -48,7 +48,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                 items.Add(new Contact() { Title = "* Todos" });            
 
             // if text is null or empty, show complete list
-            foreach(var contact in await APIClient.Contact.Search(value, 10, cancellationToken))            
+            foreach (var contact in await APIClient.Contacts.Search(value, 10, cancellationToken))            
                 items.Add(contact);
 
             return items;

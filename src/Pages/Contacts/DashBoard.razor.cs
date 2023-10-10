@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Contacts;
 using Sufficit.Identity;
+using Sufficit.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,32 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
         public uint PageSize { get; set; } = 25;
 
+
+        [EditorRequired]
+        protected MudTable<ContactWithAttributes>? Table { get; set; } = default!;
+
+        private CancellationTokenSource? TokenSource;
+
+        protected IEnumerable<ContactWithAttributes> DataItems { get; set; } = Array.Empty<ContactWithAttributes>();
+
+        [Parameter]
+        public uint Limit { get; set; } = 5;
+
+        /// <summary>
+        /// Set minimum length to start a server request
+        /// </summary>
+        [Parameter]
+        public uint Minimum { get; set; } = 4;
+
+        [Parameter]
+        public uint TimeOut { get; set; } = 10000;
+
+        [Parameter]
+        public string? Filter { get; set; }
+
+        [Inject]
+        protected ISnackbar Snackbar { get; set; } = default!;
+
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
 
@@ -31,8 +59,11 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         private ExceptionControlService Exceptions { get; set; } = default!;
 
         [EditorRequired]
-        [CascadingParameter]
+        [CascadingParameter]        
         protected UserPrincipal User { get; set; } = default!;
+        
+        [Parameter]
+        public EventCallback<ContactWithAttributes> SelectedItemChanged { get; set; }
 
         /// <summary>
         /// Used to show loading messages
@@ -45,7 +76,61 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         {
             if (!firstRender) return;
 
-            await GetItems(default!);
+            // await GetItems(default!);
+        }
+
+        protected void OnTextChanged(string? value)
+        {
+            Filter = value;
+            DataBind();
+        }
+
+        /// <summary>
+        /// Reload server data
+        /// </summary>
+        public async void DataBind()
+        {
+            if (Table != null)
+            {
+                await Table.ReloadServerData();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+        protected async Task<TableData<ContactWithAttributes>> GetData(TableState _)
+        {
+            // only filter if text is set
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                var filter = Filter.Trim().ToLowerInvariant();
+                if (filter.Length >= Minimum)
+                {
+                    if (TokenSource != null)
+                        TokenSource.Cancel(false);
+
+                    var parameters = new ContactSearchParameters()
+                    {
+                        Keys = new HashSet<string> { "titulo", "email" },
+                        Value = new TextFilterWithKeys(Filter) { 
+                            ExactMatch = false,
+                        },
+                        Limit = Limit,
+                    };
+
+                    TokenSource = new CancellationTokenSource((int)TimeOut);
+                    try
+                    {
+                        DataItems = await APIClient.Contacts.Search(parameters, TokenSource.Token);
+                    }
+                    catch (OperationCanceledException) { }
+                    catch (Exception ex)
+                    {
+                        Snackbar.Add(ex.Message, Severity.Error);
+                    }
+                }
+            }
+
+            return new TableData<ContactWithAttributes>() { Items = DataItems };
         }
 
         protected async Task GetItems(CancellationToken cancellationToken)
@@ -60,7 +145,7 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 };
 
                 await InvokeAsync(StateHasChanged);
-                Items = await APIClient.Contact.Search(parameters, cancellationToken);
+                Items = await APIClient.Contacts.Search(parameters, cancellationToken);
             }
             catch (Exception ex){ Exceptions.Append(User.GetUserId(), ex); }
             IsLoading = false;

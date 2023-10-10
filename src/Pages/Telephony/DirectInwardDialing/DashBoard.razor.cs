@@ -42,7 +42,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             => Sufficit.Telephony.Utils.FormatToE164Semantic(extension);
 
         protected async Task<string> GetTitle(Guid id)
-            => (await APIClient.Contact.GetContact(id, default))?.Title ?? "*Desconhecido";
+            => (await APIClient.Contacts.GetContact(id, default))?.Title ?? "*Desconhecido";
 
         protected IEnumerable<Sufficit.Telephony.DirectInwardDialing>? Items { get; set; }
 

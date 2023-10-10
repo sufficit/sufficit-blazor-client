@@ -51,7 +51,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                var results = await APIClient.Contact.Search(filter, 5, default);
+                var results = await APIClient.Contacts.Search(filter, 5, default);
                 return results.OfType<T>();
             }
 
@@ -76,7 +76,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
         {
             if (initialValue != Guid.Empty)
             {
-                Generic = await APIClient.Contact.GetContact(initialValue);
+                Generic = await APIClient.Contacts.GetContact(initialValue);
                 if(Generic != null)
                     await InvokeAsync(StateHasChanged);
             }

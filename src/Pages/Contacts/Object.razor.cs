@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Blazor.Components;
+using System.Threading;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
@@ -27,80 +28,29 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         private APIClientService APIClient { get; set; } = default!;
 
         [Inject]
-        protected IContextView ContextView { get; set; } = default!;
-
-        [Inject]
         private IDialogService DialogService { get; set; } = default!;
 
-        [Parameter, SupplyParameterFromQuery(Name = "id")]
-        public Guid ObjectId { get; set; } = default!;
+        [Parameter, SupplyParameterFromQuery(Name = "contactid")]
+        public Guid ContactId { get; set; } = default!;
 
-        protected Sufficit.Telephony.IVR? Item { get; set; }
+        protected Sufficit.Contacts.Contact? Item { get; set; }
 
         protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
-
-        private async void ContextViewChanged(Guid obj)
-        {
-            if (ContextView.ContextId != Guid.Empty)
-            {
-                Item = new Sufficit.Telephony.IVR
-                {
-                    Id = Guid.NewGuid(),
-                    IdContext = ContextView.ContextId
-                };
-            } 
-            else 
-            {
-                Item = null;
-            }            
-
-            await InvokeAsync(StateHasChanged);
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            await base.OnParametersSetAsync();
-
-            // should create a new item
-            if (Item == null)
-            {
-                if (ObjectId == Guid.Empty && ContextView.ContextId != Guid.Empty)
-                {
-                    Item = new Sufficit.Telephony.IVR
-                    {
-                        Id = Guid.NewGuid(),
-                        IdContext = ContextView.ContextId
-                    };
-                }
-            }
-        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
-            if (ObjectId != Guid.Empty)
+            if (ContactId != Guid.Empty)
             {
-                Item = await APIClient.Telephony.IVR.Find(ObjectId);
-                if (Item != null)
-                {
-                    IVROptions = (await APIClient.Telephony.IVR.GetOptions(Item.Id)).ToList();
-
-                    // updating context view from ivr context
-                    if (Item.IdContext != ContextView.ContextId)
-                    {
-                        // changing before render, to avoid 
-                        await ContextView.Update(Item.IdContext);
-                    }
-                } else throw new Exception($"Item not found: { ObjectId }");
+                Item = await APIClient.Contacts.GetContact(ContactId, CancellationToken.None);
+                if (Item == null)
+                    throw new Exception($"Item not found: {ContactId}");
 
                 // Updating view
                 await InvokeAsync(StateHasChanged);
-            }
-
-            // tracking context changes
-            ContextView.OnChanged += ContextViewChanged;                       
+            }                      
         }
 
         protected void NewOption(MouseEventArgs _)
@@ -123,11 +73,7 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 var parameters = new DialogParameters();  
                 try
                 {
-                    // updating basic info
-                    await APIClient.Telephony.IVR.Update(Item);     
-                    
-                    // updating options
-                    await APIClient.Telephony.IVR.Update(ObjectId, IVROptions);
+                    //
 
                     parameters.Add("Content", "Está salvo com sucesso.");
                     DialogService.Show<StatusDialog>("Sucesso !", parameters);
@@ -144,7 +90,6 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         void IDisposable.Dispose()
         {
             GC.SuppressFinalize(this);
-            ContextView.OnChanged -= ContextViewChanged;
         }
     }
 }
