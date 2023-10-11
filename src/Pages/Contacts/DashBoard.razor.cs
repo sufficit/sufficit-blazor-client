@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Options;
 using MudBlazor;
 using Sufficit.Blazor.Components;
@@ -110,7 +111,12 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
                     var parameters = new ContactSearchParameters()
                     {
-                        Keys = new HashSet<string> { "titulo", "email" },
+                        Keys = new HashSet<string> { 
+                            Attributes.Title, 
+                            Attributes.EMail, 
+                            Attributes.Phone, 
+                            Attributes.Cellular 
+                        },
                         Value = new TextFilterWithKeys(Filter) { 
                             ExactMatch = false,
                         },
@@ -131,6 +137,15 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
             }
 
             return new TableData<ContactWithAttributes>() { Items = DataItems };
+        }
+
+        protected string? GetPhone(string? phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                return null;
+
+            var numbers = new string(phone.Where(Char.IsDigit).ToArray());
+            return Sufficit.Telephony.Utils.FormatToE164Semantic(numbers);
         }
 
         protected async Task GetItems(CancellationToken cancellationToken)

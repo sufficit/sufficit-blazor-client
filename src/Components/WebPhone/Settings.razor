@@ -1,1 +1,12 @@
-﻿
+﻿<MudButton OnClick="OnRequestMediaAccessClicked">Request Media Access</MudButton>
+
+@code{
+    [Parameter]
+    [EditorRequired]
+    public JsSIPService Service { get; set; } = default!;
+
+    protected async Task OnRequestMediaAccessClicked(MouseEventArgs args){
+        await Service.RequestMediaAccess();
+        await InvokeAsync(StateHasChanged);
+    }
+}

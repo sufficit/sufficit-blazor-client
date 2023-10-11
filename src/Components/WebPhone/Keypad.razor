@@ -160,6 +160,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public bool CanOriginate { get; set; } = true;
+
     [Parameter] 
     public EventCallback<string> CallStart { get; set; }
 
@@ -168,7 +171,7 @@
     private ElementReference BlockElementReference;
 
     protected bool CanStartCall
-        => !string.IsNullOrWhiteSpace(Destination);
+        => CanOriginate && !string.IsNullOrWhiteSpace(Destination);
 
     private async Task InternalCallStart()
     {

@@ -7,7 +7,12 @@
         <MudText Typo="Typo.h3"><span>Estado: </span> @JsSIPService.Status</MudText>
         <MudText Typo="Typo.h6"><span>Session Key: </span> @WebRTCKey</MudText>
     </MudStack>
-
+    JsSIP Version: @JsSIPVersion
+    @if (Testing != null) 
+    {
+        <MudText Typo="Typo.h6"><span>Testing Success: </span> @Testing.Success</MudText>
+        <MudText Typo="Typo.h6"><span>Testing Message: </span> @Testing.Message</MudText>
+    }
     <MudDivider />
 
     <MudTabs Outlined="true"
@@ -26,11 +31,12 @@
             }
             else
             {
-                <Keypad CallStart=@CallStart />
+                <Keypad CallStart=@CallStart CanOriginate="@CanOriginate" />
             }
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.PhoneAndroid" Text="Device" Style="text-align:left">
-            <Device AudioInputDevices="@AudioInputDevices"
+            <Device MediaDevices="@MediaDevices"
+                    AudioInputDevices="@AudioInputDevices"
                     AudioOutputDevices="@AudioOutputDevices"
                     VideoInputDevices="@VideoInputDevices"
                     JsSIPService="@JsSIPService"
@@ -40,7 +46,7 @@
             <CallLog JsSIPService="@JsSIPService" />
         </MudTabPanel>        
         <MudTabPanel Icon="@Icons.Material.Filled.Settings" Text="Settings">
-            <Settings />
+            <Settings Service="@JsSIPService" />
         </MudTabPanel>
     </MudTabs>
 </MudStack>

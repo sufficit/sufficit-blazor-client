@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 using Sufficit.Client;
 using Sufficit.Telephony.JsSIP;
 using System;
@@ -11,7 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sufficit.Identity;
-using Sufficit.Telephony;
+using Sufficit.Telephony.JsSIP.Methods;
+using System.Text.Json;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -33,8 +32,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         [CascadingParameter]
         public UserPrincipal User { get; set; } = default!;
 
+        protected string? JsSIPVersion { get; set; }
+
+        protected TestDevicesResponse? Testing { get; set; }
+
         protected JsSIPSessionMonitor? CallSession { get; set; }
 
+        protected bool CanOriginate => JsSIPService.IsConnected;
 
         private bool IsCalling = false;
         private string PhoneNumber = string.Empty;
@@ -64,28 +68,33 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-            if (firstRender)
+            if (!firstRender) return;
+            
+            JsSIPVersion = await JsSIPService.GetVersion();
+
+            var testRequest = new Sufficit.Telephony.JsSIP.Methods.TestDevicesRequest() { Audio = true, Video = false };
+            Testing = await JsSIPService.TestDevices(testRequest);
+
+            JsSIPService.OnChanged += ServiceChanged;
+            if (string.IsNullOrWhiteSpace(JsSIPService.Status))
             {
-                var responseTest = await JsSIPService.TestDevices(new Sufficit.Telephony.JsSIP.Methods.TestDevicesRequest() { Audio = true, Video = true });
-                Logger.LogWarning("testing devices status: {success}, message: {message}", responseTest.Success, responseTest.Message);
-
-                JsSIPService.OnChanged += ServiceChanged;
-                if (string.IsNullOrWhiteSpace(JsSIPService.Status))
+                var userid = User.GetUserId();
+                if (userid != Guid.Empty)
                 {
-                    var userid = User.GetUserId();
-                    if (userid != Guid.Empty)
-                    {
-                        WebRTCKey = await APIClient.Telephony.WebRTCKey();
-                        var endpoint = $"{userid:N}{WebRTCKey:N}";
-                        var options = Options.Value;
-                        options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
-                        await JsSIPService.Start(options);
-                    }
-                }
+                    WebRTCKey = await APIClient.Telephony.WebRTCKey();
+                    var endpoint = $"{userid:N}{WebRTCKey:N}";
+                    var options = Options.Value;
+                    options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
+                    options.Password = WebRTCKey.ToString("N");
 
-                MediaDevices = await JsSIPService.MediaDevices();
+                    var json = JsonSerializer.Serialize(options);
+                    Logger.LogWarning("options: {0}", json);
+                    await JsSIPService.Start(options);
+                }
             }
+
+            MediaDevices = await JsSIPService.GetMediaDevices();
+            await JsSIPService.RequestMediaAccess();
         }
 
         protected async void ServiceChanged(object? sender, EventArgs args)
@@ -98,13 +107,24 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             {
                 CallSession = await JsSIPService.CallMonitor(destination, false);
                 CallSession.OnChanged += CallSessionChanged;
+                CallSession.OnAcknowledge += OnCallSessionAcknowledge;
                 SetIsCalling(destination);
+            }
+        }
+
+        private async void OnCallSessionAcknowledge(object? sender, EventArgs e)
+        {
+            if (CallSession != null)
+            {
+                CallSession.OnAcknowledge -= OnCallSessionAcknowledge;
+                CallSession = null;
+                await InvokeAsync(StateHasChanged);
             }
         }
 
         private async ValueTask CallSessionChanged(JsSIPSessionMonitor monitor)
         {
-            if(monitor.Status == JsSIPSessionStatus.STATUS_TERMINATED)
+            if (monitor.Status == JsSIPSessionStatus.STATUS_TERMINATED)
             {
                 monitor.OnChanged -= CallSessionChanged;
                 if (CallSession == monitor)

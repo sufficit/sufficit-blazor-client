@@ -1,5 +1,6 @@
 ﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
+@using Sufficit.Contacts
 @inherits BasePageComponent
 
 <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
@@ -38,10 +39,10 @@
         </MudTd>
         <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
         <MudTd DataLabel="Telefone" Style="text-align: left; white-space: nowrap;">
-            @context.GetValue("phone")
+            @GetPhone(context.GetValue(Attributes.Phone) ?? context.GetValue(Attributes.Cellular))
         </MudTd>
         <MudTd DataLabel="E-Mail" Style="text-align: left; white-space: nowrap;">
-            @context.GetValue("email")
+            @context.GetValue(Attributes.EMail)
         </MudTd>
         <MudTd DataLabel="Attributos" Style="text-align: left">
             @context.Attributes.Count

@@ -1,5 +1,12 @@
 ﻿<MudGrid>
     <MudItem xs="7">
+        @foreach(var device in MediaDevices)
+        {
+            <MudText Typo="Typo.h6"><span>Media Device: </span> @device.Kind :: @device.ID</MudText>
+        }
+    </MudItem>
+
+    <MudItem xs="7">
         <MudSelect Label="Escolher Microfone" Variant="Variant.Text" Class="" Dense="true" Margin="Margin.Dense" AnchorOrigin="Origin.BottomCenter" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.PermCameraMic" AdornmentColor="Color.Default"
                    T="DeviceSelect" ValueChanged="DeviceMicrofoneSelectChanged">
             @foreach (var device in AudioInputDevices)
@@ -33,6 +40,10 @@
 </MudGrid>
 
 @code {
+    [Parameter]
+    [EditorRequired]
+    public IEnumerable<JsSIPMediaDevice> MediaDevices { get; set; } = default!;
+
     [Parameter] 
     public string? SessionKey { get; set; }
 

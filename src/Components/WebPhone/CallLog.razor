@@ -12,7 +12,7 @@
             <MudIconButton Icon="@Icons.Material.Filled.VolumeUp" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
             <MudIconButton Icon="@Icons.Material.Filled.VideoCall" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
             <MudIconButton Icon="@Icons.Material.Filled.ViewKanban" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.PhoneDisabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PhoneDisabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Terminate(context)" />
             <MudIconButton Icon="@Icons.Material.Filled.PhoneEnabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
             <MudIconButton Icon="@Icons.Material.Filled.PauseCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
             <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
@@ -29,5 +29,7 @@
 </MudTable>
 
 @code {
-    [Parameter] public JsSIPService JsSIPService { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public JsSIPService JsSIPService { get; set; } = default!;
 }
