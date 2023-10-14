@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Sufficit.Identity;
 using Sufficit.Telephony.JsSIP.Methods;
 using System.Text.Json;
+using Sufficit.Telephony;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -76,6 +77,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             Testing = await JsSIPService.TestDevices(testRequest);
 
             JsSIPService.OnChanged += ServiceChanged;
+            JsSIPService.Monitor.OnChanged += OnMonitorChanged;
             if (string.IsNullOrWhiteSpace(JsSIPService.Status))
             {
                 var userid = User.GetUserId();
@@ -99,7 +101,18 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
 
         protected async void ServiceChanged(object? sender, EventArgs args)
             => await InvokeAsync(StateHasChanged);
-        
+
+        protected async void OnMonitorChanged(object? sender, string? id)
+        {
+            if (!string.IsNullOrWhiteSpace(id)) 
+            {
+                var info = await JsSIPService.Sessions.GetSession(id);
+                CallSession = await JsSIPService.Sessions.CallMonitor(info);
+                CallSession.OnChanged += CallSessionChanged;
+                CallSession.OnAcknowledge += OnCallSessionAcknowledge;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
 
         protected async Task CallStart(string? destination)
         {

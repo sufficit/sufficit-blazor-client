@@ -1,0 +1,8 @@
+﻿@if (Active.Any())
+{
+    <MudStack Row="true">
+        @foreach (var session in Active) {
+            <MudFab StartIcon="@Icons.Material.Filled.Add" OnClick="() => Sessions.Monitor.Set(session.Id)" />
+        }
+    </MudStack>
+}

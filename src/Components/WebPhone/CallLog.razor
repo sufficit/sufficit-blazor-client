@@ -24,7 +24,7 @@
         <MudTd>@context.Direction</MudTd>
         <MudTd class="center aligned"><MudText Align="Align.Center">@context.Status</MudText></MudTd>
         <MudTd class="center aligned"><MudText Align="Align.Center">@context.Cause</MudText></MudTd>
-        <MudTd class="center aligned"><MudText Align="Align.Center">@context.Update().ToLocalTime()</MudText></MudTd>
+        <MudTd class="center aligned"><MudText Align="Align.Center">@context.GetTimestamp().ToLocalTime()</MudText></MudTd>
     </RowTemplate>
 </MudTable>
 
