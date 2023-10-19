@@ -1,6 +1,6 @@
 ﻿@inherits ComponentBase
 @using MudBlazor
 
-<MudAvatar Elevation="25" Size="@Size" Style="@Style">
-    <MudImage Src="@SourceUrl"></MudImage>
+<MudAvatar @ref=MudAvatarElement Elevation="@(Elevation ?? 25)" Style="@Style" Size="Size ?? MudBlazor.Size.Medium">
+    <MudImage Src="@SourceUrl" Fluid="true"></MudImage>
 </MudAvatar>

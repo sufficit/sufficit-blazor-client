@@ -2,7 +2,58 @@
 @attribute [Authorize]
 @inherits BasePageComponent
 
-@if (Item != null)
+@if (Attributes != null && Attributes.Any())
 {
-    <MudCard Class="ma-2" Elevation="25"></MudCard>
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudPaper Class="pa-16 ma-2" Elevation="4">
+            <MudStack Row="true" Spacing="10">
+                <MudFileUpload T="IBrowserFile" Hidden="false" InputClass="absolute mud-width-full mud-height-full overflow-hidden z-20" InputStyle="opacity:0">
+                    <ButtonTemplate>
+                        <ContactAvatar ReferenceId="@ContactId" MaxDiameter="230" Elevation="10" />                                  
+                    </ButtonTemplate>
+                </MudFileUpload>
+                <MudForm Style="width: 100%">
+                    <MudStack Spacing="3">
+                        <MudText Typo="Typo.h5">Identificação</MudText>
+                        <MudAlert Square="true" Severity="MudBlazor.Severity.Info" Variant="Variant.Outlined">
+                            Deve ser preenchido com o seu nome completo pois constará nos contratos de prestação de serviços.
+                        </MudAlert>
+
+                        <MudTextField @ref=TitleReference
+                            T="string"
+                            Placeholder="Titulo"
+                            Variant="Variant.Outlined"
+                            Required="true" 
+                            HelperTextOnFocus="true"
+                            RequiredError="O titulo é obrigatório !"                        
+                            Adornment="Adornment.Start" 
+                            AdornmentIcon="@Icons.Material.Filled.Person" 
+                            OnAdornmentClick="@(() => TitleReference.SelectAsync())"
+                            HelperText="Ex: Fulano de Tal do Brasil"
+                            Value="@ContactTitle"
+                            ValueChanged="OnTitleChanged" />
+
+                        <MudTextField @ref=DocumentReference
+                            T="string"                            
+                            Label="CPF ou CNPJ"
+                            Variant="Variant.Text"
+                            Clearable="true"
+                            Required="false"
+                            HelperTextOnFocus="true"
+                            Adornment="Adornment.Start"
+                            Mask=@(new MudBlazorDocumentMask())
+                            AdornmentIcon="@Icons.Material.Filled.Fingerprint"
+                            OnAdornmentClick="@(() => DocumentReference.SelectAsync())"
+                            HelperText="00.000.000/0000-00"
+                            Value="@Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Document)?.Value" />
+                    </MudStack>
+                </MudForm>
+            </MudStack>
+            @if (HeaderChanged)
+            {
+                <MudDivider></MudDivider>
+                <MudButton>Atualizar</MudButton>
+            }
+        </MudPaper>
+    </MudContainer>
 }

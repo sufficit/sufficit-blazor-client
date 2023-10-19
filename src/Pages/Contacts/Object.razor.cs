@@ -16,13 +16,13 @@ using System.Threading;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
-    public partial class Object : BasePageComponent, IDisposable
+    public partial class Object : BasePageComponent
     {
         public const string RouteParameter = "pages/contacts/contact";
 
-        protected override string Title => "IVR";
+        protected override string Title => "Contato";
 
-        protected override string Description => "Opções do painel de eventos";
+        protected override string Description => "Atributos do contato";
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
@@ -33,9 +33,29 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         [Parameter, SupplyParameterFromQuery(Name = "contactid")]
         public Guid ContactId { get; set; } = default!;
 
-        protected Sufficit.Contacts.Contact? Item { get; set; }
+        protected IEnumerable<Sufficit.Contacts.Attribute>? Attributes { get; set; }
 
-        protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
+        #region TITLE AND DOCUMENT
+
+        protected MudTextField<string> TitleReference { get; set; } = default!;
+
+        protected MudTextField<string> DocumentReference { get; set; } = default!;
+
+        protected string? ContactTitle { get; set; }
+        
+        protected bool HeaderChanged { get; set; }
+
+        protected void OnTitleChanged(string? value)
+        {
+            if (ContactTitle != value)
+            {
+                ContactTitle = value;
+                var title = Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Title)?.Value;
+                HeaderChanged = ContactTitle != title;
+            }
+        }
+
+        #endregion
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -44,31 +64,20 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
             if (ContactId != Guid.Empty)
             {
-                Item = await APIClient.Contacts.GetContact(ContactId, CancellationToken.None);
-                if (Item == null)
+                Attributes = await APIClient.Contacts.GetAttributes(ContactId, CancellationToken.None);
+                if (!Attributes.Any())
                     throw new Exception($"Item not found: {ContactId}");
+
+                ContactTitle = Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Title)?.Value ?? string.Empty;
 
                 // Updating view
                 await InvokeAsync(StateHasChanged);
-            }                      
-        }
-
-        protected void NewOption(MouseEventArgs _)
-        {
-            IVROptions ??= new List<IVROption>();
-            IVROptions.Add(new IVROption());
-            StateHasChanged();
-        }
-
-        protected void DelOption(IVROption option)
-        {
-            if(IVROptions?.Remove(option) ?? false)
-                StateHasChanged();
+            }
         }
 
         protected async Task Save(MouseEventArgs _)
         {
-            if (Item != null)
+            if (Attributes != null)
             {
                 var parameters = new DialogParameters();  
                 try
@@ -86,10 +95,5 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 }
             }
         }        
-           
-        void IDisposable.Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
     }
 }

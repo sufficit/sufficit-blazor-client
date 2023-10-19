@@ -12,6 +12,7 @@ using Sufficit.Identity;
 using Sufficit.Telephony.JsSIP.Methods;
 using System.Text.Json;
 using Sufficit.Telephony;
+using System.Threading;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -83,7 +84,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                 var userid = User.GetUserId();
                 if (userid != Guid.Empty)
                 {
-                    WebRTCKey = await APIClient.Telephony.WebRTCKey();
+                    WebRTCKey = await APIClient.Telephony.WebRTC.GetKey(CancellationToken.None) ?? Guid.Empty;
                     var endpoint = $"{userid:N}{WebRTCKey:N}";
                     var options = Options.Value;
                     options.Uri = $"sip:{endpoint}@voip.sufficit.com.br";
@@ -107,8 +108,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             if (!string.IsNullOrWhiteSpace(id)) 
             {
                 var info = await JsSIPService.Sessions.GetSession(id);
-                CallSession = await JsSIPService.Sessions.CallMonitor(info);
-                CallSession.OnChanged += CallSessionChanged;
+                CallSession = JsSIPService.Sessions.CallMonitor(info);
+                CallSession.OnChanged += OnCallSessionChanged;
                 CallSession.OnAcknowledge += OnCallSessionAcknowledge;
                 await InvokeAsync(StateHasChanged);
             }
@@ -119,7 +120,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             if (!string.IsNullOrWhiteSpace(destination))
             {
                 CallSession = await JsSIPService.CallMonitor(destination, false);
-                CallSession.OnChanged += CallSessionChanged;
+                CallSession.OnChanged += OnCallSessionChanged;
                 CallSession.OnAcknowledge += OnCallSessionAcknowledge;
                 SetIsCalling(destination);
             }
@@ -131,24 +132,27 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
             {
                 CallSession.OnAcknowledge -= OnCallSessionAcknowledge;
                 CallSession = null;
-                await InvokeAsync(StateHasChanged);
             }
+            await InvokeAsync(StateHasChanged);
         }
 
-        private async ValueTask CallSessionChanged(JsSIPSessionMonitor monitor)
+        protected async void OnCallSessionChanged(object? sender, EventArgs args)
         {
-            if (monitor.Status == JsSIPSessionStatus.STATUS_TERMINATED)
+            // auto close if success terminated the call, no errors
+            if (sender is JsSIPSession session)
             {
-                monitor.OnChanged -= CallSessionChanged;
-                if (CallSession == monitor)
+                if (session.Cause == JsSIPSessionCause.BYE)
                 {
+                    session.OnChanged -= OnCallSessionChanged;
+                   
                     // waiting a while before refresh
                     await Task.Delay(2500); 
-                    CallSession = null;
 
-                    await InvokeAsync(StateHasChanged);
+                    CallSession = null;               
                 }
-            }            
+            }
+
+            await InvokeAsync(StateHasChanged);
         }
 
         protected async Task VoiceCall(string Destination) => await JsSIPService.Call(Destination, false);

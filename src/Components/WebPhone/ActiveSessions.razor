@@ -1,8 +1,14 @@
-﻿@if (Active.Any())
+﻿@if (AudioPlay)
 {
+    <audio autoplay loop><source src="@AudioFile"></audio>
+}
+@if (Active.Any())
+{    
     <MudStack Row="true">
         @foreach (var session in Active) {
-            <MudFab StartIcon="@Icons.Material.Filled.Add" OnClick="() => Sessions.Monitor.Set(session.Id)" />
+            <MudIconButton OnClick="() => Sessions.Monitor.Set(session.Id)" Class="mud-elevation-5" Style="padding: 0">
+                <ContactAvatar Size="Size.Medium" ReferenceId="GetUserId(session.RemoteUser)"></ContactAvatar>
+            </MudIconButton>
         }
     </MudStack>
 }

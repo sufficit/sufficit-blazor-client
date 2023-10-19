@@ -29,14 +29,12 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
 
         [EditorRequired]
-        protected MudTable<ContactWithAttributes>? Table { get; set; } = default!;
-
-        private CancellationTokenSource? TokenSource;
+        protected MudTable<ContactWithAttributes> Table { get; set; } = default!;
 
         protected IEnumerable<ContactWithAttributes> DataItems { get; set; } = Array.Empty<ContactWithAttributes>();
 
         [Parameter]
-        public uint Limit { get; set; } = 5;
+        public uint Limit { get; set; } = 20;
 
         /// <summary>
         /// Set minimum length to start a server request
@@ -56,15 +54,16 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
 
-        [Inject]
-        private ExceptionControlService Exceptions { get; set; } = default!;
-
         [EditorRequired]
         [CascadingParameter]        
         protected UserPrincipal User { get; set; } = default!;
         
         [Parameter]
         public EventCallback<ContactWithAttributes> SelectedItemChanged { get; set; }
+
+        protected string? GetInfoLink(Guid id)
+            => $"/{Object.RouteParameter}?contactid={id:N}";
+
 
         /// <summary>
         /// Used to show loading messages
@@ -73,11 +72,10 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 
         protected IEnumerable<Sufficit.Contacts.Contact>? Items { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void OnAfterRender(bool firstRender)
         {
             if (!firstRender) return;
-
-            // await GetItems(default!);
+            DataBind();
         }
 
         protected void OnTextChanged(string? value)
@@ -97,6 +95,11 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 await InvokeAsync(StateHasChanged);
             }
         }
+
+        /// <summary>
+        ///     Getting data cancellation token source
+        /// </summary>
+        private CancellationTokenSource? TokenSource;
 
         protected async Task<TableData<ContactWithAttributes>> GetData(TableState _)
         {
@@ -146,25 +149,6 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
             var numbers = new string(phone.Where(Char.IsDigit).ToArray());
             return Sufficit.Telephony.Utils.FormatToE164Semantic(numbers);
-        }
-
-        protected async Task GetItems(CancellationToken cancellationToken)
-        {
-            IsLoading = true;
-            try
-            {
-                var parameters = new ContactSearchParameters
-                {
-                    ContextId = User.GetUserId(),
-                    Limit = PageSize
-                };
-
-                await InvokeAsync(StateHasChanged);
-                Items = await APIClient.Contacts.Search(parameters, cancellationToken);
-            }
-            catch (Exception ex){ Exceptions.Append(User.GetUserId(), ex); }
-            IsLoading = false;
-            await InvokeAsync(StateHasChanged);
         }
     }
 }

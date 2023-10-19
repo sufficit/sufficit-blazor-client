@@ -9,17 +9,17 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd>
-            <MudIconButton Icon="@Icons.Material.Filled.VolumeUp" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.VideoCall" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.ViewKanban" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.PhoneDisabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Terminate(context)" />
-            <MudIconButton Icon="@Icons.Material.Filled.PhoneEnabled" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.PauseCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
-            <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.VolumeUp" Variant="Variant.Filled" Color="@Color.Primary" />
+            <MudIconButton Icon="@Icons.Material.Filled.VideoCall" Variant="Variant.Filled" Color="@Color.Primary"/>
+            <MudIconButton Icon="@Icons.Material.Filled.ViewKanban" Variant="Variant.Filled" Color="@Color.Primary" />
+            <MudIconButton Icon="@Icons.Material.Filled.PhoneDisabled" Variant="Variant.Filled" Disabled="!context.CanTerminate()" Color="@Color.Primary" OnClick="() => JsSIPService.GetControl(context.Id).Terminate()" />
+            <MudIconButton Icon="@Icons.Material.Filled.PhoneEnabled" Variant="Variant.Filled" Disabled="!context.CanAnswer()" Color="@Color.Primary" OnClick="() => JsSIPService.GetControl(context.Id).Answer(false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.PauseCircle" Variant="Variant.Filled" Color="@Color.Primary" />
+            <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Variant="Variant.Filled" Color="@Color.Primary"/>
             <MudButton OnClick="() => JsSIPService.Sessions.Action(context)">action</MudButton>
         </MudTd>
         <MudTd>
-            <MudIconButton Icon="@Icons.Material.Filled.Key" Variant="Variant.Filled" Color="@Color.Primary" OnClick="() => JsSIPService.Sessions.Answer(context, false)" />
+            <MudIconButton Icon="@Icons.Material.Filled.Key" Variant="Variant.Filled" Color="@Color.Primary" />
         </MudTd>
         <MudTd>@context.Direction</MudTd>
         <MudTd class="center aligned"><MudText Align="Align.Center">@context.Status</MudText></MudTd>

@@ -26,6 +26,8 @@ namespace Sufficit.Blazor.Client
             services.AddScoped<IRemoteAuthenticationService<RemoteAuthenticationState>>((provider) => provider.GetRequiredService<WasmAuthenticationService>());
             services.AddScoped<IAccessTokenProvider>((provider) => provider.GetRequiredService<WasmAuthenticationService>());
 
+            
+
             services.AddOidcAuthentication(options =>
             {
                 // Capturando para uso local
