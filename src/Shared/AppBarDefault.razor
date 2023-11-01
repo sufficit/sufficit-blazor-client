@@ -10,13 +10,17 @@
     <MudSpacer />
     <div class="ms-md-auto pe-md-3 d-flex w-100 align-items-center px-3"></div>
     <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Class="mx-4 my-4"></MudDivider>
-    <AuthorizeView>
-        <Authorized>
-            <MudIconButton Icon="@Icons.Material.Filled.Logout" OnClick="LogOut" />
-        </Authorized>
-        <NotAuthorized>
-            <MudIconButton Icon="@Icons.Material.Filled.Login" OnClick="LogIn" />
-        </NotAuthorized>
-    </AuthorizeView>
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/sufficit" Target="_blank" />
+    <MudStack Row="true" Spacing="0">        
+        <APIStatusIconMenuItem></APIStatusIconMenuItem>
+        <AuthorizeView>
+            <Authorized>
+                <WebPhoneIconButtonMenu></WebPhoneIconButtonMenu>
+                <MudIconButton Icon="@Icons.Material.Filled.Logout" OnClick="LogOut" />
+            </Authorized>
+            <NotAuthorized>
+                <MudIconButton Icon="@Icons.Material.Filled.Login" OnClick="LogIn" />
+            </NotAuthorized>
+        </AuthorizeView>
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/sufficit" Target="_blank" />
+    </MudStack>
 </MudAppBar>

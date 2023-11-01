@@ -5,14 +5,20 @@
 @if (Attributes != null && Attributes.Any())
 {
     <MudContainer MaxWidth="MaxWidth.Medium">
-        <MudPaper Class="pa-16 ma-2" Elevation="4">
+        <MudPaper Class="px-16 py-10 ma-2" Elevation="4">
             <MudStack Row="true" Spacing="10">
-                <MudFileUpload T="IBrowserFile" Hidden="false" InputClass="absolute mud-width-full mud-height-full overflow-hidden z-20" InputStyle="opacity:0">
+                <MudFileUpload 
+                    T="IBrowserFile" 
+                    Hidden="false" 
+                    InputClass="absolute mud-width-full mud-height-full overflow-hidden z-20" 
+                    InputStyle="opacity:0"
+                    OnFilesChanged="OnInputFileChanged"
+                    Disabled="!CanUpdate">
                     <ButtonTemplate>
-                        <ContactAvatar ReferenceId="@ContactId" MaxDiameter="230" Elevation="10" />                                  
+                        <ContactAvatar @ref="AvatarReference" ReferenceId="@ContactId" Cache="false" MaxDiameter="230" Elevation="10" />
                     </ButtonTemplate>
                 </MudFileUpload>
-                <MudForm Style="width: 100%">
+                <MudForm Style="width: 100%" Disabled="!CanUpdate">
                     <MudStack Spacing="3">
                         <MudText Typo="Typo.h5">Identificação</MudText>
                         <MudAlert Square="true" Severity="MudBlazor.Severity.Info" Variant="Variant.Outlined">
@@ -30,8 +36,8 @@
                             AdornmentIcon="@Icons.Material.Filled.Person" 
                             OnAdornmentClick="@(() => TitleReference.SelectAsync())"
                             HelperText="Ex: Fulano de Tal do Brasil"
-                            Value="@ContactTitle"
-                            ValueChanged="OnTitleChanged" />
+                            @bind-Value="@ContactTitle.Value"
+                            ReadOnly="!CanUpdate" />
 
                         <MudTextField @ref=DocumentReference
                             T="string"                            
@@ -44,15 +50,20 @@
                             Mask=@(new MudBlazorDocumentMask())
                             AdornmentIcon="@Icons.Material.Filled.Fingerprint"
                             OnAdornmentClick="@(() => DocumentReference.SelectAsync())"
-                            HelperText="00.000.000/0000-00"
-                            Value="@Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Document)?.Value" />
+                            HelperText="Ex: 00.000.000/0000-00"
+                            Value="@ContactDocument.Value"
+                            ValueChanged="OnContactDocumentChanged"
+                            ReadOnly="!CanUpdate" />
                     </MudStack>
                 </MudForm>
             </MudStack>
             @if (HeaderChanged)
             {
                 <MudDivider></MudDivider>
-                <MudButton>Atualizar</MudButton>
+                <div class="mud-width-full d-flex justify-end">
+                    <MudButton Class="ma-3" Variant="Variant.Outlined" Color="Color.Warning" OnClick="Save">Atualizar</MudButton>
+                </div>
+
             }
         </MudPaper>
     </MudContainer>

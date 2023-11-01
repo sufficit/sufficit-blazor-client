@@ -1,5 +1,9 @@
-﻿html, html > body, html > body > div#app {
-    /* height: 100%; */
+﻿html {
+    height: auto;
+}
+
+html > body, html > body > div#app {
+    height: 100%;
 }
 
 .suff-toggle-drawer-xs {

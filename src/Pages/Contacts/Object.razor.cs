@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using MudBlazor;
 using Sufficit.Client;
-using Sufficit.Telephony;
+using Sufficit.Contacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Blazor.Components;
 using System.Threading;
+using Microsoft.AspNetCore.Components.Forms;
+using System.IO;
+using Sufficit.Blazor.Client.Components.Contacts;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
@@ -33,29 +36,32 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         [Parameter, SupplyParameterFromQuery(Name = "contactid")]
         public Guid ContactId { get; set; } = default!;
 
-        protected IEnumerable<Sufficit.Contacts.Attribute>? Attributes { get; set; }
+        protected HashSet<Sufficit.Contacts.AttributeMonitor>? Attributes { get; set; }
+
 
         #region TITLE AND DOCUMENT
+
+        protected bool CanUpdate { get; set; } = false;
 
         protected MudTextField<string> TitleReference { get; set; } = default!;
 
         protected MudTextField<string> DocumentReference { get; set; } = default!;
 
-        protected string? ContactTitle { get; set; }
-        
-        protected bool HeaderChanged { get; set; }
+        protected AttributeMonitor ContactTitle { get; set; } = new AttributeMonitor();
 
-        protected void OnTitleChanged(string? value)
+        protected AttributeMonitor ContactDocument { get; set; } = new AttributeMonitor();
+      
+        protected void OnContactDocumentChanged(string? value)
         {
-            if (ContactTitle != value)
-            {
-                ContactTitle = value;
-                var title = Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Title)?.Value;
-                HeaderChanged = ContactTitle != title;
-            }
+            ContactDocument.Value = new string(value?.Where(s => char.IsDigit(s)).ToArray());
         }
 
+        protected bool HeaderChanged =>
+            ContactTitle.HasChanged || ContactDocument.HasChanged;
+
         #endregion
+
+        protected ContactAvatar AvatarReference { get; set; } = default!;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -64,11 +70,23 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
             if (ContactId != Guid.Empty)
             {
-                Attributes = await APIClient.Contacts.GetAttributes(ContactId, CancellationToken.None);
-                if (!Attributes.Any())
+                var attributes = await APIClient.Contacts.GetAttributes(ContactId, CancellationToken.None);
+                if (!attributes.Any())
                     throw new Exception($"Item not found: {ContactId}");
 
-                ContactTitle = Attributes?.FirstOrDefault(s => s.Key == Sufficit.Contacts.Attributes.Title)?.Value ?? string.Empty;
+                Attributes = attributes.ToMonitor().ToHashSet();
+
+                if (!Attributes.Any(s => s.Key == Sufficit.Contacts.Attributes.Title))
+                    Attributes.Add(ContactTitle);
+                else
+                    ContactTitle = Attributes.First(s => s.Key == Sufficit.Contacts.Attributes.Title);
+
+                if (!Attributes.Any(s => s.Key == Sufficit.Contacts.Attributes.Document))
+                    Attributes.Add(ContactDocument);
+                else
+                    ContactDocument = Attributes.First(s => s.Key == Sufficit.Contacts.Attributes.Document);
+
+                CanUpdate = await APIClient.Contacts.CanUpdate(ContactId, CancellationToken.None);
 
                 // Updating view
                 await InvokeAsync(StateHasChanged);
@@ -82,9 +100,15 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 var parameters = new DialogParameters();  
                 try
                 {
-                    //
+                    var contact = new ContactWithAttributes(ContactId)
+                    {
+                        Attributes = Attributes.Where(s => s.HasChanged).ToHashSet<Sufficit.Contacts.Attribute>()
+                    };
 
-                    parameters.Add("Content", "Está salvo com sucesso.");
+                    var id = await APIClient.Contacts.Update(contact, CancellationToken.None);
+                    if (id != null && ContactId != id) { UpdateId(id.Value); }
+
+                    parameters.Add("Content", $"({contact.Attributes.Count}) Atributos atualizados com sucesso.");
                     DialogService.Show<StatusDialog>("Sucesso !", parameters);
                 } 
                 catch (Exception ex)
@@ -94,6 +118,23 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                     DialogService.Show<StatusDialog>("Falha !", parameters);
                 }
             }
-        }        
+        }
+
+        protected void UpdateId(Guid id)
+        {            
+            var destination = NavigationManager.GetUriWithQueryParameter(nameof(ContactId).ToLower(), id);
+            NavigationManager.NavigateTo(destination, false);
+        }
+
+        protected async void OnInputFileChanged(InputFileChangeEventArgs args)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await args.File.OpenReadStream().CopyToAsync(ms);
+                ms.Position = 0;
+                await APIClient.Contacts.Update(ContactId, ms, CancellationToken.None);                
+                await InvokeAsync(AvatarReference.StateHasChanged);
+            }
+        }            
     }
 }

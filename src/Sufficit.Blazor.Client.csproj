@@ -60,17 +60,24 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-		<None Include="bundleconfig.json" />
 		<None Include="wwwroot\.nojekyll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\appsettings.Development.json">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 	
   <ItemGroup>
+	<Content Update="wwwroot\appsettings.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
     <Content Remove="appsettings.json" />
+	<Content Remove="compilerconfig.json" />
     <Content Remove="bundleconfig.json" />
     <Content Remove="Pages\Telephony\Monitor\Select.razor" />
     <Content Remove="wwwroot\.nojekyll" />
+    <Content Remove="wwwroot\appsettings.Development.json" />
     <Content Remove="wwwroot\assets\img\logos\logo-high.xcf" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-backup.png" />
     <Content Remove="wwwroot\assets\img\logos\logo-texto-high.xcf" />
@@ -134,26 +141,10 @@
 		<ProjectReference Include="..\..\sufficit-blazor\src\Sufficit.Blazor.csproj" /> 
 		<ProjectReference Include="..\..\sufficit-client\src\Sufficit.Client.csproj" /> 
 		<ProjectReference Include="..\..\sufficit-identity-client\src\Sufficit.Identity.Client.csproj" /> 
-		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" /> 
-		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" /> 
+		<ProjectReference Include="..\..\sufficit-identity-core\src\Sufficit.Identity.Core.csproj" />
+		<ProjectReference Include="..\..\sufficit-telephony-eventspanel-components\src\Sufficit.Telephony.EventsPanel.Components.csproj" />
 		<ProjectReference Include="..\..\sufficit-utils\src\Sufficit.Utils.csproj" />
 	</ItemGroup> 
-
-	<ItemGroup>
-    <Content Update="wwwroot\appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-	<ItemGroup>
-		<Content Remove="bundleconfig.json" />
-		<Content Remove="compilerconfig.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="bundleconfig.json" />
-		<None Include="compilerconfig.json" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="wwwroot\assets\css\" />

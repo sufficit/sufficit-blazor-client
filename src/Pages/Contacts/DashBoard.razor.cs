@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Contacts;
-using Sufficit.Identity;
-using Sufficit.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +15,8 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
     public partial class DashBoard : BasePageComponent
     {
         public const string RouteParameter = "pages/contacts/dashboard";
+
+        protected override string? Area => "Contatos";
 
         protected override string Title => "DashBoard";
 
@@ -52,21 +49,16 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         protected ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private APIClientService APIClient { get; set; } = default!;
-
-        [EditorRequired]
-        [CascadingParameter]        
-        protected UserPrincipal User { get; set; } = default!;
-        
+        protected APIClientService APIClient { get; set; } = default!;
+                
         [Parameter]
         public EventCallback<ContactWithAttributes> SelectedItemChanged { get; set; }
 
         protected string? GetInfoLink(Guid id)
             => $"/{Object.RouteParameter}?contactid={id:N}";
 
-
         /// <summary>
-        /// Used to show loading messages
+        ///     Used to show loading messages
         /// </summary>
         protected bool IsLoading { get; set; }
                 
@@ -118,7 +110,8 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                             Attributes.Title, 
                             Attributes.EMail, 
                             Attributes.Phone, 
-                            Attributes.Cellular 
+                            Attributes.Cellular,
+                            Attributes.Document
                         },
                         Value = new TextFilterWithKeys(Filter) { 
                             ExactMatch = false,

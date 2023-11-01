@@ -38,6 +38,9 @@ namespace Sufficit.Blazor.Client.Components.Contacts
         [Parameter]
         public int? Elevation { get; set; }
 
+        [Parameter]
+        public bool Cache { get; set; } = true;
+
         /// <summary>
         ///     MudAvatar element reference
         /// </summary>
@@ -74,6 +77,17 @@ namespace Sufficit.Blazor.Client.Components.Contacts
             } 
         }
 
-        protected string SourceUrl => $"{Options.Value.AvatarPath}?contextid={ReferenceId}";
+        protected string SourceUrl
+        { 
+            get
+            {
+                string result = Options.Value.AvatarPath.ToString();
+                result += $"?contextid={ReferenceId}";
+                if (!Cache) result += $"&nocache={Guid.NewGuid()}";
+                return result;
+            } 
+        }
+
+        public new void StateHasChanged() => base.StateHasChanged();
     }
 }

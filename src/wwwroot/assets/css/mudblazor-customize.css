@@ -62,7 +62,8 @@
 
 .mud-nav-group > .mud-nav-link > .mud-nav-link-text {
   overflow: hidden;
-  line-height: 1.5rem; }
+  line-height: 1.5rem;
+  text-overflow: ellipsis; }
 
 .mud-nav-link,
 .mud-drawer--closed.mud-drawer-mini .mud-nav-group * .mud-navmenu .mud-nav-item .mud-nav-link, .mud-nav-link,

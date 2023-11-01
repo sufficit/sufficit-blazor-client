@@ -56,7 +56,7 @@ const LoadBlazorProgress = function (type, filename, defaultUri, integrity) {
     return fetchResources;
 }
 
-const StartBlazor = async function () {    
+const StartBlazor = async function () {
     await Blazor.start({ loadBootResource: LoadBlazorProgress });
 }
 

@@ -55,6 +55,7 @@
 .mud-nav-group > .mud-nav-link > .mud-nav-link-text {
     overflow: hidden;
     line-height: 1.5rem;
+    text-overflow: ellipsis;
 }
 
 .mud-nav-link,

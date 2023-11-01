@@ -13,6 +13,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
     [Authorize(Roles = "telephony")]
     public partial class Configuration : MonitorTelephonyBasePageComponent
     {
+        public const string RouteParameter = "/pages/telephony/monitor/configuration";
+        
+        protected override string? Area => "Telefonia";
+
         protected override string Title => "Configurações";
 
         protected override string Description => "Opções do painel de eventos";
@@ -42,8 +46,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         {            
             if (!firstRender) return;
             IsRendered = true;
-
+            EPService.OnChanged += OnEPServiceChanged;
             UserOptions = await APIClient.Telephony.EventsPanel.GetUserOptions();
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async void OnEPServiceChanged(Microsoft.AspNetCore.SignalR.Client.HubConnectionState? arg1, Exception? arg2)
+        {
             await InvokeAsync(StateHasChanged);
         }
 

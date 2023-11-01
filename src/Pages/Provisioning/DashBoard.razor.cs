@@ -20,6 +20,8 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
     {
         public const string RouteParameter = "pages/provisioning/dashboard";
 
+        protected override string? Area => "Provisionamento";
+
         protected override string Title => "DashBoard";
 
         protected override string Description => "Provisioning Manager";
@@ -45,7 +47,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         protected UserPrincipal User { get; set; } = default!;
 
         [EditorRequired]
-        protected MudTable<Sufficit.Telephony.Device>? Table { get; set; } = default!;
+        protected MudTable<Sufficit.Telephony.Device> Table { get; set; } = default!;
 
         [EditorRequired]
         protected bool CanFilter => string.IsNullOrWhiteSpace(FilterParameter);

@@ -1,4 +1,7 @@
-﻿#splash-progress {
+﻿img.suff-avatar {
+  aspect-ratio: 1/1; }
+
+#splash-progress {
   height: 4px;
   background-color: #e97715;
   top: 0;
@@ -55,8 +58,11 @@
   max-width: 100%;
   max-height: 100%; }
 
-html, html > body, html > body > div#app {
-  /* height: 100%; */ }
+html {
+  height: auto; }
+
+html > body, html > body > div#app {
+  height: 100%; }
 
 .suff-toggle-drawer-xs {
   position: fixed;
@@ -70,3 +76,14 @@ html, html > body, html > body > div#app {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
+
+#suff-webphone-active-sessions-floating {
+  position: fixed;
+  z-index: 1100;
+  bottom: 2rem;
+  right: 2rem;
+  opacity: 1;
+  transition: transform .5s;
+  flex: 1;
+  justify-content: flex-end;
+  text-align: end; }

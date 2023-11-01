@@ -87,7 +87,8 @@
             <MudNavGroupEnchanted Title="Telefonia" Icon="@Icons.Material.Filled.Tty" SubTitle="Ramais, chamadas e etc.">
                 <MudNavLinkEnchanted Href="pages/telephony/webphone" Title="Telefone Web" Icon="@Icons.Material.Filled.Dialpad"></MudNavLinkEnchanted>
                 <AuthorizeView Roles="telephony">
-                    <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas"></MudNavLinkEnchanted>
+                    <MudNavLinkEnchanted Href="pages/telephony/endpoint/dashboard" Title="Extensões" Icon="@Icons.Material.Filled.Extension"></MudNavLinkEnchanted>
+                    <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas" Icon="@Icons.Material.Filled.RecordVoiceOver"></MudNavLinkEnchanted>
                 </AuthorizeView>
                 <AuthorizeView Roles="manager">
                     <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>

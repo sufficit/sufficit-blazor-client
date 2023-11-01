@@ -1,22 +1,51 @@
-﻿@page "/pages/telephony/monitor/configuration"
-@attribute [Authorize(Roles = "manager")]
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
 @inherits MonitorTelephonyBasePageComponent 
 
-<MudGrid Class="mt-5">
-    <MudItem xs="12"> 
-       <MudCard Class="pa-3">
-            <MudCardHeader>
-                <MudText Typo="Typo.h6">Configurações de serviço</MudText>
-            </MudCardHeader>
-            <MudCardContent>
-                <MudText>@EPService.EndPoint</MudText>
-            </MudCardContent>
-        </MudCard>
-
-        @if (UserOptions != null)
-        {
-            <MudCard Class="pa-3">
-                <div class="row">
+<MudContainer Class="mt-5">
+    <MudCard Class="pa-3">
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">Configurações de serviço</MudText>
+            <MudSpacer></MudSpacer>
+            <MudStack Justify="Justify.FlexEnd" Row="true" Spacing="0">
+                @if (EPService.IsConnected)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.SettingsPower" Color="Color.Error" OnClick="() => EPService.StopAsync(System.Threading.CancellationToken.None)"></MudIconButton>
+                }
+                else if (EPService.IsTrying)
+                {
+                    <MudProgressCircular Color="Color.Default" Size="Size.Small" Indeterminate="true" />                   
+                }  
+                else
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.SettingsPower" Color="Color.Default" OnClick="() => EPService.StartAsync(System.Threading.CancellationToken.None)"></MudIconButton>                    
+                }
+                @if (EPService.IsConfigured)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Success"></MudIconButton>
+                } 
+                else
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Warning"></MudIconButton>
+                }
+            </MudStack>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudForm>
+                <MudField Label="Endereço: (Uri)">
+                    <MudText>@EPService.EndPoint</MudText>
+                </MudField>
+                <MudField Label="Estado:">
+                    <MudText>@EPService.State</MudText>
+                </MudField>
+            </MudForm>
+        </MudCardContent>
+    </MudCard>
+    @if (UserOptions != null)
+    {
+        <MudDivider Class="my-5"></MudDivider>
+        <MudCard Class="pa-3">
+            <div class="row">
                 <div class="col-12 col-md-6 col-xl-4 position-relative">
                     <div class="card card-plain h-100">
                         <div class="card-header pb-0 p-3">
@@ -50,6 +79,5 @@
                 </div>
             </div>
         </MudCard>
-        }
-    </MudItem>
-</MudGrid>
+    }
+</MudContainer>

@@ -87,7 +87,7 @@
                                 <MudTd DataLabel="Fornecedor" Style="text-align: center;">
                                     <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">
                                         <MudTooltip Text="@Provedor">
-                                            <ContactAvatar ReferenceId="@context.ProviderId"></ContactAvatar>
+                                            <ContactAvatar ReferenceId="@context.ProviderId" Size="Size.Small"></ContactAvatar>
                                         </MudTooltip>
                                     </AsyncBlock>
                                 </MudTd>

@@ -3,77 +3,76 @@
 @inherits BasePageComponent
 @using Sufficit.Blazor.Client.Components.Contacts
 
-<MudGrid Class="mt-5">
-    <MudItem xs="12">               
-        <MudCard Class="pa-3">
-            <MudCardHeader Class="justify-end">
-                <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
-            </MudCardHeader>
-            <MudCardContent>
+<MudContainer Class="mt-5">             
+    <MudCard>
+        <MudCardHeader Class="justify-end">
+            <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh" OnClick="() => Table.ReloadServerData()"></MudIconButton>
+        </MudCardHeader>
+        <MudCardContent>
                 
-                <MudTable @ref="Table"
-                    Breakpoint="Breakpoint.Sm" Hover Class="my-3"
-                    T="Sufficit.Telephony.Device"
-                    ServerData="GetData" 
-                    LoadingProgressColor="Color.Info">
-                    <ToolBarContent>
-                        <MudText Typo="Typo.h6">@this.Description</MudText>
-                        <MudSpacer />
-                         <MudTextField T="string" 
-                             Value="Filter" 
-                             ValueChanged="OnFilterChanged" 
-                             Immediate="true"
-                             ReadOnly="!CanFilter"
-                             Placeholder="Texto para filtrar" 
-                             Adornment="Adornment.Start" 
-                             AdornmentIcon="@Icons.Material.Filled.Search" 
-                             IconSize="Size.Medium" 
-                             Class="mt-0"></MudTextField>
-                    </ToolBarContent>                    
-                    <RowTemplate>
-                        <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
-                        <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
-                        <MudTd DataLabel="ContextId">
-                            @if (context.ContextId.HasValue)
-                            {
-                                <MudStack Row="true">
-                                    <MudItem>
-                                        <ContactAvatar ReferenceId="@context.ContextId.Value" />
-                                    </MudItem>
-                                    <MudItem>
-                                        <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
-                                            <SuffContactTitle ReferenceId="@context.ContextId.Value" />
-                                        </MudText>
-                                    </MudItem>
-                                </MudStack>
-                            }
-                        </MudTd>
-                        <MudTd DataLabel="ExtensionId">
-                            <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
-                            </MudTd>
-                        <MudTd DataLabel="Timestamp">@context.Timestamp.ToLocalTime().ToString("dd/MM HH:mm")</MudTd>
-                        <MudTd DataLabel="Ação">
-                            <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">
-                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
-                            </MudLink>
-                        </MudTd>
-                    </RowTemplate>
-                    <PagerContent>
-                        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }" />
-                    </PagerContent>
-                    <NoRecordsContent>
-                        @if (!string.IsNullOrWhiteSpace(Filter))
+            <MudTable @ref="Table"
+                Breakpoint="Breakpoint.Sm" Hover
+                T="Sufficit.Telephony.Device"
+                ServerData="GetData" 
+                LoadingProgressColor="Color.Info">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">@this.Description</MudText>
+                    <MudSpacer />
+                        <MudTextField T="string" 
+                            Value="Filter" 
+                            ValueChanged="OnFilterChanged" 
+                            Immediate="true"
+                            ReadOnly="!CanFilter"
+                            Placeholder="Texto para filtrar" 
+                            Adornment="Adornment.Start" 
+                            AdornmentIcon="@Icons.Material.Filled.Search" 
+                            IconSize="Size.Medium" 
+                            Class="mt-0"></MudTextField>
+                </ToolBarContent>                    
+                <RowTemplate>
+                    <MudTd DataLabel="MAC Address">@context.MACAddress</MudTd>
+                    <MudTd DataLabel="IP Address">@context.IPAddress</MudTd>
+                    <MudTd DataLabel="ContextId">
+                        @if (context.ContextId.HasValue)
                         {
-                            <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+                            <MudStack Row="true">
+                                <MudItem>
+                                    <ContactAvatar ReferenceId="@context.ContextId.Value" Size="Size.Small" />
+                                </MudItem>
+                                <MudItem>
+                                    <MudText Inline="true" Style="position: relative; table-layout:fixed; text-overflow:ellipsis; white-space: nowrap; overflow: hidden;">
+                                        <SuffContactTitle ReferenceId="@context.ContextId.Value" />
+                                    </MudText>
+                                </MudItem>
+                            </MudStack>
                         }
-                        else
-                        {
-                            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
-                        }
-                    </NoRecordsContent>
-                </MudTable>
+                    </MudTd>
+                    <MudTd DataLabel="ExtensionId">
+                        <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
+                        </MudTd>
+                    <MudTd DataLabel="Timestamp">@context.Timestamp.ToLocalTime().ToString("dd/MM HH:mm")</MudTd>
+                    <MudTd DataLabel="Ação">
+                        <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
+                        </MudLink>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }" />
+                </PagerContent>
+                <NoRecordsContent>
+                    @if (!string.IsNullOrWhiteSpace(Filter))
+                    {
+                        <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+                    }
+                </NoRecordsContent>
+            </MudTable>
                 
-            </MudCardContent>
-        </MudCard>          
-    </MudItem>
-</MudGrid>
+        </MudCardContent>
+    </MudCard>   
+</MudContainer>

@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using Sufficit.Telephony.JsSIP;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Components.WebPhone
@@ -14,7 +11,10 @@ namespace Sufficit.Blazor.Client.Components.WebPhone
     public partial class ActiveSessions : ComponentBase, IDisposable
     {
         [Inject]
-        public IJSRuntime JSRuntime { get; set; } = default!;
+        protected BlazorContextRuntime BCRuntime { get; set; } = default!;
+
+        [Inject]
+        public NavigationManager Navigation { get; set; } = default!;
 
         [Parameter]
         [EditorRequired]
@@ -25,13 +25,18 @@ namespace Sufficit.Blazor.Client.Components.WebPhone
         protected string AudioFile { get; set; }
             = "/assets/ringing-151670.mp3";
 
-        protected bool AudioPlay 
-            => Sessions.Where(s => s.Direction == JsSIPSessionDirection.incoming && s.Status.CanAnswer()).Any();
+        private bool AudioPlayExists { get; set; }
 
-        protected override void OnAfterRender(bool firstRender)
+        protected bool AudioPlay 
+            =>!AudioPlayExists && Sessions.Where(s => s.Direction == JsSIPSessionDirection.incoming && s.Status.CanAnswer()).Any();
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (!firstRender) return;
+            if (!firstRender) return; 
             Sessions.OnChanged += OnSessionsChanged;
+
+            AudioPlayExists = await BCRuntime.HasElementWithId("sufficit-ringing");
+            await InvokeAsync(StateHasChanged);
         }
 
         protected Guid GetUserId(string? key)
@@ -45,6 +50,17 @@ namespace Sufficit.Blazor.Client.Components.WebPhone
 
         private async void OnSessionsChanged(object? sender, System.EventArgs e)
         {
+            await InvokeAsync(StateHasChanged);
+        }
+
+        protected async void OnSessionSelected(JsSIPSessionInfo info)
+        {
+            Sessions.Monitor.Set(info.Id);
+
+            var destination = Pages.Telephony.WebPhone.RouteParameter;
+            if (!Navigation.Uri.Contains(destination))
+                Navigation.NavigateTo(destination, false);
+
             await InvokeAsync(StateHasChanged);
         }
 

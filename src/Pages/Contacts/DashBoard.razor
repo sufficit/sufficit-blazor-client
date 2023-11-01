@@ -1,68 +1,71 @@
 ﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
-@using Sufficit.Contacts
 @inherits BasePageComponent
+@using Sufficit.Contacts
 
-<MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
-<MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
+<MudContainer Class="mt-5">
+    <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
+    <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
 
-<MudTable @ref="Table"
-          RowStyle="cursor: pointer;"
-          T="Sufficit.Contacts.ContactWithAttributes"
-          Dense="true"
-          Hover="true"
-          Elevation="0"
-          Style="padding: 0;"
-          Breakpoint="Breakpoint.Sm"
-          LoadingProgressColor="Color.Info"
-          ServerData="GetData"
-          SelectedItemChanged="SelectedItemChanged">
-    <HeaderContent>
-        @if (DataItems.Any())
-        {
-            <MudTh Style="width: 50px;"></MudTh>
-            <MudTh Style="width: 50px;"></MudTh>
-            <MudTh Style="width: 250px; text-align: left">Titulo</MudTh>
-            <MudTh Style="width: 100px; text-align: center">Telefone</MudTh>
-            <MudTh Style="width: 100px; text-align: center">E-Mail</MudTh>
-            <MudTh Style="width: 100px; text-align: center">Attributos</MudTh>
-        }
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Ações" Style="text-align: left; max-width: 50px;">
-            <MudTooltip Text="Visualizar">
-                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Info" Href="@GetInfoLink(context.Id)"></MudIconButton>
-            </MudTooltip>
-        </MudTd>
-        <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
-            <ContactAvatar ReferenceId="@context.Id" Size="Size.Small" />
-        </MudTd>
-        <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
-        <MudTd DataLabel="Telefone" Style="text-align: left; white-space: nowrap;">
-            @GetPhone(context.GetValue(Attributes.Phone) ?? context.GetValue(Attributes.Cellular))
-        </MudTd>
-        <MudTd DataLabel="E-Mail" Style="text-align: left; white-space: nowrap;">
-            @context.GetValue(Attributes.EMail)
-        </MudTd>
-        <MudTd DataLabel="Attributos" Style="text-align: left">
-            @context.Attributes.Count
-        </MudTd>
-    </RowTemplate>
-    <NoRecordsContent>
-        @if (!string.IsNullOrWhiteSpace(Filter))
-        {
-            @if (Filter.Length < Minimum)
+    <MudTable @ref="Table"
+              RowStyle="cursor: pointer;"
+              T="Sufficit.Contacts.ContactWithAttributes"
+              Dense="true"
+              Hover="true"
+              Bordered="true"
+              Elevation="0"
+              Style="padding: 0;"
+              Breakpoint="Breakpoint.Sm"
+              LoadingProgressColor="Color.Info"
+              ServerData="GetData"
+              SelectedItemChanged="SelectedItemChanged">
+        <HeaderContent>
+            @if (DataItems.Any())
             {
-                <MudText>Para iniciar a pesquisa precisamos de pelo menos @Minimum caracteres.</MudText>
+                <MudTh Style="width: 50px;"></MudTh>
+                <MudTh Style="width: 50px;"></MudTh>
+                <MudTh Style="width: 200px; text-align: left">Titulo</MudTh>
+                <MudTh Style="width: 100px; text-align: center">Telefone</MudTh>
+                <MudTh Style="width: 100px; text-align: center">E-Mail</MudTh>
+                <MudTh Style="width: 165px; min-width: 165px; text-align: center">Documento</MudTh>
+            }
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Ações" Style="text-align: left; max-width: 50px;">
+                <MudTooltip Text="Visualizar">
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Info" Href="@GetInfoLink(context.Id)"></MudIconButton>
+                </MudTooltip>
+            </MudTd>
+            <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
+                <ContactAvatar ReferenceId="@context.Id" Size="Size.Small" />
+            </MudTd>
+            <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@context.Title</MudTd>
+            <MudTd DataLabel="Telefone" Style="text-align: left; white-space: nowrap;">
+                @GetPhone(context.GetValue(Attributes.Phone) ?? context.GetValue(Attributes.Cellular))
+            </MudTd>
+            <MudTd DataLabel="E-Mail" Style="text-align: left; white-space: nowrap;">
+                @context.GetValue(Attributes.EMail)
+            </MudTd>
+            <MudTd DataLabel="Documento" Style="text-align: left">
+                @Sufficit.Utils.FormatDocument(context.GetValue(Attributes.Document))
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            @if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                @if (Filter.Length < Minimum)
+                {
+                    <MudText>Para iniciar a pesquisa precisamos de pelo menos @Minimum caracteres.</MudText>
+                }
+                else
+                {
+                    <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+                }
             }
             else
             {
-                <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+                <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
             }
-        }
-        else
-        {
-            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
-        }
-    </NoRecordsContent>
-</MudTable>
+        </NoRecordsContent>
+    </MudTable>
+</MudContainer>

@@ -28,7 +28,7 @@ namespace Sufficit.Blazor.Client
 
         public event Action<AuthenticationState>? AuthenticationStateChanged;
 
-        public async Task<UserPrincipal> CurrentUser()
+        public async ValueTask<UserPrincipal> CurrentUser()
         {
             var state = await _service.GetAuthenticationStateAsync();
             return (state.User as Sufficit.Identity.UserPrincipal)!;

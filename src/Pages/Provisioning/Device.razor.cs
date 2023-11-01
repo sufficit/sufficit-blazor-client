@@ -66,7 +66,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
                         var parameters = new EndPointSearchParameters();
                         parameters.Id = Item.ExtensionId.Value;
                         parameters.Limit = 1;
-                        var endpoints = await APIClient.Telephony.EndPoint.GetEndPoints(parameters);
+                        var endpoints = await APIClient.Telephony.EndPoint.GetEndPoints(parameters, CancellationToken.None);
                         if (endpoints.Any())
                             EndPoint = endpoints.FirstOrDefault();
                         else throw new Exception("device extension not found");
