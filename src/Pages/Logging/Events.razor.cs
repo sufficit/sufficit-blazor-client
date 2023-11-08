@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Logging;
-using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Logging
@@ -19,11 +15,11 @@ namespace Sufficit.Blazor.Client.Pages.Logging
     {
         public const string RouteParameter = "pages/logging/events";
 
+        public const string? Icon = MudBlazor.Icons.Material.Filled.Event;
+
         protected override string Title => "Eventos";
 
         protected override string Description => "Registro de eventos";
-
-        protected override string? Icon => @Icons.Material.Filled.Event;
 
         protected override string? Area => "Logging";
 
@@ -41,6 +37,18 @@ namespace Sufficit.Blazor.Client.Pages.Logging
         [SupplyParameterFromQuery]
         [Parameter]
         public Guid? EventContextId { get; set; }
+
+        public static string GetLink(Guid? contextid, string? reference, string? @class)
+        {
+            var link = RouteParameter + "?";
+            if (contextid.HasValue)
+                link += $"{nameof(EventContextId)}={contextid}&";
+            if (!string.IsNullOrWhiteSpace(reference))
+                link += $"{nameof(Reference)}={reference}&";
+            if (!string.IsNullOrWhiteSpace(@class))
+                link += $"{nameof(ClassName)}={@class}&";
+            return link.TrimEnd('&');
+        }
 
         protected IEnumerable<JsonLog>? Items { get; set; }
 

@@ -6,6 +6,7 @@
 @using Sufficit.Telephony;
 @using Sufficit.Blazor.Client.Models;
 @using System.Threading;
+@using static Sufficit.Sales.Constants;
 
 @if (View.ContextId == Guid.Empty)
 {
@@ -68,11 +69,11 @@
     @code {
     public const string RouteParameter = "/pages/sales/contracts";
 
+    public const string? Icon = @Icons.Material.Filled.EventRepeat;
+
     protected override string Title => "Serviços recorrentes";
 
     protected override string? Area => "Vendas";
-
-    protected override string? Icon => @Icons.Material.Filled.EventRepeat;
 
     //Style="@($"color:{Colors.LightGreen.Accent3}; background:{Colors.BlueGrey.Darken4};")"
     protected string ExpiredStyle = $"background:{Colors.Red.Lighten4}";
@@ -96,8 +97,8 @@
     {
         switch (title)
         {
-            case "TRONCO DE ENTRADA": return @Icons.Material.Filled.TripOrigin;
-            case "FLASH OPERATOR PANEL": return @Icons.Material.Filled.SmartButton;
+            case SERVICE_TRUNK_INBOUND: return @Icons.Material.Filled.TripOrigin;
+            case SERVICE_FLASH_OPERATOR_PANEL: return @Icons.Material.Filled.SmartButton;
             case "SUPORTE EMPRESARIAL": return @Icons.Material.Filled.SupportAgent;
             case "TRONCO FIXO ILIMITADO":
             case "TRONCO MOVEL ILIMITADO":

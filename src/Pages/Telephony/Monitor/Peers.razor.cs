@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Sufficit.Blazor.Components;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Threading.Tasks;
@@ -7,8 +8,12 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "manager")]
-    public partial class Peers : MonitorTelephonyBasePageComponent, IDisposable
+    public partial class Peers : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
+        public const string RouteParameter = "pages/telephony/monitor/peers";
+
+        public const string? Icon = MudBlazor.Icons.Material.Filled.SendTimeExtension;
+
         protected override string Title => "Pares";
 
         protected override string Description => "Estado de pares";

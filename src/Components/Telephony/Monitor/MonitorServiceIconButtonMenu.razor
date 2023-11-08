@@ -1,0 +1,24 @@
+﻿@using System.Threading;
+<MudMenu Color="@this.Color" Icon="@Icons.Material.Filled.Api" FullWidth="false">
+    @if (EPService.IsConnected)
+    {
+        <MudMenuItem Icon="@Icons.Material.Filled.SettingsPower" OnClick="() => EPService.StopAsync(System.Threading.CancellationToken.None)">
+            Parar
+        </MudMenuItem>
+    }
+    else if (EPService.IsTrying)
+    {
+        <MudMenuItem Icon="@Icons.Material.Filled.SettingsPower">
+            <MudProgressCircular Color="Color.Default" Size="Size.Small" Indeterminate="true" />
+            Estabilizando
+        </MudMenuItem>
+    }
+    else
+    {
+        <MudMenuItem Icon="@Icons.Material.Filled.SettingsPower" OnClick="() => EPService.StartAsync(System.Threading.CancellationToken.None)">
+            Inicializar
+        </MudMenuItem>
+    }
+
+    <MudMenuItem Icon="@Pages.Telephony.Monitor.Configuration.Icon" Href="@Pages.Telephony.Monitor.Configuration.RouteParameter">Configurações</MudMenuItem>    
+</MudMenu>

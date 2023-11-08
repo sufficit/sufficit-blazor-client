@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using System;
@@ -14,6 +15,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
     public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
         public const string RouteParameter = "pages/telephony/did/dashboard";
+
+        public const string? Icon = Icons.Material.Filled.TripOrigin;
 
         protected override string Title => "Direct Inward Dialing";
 

@@ -75,7 +75,7 @@
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />
             <MudNavGroupEnchanted Title="Vendas" Icon="@Icons.Material.Filled.Store" SubTitle="Serviços">
                 <AuthorizeView Roles="salesmanager">
-                    <MudNavLinkEnchanted Icon="@Icons.Material.Filled.EventRepeat" Href="pages/sales/contracts" Title="Recorrentes"></MudNavLinkEnchanted>
+                    <MudNavLinkEnchanted Icon="@Pages.Sales.Contracts.Icon" Href="@Pages.Sales.Contracts.RouteParameter" Title="Recorrentes"></MudNavLinkEnchanted>
                 </AuthorizeView>
             </MudNavGroupEnchanted>
         </Authorized>
@@ -85,26 +85,26 @@
         <Authorized>
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />
             <MudNavGroupEnchanted Title="Telefonia" Icon="@Icons.Material.Filled.Tty" SubTitle="Ramais, chamadas e etc.">
-                <MudNavLinkEnchanted Href="pages/telephony/webphone" Title="Telefone Web" Icon="@Icons.Material.Filled.Dialpad"></MudNavLinkEnchanted>
+                <MudNavLinkEnchanted Href="@Pages.Telephony.WebPhone.RouteParameter" Title="Telefone Web" Icon="@Pages.Telephony.WebPhone.Icon"></MudNavLinkEnchanted>
                 <AuthorizeView Roles="telephony">
-                    <MudNavLinkEnchanted Href="pages/telephony/endpoint/dashboard" Title="Extensões" Icon="@Icons.Material.Filled.Extension"></MudNavLinkEnchanted>
+                    <MudNavLinkEnchanted Href="@Pages.Telephony.EndPoint.DashBoard.RouteParameter" Title="Extensões" Icon="@Pages.Telephony.EndPoint.DashBoard.Icon"></MudNavLinkEnchanted>
                     <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas" Icon="@Icons.Material.Filled.RecordVoiceOver"></MudNavLinkEnchanted>
                 </AuthorizeView>
                 <AuthorizeView Roles="manager">
                     <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>
                 </AuthorizeView>
-                <MudNavLink Icon="@Icons.Material.Filled.List" Href="@Pages.Telephony.IVR.DashBoard.RouteParameter">IVR | Menus</MudNavLink>
-                <MudNavLink Icon="@Icons.Material.Filled.TripOrigin" Href="@Pages.Telephony.DirectInwardDialing.DashBoard.RouteParameter">DID | Entradas</MudNavLink>
+                <MudNavLink Icon="@Pages.Telephony.IVR.DashBoard.Icon" Href="@Pages.Telephony.IVR.DashBoard.RouteParameter">IVR | Menus</MudNavLink>
+                <MudNavLink Icon="@Pages.Telephony.DirectInwardDialing.DashBoard.Icon" Href="@Pages.Telephony.DirectInwardDialing.DashBoard.RouteParameter">DID | Entradas</MudNavLink>
 
                 <AuthorizeView Roles="telephony" Context="TelephonyMonitor">
                     <Authorized>
                         <MudDivider Class="my-2" DividerType="DividerType.Middle" />
                         <MudNavGroupEnchanted Title="Monitoramento" Icon="@Icons.Material.Filled.Api" SubTitle="Informações em tempo real">
-                            <MudNavLink Icon="@Icons.Material.Filled.Settings" Href="pages/telephony/monitor/configuration">Configuração</MudNavLink>
+                            <MudNavLink Icon="@Pages.Telephony.Monitor.Configuration.Icon" Href="@Pages.Telephony.Monitor.Configuration.RouteParameter">Configuração</MudNavLink>
                             <MudNavLinkEnchanted Title="Painel" Icon="@Icons.Material.Filled.SmartButton" Href="pages/telephony/monitor/panel"></MudNavLinkEnchanted>
 
                             <AuthorizeView Roles="manager">
-                                <MudNavLinkEnchanted Title="Pares" Href="pages/telephony/monitor/peers"></MudNavLinkEnchanted>
+                                <MudNavLinkEnchanted Title="Pares" Href="@Pages.Telephony.Monitor.Peers.RouteParameter" Icon="@Pages.Telephony.Monitor.Peers.Icon"></MudNavLinkEnchanted>
                                 <MudNavLinkEnchanted Title="Filas de Espera" Href="pages/telephony/monitor/calls"></MudNavLinkEnchanted>
                                 <MudNavLinkEnchanted Title="Canais" Href="pages/telephony/monitor/channels"></MudNavLinkEnchanted>
                                 <MudNavLinkEnchanted Title="Eventos" Href="pages/telephony/monitor/events"></MudNavLinkEnchanted>

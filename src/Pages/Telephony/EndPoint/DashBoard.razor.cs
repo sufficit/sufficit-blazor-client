@@ -19,6 +19,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
     {
         public const string RouteParameter = "pages/telephony/endpoint/dashboard";
 
+        public const string? Icon = Icons.Material.Filled.Extension;
+
         protected override string Title => "Extensões";
 
         protected override string Description => "Ramais | Dispositivos | EndPoints";

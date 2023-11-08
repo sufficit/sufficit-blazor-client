@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using MudBlazor;
 using Sufficit.Client;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
     public partial class DashBoard : TelephonyBasePageComponent, IDisposable
     {
         public const string RouteParameter = "pages/telephony/ivr/dashboard";
+
+        public const string? Icon = Icons.Material.Filled.List;
 
         protected override string Title => "IVR";
 

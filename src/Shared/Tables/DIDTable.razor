@@ -62,12 +62,12 @@
     <RowTemplate>
         <MudTd DataLabel="Ações">
             <MudTooltip Text="Editar opções">
-                <MudLink Href="@(Pages.Telephony.DirectInwardDialing.Object.RouteParameter + $"?id={context.Id}")" Underline="Underline.None" Class="mx-1">
+                <MudLink Href="@Pages.Telephony.DirectInwardDialing.Object.GetLink(context.Id)" Underline="Underline.None" Class="mx-1">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
                 </MudLink>
             </MudTooltip>
             <MudTooltip Text="Histórico de atualizações">
-                <MudLink Href="@(Pages.Logging.Events.RouteParameter + $"?classname={nameof(DirectInwardDialing)}&event.contextid={context.Id}")" Underline="Underline.None" Class="mx-1">
+                <MudLink Href="@Pages.Logging.Events.GetLink(context.Id, null, nameof(DirectInwardDialing))" Underline="Underline.None" Class="mx-1">
                     <MudIconButton Icon="@Icons.Material.Filled.History" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
                 </MudLink>
             </MudTooltip>
@@ -99,7 +99,7 @@
         <MudTd DataLabel="Fornecedor" Style="text-align: center;">
             <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">
                 <MudTooltip Text="@Provedor">
-                    <ContactAvatar ReferenceId="@context.ProviderId"></ContactAvatar>
+                    <ContactAvatar ReferenceId="@context.ProviderId" Size="Size.Small"></ContactAvatar>
                 </MudTooltip>
             </AsyncBlock>
         </MudTd>

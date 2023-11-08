@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using MudBlazor;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -13,8 +14,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
     [Authorize(Roles = "telephony")]
     public partial class Configuration : MonitorTelephonyBasePageComponent
     {
-        public const string RouteParameter = "/pages/telephony/monitor/configuration";
-        
+        public const string RouteParameter = "pages/telephony/monitor/configuration";
+
+        public const string? Icon = Icons.Material.Filled.Settings;
+
         protected override string? Area => "Telefonia";
 
         protected override string Title => "Configurações";

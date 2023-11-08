@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using Sufficit.Telephony.DIDs;
 using Sufficit.Blazor.Components;
+using System.Security.Cryptography.Xml;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
@@ -37,6 +38,14 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         [Parameter, SupplyParameterFromQuery(Name = "id")]
         public Guid ObjectId { get; set; } = default!;
+
+        public static string GetLink(Guid? objectid)
+        {
+            var link = RouteParameter;
+            if (objectid.HasValue)
+                link += $"?id={objectid}";
+            return link.TrimEnd('&');
+        }
 
         protected IEnumerable<IContact>? Providers { get; set; }
 

@@ -77,11 +77,11 @@
     @code {
     public const string RouteParameter = "/pages/sales/recurringitem";
 
+    public const string? Icon = @Icons.Material.Filled.EventRepeat;
+
     protected override string Title => "Serviço recorrente";
 
     protected override string? Area => "Vendas";
-
-    protected override string? Icon => @Icons.Material.Filled.EventRepeat;
 
     [Inject] 
     APIClientService Service { get; set; } = default!;

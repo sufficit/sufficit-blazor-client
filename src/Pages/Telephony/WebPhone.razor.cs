@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Threading;
 using Sufficit.Blazor.Telephony;
 using Sufficit.Blazor.Components;
+using MudBlazor;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
@@ -21,6 +22,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
     public partial class WebPhone : TelephonyBasePageComponent, IPage
     {
         public const string RouteParameter = "pages/telephony/webphone";
+
+        public const string? Icon = Icons.Material.Filled.Dialpad;
 
         protected override string Title => "Telefone Web";
 
