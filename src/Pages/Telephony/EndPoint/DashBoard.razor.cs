@@ -141,8 +141,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
             DataBind();
         }
 
-        protected bool IsMailBox(Sufficit.Telephony.EndPoint source)
-            => !source.TechIAX && !source.TechPJSIP && !source.TechSIP;
+        protected bool IsMailBox(Sufficit.Telephony.EndPoint? source)
+            => source != null && !source.TechIAX && !source.TechPJSIP && !source.TechSIP;
         
 
         public void Dispose()

@@ -16,7 +16,10 @@
     </ChildContent>
     <ErrorContent>
         From ErrorBoundary
-        <MudAlert>@context.Message</MudAlert>
+        <MudAlert>
+            <MudText>@context.Message</MudText>
+            <MudText>@context.StackTrace</MudText>
+        </MudAlert>
     </ErrorContent>
 </ErrorBoundary>
 

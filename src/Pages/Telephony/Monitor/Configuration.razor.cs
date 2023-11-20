@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using MudBlazor;
 using Sufficit.Client;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "telephony")]
-    public partial class Configuration : MonitorTelephonyBasePageComponent
+    public partial class Configuration : MonitorTelephonyBasePageComponent, IDisposable
     {
         public const string RouteParameter = "pages/telephony/monitor/configuration";
 
@@ -40,9 +41,16 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         /// </summary>
         protected bool IsRendered { get; set; }
 
+        /// <summary>
+        /// Last connection exception
+        /// </summary>
+        protected Exception? Exception => EPService.Exception;
+
+        private IDisposable? DisposableForAMIOptions;
+
         protected override void OnParametersSet()
         {
-            AMIOptionsMonitor.OnChange(AMIOptionsChanged);
+            DisposableForAMIOptions = AMIOptionsMonitor.OnChange(AMIOptionsChanged);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -54,7 +62,22 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             await InvokeAsync(StateHasChanged);
         }
 
-        private async void OnEPServiceChanged(Microsoft.AspNetCore.SignalR.Client.HubConnectionState? arg1, Exception? arg2)
+        public void Dispose()
+        {
+            EPService.OnChanged -= OnEPServiceChanged;
+
+            // releasing options monitor
+            DisposableForAMIOptions?.Dispose();
+        }
+
+        protected async void OnStartClicked(MouseEventArgs _)
+        {
+            await EPService.StartAsync(System.Threading.CancellationToken.None).ConfigureAwait(false);
+            await Task.Delay(200);
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async void OnEPServiceChanged(Microsoft.AspNetCore.SignalR.Client.HubConnectionState? _, Exception? __)
         {
             await InvokeAsync(StateHasChanged);
         }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 using Sufficit.Blazor.Client.Shared.Tables;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
@@ -11,7 +10,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {

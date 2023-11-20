@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
+using Sufficit.Identity;
+using Sufficit.Telephony.DIDs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,17 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         [Inject]
         private NavigationManager Navigation { get; set; } = default!;
 
+        [Parameter]
+        public string? Filter { get; set; }
+
+        public DIDSearchParameters? Parameters { get; set; }
+
+        protected void OnTextChanged(string? value)
+        {
+            Filter = value;
+            
+        }
+
         /// <summary>
         /// Used to show loading messages
         /// </summary>
@@ -38,7 +51,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         private async void ContextViewChanged(Guid obj)
         {
-            await GetItems();
+            Parameters ??= new DIDSearchParameters();
+            Parameters.ContextId = ContextView.ContextId;
+
+            await InvokeAsync(StateHasChanged);
         }
 
         protected static string ToE164Semantic(string extension)
@@ -53,26 +69,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (!firstRender) return;
 
-            _ = await ContextView.Default();
-            
-            // getting items for the first time
-            await GetItems();
-
             // if change, get items again
             ContextView.OnChanged += ContextViewChanged;
-        }
 
-        protected async Task GetItems()
-        {
-            IsLoading = true;     
-            if (ContextView.ContextId != Guid.Empty)
-            {
-                await InvokeAsync(StateHasChanged);
-                Items = await APIClient.Telephony.DID.ByContext(ContextView.ContextId);                
-            }
+            _ = await ContextView.Default();
 
-            IsLoading = false;
-            await InvokeAsync(StateHasChanged);
+            Parameters ??= new DIDSearchParameters();
+            Parameters.ContextId = ContextView.ContextId;
         }
 
         void IDisposable.Dispose()

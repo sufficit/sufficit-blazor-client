@@ -58,7 +58,7 @@
                                                 {
                                                     <MudText Typo="Typo.caption"><b>Id do Contexto:</b> @item.ContextId</MudText>
                                                 }
-                                                @if (item.Reference != Reference)
+                                                @if (!string.IsNullOrWhiteSpace(item.Reference))
                                                 {
                                                     <MudText Typo="Typo.caption"><b>Chave de Referência:</b> @item.Reference</MudText>
                                                 }

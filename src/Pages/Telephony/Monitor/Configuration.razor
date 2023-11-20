@@ -8,17 +8,19 @@
             <MudText Typo="Typo.h6">Configurações de serviço</MudText>
             <MudSpacer></MudSpacer>
             <MudStack Justify="Justify.FlexEnd" Row="true" Spacing="0">
-                @if (EPService.IsConnected)
+                @if (EPService.IsTrying)
+                {
+                    <MudButton OnClick="() => EPService.StopAsync(System.Threading.CancellationToken.None)">
+                        <MudProgressCircular Color="Color.Default" Size="Size.Small" Indeterminate="true" />
+                    </MudButton>
+                }
+                else if (EPService.IsConnected)
                 {
                     <MudIconButton Icon="@Icons.Material.Filled.SettingsPower" Color="Color.Error" OnClick="() => EPService.StopAsync(System.Threading.CancellationToken.None)"></MudIconButton>
-                }
-                else if (EPService.IsTrying)
-                {
-                    <MudProgressCircular Color="Color.Default" Size="Size.Small" Indeterminate="true" />                   
                 }  
                 else
                 {
-                    <MudIconButton Icon="@Icons.Material.Filled.SettingsPower" Color="Color.Default" OnClick="() => EPService.StartAsync(System.Threading.CancellationToken.None)"></MudIconButton>                    
+                    <MudIconButton Icon="@Icons.Material.Filled.SettingsPower" Color="Color.Default" OnClick="OnStartClicked"></MudIconButton>
                 }
                 @if (EPService.IsConfigured)
                 {
@@ -35,9 +37,23 @@
                 <MudField Label="Endereço: (Uri)">
                     <MudText>@EPService.EndPoint</MudText>
                 </MudField>
-                <MudField Label="Estado:">
+
+                <MudField Label="Estado de conexão:">
                     <MudText>@EPService.State</MudText>
                 </MudField>
+
+                <MudField Label="Estado da tarefa de execução:">
+                    <MudText>@EPService.Status</MudText>
+                </MudField>
+
+                @if(Exception != null)
+                {
+                    <MudField Label="Ultimo erro:">
+                        <MudText>@Exception.GetType()</MudText>
+                        <MudText>@Exception.Message</MudText>
+                    </MudField>
+                    
+                }
             </MudForm>
         </MudCardContent>
     </MudCard>

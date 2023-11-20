@@ -21,7 +21,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public DIDSearchParameters? Parameters { get; set; }
 
         [Parameter]
-        public uint Limit { get; set; } = 5;
+        public uint? Limit { get; set; }
 
         /// <summary>
         /// Set minimum length to start a server request
@@ -31,16 +31,16 @@ namespace Sufficit.Blazor.Client.Shared.Tables
 
         [Parameter]
         public uint TimeOut { get; set; } = 1500;
-               
+
         [Parameter]
         public EventCallback OnChanged { get; set; }
 
         [Parameter]
-        public Func<DIDSearchParameters, CancellationToken, ValueTask<IEnumerable<DirectInwardDialing>>>? GetData { get; set; } 
+        public Func<DIDSearchParameters, CancellationToken, ValueTask<IEnumerable<DirectInwardDialing>>>? GetData { get; set; }
 
         [EditorRequired]
-        protected MudTable<DirectInwardDialing>? Table { get; set; }
-
+        protected MudTable<DirectInwardDialing> Table { get; set; } = default!;
+        
         protected string? Filter { get; set; }
 
         protected string Totals
@@ -73,29 +73,31 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             if (!firstRender)
                 return;
 
-            if(Table != null)
+            if (Table != null)
                 Table.Context.TableStateHasChanged = () => OnChanged.InvokeAsync();
         }
 
-        protected async void FilterChanged(string text)
+        protected async void FilterChanged(string? text)
         {
-            if (Parameters == null)
-                Parameters = new DIDSearchParameters();
-
+            Parameters ??= new DIDSearchParameters();
             Parameters.Extension = text;
 
-            if (Table != null)            
-                await Table.ReloadServerData();            
+            if (Table != null)
+                await Table.ReloadServerData();
         }
 
         protected override void OnParametersSet()
         {
-            if (Parameters != null)
-            {
-                if(Parameters.Extension != null)
-                    Filter = Parameters.Extension;
-            }
+            Parameters ??= new DIDSearchParameters();
+            Filter = Parameters.Extension?.Text;            
+
+            if (GetData == null)
+                GetData = InternalGetData;
         }
+
+        protected async ValueTask<IEnumerable<DirectInwardDialing>> InternalGetData (DIDSearchParameters parameters, CancellationToken cancellationToken)
+            => await APIClient.Telephony.DID.Search(parameters, cancellationToken); 
+        
 
         /// <summary>
         /// Reload server data
@@ -111,9 +113,12 @@ namespace Sufficit.Blazor.Client.Shared.Tables
 
         protected TableData<DirectInwardDialing>? LastData;
 
-        protected async Task<TableData<DirectInwardDialing>> InternalGetData(TableState _)
-        {
-            LastData = new TableData<DirectInwardDialing>();
+        protected async Task<TableData<DirectInwardDialing>> TableServerData(TableState _)
+        {            
+            LastData ??= new TableData<DirectInwardDialing>()
+            {
+                Items = Array.Empty<DirectInwardDialing>()
+            };
 
             if (GetData == null)
                 return LastData;
@@ -128,6 +133,9 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             try
             {
                 var parameters = Parameters ?? new DIDSearchParameters();
+                if (parameters.Limit == null && Limit == null)                
+                    parameters.Limit = 20;
+                
                 var response = await GetData(parameters, TokenSource.Token);
                 LastData.Items = response ?? Array.Empty<DirectInwardDialing>();
             }

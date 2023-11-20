@@ -8,8 +8,6 @@ namespace Sufficit.Blazor.Client
         /// <summary>
         /// Realiza a configuração da autenticação via Open ID da Sufficit
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="options"></param>
         public static void Bind(this OpenIDOptions source, OidcProviderOptions options)
         {
             options.Authority = source.Authority;

@@ -2,108 +2,11 @@
 @attribute [Authorize]
 @inherits TelephonyBasePageComponent 
 @using Sufficit.Blazor.Client.Components.Contacts
+@using Sufficit.Blazor.Client.Shared.Tables
 
-<MudGrid Class="mt-5">
-    <MudItem xs="12">    
-        @if(ContextView.ContextId == Guid.Empty)
-        {
-            <DIDFreeOption></DIDFreeOption>
-            <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
-                <ClientMissing></ClientMissing>
-            </MudPaper>
-        } else {
-            <MudCard Class="pa-3">
-                <MudCardHeader >
-                    <MudGrid>
-                        @if (Items != null)
-                        {
-                            <MudItem lg="6" md="6" sm="6" Class="justify-start">
-                                    <MudText Typo="Typo.body1" Align="Align.Left"><b>@Items.Count()</b> Item(s) encontrado(s)</MudText>
-                            </MudItem>                            
-                        }
-                        <MudItem lg="6" md="6" sm="6" Class="justify-end">
-                            <MudText Typo="Typo.body1" Align="Align.Right" Style="text-transform: capitalize">@DateTime.Now</MudText>
-                        </MudItem>
-                    </MudGrid>
-                </MudCardHeader>
-                <MudCardContent>
-                    @if (Items == null || IsLoading)
-                    {
-                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
-                        </MudSkeleton>                        
-                    }
-                    else
-                    {
-                        <MudTable Items="Items.OrderBy(s => s.Extension)" Breakpoint="Breakpoint.Sm" Hover Class="my-3" Loading="IsLoading">
-                            <LoadingContent>
-                                <MudSkeleton Animation="Animation.Wave" Height="200px" />
-                            </LoadingContent>
-                            <HeaderContent>
-                                <MudTh Style="text-align: center; width: 130px">Ações</MudTh>
-                                <MudTh Style="width: 200px">Extensão</MudTh>
-                                <MudTh>Descrição</MudTh>
-                                <MudTh Style="text-align: center; width: 50px"></MudTh>
-                                <MudTh Style="text-align: center; width: 50px">Canais</MudTh>
-                                <MudTh Style="text-align: center; width: 100px">Cadastro</MudTh>
-                                <MudTh Style="text-align: center; width: 50px">Fornecedor</MudTh>
-                            </HeaderContent>
-                            <RowTemplate>
-                                <MudTd DataLabel="Ações">
-                                    <MudTooltip Text="Editar opções">
-                                         <MudLink Href="@Pages.Telephony.DirectInwardDialing.Object.GetLink(context.Id)" Underline="Underline.None" Class="mx-1">
-                                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
-                                        </MudLink>
-                                    </MudTooltip>
-                                    <MudTooltip Text="Histórico de atualizações">
-                                         <MudLink Href="@Pages.Logging.Events.GetLink(context.Id, null, nameof(DirectInwardDialing))" Underline="Underline.None" Class="mx-1">
-                                            <MudIconButton Icon="@Icons.Material.Filled.History" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
-                                        </MudLink>
-                                    </MudTooltip>
-                                </MudTd>
-                                <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
-                                <MudTd DataLabel="Descrição">@context.Description</MudTd>
-                                <MudTd DataLabel="Opções" Style="text-align: center;">
-                                    <MudStack Row="true">
-                                        @if (!string.IsNullOrWhiteSpace(context.Filter))
-                                        {
-                                            <MudTooltip Text="@context.Filter">
-                                                <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>
-                                            </MudTooltip>
-                                        }
-                                        @if (!string.IsNullOrWhiteSpace(context.Tags))
-                                        {
-                                            <MudTooltip Text="@context.Tags">
-                                                <MudIcon Icon="@Icons.Material.Filled.Tag" Size="Size.Small"></MudIcon>
-                                            </MudTooltip>
-                                        }
-                                        @if (context.Billed)
-                                        {
-                                            <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Size="Size.Small"></MudIcon>
-                                        }
-                                    </MudStack>
-                                </MudTd>
-                                <MudTd DataLabel="Canais" Style="text-align: center;">@context.MaxChannels</MudTd>
-                                <MudTd DataLabel="Cadastro" Style="text-align: center;">@context.Register.ToString("dd/MM/yyyy")</MudTd>
-                                <MudTd DataLabel="Fornecedor" Style="text-align: center;">
-                                    <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">
-                                        <MudTooltip Text="@Provedor">
-                                            <ContactAvatar ReferenceId="@context.ProviderId" Size="Size.Small"></ContactAvatar>
-                                        </MudTooltip>
-                                    </AsyncBlock>
-                                </MudTd>
-                            </RowTemplate>
-                        </MudTable>
-                    }
-                </MudCardContent>
-                <MudCardActions Class="justify-end">
-                    <MudTooltip Text="Atualizar">
-                        <MudIconButton Icon="@Icons.Material.Filled.Refresh" Class="mx-5" Variant="Variant.Outlined" OnClick="GetItems"></MudIconButton>
-                    </MudTooltip>
-                    <MudLink Href="Object.RouteParameter">
-                        <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
-                    </MudLink>                    
-                </MudCardActions>
-            </MudCard>
-        }
-    </MudItem>
-</MudGrid>
+<MudContainer Class="mt-5">
+    <MudLink Href="@Object.RouteParameter">
+        <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
+    </MudLink>
+    <DIDTable Parameters="@Parameters"></DIDTable>
+</MudContainer>

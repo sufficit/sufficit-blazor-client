@@ -13,7 +13,7 @@ namespace Sufficit.Blazor.Client
             _provider = provider;  
         }
 
-        public async Task<string> GetTokenAsync()
+        public async Task<string?> GetTokenAsync()
         {
             var token = await _provider.RequestAccessToken();
             if (token.TryGetToken(out AccessToken accessToken))            

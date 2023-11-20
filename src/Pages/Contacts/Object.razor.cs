@@ -38,7 +38,6 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
         protected HashSet<Sufficit.Contacts.AttributeMonitor>? Attributes { get; set; }
 
-
         #region TITLE AND DOCUMENT
 
         protected bool CanUpdate { get; set; } = false;

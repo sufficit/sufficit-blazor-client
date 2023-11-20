@@ -1,12 +1,12 @@
 ﻿@using Sufficit.Telephony.EventsPanel;
 COUNTER ::::: @Counter
 <MudTable @ref="Table"
-        T="Sufficit.Telephony.EventsPanel.PeerInfo"
+          T="Sufficit.Telephony.EventsPanel.PeerInfoMonitor"
         ServerData="GetData"
         Class="mt-10"
         Hover="true" 
         SortLabel="Sort By"
-        Filter="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, bool>(OnSearch)">
+          Filter="new Func<Sufficit.Telephony.EventsPanel.PeerInfoMonitor, bool>(OnSearch)">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Periodic Elements</MudText>
         <MudSpacer />
@@ -21,11 +21,12 @@ COUNTER ::::: @Counter
         </MudTextField>
     </ToolBarContent>
     <HeaderContent>
+        <MudTh></MudTh>
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Protocol)">Protocolo</MudTableSortLabel>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Protocol)">Tecnologia</MudTableSortLabel>
         </MudTh>
         <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Name)">Ramal</MudTableSortLabel>
+            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Name)">Identificação</MudTableSortLabel>
         </MudTh>
         <MudTh>
             <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Status)">Estado</MudTableSortLabel>
@@ -41,12 +42,7 @@ COUNTER ::::: @Counter
         </MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Protocolo">@context.Protocol</MudTd>
-        <MudTd DataLabel="Ramal">@context.Name</MudTd>
-        <MudTd DataLabel="Estado">@context.Status</MudTd>
-        <MudTd DataLabel="Endereço">@context.Address</MudTd>
-        <MudTd DataLabel="Motivo">@context.Cause</MudTd>
-        <MudTd DataLabel="Tempo">@context.Time</MudTd>
+        <PeerRowTemplate Monitor="@context"></PeerRowTemplate>
     </RowTemplate>
     <PagerContent>
         <MudTablePager PageSizeOptions="new int[]{10, 20, 50, 100}" />

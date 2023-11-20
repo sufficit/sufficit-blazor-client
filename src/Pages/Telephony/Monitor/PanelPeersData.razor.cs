@@ -18,7 +18,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected Exception? ErrorConfig { get; set; }
 
         [EditorRequired]
-        protected MudTable<PeerInfo> Table { get; set; } = default!;
+        protected MudTable<PeerInfoMonitor> Table { get; set; } = default!;
 
         public string? FilterText { get; set; }
 
@@ -28,7 +28,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         public int Counter => EPService.Peers.Count;
 
-        protected Task<TableData<PeerInfo>> GetData(TableState _)
+        protected Task<TableData<PeerInfoMonitor>> GetData(TableState _)
         {
             IEnumerable<PeerInfoMonitor> items = EPService.Peers;
             if (!string.IsNullOrWhiteSpace(FilterText))
@@ -40,7 +40,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             if (items.Any()) 
                 items = items.Take(Table.RowsPerPage);
 
-            var data = new TableData<PeerInfo>() { Items = items.Select(s => s.Content) };
+            var data = new TableData<PeerInfoMonitor>() { Items = items };
             return Task.FromResult(data);
         }
 
@@ -72,13 +72,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             EPService.Peers.OnChanged -= Peers_OnChanged;
         }
 
-        public bool OnSearch(PeerInfo element)
+        public bool OnSearch(PeerInfoMonitor element)
         {
             if (string.IsNullOrWhiteSpace(FilterText))
                 return true;
-            if (element.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+            if (element.Content.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
                 return true;
-            if ($"{element.Time}".Contains(FilterText))
+            if ($"{element.Content.Time}".Contains(FilterText))
                 return true;
             return false;
 

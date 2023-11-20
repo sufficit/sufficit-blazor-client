@@ -1,9 +1,8 @@
 ﻿@using Sufficit.Telephony;
-@using Sufficit.Blazor.Client.Components.Contacts
 <MudTable @ref="Table"
           T="DirectInwardDialing"
           LoadingProgressColor="Color.Info"
-          ServerData="InternalGetData"
+          ServerData="TableServerData"
           Breakpoint="Breakpoint.Sm"
           Hover="true"
           Class="my-3"               
@@ -74,9 +73,9 @@
         </MudTd>
         <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
         <MudTd DataLabel="Descrição">@context.Description</MudTd>
-        <MudTd DataLabel="Opções" Style="text-align: center;">
-            <MudStack Row="true">
-                @if (!string.IsNullOrWhiteSpace(context.Filter))
+            <MudTd DataLabel="Opções" Style="text-align: center;">
+                <MudStack Row="true">
+                    @if (!string.IsNullOrWhiteSpace(context.Filter))
                 {
                     <MudTooltip Text="@context.Filter">
                         <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>
