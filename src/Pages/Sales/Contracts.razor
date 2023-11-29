@@ -8,7 +8,7 @@
 @using System.Threading;
 @using static Sufficit.Sales.Constants;
 
-@if (View.ContextId == Guid.Empty)
+@if (ContextView.ContextId.GetValueOrDefault() == Guid.Empty)
 {
     <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
         <ClientMissing></ClientMissing>
@@ -66,7 +66,7 @@
     </MudCardContent>
 </MudCard>
 
-    @code {
+@code {
     public const string RouteParameter = "/pages/sales/contracts";
 
     public const string? Icon = @Icons.Material.Filled.EventRepeat;
@@ -99,9 +99,9 @@
         {
             case SERVICE_TRUNK_INBOUND: return @Icons.Material.Filled.TripOrigin;
             case SERVICE_FLASH_OPERATOR_PANEL: return @Icons.Material.Filled.SmartButton;
-            case "SUPORTE EMPRESARIAL": return @Icons.Material.Filled.SupportAgent;
-            case "TRONCO FIXO ILIMITADO":
-            case "TRONCO MOVEL ILIMITADO":
+            case SERVICE_BUSINESS_SUPPORT: return @Icons.Material.Filled.SupportAgent;
+            case SERVICE_TRUNK_FIXED_UNLIMITED:
+            case SERVICE_TRUNK_MOBILE_UNLIMITED:
                 return @Icons.Material.Filled.Start;
             default: return @Icons.Material.Filled.Pending;
         }
@@ -113,7 +113,7 @@
     APIClientService Service { get; set; } = default!;
 
     [Inject]
-    IContextView View { get; set; } = default!;
+    IContextView ContextView { get; set; } = default!;
 
     protected bool ShowExpired { get; set; }
 
@@ -126,19 +126,20 @@
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender) return;
 
-        View.OnChanged += ContextChanged;
+        ContextView.OnChanged += ContextChanged;
 
-        if (View.ContextId != Guid.Empty)
-            await Filter(View.ContextId);
+        var contextid = ContextView.ContextId.GetValueOrDefault();
+        if (contextid != Guid.Empty)
+            await Filter(contextid);
     }
 
-    protected async void ContextChanged(Guid context)
-        => await Filter(View.ContextId);
+    protected async void ContextChanged(Guid? value)
+        => await Filter(value.GetValueOrDefault());
 
     protected async void ShowExpiredChanged(bool value)
     {
         ShowExpired = value;
-        await Filter(View.ContextId);
+        await Filter(ContextView.ContextId.GetValueOrDefault());
     }
 
     protected async Task Filter(Guid ContextId)

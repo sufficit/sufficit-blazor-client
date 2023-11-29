@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using Sufficit.Client;
+using Sufficit.EndPoints;
 using Sufficit.Telephony;
 using Sufficit.Telephony.DIDs;
 using System;
@@ -36,11 +37,16 @@ namespace Sufficit.Blazor.Client.Shared.Tables
         public EventCallback OnChanged { get; set; }
 
         [Parameter]
-        public Func<DIDSearchParameters, CancellationToken, ValueTask<IEnumerable<DirectInwardDialing>>>? GetData { get; set; }
+        public EventCallback<Guid> OnContextSelected { get; set; }
+
+        [Parameter]
+        public Func<DIDSearchParameters, CancellationToken, ValueTask<EndPointFullResponse<DirectInwardDialing>>>? GetData { get; set; }
 
         [EditorRequired]
         protected MudTable<DirectInwardDialing> Table { get; set; } = default!;
-        
+
+        protected bool HasContextId => Parameters?.ContextId.HasValue ?? false;
+
         protected string? Filter { get; set; }
 
         protected string Totals
@@ -74,16 +80,38 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                 return;
 
             if (Table != null)
-                Table.Context.TableStateHasChanged = () => OnChanged.InvokeAsync();
+                Table.Context.TableStateHasChanged = async () => await OnChanged.InvokeAsync();
         }
+
+        protected CancellationTokenSource? FilterCancellationTokenSource;
 
         protected async void FilterChanged(string? text)
         {
-            Parameters ??= new DIDSearchParameters();
-            Parameters.Extension = text;
+            var normalized = text?.Trim().TrimStart('+');
+            if (Filter != normalized)
+            {
+                Filter = normalized;
 
-            if (Table != null)
-                await Table.ReloadServerData();
+                if (string.IsNullOrWhiteSpace(Filter) || Filter.Length >= Minimum)
+                {
+                    Parameters ??= new DIDSearchParameters();
+                    Parameters.Extension = Filter;
+
+                    if (Table != null)
+                    {
+                        if (FilterCancellationTokenSource != null)
+                            FilterCancellationTokenSource.Cancel();
+
+                        var cancel = FilterCancellationTokenSource = new CancellationTokenSource();
+
+                        // delaying for avoid unecessary requests
+                        await Task.Delay(500);
+
+                        if (!cancel.IsCancellationRequested)
+                            await Table.ReloadServerData();
+                    }
+                }
+            }
         }
 
         protected override void OnParametersSet()
@@ -95,25 +123,21 @@ namespace Sufficit.Blazor.Client.Shared.Tables
                 GetData = InternalGetData;
         }
 
-        protected async ValueTask<IEnumerable<DirectInwardDialing>> InternalGetData (DIDSearchParameters parameters, CancellationToken cancellationToken)
-            => await APIClient.Telephony.DID.Search(parameters, cancellationToken); 
+        protected async ValueTask<EndPointFullResponse<DirectInwardDialing>> InternalGetData (DIDSearchParameters parameters, CancellationToken cancellationToken)
+            => await APIClient.Telephony.DID.FullSearch(parameters, cancellationToken); 
         
-
         /// <summary>
         /// Reload server data
         /// </summary>
-        public async Task DataBind()
+        public async ValueTask DataBind()
         {
-            if (Table != null)
-            {
+            if (Table != null)            
                 await Table.ReloadServerData();
-                await InvokeAsync(StateHasChanged);
-            }
         }
 
         protected TableData<DirectInwardDialing>? LastData;
 
-        protected async Task<TableData<DirectInwardDialing>> TableServerData(TableState _)
+        protected async Task<TableData<DirectInwardDialing>> TableServerData(TableState state)
         {            
             LastData ??= new TableData<DirectInwardDialing>()
             {
@@ -123,24 +147,34 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             if (GetData == null)
                 return LastData;
 
-            // advertise that is loading
-            await InvokeAsync(StateHasChanged);
-
             if (TokenSource != null)
                 TokenSource.Cancel(false);
-                        
-            TokenSource = new CancellationTokenSource((int)TimeOut);
+
+            var ts = TokenSource = new CancellationTokenSource((int)TimeOut);
             try
             {
-                var parameters = Parameters ?? new DIDSearchParameters();
-                if (parameters.Limit == null && Limit == null)                
-                    parameters.Limit = 20;
-                
-                var response = await GetData(parameters, TokenSource.Token);
-                LastData.Items = response ?? Array.Empty<DirectInwardDialing>();
+                Parameters ??= new DIDSearchParameters();
+                if (Parameters.Limit == null && Limit == null)
+                    Parameters.Limit = 20;
+
+                var result = await GetData(Parameters, ts.Token);
+                LastData.Items = result.Data;
+                LastData.TotalItems = (int)result.Total;
             }
-            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
             return LastData;
+        }
+
+        protected async Task ContextSelect(Guid contextid)
+        {
+            if (Parameters != null)
+            {
+                if (Parameters.ContextId != contextid)                
+                    Parameters.ContextId = contextid;                
+            }
+
+            if (OnContextSelected.HasDelegate)            
+                await OnContextSelected.InvokeAsync(contextid);            
         }
     }
 }

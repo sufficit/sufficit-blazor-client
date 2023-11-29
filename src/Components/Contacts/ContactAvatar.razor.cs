@@ -14,6 +14,9 @@ namespace Sufficit.Blazor.Client.Components.Contacts
         [Inject]
         public IOptions<ContactsOptions> Options { get; set; } = default!;
 
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object>? Attributes { get; set; }
+
         [Parameter]
         [Obsolete("use ReferenceId instead")]
         public Guid IDReference { get => ReferenceId; set => ReferenceId = value; }

@@ -4,7 +4,7 @@
 
 <MudGrid Class="mt-5">
     <MudItem xs="12">    
-            @if(ContextView.ContextId == Guid.Empty)
+            @if(ContextView.ContextId.GetValueOrDefault() == Guid.Empty)
             {
                 <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
                     <ClientMissing></ClientMissing>

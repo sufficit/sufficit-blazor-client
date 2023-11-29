@@ -39,14 +39,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 
         protected ICollection<Sufficit.Telephony.IVROption>? IVROptions { get; set; }
 
-        private async void ContextViewChanged(Guid obj)
+        private async void ContextViewChanged(Guid? value)
         {
-            if (ContextView.ContextId != Guid.Empty)
+            var contextid = value.GetValueOrDefault();
+            if (contextid != Guid.Empty)
             {
                 Item = new Sufficit.Telephony.IVR
                 {
                     Id = Guid.NewGuid(),
-                    IdContext = ContextView.ContextId
+                    IdContext = contextid
                 };
             } 
             else 
@@ -64,12 +65,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             // should create a new item
             if (Item == null)
             {
-                if (ObjectId == Guid.Empty && ContextView.ContextId != Guid.Empty)
+                var contextid = ContextView.ContextId.GetValueOrDefault();
+                if (ObjectId == Guid.Empty && contextid != Guid.Empty)
                 {
                     Item = new Sufficit.Telephony.IVR
                     {
                         Id = Guid.NewGuid(),
-                        IdContext = ContextView.ContextId
+                        IdContext = contextid
                     };
                 }
             }

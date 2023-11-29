@@ -33,7 +33,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         /// </summary>
         protected bool IsLoading { get; set; }
                 
-        private async void ContextViewChanged(Guid obj)
+        private async void ContextViewChanged(Guid? _)
         {
             await GetItems();
         }
@@ -59,7 +59,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             if (ContextView.ContextId != Guid.Empty)
             {
                 await InvokeAsync(StateHasChanged);
-                Items = await APIClient.Telephony.IVR.ByContext(ContextView.ContextId);                
+                Items = await APIClient.Telephony.IVR.ByContext(ContextView.ContextId.GetValueOrDefault());                
             }
 
             IsLoading = false;

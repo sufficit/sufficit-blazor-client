@@ -8,10 +8,10 @@
         <MudCard Class="pa-3">
             <MudCardHeader>
                 <MudGrid>
-                    @if (Items != null)
+                    @if (Result != null)
                     {
                         <MudItem lg="6" md="6" sm="6" Class="justify-start">
-                            <MudText Typo="Typo.body1" Align="Align.Left"><b>@Items.Count()</b> Item(s) encontrado(s)</MudText>
+                            <MudText Typo="Typo.body1" Align="Align.Left"><b>@Result.Data.Count()</b> Item(s) encontrado(s)</MudText>
                         </MudItem>
                     }
                     <MudItem lg="6" md="6" sm="6" Class="justify-end">

@@ -43,11 +43,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             ContextView.OnChanged += ContextView_OnChanged;            
         }
 
-        private async void ContextView_OnChanged(Guid contextId)
+        private async void ContextView_OnChanged(Guid? contextId)
         {
             if (IsRendered)
             {
-                await LoadPanel(contextId, default);                
+                await LoadPanel(contextId.GetValueOrDefault(), default);                
             }
         }
 
@@ -90,7 +90,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             // Getting cards
             try
             {          
-                await LoadPanel(ContextView.ContextId, default);
+                await LoadPanel(ContextView.ContextId.GetValueOrDefault(), default);
             }
             catch (Exception ex)
             {

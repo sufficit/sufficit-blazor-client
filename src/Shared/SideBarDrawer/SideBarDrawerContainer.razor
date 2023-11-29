@@ -94,8 +94,10 @@
                     <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>
                 </AuthorizeView>
                 <MudNavLink Icon="@Pages.Telephony.IVR.DashBoard.Icon" Href="@Pages.Telephony.IVR.DashBoard.RouteParameter">IVR | Menus</MudNavLink>
-                <MudNavLink Icon="@Pages.Telephony.DirectInwardDialing.DashBoard.Icon" Href="@Pages.Telephony.DirectInwardDialing.DashBoard.RouteParameter">DID | Entradas</MudNavLink>
-
+                @if (User.IsInRole<Sufficit.Telephony.TelephonyAdminRole>())
+                {
+                    <MudNavLink Icon="@Pages.Telephony.DirectInwardDialing.DashBoard.Icon" Href="@Pages.Telephony.DirectInwardDialing.DashBoard.RouteParameter">DID | Entradas</MudNavLink>
+                }
                 <AuthorizeView Roles="telephony" Context="TelephonyMonitor">
                     <Authorized>
                         <MudDivider Class="my-2" DividerType="DividerType.Middle" />

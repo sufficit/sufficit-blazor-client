@@ -32,7 +32,7 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
         /// </summary>
         protected bool IsLoading { get; set; }
                 
-        private async void ContextViewChanged(Guid obj)
+        private async void ContextViewChanged(Guid? _)
         {
             await DataBind();
         }
@@ -75,10 +75,11 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
             // clearing form
             Defaults();
 
-            if (ContextView.ContextId != Guid.Empty)
+            var contextid = ContextView.ContextId.GetValueOrDefault();
+            if (contextid != Guid.Empty)
             {
                 await InvokeAsync(StateHasChanged);
-                var options = await APIClient.Gateway.ReceitaNet.GetOptions(ContextView.ContextId);
+                var options = await APIClient.Gateway.ReceitaNet.GetOptions(contextid);
                 if (options != null) {
                     Options = options;
                     var destinations = (await APIClient.Gateway.ReceitaNet.GetDestinations(Options.Id, default))?.ToList();
@@ -96,7 +97,7 @@ namespace Sufficit.Blazor.Client.Pages.Gateway
         /// </summary>
         protected async Task Save()
         {
-            if (ContextView.ContextId != Guid.Empty)
+            if (ContextView.ContextId.GetValueOrDefault() != Guid.Empty)
             {
                 await APIClient.Gateway.ReceitaNet.Update(Options);
                 await APIClient.Gateway.ReceitaNet.Update(Options.Id, Destinations);

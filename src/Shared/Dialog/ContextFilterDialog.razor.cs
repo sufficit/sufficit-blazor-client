@@ -27,7 +27,7 @@ namespace Sufficit.Blazor.Client.Shared
 
         public void OnClearClicked(MouseEventArgs _)
         {
-            View.Update(Guid.Empty);
+            View.Update(null);
             MudDialog.Close();
         }
 

@@ -1,9 +1,15 @@
-﻿@if (AudioPlay)
-{
-    <audio id="sufficit-ringing" autoplay loop><source src="@AudioFile"></audio>
-} else if (!AudioPlayExists)
-{
-    <audio id="sufficit-ringing" muted><source src="@AudioFile"></audio>
+﻿@using static Sufficit.Blazor.Telephony.Constants
+@if (!AudioPlayExists)
+{    
+    @if (AudioPlay)
+    {
+        <script>window.onload => new AudioContext();</script>
+        <audio id="@RINGINGELEMENTID" autoplay loop><source src="@AudioFile"></audio>
+    } 
+    else
+    {
+        <audio id="@RINGINGELEMENTID" muted><source src="@AudioFile"></audio>
+    }
 }
 @if (Active.Any())
 {    

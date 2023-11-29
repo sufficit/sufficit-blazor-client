@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Shared
         APIClientService APIClient { get; set; } = default!;
 
         [Inject]
-        IContextView View { get; set; } = default!;
+        IContextView ContextView { get; set; } = default!;
 
         [Parameter]
         public string? Filter { get; set; }
@@ -41,10 +41,9 @@ namespace Sufficit.Blazor.Client.Shared
 
         protected bool Updating { get; set; }
 
-
         protected string RowClass(IClient client, int i)
         {
-            return View.ContextId == client.Id ? "bg-gradient-light" : string.Empty;
+            return ContextView.ContextId == client.Id ? "bg-gradient-light" : string.Empty;
         }
 
         protected IEnumerable<IClient> Clients { get; set; } = Array.Empty<IClient>();

@@ -14,7 +14,7 @@
         <MudCardContent>
             <MudStack>
                 <MudItem>
-                    @if (ContextView.ContextId != Guid.Empty)
+                    @if (ContextView.ContextId.GetValueOrDefault() != Guid.Empty)
                     {
                         <ClientView></ClientView>
                     }

@@ -62,7 +62,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
         protected string? GetInfoLink(Guid id)
             => $"/?contactid={id:N}";
                         
-        private async void ContextViewChanged(Guid _)
+        private async void ContextViewChanged(Guid? _)
         {
             await Task.Delay(100); 
             await InvokeAsync(StateHasChanged);
@@ -87,7 +87,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
         /// </summary>
         public async void DataBind()
         {
-            if (ContextView.ContextId == Guid.Empty)
+            if (ContextView.ContextId.GetValueOrDefault() == Guid.Empty)
                 return;
 
             if (Table != null)            

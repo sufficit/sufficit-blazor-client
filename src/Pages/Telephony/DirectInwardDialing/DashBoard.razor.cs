@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Sufficit.Blazor.Client.Shared;
+using Sufficit.Blazor.Client.Shared.Tables;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Identity;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
@@ -33,28 +36,27 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         [Inject]
         private NavigationManager Navigation { get; set; } = default!;
 
-        [Parameter]
-        public string? Filter { get; set; }
+        [Inject]
+        IDialogService Dialog { get; set; } = default!;
+
+        [CascadingParameter]
+        public UserPrincipal User { get; set; } = default!;
 
         public DIDSearchParameters? Parameters { get; set; }
 
-        protected void OnTextChanged(string? value)
-        {
-            Filter = value;
-            
-        }
+        protected DIDTable TableReference { get; set; } = default!;
 
         /// <summary>
         /// Used to show loading messages
         /// </summary>
         protected bool IsLoading { get; set; }
 
-        private async void ContextViewChanged(Guid obj)
+        private async void ContextViewChanged(Guid? value)
         {
             Parameters ??= new DIDSearchParameters();
-            Parameters.ContextId = ContextView.ContextId;
+            Parameters.ContextId = value;
 
-            await InvokeAsync(StateHasChanged);
+            await TableReference.DataBind();
         }
 
         protected static string ToE164Semantic(string extension)
@@ -65,23 +67,45 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         protected IEnumerable<Sufficit.Telephony.DirectInwardDialing>? Items { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            _ = await ContextView.Default<Sufficit.Telephony.TelephonyAdminDirective>();            
+            Parameters ??= new DIDSearchParameters();
+            Parameters.ContextId = ContextView.ContextId;            
+        }
+
+        protected override void OnAfterRender(bool firstRender)
         {
             if (!firstRender) return;
 
             // if change, get items again
             ContextView.OnChanged += ContextViewChanged;
+            Navigation.LocationChanged += OnLocationChanged;
+        }
 
-            _ = await ContextView.Default();
+        private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+        {
+            Console.WriteLine($"Location changed: {e.Location}");
+            await InvokeAsync(StateHasChanged);
+        }
 
-            Parameters ??= new DIDSearchParameters();
-            Parameters.ContextId = ContextView.ContextId;
+        protected async Task OnContextSelected(Guid contextId)
+        {
+            if (ContextView.ContextId != contextId)
+                await ContextView.Update(contextId);
+        }
+
+        protected void OnContextSearchRequested()
+        {
+            Dialog.Show<ContextFilterDialog>();
         }
 
         void IDisposable.Dispose()
         {
-            GC.SuppressFinalize(this);
             ContextView.OnChanged -= ContextViewChanged;
+            Navigation.LocationChanged -= OnLocationChanged;
         }
     }
 }

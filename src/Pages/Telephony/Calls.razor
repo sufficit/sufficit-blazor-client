@@ -6,7 +6,7 @@
 @using System.Threading;
 @inherits TelephonyBasePageComponent 
 
-@if (View.ContextId == Guid.Empty)
+@if (ContextView.ContextId.GetValueOrDefault() == Guid.Empty)
 {
     <MudPaper Elevation="0" Style="background-color: transparent;" Class="px-md-16 py-16 d-flex align-center justify-center mud-width-full">
         <ClientMissing></ClientMissing>
@@ -70,7 +70,7 @@
     APIClientService Service { get; set; } = default!;
 
     [Inject]
-    IContextView View { get; set; } = default!;
+    IContextView ContextView { get; set; } = default!;
 
     protected override string Title => "Chamadas";
 
@@ -85,14 +85,15 @@
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender) return;
 
-        View.OnChanged += ContextChanged;
+        ContextView.OnChanged += ContextChanged;
 
-        if (View.ContextId != Guid.Empty)
-            await Filter(View.ContextId);
+        var contextid = ContextView.ContextId.GetValueOrDefault();
+        if (contextid != Guid.Empty)
+            await Filter(contextid);
     }
 
-    protected async void ContextChanged(Guid context)
-        => await Filter(View.ContextId);
+    protected async void ContextChanged(Guid? value)
+        => await Filter(value.GetValueOrDefault());
 
     protected async Task Filter(Guid ContextId)
     {

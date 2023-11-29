@@ -3,10 +3,22 @@
 @inherits TelephonyBasePageComponent 
 @using Sufficit.Blazor.Client.Components.Contacts
 @using Sufficit.Blazor.Client.Shared.Tables
+@using Sufficit.Identity
 
 <MudContainer Class="mt-5">
-    <MudLink Href="@Object.RouteParameter">
-        <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
-    </MudLink>
-    <DIDTable Parameters="@Parameters"></DIDTable>
+    <MudStack Row=true>
+        @if (User.IsInRole<Sufficit.Identity.ManagerRole>()) {
+            <MudLink Href="@Object.RouteParameter">
+                <MudButton Variant="Variant.Filled" Color="Color.Dark">Nova DID | Entrada</MudButton>
+            </MudLink>
+        }
+        @if (!ContextView.ContextId.HasValue)
+        {
+            <MudButton 
+                Variant="Variant.Filled" 
+                Color="Color.Dark"
+                OnClick="OnContextSearchRequested">Filtrar por Contexto | Cliente</MudButton>
+        }
+    </MudStack>
+    <DIDTable @ref=TableReference Parameters="@Parameters" OnContextSelected="OnContextSelected"></DIDTable>
 </MudContainer>

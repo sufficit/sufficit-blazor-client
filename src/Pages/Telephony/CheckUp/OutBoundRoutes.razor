@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <ClientList Limit="3" OnSelect="@OnClientSelect"></ClientList>
+                <ClientList Limit="3" SelectedItemChanged="(item) => OnClientSelect(item.Id)"></ClientList>
             </div>
         </div>
     </div>

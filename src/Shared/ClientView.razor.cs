@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Logging;
 using MudBlazor;
 using Sufficit.Identity;
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
+using static Sufficit.Contacts.Constants;
 
 namespace Sufficit.Blazor.Client.Shared
 {
     public partial class ClientView : ComponentBase, IDisposable
     {
         [Inject]
-        IContextView View { get; set; } = default!;
+        IContextView ContextView { get; set; } = default!;
 
         /// <summary>
         /// Checking if user is authenticated to get client document
@@ -24,7 +22,7 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject] 
         IDialogService Dialog { get; set; } = default!;
 
-        public string? ContextTitle { get; internal set; } = "Desconhecido";
+        public string? ContextTitle { get; internal set; } = UNTITLED;
 
         public string? ContextDocument { get; internal set; }
 
@@ -32,44 +30,28 @@ namespace Sufficit.Blazor.Client.Shared
 
         private bool Rendered { get; set; }
 
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-            //Collapsed = SBService.Collapsed;
-        }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {            
             await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
             Rendered = true;
-            if (View.ContextId != Guid.Empty)
-                Update(View.ContextId);
+            if (ContextView.ContextId.HasValue)
+                Update(ContextView.ContextId);
 
-            View.OnChanged += Update;
-            //SBService.OnCollapsing += SBServiceToggle;            
+            ContextView.OnChanged += Update;           
         }
 
-        private async void SBServiceToggle(bool collapsed)
+        private async void Update(Guid? value)
         {
-            if(Collapsed != collapsed)
+            if (value.GetValueOrDefault() != Guid.Empty)
             {
-                Collapsed = collapsed;
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-
-        private async void Update(Guid obj)
-        {
-            if (obj != Guid.Empty)
-            {
-                ContextTitle = await View.GetTitle();
+                ContextTitle = await ContextView.GetTitle();
                 if (User?.Identity?.IsAuthenticated ?? false)
-                    ContextDocument = await View.GetDocument();   
+                    ContextDocument = await ContextView.GetDocument();   
             }
 
-            if(Rendered)
+            if (Rendered)
                 await InvokeAsync(StateHasChanged);
         }
 
@@ -78,12 +60,11 @@ namespace Sufficit.Blazor.Client.Shared
             Dialog.Show<ContextFilterDialog>();
         }
 
-        protected string ProfileLink => "https://www.sufficit.com.br/relacionamento/contato?idobjeto=" + View.ContextId;
+        protected string ProfileLink => "https://www.sufficit.com.br/relacionamento/contato?idobjeto=" + ContextView.ContextId;
 
         void IDisposable.Dispose()
         {
-            View.OnChanged -= Update;
-           // SBService.OnCollapsing -= SBServiceToggle;
+            ContextView.OnChanged -= Update;
         }
     }
 }

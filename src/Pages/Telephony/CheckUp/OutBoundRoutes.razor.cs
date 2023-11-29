@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         IWebSocketService WSClient { get; set; } = default!;
 
         [Inject]
-        IContextView View { get; set; } = default!;
+        IContextView ContextView { get; set; } = default!;
 
         [Parameter]
         [SupplyParameterFromQuery(Name = "ContextId")]
@@ -54,11 +54,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
             if(ContextId.HasValue && ContextId.Value != Guid.Empty)
             {
                 TextSearch?.Toggle(false);
-                View.Update(ContextId.Value);
+                ContextView.Update(ContextId.Value);
             } else
             {
-                if (View.ContextId == Guid.Empty)
-                    View.Update(Guid.Parse("d21cfb04-9d37-473b-837c-67591a26feed"));
+                if (ContextView.ContextId.GetValueOrDefault() == Guid.Empty)
+                    ContextView.Update(Guid.Parse("d21cfb04-9d37-473b-837c-67591a26feed"));
             }
             */
         }
@@ -105,7 +105,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         {
             Infos.Clear();
             var cts = new CancellationTokenSource();
-            await foreach(var step in WSClient.CheckUpOutBoundRoutes(View.ContextId, cts.Token))
+            await foreach(var step in WSClient.CheckUpOutBoundRoutes(ContextView.ContextId.GetValueOrDefault(), cts.Token))
             {
                 Infos.Add(step);
                 await InvokeAsync(StateHasChanged);
@@ -114,7 +114,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 
         public void OnClientSelect(Guid id)
         {
-            View.Update(id);
+            ContextView.Update(id);
             /*
             // Cleating filters
             TextSearch?.Update(null);

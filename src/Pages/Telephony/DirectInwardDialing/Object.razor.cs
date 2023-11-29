@@ -61,14 +61,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         protected IMask MaskOnlyNumbers = new RegexMask(@"^\d+$");
 
-        private async void ContextViewChanged(Guid obj)
+        private async void ContextViewChanged(Guid? value)
         {
-            if (ContextView.ContextId != Guid.Empty)
+            var contextid = value.GetValueOrDefault();
+            if (contextid != Guid.Empty)
             {
                 Item = new Sufficit.Telephony.DirectInwardDialing
                 {
                     Id = Guid.NewGuid(),
-                    ContextId = ContextView.ContextId
+                    ContextId = contextid
                 };
             } 
             else 
@@ -130,11 +131,12 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             // should create a new item
             if (Item == null)
             {
-                if (ObjectId == Guid.Empty && ContextView.ContextId != Guid.Empty)
+                var contextid = ContextView.ContextId.GetValueOrDefault();
+                if (ObjectId == Guid.Empty && contextid != Guid.Empty)
                 {
                     Item = new Sufficit.Telephony.DirectInwardDialing
                     {
-                        ContextId = ContextView.ContextId                        
+                        ContextId = contextid
                     };
                 }
             }

@@ -18,7 +18,7 @@
         <MudSpacer />
         <MudTextField T="string"
                       Class="mt-0"
-                      Placeholder="Filtrar"
+                      Placeholder="Filtrar por extensão"
                       Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search"
                       IconSize="Size.Medium"
@@ -34,6 +34,10 @@
     </LoadingContent>
     <HeaderContent>
         <MudTh Style="text-align: center; width: 130px">Ações</MudTh>
+        @if (!HasContextId)
+        {
+            <MudTh Style="width: 50px">Contexto</MudTh>
+        }
         <MudTh Style="width: 200px">Extensão</MudTh>
         <MudTh>Descrição</MudTh>
         <MudTh Style="text-align: center; width: 50px"></MudTh>
@@ -71,11 +75,25 @@
                 </MudLink>
             </MudTooltip>
         </MudTd>
+        @if (!HasContextId)
+        {
+            <MudTd DataLabel="Contexto" Style="text-align: center;">
+                @if (context.ContextId != Guid.Empty) {
+                    <AsyncBlock Action="@GetTitle(@context.ContextId)" Context="Title">
+                        <MudTooltip Text="@Title" Style="cursor: pointer;">
+                            <MudIconButton Size="Size.Small" Style="padding: 0" OnClick="(_) => ContextSelect(context.ContextId)">
+                                <ContactAvatar ReferenceId="@context.ContextId" Size="Size.Small"></ContactAvatar>
+                            </MudIconButton>
+                        </MudTooltip>
+                    </AsyncBlock>
+                }
+            </MudTd>
+        }
         <MudTd DataLabel="Extensão">@ToE164Semantic(context.Extension)</MudTd>
         <MudTd DataLabel="Descrição">@context.Description</MudTd>
-            <MudTd DataLabel="Opções" Style="text-align: center;">
-                <MudStack Row="true">
-                    @if (!string.IsNullOrWhiteSpace(context.Filter))
+        <MudTd DataLabel="Opções" Style="text-align: center;">
+            <MudStack Row="true">
+                @if (!string.IsNullOrWhiteSpace(context.Filter))
                 {
                     <MudTooltip Text="@context.Filter">
                         <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>

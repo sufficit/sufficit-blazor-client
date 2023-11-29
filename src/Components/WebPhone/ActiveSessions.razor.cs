@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Sufficit.Blazor.Telephony.Constants;
 
 namespace Sufficit.Blazor.Client.Components.WebPhone
 {
@@ -23,20 +24,24 @@ namespace Sufficit.Blazor.Client.Components.WebPhone
         public IEnumerable<JsSIPSessionInfo> Active => Sessions.Where(s => !s.IsFinished());
 
         protected string AudioFile { get; set; }
-            = "/assets/ringing-151670.mp3";
+            = "assets/ringing-151670.mp3";
 
-        private bool AudioPlayExists { get; set; }
+        private bool AudioPlayExists { get; set; } = true;
 
         protected bool AudioPlay 
-            =>!AudioPlayExists && Sessions.Where(s => s.Direction == JsSIPSessionDirection.incoming && s.Status.CanAnswer()).Any();
+            => Sessions.Where(s => s.Direction == JsSIPSessionDirection.incoming && s.Status.CanAnswer()).Any();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
+        {     
             if (!firstRender) return; 
             Sessions.OnChanged += OnSessionsChanged;
 
-            AudioPlayExists = await BCRuntime.HasElementWithId("sufficit-ringing");
-            await InvokeAsync(StateHasChanged);
+            var exists = await BCRuntime.HasElementWithId(RINGINGELEMENTID);
+            if (AudioPlayExists != exists)
+            {
+                AudioPlayExists = exists;
+                await InvokeAsync(StateHasChanged);
+            }
         }
 
         protected Guid GetUserId(string? key)
@@ -50,6 +55,7 @@ namespace Sufficit.Blazor.Client.Components.WebPhone
 
         private async void OnSessionsChanged(object? sender, System.EventArgs e)
         {
+            // AudioPlayExists = await BCRuntime.HasElementWithId(RINGINGELEMENTID);
             await InvokeAsync(StateHasChanged);
         }
 
