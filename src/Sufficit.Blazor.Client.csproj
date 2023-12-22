@@ -86,6 +86,14 @@
     <Content Remove="wwwroot\assets\img\logos\sufficit-logotipo-backup.png" />
   </ItemGroup>
 	
+  <ItemGroup>
+    <None Remove="Components\TimeLineGitHub.razor.css" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Include="Components\TimeLineGitHub.razor.css" />
+  </ItemGroup>
+	
 	<ItemGroup Label="Hybrid Models">
 		<PackageReference Include="FluentValidation" Version="11.7.1" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.57.0" />

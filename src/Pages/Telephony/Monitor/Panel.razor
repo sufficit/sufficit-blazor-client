@@ -1,4 +1,4 @@
-﻿@page "/pages/telephony/monitor/panel"
+﻿@attribute [Route(RouteParameter)]
 @attribute [Authorize]
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.Extensions.Options
@@ -6,6 +6,8 @@
 @using Sufficit.Telephony
 @using Sufficit.Blazor.Client.Models
 @inherits MonitorTelephonyBasePageComponent 
+
+<VisibleCards Panel="@PanelCurrent"></VisibleCards>
 
 @if (ErrorConfig != null)
 {
@@ -15,23 +17,11 @@
         <span class="alert-text text-xs">@ErrorConfig.GetType(): <small>@ErrorConfig.Message</small> : @ErrorConfig.InnerException?.Message</span>
     </div>
 } else {
-    @if (Service.IsConfigured)
+    @if (PanelCurrent != null)
     {
-        @if (PanelCurrent != null)
-        {
-            <EventsPanel Panel="@PanelCurrent"></EventsPanel>
-        } else
-        {
-            <MudAlert Severity="MudBlazor.Severity.Error">Events Panel not found</MudAlert>
-        }
-
-} else if(!IsRendered) {
-        <div class="alert alert-info mb-0 m-3 text-white p-4">
-            <h6 class="alert-heading p-0 m-0">Carregando ...</h6>
-        </div>
-    } else {
-        <div class="alert alert-danger mb-0 m-3 text-white p-2">
-            <h6 class="alert-heading p-0 m-0">Configuração não encontrada</h6>
-        </div>
+        <EventsPanel Panel="@PanelCurrent"></EventsPanel>
+    } else
+    {
+        <MudAlert Severity="MudBlazor.Severity.Error">Events Panel not found</MudAlert>
     }
 }

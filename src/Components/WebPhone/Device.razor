@@ -44,20 +44,25 @@
     [EditorRequired]
     public IEnumerable<JsSIPMediaDevice> MediaDevices { get; set; } = default!;
 
-    [Parameter] 
+    [Parameter]
+    [EditorRequired]
     public string? SessionKey { get; set; }
 
-    [Parameter] 
-    public IEnumerable<JsSIPMediaDevice>? AudioInputDevices { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public IEnumerable<JsSIPMediaDevice> AudioInputDevices { get; set; } = default!;
 
-    [Parameter] 
-    public IEnumerable<JsSIPMediaDevice>? AudioOutputDevices { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public IEnumerable<JsSIPMediaDevice> AudioOutputDevices { get; set; } = default!;
 
-    [Parameter] 
-    public IEnumerable<JsSIPMediaDevice>? VideoInputDevices { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public IEnumerable<JsSIPMediaDevice> VideoInputDevices { get; set; } = default!;
 
-    [Parameter] 
-    public JsSIPService? JsSIPService { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public JsSIPService JsSIPService { get; set; } = default!;
 
     private string _deviceIDMicroFone = string.Empty;
     private string _deviceIDAutoFalante = string.Empty;
@@ -145,6 +150,4 @@
         // Implement this for the DeviceSelect to display correctly in MudSelect
         public override string ToString() => Name;
     }
-
-
 }

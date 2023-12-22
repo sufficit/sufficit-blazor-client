@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
-using Sufficit.Contacts;
 using Sufficit.Identity;
 using Sufficit.Provisioning;
 using System;
@@ -12,7 +10,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Provisioning
 {

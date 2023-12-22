@@ -46,11 +46,13 @@
                         <ItemContent>
                             <MudCard Outlined="true" Elevation="25" Style="overflow: hidden;">
                                 <MudCardContent>
-                                    <MudLink Href="@Item.Repo.GetPublicUrl()" Typo="Typo.body2" Target="_blank">@Item.Repo.Name</MudLink>
-                                    @foreach (var message in @Item.Payload.GetMessages())
-                                    {
-                                        <MudText Typo="Typo.body2">@message</MudText>
-                                    }
+                                    <MudLink Href="@Item.Repo.GetPublicUrl()" Typo="Typo.body2" Target="_blank" Style="display: block">@Item.Repo.Name</MudLink>
+                                    <div class="mud-card-content-block">                                                                       
+                                        @foreach (var message in @Item.Payload.GetMessages())
+                                        {
+                                            <MudText Typo="Typo.caption">@message</MudText>
+                                        }
+                                    </div>
                                 </MudCardContent>
                             </MudCard>
                         </ItemContent>
@@ -60,7 +62,6 @@
         }
     </MudCardContent>
 </MudCard>
-
 @code{
     [Inject]
     protected IHttpClientFactory Factory { get; set; } = default!;
@@ -123,6 +124,8 @@
         public IEnumerable<Commit> Commits { get; set; }
 
         public string GetMessage() => Commits.FirstOrDefault().Message;
+
+        public bool HasMessages => Commits?.Select(s => s.Message).Any() ?? false;
 
         public IEnumerable<string> GetMessages() => Commits?.Select(s => s.Message) ?? Array.Empty<string>();
     }

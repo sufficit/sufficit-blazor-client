@@ -88,13 +88,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 await InvokeAsync(StateHasChanged);
         }
 
-        protected async Task OnCheckBoxChanged(bool value)
+        protected async Task OnCheckBoxChanged(bool? value)
         {
             if (UserOptions != null)
             {
-                if (UserOptions.ShowTrunks != value) 
+                if (UserOptions.OnlyPeers != value) 
                 {
-                    UserOptions.ShowTrunks = value;
+                    UserOptions.OnlyPeers = value;
                     await APIClient.Telephony.EventsPanel.PostUserOptions(UserOptions); 
                 }
             }

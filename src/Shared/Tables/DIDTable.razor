@@ -111,7 +111,16 @@
                 }
             </MudStack>
         </MudTd>
-        <MudTd DataLabel="Canais" Style="text-align: center;">@context.MaxChannels</MudTd>
+        <MudTd DataLabel="Canais" Style="text-align: center;">
+            @if (context.MaxChannels > 0)
+            {
+                @context.MaxChannels
+            } 
+            else
+            {
+                <MudTooltip Text="Não definido | Ilimitado">*</MudTooltip>    
+            }
+        </MudTd>
         <MudTd DataLabel="Cadastro" Style="text-align: center;">@context.Register.ToString("dd/MM/yyyy")</MudTd>
         <MudTd DataLabel="Fornecedor" Style="text-align: center;">
             <AsyncBlock Action="@GetTitle(@context.ProviderId)" Context="Provedor">

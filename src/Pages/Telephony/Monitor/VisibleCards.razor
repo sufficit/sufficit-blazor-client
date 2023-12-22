@@ -1,0 +1,34 @@
+﻿@using Sufficit.Telephony.EventsPanel
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <MudText>@DateTime.Now.ToString() -- @Panel?.Cards.Count</MudText>
+            @if (Panel != null)
+            {
+                <MudText>Panel not null</MudText>
+                <MudText Typo="Typo.body2">@Panel.Cards.Where(s => s.IsRendered).Count() Rendered</MudText>
+
+                @foreach (var item in Panel.GetVisibles())
+                {
+                    <div class="card m-1 p-2">
+                        <MudText Class="blinking">@item.Label</MudText>
+                        </div>
+                }
+            } else {
+                <MudText>Panel null </MudText>
+            }
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public Sufficit.Telephony.EventsPanel.Panel? Panel { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Delay(1000);
+        await InvokeAsync(StateHasChanged);
+    }
+}

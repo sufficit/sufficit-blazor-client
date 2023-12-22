@@ -15,6 +15,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
     [Authorize(Roles = "telephony")]
     public partial class Panel : MonitorTelephonyBasePageComponent, IDisposable
     {
+        public const string RouteParameter = "pages/telephony/monitor/panel";
+
         protected override string Title => "Painel";
 
         protected override string Description => "Cartões de Recursos";
@@ -28,8 +30,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private IContextView ContextView { get; set; } = default!;
 
-        [Inject]
-        private IServiceProvider Provider { get; set; } = default!;
 
         protected Sufficit.Telephony.EventsPanel.Panel? PanelCurrent { get; set; }
 
@@ -40,6 +40,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         protected override void OnParametersSet()
         {            
+            base.OnParametersSet();
+
             ContextView.OnChanged += ContextView_OnChanged;            
         }
 
@@ -50,36 +52,27 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 await LoadPanel(contextId.GetValueOrDefault(), default);                
             }
         }
-
+                
         public void Dispose() 
-        {            
+        {
+            IsRendered = false;
             ContextView.OnChanged -= ContextView_OnChanged;            
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (!firstRender) 
-                return;
+            await base.OnAfterRenderAsync(firstRender);
+
+            IsRendered = true;
+            if (!firstRender) return;
 
             if (!Service.IsConfigured)
             {
                 try
                 {
                     var endpoints = await APIClient.Telephony.EventsPanel.GetEndpoints();
-                    if (endpoints != null)
-                    {
-                        var ep = endpoints.FirstOrDefault();
-                        if (ep != null)
-                        {
-                            //Console.WriteLine($"configuring with endpoint: {ep.Endpoint}");
-                            //var amiOptions = Options.Create(new AMIHubClientOptions() { Endpoint = new Uri(ep.Endpoint) });
-                            //var amiLogger = Provider.GetRequiredService<ILogger<AMIHubClient>>();
-                            var scope = Provider.CreateScope();
-                            var client = scope.ServiceProvider.GetRequiredService<AMIHubClient>();
-                            Service.Configure(client);
-                            ErrorConfig = null;
-                        }
-                    }
+                    if (endpoints != null)                    
+                        Service.Configure(endpoints);                    
                 }
                 catch (Exception ex)
                 {
@@ -97,10 +90,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 ErrorConfig = ex;
             }
 
-            if (Service.CardAvatarHandler == null)
-                Service.CardAvatarHandler = GetAvatarUrl;
-
-            IsRendered = true;
             await InvokeAsync(StateHasChanged);
         }
 
@@ -109,7 +98,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             IEnumerable<EventsPanelCardInfo> info;
             if (contextId != Guid.Empty)            
                 info = await APIClient.Telephony.EventsPanel.GetCardsByContext(contextId, cancellationToken);            
-            else            
+            else
                 info = await APIClient.Telephony.EventsPanel.GetCardsByUser(cancellationToken);            
 
             var cards = new EventsPanelCardCollection();
@@ -119,17 +108,15 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 cards.Add(cardMonitor);
             }
 
-            if (Service.Options != null) {
-                Service.Options.AutoFill = false;
-                Service.Options.ShowTrunks = false;
-            }
-            PanelCurrent = new Sufficit.Telephony.EventsPanel.Panel(cards, Service);       
+            PanelCurrent = new Sufficit.Telephony.EventsPanel.Panel(cards, Service);
+            PanelCurrent.Cards.CardAvatarHandler = GetAvatarUrl;
+
             await InvokeAsync(StateHasChanged);
         }
 
-        protected async Task<string> GetAvatarUrl(EventsPanelCard monitor)
+        protected async Task<string> GetAvatarUrl(EventsPanelCardInfo monitor)
         {
-            return await Task.FromResult("https://www.sufficit.com.br/Relacionamento/Avatar.ashx");
+            return await Task.FromResult("https://endpoints.sufficit.com.br/contact/avatar?contextid=00000000-0000-0000-0000-000000000000");
         }
     }
 }
