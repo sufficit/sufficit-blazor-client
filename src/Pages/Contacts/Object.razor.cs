@@ -16,6 +16,8 @@ using System.Threading;
 using Microsoft.AspNetCore.Components.Forms;
 using System.IO;
 using Sufficit.Blazor.Client.Components.Contacts;
+using Sufficit.Identity.Client;
+using Sufficit.Identity;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
@@ -35,6 +37,9 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
 
         [Parameter, SupplyParameterFromQuery(Name = "contactid")]
         public Guid ContactId { get; set; } = default!;
+        
+        [CascadingParameter]
+        public UserPrincipal User { get; set; } = default!;
 
         protected HashSet<Sufficit.Contacts.AttributeMonitor>? Attributes { get; set; }
 
@@ -85,7 +90,10 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
                 else
                     ContactDocument = Attributes.First(s => s.Key == Sufficit.Contacts.Attributes.Document);
 
-                CanUpdate = await APIClient.Contacts.CanUpdate(ContactId, CancellationToken.None);
+                if (User.IsManager())
+                    CanUpdate = true;
+                else
+                    CanUpdate = await APIClient.Contacts.CanUpdate(ContactId, CancellationToken.None);
 
                 // Updating view
                 await InvokeAsync(StateHasChanged);

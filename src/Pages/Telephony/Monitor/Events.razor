@@ -1,5 +1,4 @@
-﻿@page "/pages/telephony/monitor/events"
-@attribute [Authorize(Roles = "administrator")]
+﻿@attribute [Route(RouteParameter)]
 @inherits MonitorTelephonyBasePageComponent 
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.Extensions.Options
@@ -16,24 +15,26 @@
     </div>
 }
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <!-- Card header -->
-            <div class="card-header">
-                <h5 class="mb-0">Monitoramento de eventos</h5>
-                <p class="text-sm mb-0">
-                    Filtrar eventos em tempo real.
-                </p>
-            </div>
-            @if(!Items.Any())
-            {
-                <div class="card m-1 p-2">                    
-                    <MudText Class="blinking">Aguardando eventos ....</MudText>
-                </div>
-            } else {
-                <EventsData Items="@Items.Reverse()"></EventsData>
-            }
-        </div>
-    </div>
-</div>
+<MudContainer Class="mt-5">
+    <MudTextField T="string" @bind-Value="@Filter" TextChanged="OnTextChanged" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
+    <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
+
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">
+                Monitoramento de eventos
+                <MudText Typo="Typo.body2">Filtrar eventos em tempo real</MudText>
+            </MudText>
+        </MudCardHeader>
+
+        @if (!EPService.IsConnected)
+        {
+            <MudText>Serviço de painel de eventos não conectado.</MudText>           
+        }
+
+        @if (Items.Any())
+        {
+            <EventsData Items="@Items.Reverse()"></EventsData>
+        }
+    </MudCard>
+</MudContainer>

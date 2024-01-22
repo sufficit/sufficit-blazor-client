@@ -3,14 +3,18 @@ using Microsoft.AspNetCore.Components;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = "administrator,manager")]
     public partial class Events : MonitorTelephonyBasePageComponent, IDisposable
     {
+        public const string RouteParameter = "/pages/telephony/monitor/events";
+
         protected override string Title => "Eventos";
 
         protected override string Description => "Filtro de eventos";
@@ -18,9 +22,12 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
 
+        [Parameter]
+        public string? Filter { get; set; }
+
         protected Exception? ErrorConfig { get; set; }
 
-        public Queue<string> Items { get { lock (_lock) return _items; } }
+        public IEnumerable<string> Items { get { lock (_lock) return _items.ToList(); } }
 
         private readonly Queue<string> _items;
         private readonly object _lock;
@@ -33,68 +40,62 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             _items = new Queue<string>(MaxItems);
             _lock = new object();
         }
-        /*
-        [CascadingParameter]
-        public TextSearchControl? TextSearch { get; set; }
-
+        
         protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
             if (!firstRender) return;
 
-            EPService.OnEvent += Service_OnEvent;
-
-            if (TextSearch != null)
-                TextSearch.OnValueChanged += TextSearchValueChanged;
-        }
-        */
-        private async void TextSearchValueChanged(string? value) 
-        { 
-            lock(_lock)
-                _items.Clear(); 
-
-            await InvokeAsync(StateHasChanged); 
+            EPService.OnEvent += OnEPServiceEvent;
         }
 
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-            /*
-            if (TextSearch != null)            
-                TextSearch.Toggle(true);    
-            */
-        }
-
-        private void Service_OnEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
-        {
-            /*
+        private async void OnEPServiceEvent(object sender, Asterisk.Manager.Events.IManagerEventFromAsterisk e)
+        {            
             var json = e.GetType() + " :: " + JsonSerializer.Serialize(e, e.GetType());
-            if (!string.IsNullOrEmpty(TextSearch?.Value))
+            if (!string.IsNullOrWhiteSpace(Filter))
             {
-                if (!json.Contains(TextSearch?.Value!))
-                {
+                if (!json.Contains(Filter, StringComparison.InvariantCultureIgnoreCase))
                     return;
-                }
             }
 
             lock (_lock)
-            {
+            {             
                 if (_items.Count == MaxItems)
                     _items.Dequeue();
 
                 _items.Enqueue(json);
             }
-            await InvokeAsync(StateHasChanged);
-            */
+
+            await InvokeAsync(StateHasChanged);            
+        }
+
+        protected async void OnTextChanged(string? value)
+        {            
+            if (value != null)
+            {
+                lock (_lock)
+                {
+                    foreach (var json in Filtering().ToList())
+                    {
+                        if (json.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                            _items.Enqueue(json);
+                    }
+                }
+            }
+
+            await InvokeAsync(StateHasChanged);            
+        }
+
+        private IEnumerable<string> Filtering()
+        {
+            lock (_lock)            
+                while (_items.TryDequeue(out string? json))
+                    yield return json;            
         }
 
         void IDisposable.Dispose()
         {
-            EPService.OnEvent -= Service_OnEvent;
-            /*
-            if (TextSearch != null)
-                TextSearch.OnValueChanged -= TextSearchValueChanged;
-            */
+            EPService.OnEvent -= OnEPServiceEvent;
         }
     }
 }

@@ -5,11 +5,11 @@
 <div class="pa-1 ma-1">
     <hr />
     <h3>ClaimsPrincipal data using default "@AuthenticationStateProvider.GetType().Name" </h3>
-    <h5>AuthenticationType: @User?.Identity.AuthenticationType</h5>
+    <h5>AuthenticationType: @User?.Identity?.AuthenticationType</h5>
     <hr />
     <p>@_authMessage</p>
     <p>Administrador: @isAdmin</p>
-    <p>@User?.Identity.AuthenticationType</p>
+    <p>@User?.Identity?.AuthenticationType</p>
     <hr />
     @if (_claims.Any())
     {
@@ -24,9 +24,9 @@
 </div>
 
 @code {
-    private string _authMessage;
+    private string? _authMessage;
     private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
-    private ClaimsPrincipal User;
+    private ClaimsPrincipal? User;
     private bool isAdmin;
 
     protected override async Task OnInitializedAsync()
@@ -36,7 +36,7 @@
             AuthenticationState state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             User = state.User;
 
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated ?? false)
             {
                 _authMessage = $"{User.Identity.Name} is authenticated.";
                 _claims = User.Claims;

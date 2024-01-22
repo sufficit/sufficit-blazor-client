@@ -21,10 +21,11 @@
                 <MudForm Style="width: 100%" Disabled="!CanUpdate">
                     <MudStack Spacing="3">
                         <MudText Typo="Typo.h5">Identificação</MudText>
-                        <MudAlert Square="true" Severity="MudBlazor.Severity.Info" Variant="Variant.Outlined">
-                            Deve ser preenchido com o seu nome completo pois constará nos contratos de prestação de serviços.
-                        </MudAlert>
-
+                        @if (CanUpdate) {
+                            <MudAlert Square="true" Severity="MudBlazor.Severity.Info" Variant="Variant.Outlined">
+                                Deve ser preenchido com o seu nome completo pois constará nos contratos de prestação de serviços.
+                            </MudAlert>
+                        }
                         <MudTextField @ref=TitleReference
                             T="string"
                             Placeholder="Titulo"

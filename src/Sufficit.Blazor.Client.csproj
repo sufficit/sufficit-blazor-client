@@ -2,11 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly" ToolsVersion="Current">
 
 	<PropertyGroup Label="Sufficit Targeting">
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<AssemblyName>Sufficit.Blazor.Client</AssemblyName>
 		<RootNamespace>Sufficit.Blazor.Client</RootNamespace>
 		<TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+		<UseBlazorWebAssembly>true</UseBlazorWebAssembly>
 		<IsPackable>true</IsPackable>
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
@@ -107,14 +108,14 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.*" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.*" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.*" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="7.*" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.*" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.*" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.*" />
 	</ItemGroup>
 
   <ItemGroup>
