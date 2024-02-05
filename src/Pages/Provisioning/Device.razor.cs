@@ -45,11 +45,8 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 
         protected bool Loading { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnParametersSetAsync()
         {
-            if (!firstRender) return;
-            ContextView.OnChanged += async (_) => await InvokeAsync(StateHasChanged);
-
             if (Item == null && !string.IsNullOrWhiteSpace(MACAddress))
             {
                 Loading = true;
@@ -58,8 +55,8 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
                 if (Item != null)
                 {
                     var contextid = Item.ContextId.GetValueOrDefault();
-                    if (contextid != Guid.Empty && contextid != ContextView.ContextId)                    
-                        await ContextView.Update(contextid);                    
+                    if (contextid != Guid.Empty && contextid != ContextView.ContextId)
+                        await ContextView.Update(contextid);
 
                     if (Item.ExtensionId.HasValue)
                     {
@@ -76,7 +73,22 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
                 Loading = false;
                 // Updating view
                 await InvokeAsync(StateHasChanged);
-            }                     
+            }
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (!firstRender) return;
+
+            ContextView.OnChanged += OnContextViewChanged;
+        }
+
+        protected async void OnContextViewChanged(Guid? _)
+            => await InvokeAsync(StateHasChanged);
+
+        public override void Dispose(bool disposing = false)
+        {
+            ContextView.OnChanged -= OnContextViewChanged;
         }
 
         private async Task<IEnumerable<Contact>> GetContacts(string value, CancellationToken cancellationToken)

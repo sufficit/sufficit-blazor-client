@@ -16,13 +16,13 @@
     <MudCardContent>
         <MudGrid>
             <MudItem xs="12" sm="6" md="5">
-                <MudTextField Variant="Variant.Outlined" T="string" @bind-Text="Selected.Key" />
+                <MudTextField Variant="Variant.Outlined" T="string" @bind-Text="Selected.Key" Immediate=true />
             </MudItem>
             <MudItem xs="12" sm="6" md="5">
-                <MudTextField Variant="Variant.Outlined" T="string" @bind-Text="Selected.Value" />
+                <MudTextField Variant="Variant.Outlined" T="string" @bind-Text="Selected.Value" Immediate=true />
             </MudItem>
             <MudItem xs="12" sm="6" md="2">
-                <MudButtonEnchanted Variant="Variant.Filled" Color="Color.Primary" OnClick="OnUpdateClick" FullWidth="true">
+                <MudButtonEnchanted Variant="Variant.Filled" Disabled="!CanUpdate" Color="Color.Primary" OnClick="OnUpdateClick" FullWidth="true">
                     <MudText>Atualizar</MudText>                    
                 </MudButtonEnchanted>
             </MudItem>
@@ -73,7 +73,7 @@
     private APIClientService APIClient { get; set; } = default!;
 
     [EditorRequired]
-    [Parameter]
+    [Parameter, SupplyParameterFromQuery(Name = "macaddress")]
     public string? MACAddress { get; set; }
 
     [Parameter]
@@ -86,11 +86,10 @@
 
     DeviceAttribute Selected { get; set; } = new DeviceAttribute() { };
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender) 
-            return;
+    private bool CanUpdate => !string.IsNullOrWhiteSpace(Selected.Key) && !string.IsNullOrWhiteSpace(Selected.Value);
 
+    protected override async Task OnParametersSetAsync()
+    {
         if (MACAddress != null && MACAddress.IsValidMACBytes())
         {
             // updating mac for selected

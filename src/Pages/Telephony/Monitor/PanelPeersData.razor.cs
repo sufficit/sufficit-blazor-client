@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    public partial class PanelPeersData : ComponentBase, IDisposable
+    public partial class PanelPeersData : BasePageComponent
     {
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
@@ -47,29 +47,26 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
+
+            EPService.Peers.OnChanged += OnPeersChanged;
+
             if (int.TryParse(MaxSelected, out int size) && PageSize != size)
             {
                 PageSize = size;
             }
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        private async void OnPeersChanged(IMonitor? sender, object? state)
         {
-            base.OnAfterRender(firstRender);
-            if (!firstRender) return;
-
-            EPService.Peers.OnChanged += Peers_OnChanged;            
-        }
-
-        private async void Peers_OnChanged(IMonitor? sender, object? state)
-        {
-            await Table.ReloadServerData();
             await InvokeAsync(StateHasChanged);
         }
 
-        public void Dispose()
+        public override void Dispose(bool disposing)
         {
-            EPService.Peers.OnChanged -= Peers_OnChanged;
+            EPService.Peers.OnChanged -= OnPeersChanged;
+
+            // following to base dispose
+            base.Dispose(disposing);
         }
 
         public bool OnSearch(PeerInfoMonitor element)

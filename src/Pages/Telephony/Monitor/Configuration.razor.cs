@@ -62,12 +62,14 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             await InvokeAsync(StateHasChanged);
         }
 
-        public void Dispose()
+        public override void Dispose(bool disposing)
         {
             EPService.OnChanged -= OnEPServiceChanged;
 
             // releasing options monitor
             DisposableForAMIOptions?.Dispose();
+
+            base.Dispose(disposing);
         }
 
         protected async void OnStartClicked(MouseEventArgs _)

@@ -52,11 +52,14 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
                 await LoadPanel(contextId.GetValueOrDefault(), default);                
             }
         }
-                
-        public void Dispose() 
+
+        public override void Dispose (bool disposing)
         {
             IsRendered = false;
-            ContextView.OnChanged -= ContextView_OnChanged;            
+            ContextView.OnChanged -= ContextView_OnChanged;
+
+            // following to base dispose
+            base.Dispose(disposing);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

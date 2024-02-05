@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
 {
     [Authorize(Roles = "telephony")]
-    public partial class DashBoard : TelephonyBasePageComponent, IDisposable
+    public partial class DashBoard : TelephonyBasePageComponent
     {
         public const string RouteParameter = "pages/telephony/endpoint/dashboard";
 
@@ -143,11 +143,11 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
 
         protected bool IsMailBox(Sufficit.Telephony.EndPoint? source)
             => source != null && !source.TechIAX && !source.TechPJSIP && !source.TechSIP;
-        
 
-        public void Dispose()
+        public override void Dispose(bool disposing = false)
         {
             ContextView.OnChanged -= ContextViewChanged;
+            base.Dispose(disposing);
         }
     }
 }

@@ -10,16 +10,16 @@ namespace Sufficit.Blazor
         public static IServiceCollection AddGrpcClient<T>(this IServiceCollection services) where T : class =>
             services.AddTransient(sp =>
             {
-                var interceptor = sp.GetService<GrpcClientInterceptor>();
+                var interceptor = sp.GetRequiredService<GrpcClientInterceptor>();
                 var httpHandler = sp.GetService<HttpClientHandler>();
-                var httpClient = sp.GetService<HttpClient>();
+                var httpClient = sp.GetRequiredService<HttpClient>();
 
                 var handler = new Grpc.Net.Client.Web.GrpcWebHandler(
                     Grpc.Net.Client.Web.GrpcWebMode.GrpcWeb,
                     httpHandler ?? new HttpClientHandler());
 
                 var channel = Grpc.Net.Client.GrpcChannel.ForAddress(
-                    httpClient.BaseAddress,
+                    httpClient.BaseAddress!,
                     new Grpc.Net.Client.GrpcChannelOptions()
                     {
                         HttpHandler = handler
