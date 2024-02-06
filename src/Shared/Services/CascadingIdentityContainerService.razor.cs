@@ -19,13 +19,11 @@ namespace Sufficit.Blazor.Client.Shared.Services
 
         protected override async Task OnParametersSetAsync()
         {
-            User = await Authentication.CurrentUser();
-        }
-
-        protected override void OnAfterRender(bool firstRender)
-        {
-            if (!firstRender) return;
+            // ensure no double events
+            Authentication.AuthenticationStateChanged -= AuthStateChanged;
             Authentication.AuthenticationStateChanged += AuthStateChanged;
+
+            User = await Authentication.CurrentUser();
         }
 
         public void Dispose()
