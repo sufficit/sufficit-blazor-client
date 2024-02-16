@@ -29,14 +29,19 @@
     [EditorRequired]
     public Sufficit.Telephony.EventsPanel.PeerInfoMonitor Monitor { get; set; } = default!;
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnParametersSet()
     {
-        if (!firstRender) return;
+        base.OnParametersSet();
+
+        Monitor.OnChanged -= OnMonitorChanged;
         Monitor.OnChanged += OnMonitorChanged;
     }
 
-    protected async void OnMonitorChanged(IMonitor _, object? __)
-        => await InvokeAsync(StateHasChanged);
+    protected async void OnMonitorChanged(IMonitor monitor, object? __)
+    {
+        if (monitor == Monitor)
+            await InvokeAsync(StateHasChanged);
+    }
 
     public void Dispose()
     {

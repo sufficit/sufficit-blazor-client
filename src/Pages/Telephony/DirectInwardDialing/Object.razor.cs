@@ -13,10 +13,8 @@ using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Contacts;
 using System.Globalization;
-using System.Security.Cryptography;
 using Sufficit.Telephony.DIDs;
 using Sufficit.Blazor.Components;
-using System.Security.Cryptography.Xml;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
@@ -128,6 +126,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         protected override void OnParametersSet()
         {            
+            base.OnParametersSet();
+
             // should create a new item
             if (Item == null)
             {
@@ -163,6 +163,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
             if (ObjectId != Guid.Empty)
@@ -182,7 +183,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
                 await InvokeAsync(StateHasChanged);
             }
 
-            if(Providers == null)
+            if (Providers == null)
             {
                 // Should create an endpoint for that !
                 //Providers = await APIClient.Telephony.DID.

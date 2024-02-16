@@ -1,16 +1,21 @@
 ﻿@using Sufficit.Telephony.EventsPanel
 @inherits BasePageComponent
 
-COUNTER ::::: @Counter
+COUNTER ::::: @TotalItems
+FILTER ::::: @FilterText
 <MudTable @ref="Table"
-          T="Sufficit.Telephony.EventsPanel.PeerInfoMonitor"
-        ServerData="GetData"
-        Class="mt-10"
-        Hover="true" 
-        SortLabel="Sort By"
-          Filter="new Func<Sufficit.Telephony.EventsPanel.PeerInfoMonitor, bool>(OnSearch)">
+    T="Sufficit.Telephony.EventsPanel.PeerInfoMonitor"
+    ServerData="GetData"
+    RowsPerPage="PageSize"
+    RowsPerPageChanged="OnRowsPerPageChanged"
+    Class="mt-10"
+    Hover="true" 
+    FixedHeader="true"
+    Virtualize="true"    
+    TotalItems="TotalItems"
+    SortLabel="Ordenar Por">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Periodic Elements</MudText>
+        <MudText Typo="Typo.h6">Monitoramento de EndPoints</MudText>
         <MudSpacer />
         <MudTextField 
             T="string"
@@ -19,29 +24,18 @@ COUNTER ::::: @Counter
             Adornment="Adornment.Start" 
             AdornmentIcon="@Icons.Material.Filled.Search" 
             IconSize="Size.Medium"
+            Immediate="true"
             @bind-Value="FilterText">
         </MudTextField>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh></MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Protocol)">Tecnologia</MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Name)">Identificação</MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Status)">Estado</MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Address != null ? x.Address : new Char())">Endereço</MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Cause != null ? x.Cause : new Char())">Motivo</MudTableSortLabel>
-        </MudTh>
-        <MudTh>
-            <MudTableSortLabel SortBy="new Func<Sufficit.Telephony.EventsPanel.PeerInfo, object>(x => x.Time != null ? x.Time : 0)">Tempo</MudTableSortLabel>
-        </MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Permanent)"></MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Protocol)">Tecnologia</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Name)">Identificação</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Status)">Estado</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Address)">Endereço</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Cause)">Motivo</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel T="PeerInfoMonitor" SortBy="(x => x.Content.Time)">Tempo</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <PeerRowTemplate Monitor="@context"></PeerRowTemplate>

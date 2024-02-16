@@ -91,6 +91,10 @@
                     <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas" Icon="@Icons.Material.Filled.RecordVoiceOver"></MudNavLinkEnchanted>
                 </AuthorizeView>
                 <AuthorizeView Roles="manager">
+                    <MudNavLinkEnchanted 
+                        Href="@Pages.Telephony.Preferences.RouteParameter"
+                        Icon="@Pages.Telephony.Preferences.Icon"
+                        Title="Preferências"></MudNavLinkEnchanted>
                     <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>
                 </AuthorizeView>
                 <MudNavLink Icon="@Pages.Telephony.IVR.DashBoard.Icon" Href="@Pages.Telephony.IVR.DashBoard.RouteParameter">IVR | Menus</MudNavLink>

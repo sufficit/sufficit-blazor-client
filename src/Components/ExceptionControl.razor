@@ -15,11 +15,22 @@
         @ChildContent
     </ChildContent>
     <ErrorContent>
-        From ErrorBoundary
-        <MudAlert>
-            <MudText>@context.Message</MudText>
-            <MudText>@context.StackTrace</MudText>
-        </MudAlert>
+        <MudPaper>
+            <MudText Class="pa-5">Aconteceu um imprevisto que não fomos capazes de prever com antecedência ao ocorrido de forma espontânea e sem que tivessemos controle de sua imprevisibilidade.</MudText>
+            <MudDivider Class="ma-3"></MudDivider>
+            @if(context is HttpRequestException exception)
+            {
+                <MudAlert Icon="@Icons.Material.Filled.Error">
+                    <MudText>@exception.StatusCode</MudText>
+                    <MudText Typo="Typo.caption">@exception.InnerException?.Message</MudText>
+                </MudAlert>
+                <MudDivider Class="ma-3"></MudDivider>
+            }
+            <MudAlert Icon="@Icons.Material.Filled.Error">
+                <MudText>@context.Message</MudText>
+                <MudText>@context.StackTrace</MudText>
+            </MudAlert>
+        </MudPaper>
     </ErrorContent>
 </ErrorBoundary>
 
@@ -36,11 +47,11 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnParametersSet()
     {
-        if (!firstRender)
-            return;
+        base.OnParametersSet();
 
+        Exceptions.OnError -= Error;
         Exceptions.OnError += Error;
     }
 
@@ -52,5 +63,12 @@
     public void Dispose()
     {
         Exceptions.OnError -= Error;
+    }
+
+    [Obsolete]
+    protected string? GetStack(Exception ex)
+    {
+        System.Diagnostics.StackTrace stack = new System.Diagnostics.StackTrace(ex, true);       
+        return stack.GetFrame(8)?.GetMethod()?.DeclaringType?.ToString();
     }
 }
