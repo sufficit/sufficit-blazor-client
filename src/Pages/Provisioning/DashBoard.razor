@@ -50,7 +50,7 @@
                     </MudTd>
                     <MudTd DataLabel="ExtensionId">
                         <ExtensionViewComponent ExtensionId="@context.ExtensionId" />
-                        </MudTd>
+                    </MudTd>
                     <MudTd DataLabel="Timestamp">@context.Timestamp.ToLocalTime().ToString("dd/MM HH:mm")</MudTd>
                     <MudTd DataLabel="Ação">
                         <MudLink Href="@(Pages.Provisioning.Device.RouteParameter + "?macaddress=" + context.MACAddress)" Underline="Underline.None">

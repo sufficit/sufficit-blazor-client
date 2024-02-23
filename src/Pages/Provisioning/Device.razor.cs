@@ -43,6 +43,8 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 
         protected Sufficit.Telephony.EndPoint? EndPoint { get; set; }
 
+        protected string? Exception { get; set; }
+
         protected bool Loading { get; set; }
 
         protected override async Task OnParametersSetAsync()
@@ -60,17 +62,14 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
 
                     if (Item.ExtensionId.HasValue)
                     {
-                        var parameters = new EndPointSearchParameters();
-                        parameters.Id = Item.ExtensionId.Value;
-                        parameters.Limit = 1;
-                        var endpoints = await APIClient.Telephony.EndPoint.GetEndPoints(parameters, CancellationToken.None);
-                        if (endpoints.Any())
-                            EndPoint = endpoints.FirstOrDefault();
-                        else throw new Exception("device extension not found");
+                        EndPoint = await APIClient.Telephony.EndPoint.GetEndPoint(Item.ExtensionId.Value, CancellationToken.None);
+                        if (EndPoint == null)
+                            Exception = $"endpoint not found: {Item.ExtensionId.Value}";
                     }
                 }
 
                 Loading = false;
+
                 // Updating view
                 await InvokeAsync(StateHasChanged);
             }

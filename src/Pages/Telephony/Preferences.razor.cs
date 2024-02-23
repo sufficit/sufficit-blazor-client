@@ -45,10 +45,10 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
         }
                 
         protected async Task LoadPreferences()
-        {
+        {            
             {
-                var request = new EndPointPropertyRequest("areacode");
-                request.ContextId = ContextView.ContextId;
+                var request = new EndPointPropertyRequest() { Key = "areacode" };
+                request.ContextId = ContextView.ContextId.GetValueOrDefault();
                 request.EndPointId = Guid.Empty;
 
                 AreaCodePreference = null;
@@ -57,12 +57,12 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
                     AreaCodePreference = uint.Parse(AreaCodeProperty.Value);
             }
             {
-                var request = new EndPointPropertyRequest("idforward");
-                request.ContextId = ContextView.ContextId;
+                var request = new EndPointPropertyRequest() { Key = "idforward" };
+                request.ContextId = ContextView.ContextId.GetValueOrDefault();
                 request.EndPointId = Guid.Empty;
 
-                IDForwardProperty = await APIClient.Telephony.EndPoint.GetEndPointProperty(request, CancellationToken.None);               
-            }
+                IDForwardProperty = await APIClient.Telephony.EndPoint.GetEndPointProperty(request, CancellationToken.None);
+            }            
         }
 
         protected async Task OnAreaCodeChanged(uint? value)
