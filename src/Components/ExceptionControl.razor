@@ -21,14 +21,16 @@
             @if(context is HttpRequestException exception)
             {
                 <MudAlert Icon="@Icons.Material.Filled.Error">
-                    <MudText>@exception.StatusCode</MudText>
+                    <MudText Typo="Typo.subtitle1">@context.GetType()</MudText>
+                    <MudText Typo="Typo.subtitle2">@exception.StatusCode</MudText>
                     <MudText Typo="Typo.caption">@exception.InnerException?.Message</MudText>
                 </MudAlert>
                 <MudDivider Class="ma-3"></MudDivider>
             }
             <MudAlert Icon="@Icons.Material.Filled.Error">
-                <MudText>@context.Message</MudText>
-                <MudText>@context.StackTrace</MudText>
+                <MudText Typo="Typo.subtitle1">@context.GetType()</MudText>
+                <MudText Typo="Typo.subtitle2">@context.Message</MudText>
+                <MudText Typo="Typo.caption">@context.StackTrace</MudText>
             </MudAlert>
         </MudPaper>
     </ErrorContent>
