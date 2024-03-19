@@ -27,7 +27,7 @@
 
                                 <RowTemplate>
                                     <MudTd DataLabel="Ação">
-                                        <MudLink Href="@(Pages.Telephony.IVR.Object.RouteParameter + "?id=" + context.Id)" Underline="Underline.None">
+                                    <MudLink Href="@GetLinkForObject(context.Id)" Underline="Underline.None">
                                             <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined"></MudIconButton>
                                         </MudLink>
                                     </MudTd>

@@ -32,8 +32,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         [Inject]
         private IDialogService DialogService { get; set; } = default!;
 
-        [Parameter, SupplyParameterFromQuery(Name = "id")]
-        public Guid ObjectId { get; set; } = default!;
+        [Parameter, SupplyParameterFromQuery(Name = IVRSearchParameters.IVRID)]
+        public Guid IVRId { get; set; } = default!;
 
         protected Sufficit.Telephony.IVR? Item { get; set; }
 
@@ -44,16 +44,22 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             var contextid = value.GetValueOrDefault();
             if (contextid != Guid.Empty)
             {
-                Item = new Sufficit.Telephony.IVR
+                if (Item == null || Item.IdContext != contextid)
                 {
-                    Id = Guid.NewGuid(),
-                    IdContext = contextid
-                };
+                    Item = new Sufficit.Telephony.IVR
+                    {
+                        Id = Guid.NewGuid(),
+                        IdContext = contextid
+                    };
+
+                    IVRId = Item.Id;
+                }
             } 
             else 
             {
                 Item = null;
-            }            
+                IVRId = Guid.Empty;
+            }                        
 
             await InvokeAsync(StateHasChanged);
         }
@@ -65,16 +71,38 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             // should create a new item
             if (Item == null)
             {
-                var contextid = ContextView.ContextId.GetValueOrDefault();
-                if (ObjectId == Guid.Empty && contextid != Guid.Empty)
+                if (IVRId != Guid.Empty)
                 {
-                    Item = new Sufficit.Telephony.IVR
+                    Item = await APIClient.Telephony.IVR.Find(IVRId);
+                    if (Item != null)
                     {
-                        Id = Guid.NewGuid(),
-                        IdContext = contextid
-                    };
+                        IVROptions = (await APIClient.Telephony.IVR.GetOptions(Item.Id)).ToList();
+
+                        // updating context view from ivr context
+                        if (Item.IdContext != ContextView.ContextId)
+                        {
+                            // changing before render, to avoid 
+                            await ContextView.Update(Item.IdContext, false, true);
+                        }
+                    }
+                    else throw new Exception($"Item not found: {IVRId}");
+
+                    // Updating view
+                    await InvokeAsync(StateHasChanged);
                 }
-            }
+                else
+                {
+                    var contextid = ContextView.ContextId.GetValueOrDefault();
+                    if (contextid != Guid.Empty)
+                    {
+                        Item = new Sufficit.Telephony.IVR
+                        {
+                            Id = Guid.NewGuid(),
+                            IdContext = contextid
+                        };
+                    }
+                }
+            }            
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -82,27 +110,8 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
             await base.OnAfterRenderAsync(firstRender);
             if (!firstRender) return;
 
-            if (ObjectId != Guid.Empty)
-            {
-                Item = await APIClient.Telephony.IVR.Find(ObjectId);
-                if (Item != null)
-                {
-                    IVROptions = (await APIClient.Telephony.IVR.GetOptions(Item.Id)).ToList();
-
-                    // updating context view from ivr context
-                    if (Item.IdContext != ContextView.ContextId)
-                    {
-                        // changing before render, to avoid 
-                        await ContextView.Update(Item.IdContext);
-                    }
-                } else throw new Exception($"Item not found: { ObjectId }");
-
-                // Updating view
-                await InvokeAsync(StateHasChanged);
-            }
-
             // tracking context changes
-            ContextView.OnChanged += ContextViewChanged;                       
+            ContextView.OnChanged += ContextViewChanged;
         }
 
         protected void NewOption(MouseEventArgs _)
@@ -129,7 +138,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
                     await APIClient.Telephony.IVR.Update(Item);     
                     
                     // updating options
-                    await APIClient.Telephony.IVR.Update(ObjectId, IVROptions);
+                    await APIClient.Telephony.IVR.Update(Item.Id, IVROptions);
 
                     parameters.Add("Content", "Está salvo com sucesso.");
                     DialogService.Show<StatusDialog>("Sucesso !", parameters);

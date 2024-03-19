@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using MudBlazor;
 using Sufficit.Client;
+using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
         {
             await GetItems();
         }
+
+        protected static string GetLinkForObject(Guid ivrid)
+            => $"{Pages.Telephony.IVR.Object.RouteParameter}?{IVRSearchParameters.IVRID}={ivrid}";
 
         protected IEnumerable<Sufficit.Telephony.IVR>? Items { get; set; }
 

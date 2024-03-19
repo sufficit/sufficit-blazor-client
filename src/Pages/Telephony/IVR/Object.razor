@@ -24,7 +24,7 @@
                                     <MudTextField Margin="Margin.Dense" Variant="Variant.Outlined" Mask="@(new PatternMask("000"))" Immediate="true" Label="Dígito" @bind-Value="@option.Digits" Counter="3"></MudTextField>
                                 </MudItem>
                                 <MudItem xs="12" sm="6" md="4">
-                                    <IDestinationSearch ContextId="@ContextView?.ContextId" Asterisk="@option.DstAsterisk" ValueChanged="@((value) => option.DstAsterisk = value?.Asterisk)"></IDestinationSearch>
+                                    <IDestinationSearch ContextId="@ContextView?.ContextId" Label="Destino (Opcional)" Asterisk="@option.DstAsterisk" ValueChanged="@((value) => option.DstAsterisk = value?.Asterisk)"></IDestinationSearch>
                                 </MudItem>
                                 <MudItem xs="12" sm="6" md="4">
                                     <MudTextField Margin="Margin.Dense" Variant="Variant.Outlined" Counter="50" MaxLength="50" Immediate="true" Label="Titulo (Opcional)" @bind-Value="@option.Title" HelperText="Identificação dessa escolha nos relatórios e gráficos"></MudTextField>
@@ -65,7 +65,8 @@
     </MudCard>
 }
 else {
-    @if(ObjectId != Guid.Empty) {
+    @if (IVRId != Guid.Empty)
+    {
         <div class="card mt-4">
             <div class="card-header pb-3">
                 <h5>Recuperando informações</h5>

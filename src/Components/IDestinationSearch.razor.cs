@@ -24,6 +24,12 @@ namespace Sufficit.Blazor.Client.Components
         public string? Asterisk { get; set; }
 
         /// <summary>
+        ///     (optional) Label for textbox
+        /// </summary>
+        [Parameter]
+        public string? Label { get; set; }
+
+        /// <summary>
         /// Fired when the Value property changes.
         /// </summary>
         [Parameter]
@@ -36,6 +42,8 @@ namespace Sufficit.Blazor.Client.Components
                 UpdateInformation(Asterisk);
             }
         }
+
+        protected string? GetLabel() => Label ?? "Destino";
 
         protected string? GetAsterisk() => Value?.Asterisk;
 
@@ -56,7 +64,7 @@ namespace Sufficit.Blazor.Client.Components
                 Limit = 5
             };
             
-            return await APIClient.Telephony.Destinations(parameters);
+            return await APIClient.Telephony.Destination.Search(parameters, default);
         }
 
         protected async Task DestinationValueChanged(IDestination destination)
@@ -74,13 +82,7 @@ namespace Sufficit.Blazor.Client.Components
         {
             if (!string.IsNullOrWhiteSpace(asterisk) && asterisk != Value?.Asterisk)
             {
-                var parameters = new DestinationSearchParameters()
-                {
-                    ContextId = this.ContextId ?? Guid.Empty,
-                    Filter = asterisk
-                };
-
-                var value = await APIClient.Telephony.Destination(parameters);
+                var value = await APIClient.Telephony.Destination.FromAsterisk(asterisk, default);
                 if(value == null) 
                 {
                     value = new Destination() {
