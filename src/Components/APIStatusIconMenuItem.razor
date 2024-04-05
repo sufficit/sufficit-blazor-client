@@ -1,6 +1,6 @@
-﻿@if (!APIClient.Available)
+﻿@if (Visible)
 {
-    <MudTooltip Text="API não disponível">
+    <MudTooltip Text="@Tooltip">
         <MudIconButton Color="Color.Error" Icon="@Icons.Material.Filled.Warning"></MudIconButton>
     </MudTooltip>
 }

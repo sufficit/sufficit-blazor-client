@@ -1,5 +1,5 @@
 ﻿@namespace Sufficit.Blazor.Client.Shared
-<MudDialog Class="w-100">
+<MudDialog Class="w-100" resource="ContextFilterDialog">
     <TitleContent>
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.Business" Class="mr-3 mb-n1" />
@@ -7,7 +7,7 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <MudTextField @bind-Value="FilterText" Margin="Margin.Dense" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
+        <MudTextField @ref="TextField" @bind-Value="FilterText" Margin="Margin.Dense" Immediate="true" Label="Pesquisar" Variant="Variant.Outlined" FullWidth="true" AutoFocus="true" />
         <MudDivider DividerType="DividerType.Middle" Style="margin: 1rem;" />
         <ClientList Filter="@FilterText" Limit="3" SelectedItemChanged="@OnClientSelect"></ClientList>
     </DialogContent>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using Sufficit.Sales;
 using System;
+using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Shared
 {
@@ -14,11 +15,32 @@ namespace Sufficit.Blazor.Client.Shared
         [Inject]
         public NavigationManager Navigation { get; internal set; } = default!;
 
+        [Inject]
+        protected BlazorContextRuntime BCRuntime { get; set; } = default!;
+
         [CascadingParameter]
         [EditorRequired]
         MudDialogInstance MudDialog { get; set; } = default!;
 
+        [EditorRequired]
+        protected MudTextField<string?> TextField { get; set; } = default!;
+
         protected string? FilterText { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            { // somehow input.AutoFocus is not working, so its a trick
+                var er = TextField.InputReference.ElementReference;
+                var focused = await BCRuntime.IsFocused(er);
+                if (!focused)
+                {
+                    await Task.Delay(200);
+                    await er.FocusAsync();
+                }
+            }
+        }
 
         public void OnClientSelect(IClient client)
         {

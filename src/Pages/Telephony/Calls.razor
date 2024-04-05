@@ -102,8 +102,8 @@
 
         if (ContextId != Guid.Empty)
         {
-            CallSearchParameters parameters = new CallSearchParameters();
-            parameters.IDContext = ContextId;
+            var parameters = new CallSearchParameters();
+            parameters.ContextId = ContextId;
             parameters.Start = DateTime.Now.Date;
 
             try

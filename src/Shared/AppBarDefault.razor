@@ -1,4 +1,5 @@
 ﻿@implements IDisposable
+@using Sufficit.Blazor.Client.Components.MenuItems
 
 <MudAppBar Elevation="0" Style="@AppBarStyle">
     <AuthorizeView>
@@ -14,6 +15,7 @@
         <APIStatusIconMenuItem></APIStatusIconMenuItem>
         <AuthorizeView>
             <Authorized>
+                <NotificationsIconMenuItem></NotificationsIconMenuItem>
                 <MonitorServiceIconButtonMenu></MonitorServiceIconButtonMenu>
                 <WebPhoneIconButtonMenu></WebPhoneIconButtonMenu>
                 <MudIconButton Icon="@Icons.Material.Filled.Logout" OnClick="LogOut" />

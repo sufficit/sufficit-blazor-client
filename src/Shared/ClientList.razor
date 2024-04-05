@@ -1,37 +1,42 @@
 ﻿@using Sufficit.Blazor.Client.Components.Contacts
-<MudTable @ref="Table"    
-    RowClassFunc="RowClass" 
-    RowStyle="cursor: pointer;" 
-    T="Sufficit.Sales.IClient" 
-    Dense="true" 
-    Hover="true" 
-    Elevation="0" 
-    Style="padding: 0;" 
-    Breakpoint="Breakpoint.Sm"    
-    LoadingProgressColor="Color.Info"
-    ServerData="GetData"    
-    SelectedItemChanged="SelectedItemChanged">
-    <HeaderContent>
-        @if (Clients.Any())
-        {
-            <MudTh></MudTh>
-            <MudTh Style="text-align:left">Titulo</MudTh>
-            <MudTh Style="text-align:center">Vencimento</MudTh>
-        }
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
-            <ContactAvatar ReferenceId="@context.Id" Size="Size.Small" />
-        </MudTd>
-        <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
-        <MudTd DataLabel="Vencimento" Style="text-align:center">@context.Expiration.ToString("dd/MM/yyyy")</MudTd>
-    </RowTemplate>
-    <NoRecordsContent>
-        @if (!string.IsNullOrWhiteSpace(Filter))
-        {
-            <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
-        } else {
-            <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
-        }
-    </NoRecordsContent>
-</MudTable>
+@if (Available)
+{
+    <MudTable @ref="Table"    
+        RowClassFunc="RowClass" 
+        RowStyle="cursor: pointer;" 
+        T="Sufficit.Sales.IClient" 
+        Dense="true" 
+        Hover="true" 
+        Elevation="0" 
+        Style="padding: 0;" 
+        Breakpoint="Breakpoint.Sm"    
+        LoadingProgressColor="Color.Info"
+        ServerData="GetData"    
+        SelectedItemChanged="SelectedItemChanged">
+        <HeaderContent>
+            @if (Clients.Any())
+            {
+                <MudTh></MudTh>
+                <MudTh Style="text-align:left">Titulo</MudTh>
+                <MudTh Style="text-align:center">Vencimento</MudTh>
+            }
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Avatar" Style="text-align: center; max-width: 50px;">
+                <ContactAvatar ReferenceId="@context.Id" Size="Size.Small" />
+            </MudTd>
+            <MudTd DataLabel="Titulo" Style="text-align: left; white-space: nowrap;">@context.Title</MudTd>
+            <MudTd DataLabel="Vencimento" Style="text-align:center">@context.Expiration.ToString("dd/MM/yyyy")</MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            @if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+            } else {
+                <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+            }
+        </NoRecordsContent>
+    </MudTable>
+} else {
+    <MudAlert Severity="MudBlazor.Severity.Error" Variant="Variant.Outlined" Dense="true" Class="my-2">API não disponível</MudAlert>
+}

@@ -16,7 +16,7 @@ namespace Sufficit.Blazor.Client
     {
         private readonly WebAssemblyHostBuilder _builder;
 
-        public Startup(WebAssemblyHostBuilder builder)
+        public Startup (WebAssemblyHostBuilder builder)
         {
             _builder = builder;
         }

@@ -5,12 +5,20 @@
 @using Sufficit.Identity;
 @implements IDisposable
 
-@foreach (var ex in Exceptions.ViewExceptions(User.GetUserId()))
+@foreach (var item in Exceptions.ViewExceptions(User.GetUserId()))
 {
-    <MudAlert>@ex.Message</MudAlert>
+    <MudAlert Severity="MudBlazor.Severity.Error" Variant="Variant.Filled" Elevation="1" ShowCloseIcon="true" CloseIconClicked="OnCloseIconClicked">
+        <MudText Typo="Typo.body2">@item.Inner.Message</MudText>
+
+        @if (!string.IsNullOrWhiteSpace(item.Component))
+        {
+            <MudDivider Class="mt-2"></MudDivider>
+            <MudText Typo="Typo.caption">From component: @item.Component</MudText>
+        }
+    </MudAlert>
 }
 
-<ErrorBoundary>
+<ErrorBoundary MaximumErrorCount="3">
     <ChildContent>
         @ChildContent
     </ChildContent>
@@ -18,6 +26,11 @@
         <MudPaper>
             <MudText Class="pa-5">Aconteceu um imprevisto que não fomos capazes de prever com antecedência ao ocorrido de forma espontânea e sem que tivessemos controle de sua imprevisibilidade.</MudText>
             <MudDivider Class="ma-3"></MudDivider>
+            @if (context is AggregateException aggregate && aggregate.InnerException != null)
+            {
+                context = aggregate.InnerException;
+            }
+
             @if(context is HttpRequestException exception)
             {
                 <MudAlert Icon="@Icons.Material.Filled.Error">
@@ -66,6 +79,9 @@
     {
         Exceptions.OnError -= Error;
     }
+
+    protected async void OnCloseIconClicked(MudAlert alert) 
+        => await InvokeAsync(StateHasChanged);
 
     [Obsolete]
     protected string? GetStack(Exception ex)

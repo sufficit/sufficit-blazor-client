@@ -15,6 +15,8 @@ namespace Sufficit.Blazor.Client.Shared
     {
         [Inject]
         APIClientService APIClient { get; set; } = default!;
+        
+        protected bool Available => APIClient.Available;
 
         [Inject]
         IContextView ContextView { get; set; } = default!;
@@ -46,11 +48,6 @@ namespace Sufficit.Blazor.Client.Shared
             return ContextView.ContextId == client.Id ? "bg-gradient-light" : string.Empty;
         }
 
-        protected IEnumerable<IClient> Clients { get; set; } = Array.Empty<IClient>();
-
-        CancellationTokenSource? TokenSource;
-
-
         protected override async Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync();
@@ -65,10 +62,14 @@ namespace Sufficit.Blazor.Client.Shared
             }
         }
 
+        protected IEnumerable<IClient> Clients { get; set; } = Array.Empty<IClient>();
+
+        CancellationTokenSource? TokenSource;
+
         protected async Task<TableData<IClient>> GetData(TableState _)
         {
             // only filter if text is set
-            if (!string.IsNullOrWhiteSpace(_filter))
+            if (Available && !string.IsNullOrWhiteSpace(_filter))
             {
                 if (TokenSource != null) 
                     TokenSource.Cancel(false);
