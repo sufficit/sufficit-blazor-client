@@ -7,11 +7,11 @@ namespace Sufficit.Blazor.Client.Models
 {
     public class BlazorServerAuthData
     {
-        public string SubjectId;
-        public DateTimeOffset Expiration;
-        public string IdToken;
-        public string AccessToken;
-        public string RefreshToken;
-        public DateTimeOffset RefreshAt;
+        public string SubjectId { get; set; } = default!;
+        public DateTimeOffset Expiration { get; set; }
+        public string IdToken { get; set; } = string.Empty;
+        public string? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTimeOffset RefreshAt { get; set; }
     }
 }

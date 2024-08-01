@@ -22,6 +22,9 @@ namespace Sufficit.Blazor.Client.Shared.Forms
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;
 
+        [Inject]
+        protected ISnackbar Snackbar { get; set; } = default!;
+
         [Parameter]
         [EditorRequired]
         public Sufficit.Identity.Client.User User { get; set; } = default!;
@@ -65,7 +68,10 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                         var policies = await BIService.GetUserPolicies(User, default);
                         var exists = policies.Any(s => s.IDDirective == Directive.ID && s.IDContext == Contact.Id);
                         if (exists)
-                            throw new Exception("Já possui");
+                        {
+                            Snackbar.Add("Já possui", Severity.Error);
+                            return;
+                        }
 
                         await BIService.UpdateUserPolicy(User, Directive.Key, Contact.Id, default);
 
@@ -74,17 +80,17 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                     }
                     else
                     {
-                        throw new Exception("Contexto em branco.");
+                        Snackbar.Add("Contexto em branco.", Severity.Error);
                     }
                 }
                 else
                 {
-                    throw new Exception("Diretiva em branco.");
+                    Snackbar.Add("Diretiva em branco.", Severity.Error);
                 }
             } 
             else
             {
-                throw new Exception("Usuário não selecionado");
+                Snackbar.Add("Usuário não selecionado", Severity.Error);
             }
         }
     }

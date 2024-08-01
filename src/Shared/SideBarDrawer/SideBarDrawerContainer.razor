@@ -29,6 +29,15 @@
         <MudNavLinkEnchanted Match="NavLinkMatch.All" Href="dashboard/material" Title="Default"></MudNavLinkEnchanted>
     </MudNavGroupEnchanted>
 
+    <AuthorizeView Context="Notification" Roles="administrator">
+        <Authorized>
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
+            <MudNavGroupEnchanted Title="Notificações" Icon="@Icons.Material.Filled.Notifications" SubTitle="Mensagens e eventos de alertas">
+                <MudNavLink Icon="@Icons.Material.Filled.Event" Href="pages/notification/byevent">Por Evento</MudNavLink>
+            </MudNavGroupEnchanted>
+        </Authorized>
+    </AuthorizeView>
+
     <AuthorizeView Context="Logging" Roles="administrator">
         <Authorized>
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />
@@ -51,7 +60,7 @@
         <Authorized>
             <MudDivider Class="my-2" DividerType="DividerType.Middle" />
             <MudNavGroup Title="Identidade" Icon="@Icons.Material.Filled.Fingerprint">
-                <AuthorizeView Context="Manager" Roles="manager">
+                <AuthorizeView Context="Manager" Roles="@Sufficit.Identity.ManagerRole.NormalizedName">
                     <MudNavLink Icon="@Icons.Material.Filled.ManageAccounts" Href="@Pages.Identity.Policies.RouteParameter">Políticas de usuário</MudNavLink>
                 </AuthorizeView>
                 <MudNavLink Icon="@Icons.Material.Filled.AdminPanelSettings" Href="pages/identity/userroles">Regras do usuário</MudNavLink>
@@ -90,7 +99,7 @@
                     <MudNavLinkEnchanted Href="@Pages.Telephony.EndPoint.DashBoard.RouteParameter" Title="Extensões" Icon="@Pages.Telephony.EndPoint.DashBoard.Icon"></MudNavLinkEnchanted>
                     <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas" Icon="@Icons.Material.Filled.RecordVoiceOver"></MudNavLinkEnchanted>
                 </AuthorizeView>
-                <AuthorizeView Roles="manager">
+                <AuthorizeView Roles="@Sufficit.Identity.ManagerRole.NormalizedName">
                     <MudNavLinkEnchanted 
                         Href="@Pages.Telephony.Preferences.RouteParameter"
                         Icon="@Pages.Telephony.Preferences.Icon"
@@ -109,7 +118,7 @@
                             <MudNavLink Icon="@Pages.Telephony.Monitor.Configuration.Icon" Href="@Pages.Telephony.Monitor.Configuration.RouteParameter">Configuração</MudNavLink>
                             <MudNavLinkEnchanted Title="Painel" Icon="@Icons.Material.Filled.SmartButton" Href="pages/telephony/monitor/panel"></MudNavLinkEnchanted>
 
-                            <AuthorizeView Roles="manager">
+                            <AuthorizeView Roles="@Sufficit.Identity.ManagerRole.NormalizedName">
                                 <MudNavLinkEnchanted Title="Pares" Href="@Pages.Telephony.Monitor.Peers.RouteParameter" Icon="@Pages.Telephony.Monitor.Peers.Icon"></MudNavLinkEnchanted>
                                 <MudNavLinkEnchanted Title="Filas de Espera" Href="pages/telephony/monitor/calls"></MudNavLinkEnchanted>
                                 <MudNavLinkEnchanted Title="Canais" Href="pages/telephony/monitor/channels"></MudNavLinkEnchanted>

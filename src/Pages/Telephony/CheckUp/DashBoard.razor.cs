@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class DashBoard : TelephonyBasePageComponent
     {
         [Inject]

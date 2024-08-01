@@ -81,7 +81,7 @@
     <MudCardActions Style="padding: .5rem 1.5rem .5rem 1.5rem;">
         <MudGrid Class="align-center">
             <MudItem xs="12" md="6" lg="3">
-                <MudSwitch @bind-Checked="@Item.CanSkipAnnouncement" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
+                <MudSwitch T="bool" @bind-Checked="@Item.CanSkipAnnouncement" ThumbIcon="@Icons.Material.Filled.SkipNext" Color="@Color.Primary">
                     <MudText Typo="Typo.body1">Permite pular</MudText>
                     <MudText Typo="Typo.caption">Ao escolher cancela o áudio !</MudText>
                 </MudSwitch>
@@ -92,7 +92,7 @@
                 </MudItem>
             </MudHidden>
             <MudItem xs="12" md="6" lg="5">
-                <MudSwitch @bind-Checked="@Item.DirectDial" ThumbIcon="@Icons.Material.Filled.Person" Color="@Color.Primary">
+                <MudSwitch T="bool" @bind-Checked="@Item.DirectDial" ThumbIcon="@Icons.Material.Filled.Person" Color="@Color.Primary">
                     <MudText Typo="Typo.body1">Discar para ramal diretamente</MudText>
                     <MudText Typo="Typo.caption">Permite discar uma extensão não listada, como um ramal diretamente, ex: 6001</MudText>
                 </MudSwitch>

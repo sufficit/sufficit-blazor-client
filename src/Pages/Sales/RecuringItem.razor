@@ -96,9 +96,9 @@
 
     }
 
-    [Inject] ISnackbar Snackbar { get; set; }
+    [Inject] ISnackbar Snackbar { get; set; } = default!;
 
-    MudForm form;
+    MudForm form { get; set; } = default!;
 
     OrderModelFluentValidator orderValidator = new OrderModelFluentValidator();
 
@@ -108,8 +108,8 @@
 
     public class OrderModel
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string CCNumber { get; set; } = "4012 8888 8888 1881";
         public AddressModel Address { get; set; } = new AddressModel();
         public List<OrderDetailsModel> OrderDetails = new List<OrderDetailsModel>()
@@ -125,14 +125,14 @@
 
     public class AddressModel
     {
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public string Address { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string Country { get; set; } = string.Empty;
     }
 
     public class OrderDetailsModel
     {
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         public decimal Offer { get; set; }
     }
 

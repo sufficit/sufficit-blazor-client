@@ -6,6 +6,7 @@ using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
@@ -32,8 +33,8 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
 
         protected virtual T? Value
         {
-            get { return Generic is T current ? current : default; }
-            set { Generic = value; }
+            get => Generic is T current ? current : default;
+            set => Generic = value;
         }
 
 
@@ -47,11 +48,11 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
             }
         }
 
-        protected async virtual Task<IEnumerable<T>> Search(string filter)
+        protected async virtual Task<IEnumerable<T>> Search(string? filter, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                var results = await APIClient.Contacts.Search(filter, 5, default);
+                var results = await APIClient.Contacts.Search(filter, 5, cancellationToken);
                 return results.OfType<T>();
             }
 

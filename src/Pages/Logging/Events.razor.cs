@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Logging
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Events : BasePageComponent, IPage
     {
         public const string RouteParameter = "pages/logging/events";

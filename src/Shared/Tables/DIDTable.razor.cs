@@ -137,7 +137,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
 
         protected TableData<DirectInwardDialing>? LastData;
 
-        protected async Task<TableData<DirectInwardDialing>> TableServerData(TableState state)
+        protected async Task<TableData<DirectInwardDialing>> TableServerData(TableState state, CancellationToken cancellationToken)
         {            
             LastData ??= new TableData<DirectInwardDialing>()
             {
@@ -150,7 +150,8 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             if (TokenSource != null)
                 TokenSource.Cancel(false);
 
-            var ts = TokenSource = new CancellationTokenSource((int)TimeOut);
+            var tss = new CancellationTokenSource((int)TimeOut);
+            var ts = TokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, tss.Token);
             try
             {
                 Parameters ??= new DIDSearchParameters();

@@ -1,0 +1,35 @@
+﻿@using Sufficit.Gateway.PhoneVox;
+<MudTable @ref="Table"
+          T="PhoneVoxOptions"
+          LoadingProgressColor="Color.Info"
+          ServerData="TableServerData"
+          Breakpoint="Breakpoint.Sm"
+          Hover="true"
+          Class="my-3"               
+>    
+    <LoadingContent>
+        <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
+        <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
+    </LoadingContent>
+    <HeaderContent>
+        <MudTh Style="text-align: center; width: 130px">Ações</MudTh>
+        <MudTh Style="width: 200px">Extensão</MudTh>
+        <MudTh Style="text-align: center; width: 50px">Fornecedor</MudTh>
+    </HeaderContent>
+    <NoRecordsContent>        
+        <MudText>Nenhum resultado encontrado ! ...</MudText>              
+    </NoRecordsContent>
+    <RowTemplate>
+        <MudTd DataLabel="Ações">
+            
+        </MudTd>
+        <MudTd DataLabel="Title">@context.Server.Title</MudTd>
+        <MudTd DataLabel="Remove" Style="text-align: center;">
+            
+            <MudTooltip Text="Remover">
+                <MudIcon Icon="@Icons.Material.Filled.FilterAlt" Size="Size.Small"></MudIcon>
+            </MudTooltip>
+                
+        </MudTd>
+    </RowTemplate>
+</MudTable>

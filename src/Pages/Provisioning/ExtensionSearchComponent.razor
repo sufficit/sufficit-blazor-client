@@ -3,7 +3,7 @@
 <MudItem>
     <MudCard Elevation="0">
         Escolha de extensão
-        <MudAutocomplete T="Sufficit.Telephony.EndPoint" Label="EndPoint" SearchFuncWithCancel="@GetEndPoints" Variant="Variant.Outlined" ShowProgressIndicator="true"
+        <MudAutocomplete T="Sufficit.Telephony.EndPoint" Label="EndPoint" SearchFunc="@GetEndPoints" Variant="Variant.Outlined" ShowProgressIndicator="true"
                          ToStringFunc="@(e => e.Title)"
                          Value="EndPoint" ValueChanged="EndPointChanged" />
     </MudCard>

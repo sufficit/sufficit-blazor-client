@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class EventsData 
     {
         [Parameter]

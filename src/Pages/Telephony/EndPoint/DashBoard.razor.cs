@@ -99,7 +99,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
         /// </summary>
         private CancellationTokenSource? TokenSource;
 
-        protected async Task<TableData<Sufficit.Telephony.EndPoint>> GetData(TableState _)
+        protected async Task<TableData<Sufficit.Telephony.EndPoint>> GetData(TableState _, CancellationToken cancellationToken)
         {           
             if (TokenSource != null)
                 TokenSource.Cancel(false);

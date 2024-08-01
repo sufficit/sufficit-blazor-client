@@ -93,7 +93,7 @@ namespace Sufficit.Blazor.Client.Pages.Contacts
         /// </summary>
         private CancellationTokenSource? TokenSource;
 
-        protected async Task<TableData<ContactWithAttributes>> GetData(TableState _)
+        protected async Task<TableData<ContactWithAttributes>> GetData(TableState _, CancellationToken cancellationToken)
         {
             // only filter if text is set
             if (!string.IsNullOrWhiteSpace(Filter))

@@ -36,7 +36,7 @@ namespace Sufficit.Blazor.Client.Shared.Layout
 
         MudTheme MyCustomTheme = new MudTheme()
         {            
-            Palette = new PaletteLight()
+            PaletteLight = new PaletteLight()
             {
                 Primary = Colors.Red.Darken1,
                 Secondary = Colors.Green.Accent4,

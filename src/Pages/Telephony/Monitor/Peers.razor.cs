@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Peers : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
         public const string RouteParameter = "pages/telephony/monitor/peers";

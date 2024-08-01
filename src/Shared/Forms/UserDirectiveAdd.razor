@@ -1,12 +1,12 @@
 ﻿@using MudBlazor.Components
 <MudGrid>
     <MudItem xs="12" sm="6" md="5">
-        <MudAutocomplete T="Sufficit.Identity.IDirective" Label="Diretiva" SearchFuncWithCancel="@GetDirectives" Variant="Variant.Outlined" ShowProgressIndicator="true"
+        <MudAutocomplete T="Sufficit.Identity.IDirective" Label="Diretiva" SearchFunc="@GetDirectives" Variant="Variant.Outlined" ShowProgressIndicator="true"
             ToStringFunc="@(e=> e.Name)"
                         @bind-Value="@Directive" />
     </MudItem>
     <MudItem xs="12" sm="6" md="5">
-        <MudAutocomplete T="Sufficit.Contacts.IContact" Label="Contexto" SearchFuncWithCancel="@GetContacts" Variant="Variant.Outlined" ShowProgressIndicator="true"
+        <MudAutocomplete T="Sufficit.Contacts.IContact" Label="Contexto" SearchFunc="@GetContacts" Variant="Variant.Outlined" ShowProgressIndicator="true"
             ToStringFunc="@(e => e.Title)"
                          @bind-Value="@Contact" />
     </MudItem>

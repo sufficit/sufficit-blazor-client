@@ -66,7 +66,7 @@ namespace Sufficit.Blazor.Client.Shared
 
         CancellationTokenSource? TokenSource;
 
-        protected async Task<TableData<IClient>> GetData(TableState _)
+        protected async Task<TableData<IClient>> GetData(TableState _, CancellationToken cancellationToken)
         {
             // only filter if text is set
             if (Available && !string.IsNullOrWhiteSpace(_filter))

@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using MudBlazor.Charts;
-using Sufficit;
-using Sufficit.Contacts;
-using Sufficit.Sales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +14,7 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
 
         CancellationTokenSource? TokenSource;
 
-        protected async override Task<IEnumerable<IIdTitlePair>> Search(string filter)
+        protected async override Task<IEnumerable<IIdTitlePair>> Search(string? filter, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {

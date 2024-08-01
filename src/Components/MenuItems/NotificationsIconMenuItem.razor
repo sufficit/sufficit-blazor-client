@@ -2,25 +2,25 @@
 @if (APIClient.Available)
 {
     <MudBadge Content="@Count" Overlap="true" Bordered="true" Max="MaxItems" Visible="@(Count != 0)" BadgeClass="ma-n3" Color="@this.Color">
-        <MudMenu Icon="@this.Icon" FullWidth="false" ActivationEvent="@MouseEvent.MouseOver" Disabled="@(Count == 0)">
+        <MudMenu Icon="@this.Icon" FullWidth="false" ActivationEvent="@(MouseEvent.LeftClick|MouseEvent.MouseOver)" Disabled="@(Count == 0)">
             @foreach (var item in Notifications)
             {
-                <MudPaper Class="pa-2" Elevation="0">
-                    <MudStack Row="true">
-                        <ContactAvatar ReferenceId="@item.ContextId" Size="Size.Small"></ContactAvatar>
-                        <MudStack Justify="Justify.Center" Spacing="0">
-                            <MudText Typo="Typo.body1">@item.Message</MudText>
-                                    
+                <MudMenuItem>
+                    <MudPaper Class="pa-2" Elevation="0">
+                        <MudStack Row="true">
+                            <ContactAvatar ReferenceId="@item.ContextId" Size="Size.Small"></ContactAvatar>
+                            <MudStack Justify="Justify.Center" Spacing="0">
+                                <MudText Typo="Typo.body1">@item.Message</MudText>                                    
+                            </MudStack>
+                            <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" Color="Color.Default" Class="ml-3" />
                         </MudStack>
-                        <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" Color="Color.Default" Class="ml-3" />
-                    </MudStack>
-                    <MudDivider DividerType="DividerType.Middle" Class="mt-1"></MudDivider>
-                    <div class="d-block mud-typography-align-right">
-                        <MudIcon Style="font-size: var(--mud-typography-caption-size);" Icon="@Icons.Material.Outlined.WatchLater"></MudIcon>
-                        <MudText Typo="Typo.caption">@Elapsed(item.Timestamp)</MudText>
-                    </div>
-                            
-                </MudPaper>
+                        <MudDivider DividerType="DividerType.Middle" Class="mt-1"></MudDivider>
+                        <div class="d-block mud-typography-align-right">
+                            <MudIcon Style="font-size: var(--mud-typography-caption-size);" Icon="@Icons.Material.Outlined.WatchLater"></MudIcon>
+                            <MudText Typo="Typo.caption">@Elapsed(item.Timestamp)</MudText>
+                        </div>                            
+                    </MudPaper>
+                </MudMenuItem>
             }
         </MudMenu>
     </MudBadge>

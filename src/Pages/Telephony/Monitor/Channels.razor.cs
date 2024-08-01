@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Channels : MonitorTelephonyBasePageComponent, IDisposable
     {
         protected override string Title => "Canais";

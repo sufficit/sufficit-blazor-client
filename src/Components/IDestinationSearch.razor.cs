@@ -5,6 +5,7 @@ using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Components
@@ -55,7 +56,7 @@ namespace Sufficit.Blazor.Client.Components
             return Value.GetIcon();
         }
 
-        protected async Task<IEnumerable<IDestination>> Search(string filter)
+        protected async Task<IEnumerable<IDestination>> Search(string filter, CancellationToken cancellationToken)
         {
             var parameters = new DestinationSearchParameters()
             {
@@ -64,7 +65,7 @@ namespace Sufficit.Blazor.Client.Components
                 Limit = 5
             };
             
-            return await APIClient.Telephony.Destination.Search(parameters, default);
+            return await APIClient.Telephony.Destination.Search(parameters, cancellationToken);
         }
 
         protected async Task DestinationValueChanged(IDestination destination)

@@ -1,5 +1,6 @@
 ﻿@using Sufficit.Provisioning;
 @using Sufficit.Telephony;
+@using System.Threading
 
 <MudCard Class="ma-2" Elevation="25">
     <MudCardHeader>
@@ -114,13 +115,13 @@
         }
     }
 
-    protected async Task<TableData<DeviceAttribute>> GetData(TableState _)
+    protected async Task<TableData<DeviceAttribute>> GetData(TableState _, CancellationToken cancellationToken)
     {
         try
         {
             if (MACAddress != null && MACAddress.IsValidMACBytes())
             {            
-                var response = await APIClient.Provisioning.AttributesByMAC(MACAddress!, System.Threading.CancellationToken.None);
+                var response = await APIClient.Provisioning.AttributesByMAC(MACAddress!, cancellationToken);
                 Attributes = response ?? Array.Empty<DeviceAttribute>();            
             }
             else { Attributes = Array.Empty<DeviceAttribute>(); }

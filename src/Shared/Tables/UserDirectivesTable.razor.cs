@@ -92,7 +92,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             }
         }
 
-        protected async Task<TableData<UserClaimPolicy>> GetData(TableState _)
+        protected async Task<TableData<UserClaimPolicy>> GetData(TableState _, CancellationToken cancellationToken)
         {
             if (TokenSource != null)
                 TokenSource.Cancel(false);
@@ -127,32 +127,5 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             }
             else Snackbar.Add("id not recognized", Severity.Error);
         }
-
-        /*
-        protected async Task ValueChanged(string? searchText)
-        {
-            if (!string.IsNullOrWhiteSpace(searchText) && searchText.Length > 3)
-            {
-                UsersResponse = await BIService.Identity.Users.GetUsersAsync(searchText);
-                if (UsersResponse == null)
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Problema na consulta";
-                }
-                else if (UsersResponse.Users == null || !UsersResponse.Users.Any())
-                {
-                    UsersResponse = null;
-                    UsersMessage = "Nenhum resultado encontrado";
-                }
-
-                await InvokeAsync(StateHasChanged);
-            }
-            else
-            {
-                UsersResponse = null;
-                UsersMessage = "Mínimo de 4 caracteres para consultar";
-            }
-        }
-        */
     }
 }

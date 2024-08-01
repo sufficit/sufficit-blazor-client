@@ -1,0 +1,103 @@
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
+@inherits BasePageComponent
+@using Sufficit.Blazor.Client.Components.Contacts
+
+<MudPaper>
+    <MudGrid Justify="Justify.FlexEnd" Class="d-none d-md-flex" Spacing="3">
+        
+    </MudGrid>
+</MudPaper>
+<MudGrid Class="mt-5">
+    <MudItem xs="12"> 
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudGrid Justify="Justify.FlexEnd">
+                <MudItem xs="12" md="6" lg="3">
+                    <MudSelect T="string" Label="Campo para filtrar" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense" Variant="Variant.Outlined" Value='"ReferenceId"'>
+                        <MudSelectItem Value='"ReferenceId"'>Id de Referência</MudSelectItem>
+                        <MudSelectItem Value='"ContextId"'>Id de Contexto</MudSelectItem>
+                        <MudSelectItem Value='"ModelId"'>Id de Modelo</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6" lg="5">
+                    <MudTextField T="string"
+                                  Placeholder="Filtro"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.FilterAlt"
+                                  IconSize="Size.Small"
+                                  Immediate="true"
+                                  Margin="Margin.Dense" Variant="Variant.Outlined">
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12"> 
+        <MudTable @ref="Table"
+                T="Sufficit.Exchange.MessageDetails"
+                LoadingProgressColor="Color.Info"
+                ServerData="TableServerData"
+                Breakpoint="Breakpoint.Sm"
+                Hover="true"
+                Class="my-3">
+            <ToolBarContent>
+                @if (TableData.Items != null)
+                {
+                    <MudText Typo="Typo.body1" Align="Align.Left" Style="text-wrap: nowrap;"><b>@Totals</b> Item(s)</MudText>
+                    <MudSpacer></MudSpacer>
+                } 
+            </ToolBarContent>
+            <LoadingContent>
+                <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
+                <MudSkeleton Class="mx-3 mt-n3" Animation="Animation.Wave" Height="70px" />
+            </LoadingContent>
+            <HeaderContent>
+                <MudTh Style="text-align: center; width: 50"></MudTh>                        
+                <MudTh Style="width: 200px">Horário</MudTh>
+                <MudTh></MudTh>
+                <MudTh Style="text-align: center; width: 50px"></MudTh>
+                <MudTh Style="text-align: center; width: 50px"></MudTh>
+                <MudTh Style="text-align: center; width: 100px"></MudTh>
+                <MudTh Style="text-align: center; width: 50px"></MudTh>
+            </HeaderContent>
+            <NoRecordsContent>
+                @if (!string.IsNullOrWhiteSpace(Filter))
+                {
+                    @if (Filter.Length < Minimum)
+                    {
+                        <MudText>Para iniciar a pesquisa precisamos de pelo menos @Minimum caracteres.</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Nenhum resultado encontrado para (@Filter) ! ...</MudText>
+                    }
+                }
+                else
+                {
+                    <MudText>Digite qualquer texto para iniciar a pesquisa.</MudText>
+                }
+            </NoRecordsContent>
+            <RowTemplate>
+                <MudTd DataLabel="Model">
+                    <AsyncBlock Action="@GetTitle(context.ModelId)" Context="Title">
+                        <MudTooltip Text="@Title">
+                            <ContactAvatar ReferenceId="@(context.ModelId ?? Guid.Empty)" Size="Size.Small"></ContactAvatar>
+                        </MudTooltip>
+                    </AsyncBlock>
+                </MudTd>
+                <MudTd DataLabel="Timestamp">@context.Timestamp.ToLocalTime()</MudTd>
+                <MudTd DataLabel="Channel">@context.Channel</MudTd>
+                <MudTd DataLabel="Recipient">@context.Recipient</MudTd>
+                <MudTd DataLabel="Canais" Style="text-align: center;"></MudTd>
+                <MudTd DataLabel="Cadastro" Style="text-align: center;"></MudTd>
+                <MudTd DataLabel="Fornecedor" Style="text-align: center;">
+                    <AsyncBlock Action="@GetTitle(@context.ContextId)" Context="Title">
+                        <MudTooltip Text="@Title">
+                            <ContactAvatar ReferenceId="@(context.ContextId ?? Guid.Empty)" Size="Size.Small"></ContactAvatar>
+                        </MudTooltip>
+                    </AsyncBlock>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>        
+    </MudItem>
+</MudGrid>

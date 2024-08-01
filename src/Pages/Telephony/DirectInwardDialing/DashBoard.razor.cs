@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Blazor.Client.Shared.Tables;
@@ -85,7 +86,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             Navigation.LocationChanged += OnLocationChanged;
         }
 
-        private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+        private async void OnLocationChanged(object? sender, LocationChangedEventArgs e)
         {
             Console.WriteLine($"Location changed: {e.Location}");
             await InvokeAsync(StateHasChanged);

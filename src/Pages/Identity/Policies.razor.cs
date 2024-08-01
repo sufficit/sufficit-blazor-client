@@ -14,7 +14,7 @@ using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {
-    [Authorize(Roles = "manager")]
+    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Policies : BasePageComponent
     {
         public const string RouteParameter = "pages/identity/policies";
@@ -120,7 +120,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                 UDTable.DataBind();
         }
 
-        public async void OnUserSelect(User selected)
+        public async void OnUserSelect (User selected)
         {
             if (UserSelected != selected)
             {
@@ -139,13 +139,16 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                 FullWidth = true,
             };
 
-            var parameters = new DialogParameters();
-            parameters.Add("Question", $"Tem certeza que deseja remover o usuário, {selected.EMail} ?");
-            parameters.Add("Observation", "Essa ação não poderá ser desfeita");
+            var parameters = new DialogParameters
+            {
+                { "Question", $"Tem certeza que deseja remover o usuário, {selected.EMail} ?" },
+                { "Observation", "Essa ação não poderá ser desfeita" }
+            };
+
             var dialogReferense = DialogService.Show<ConfirmDialog>("Remover permanentemente", parameters, options);
 
             var result = await dialogReferense.Result;
-            if (!result.Canceled)
+            if (result != null && !result.Canceled)
             {
                 try
                 {
@@ -155,7 +158,7 @@ namespace Sufficit.Blazor.Client.Pages.Identity
                     UserSearchTableReference?.DataBind();
                     await InvokeAsync(StateHasChanged);
 
-                    Logger.LogInformation("user removed: {0}", selected.EMail);
+                    Logger.LogInformation("user removed: {email}", selected.EMail);
                     Snackbar.Add("Pronto ! Usuário removido com sucesso", Severity.Success);
                 }
                 catch (Exception ex)

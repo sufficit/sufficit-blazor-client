@@ -6,7 +6,7 @@
 <div class="pa-1 ma-1">
     <hr />
     <h3>ClaimsPrincipal data using default "@AuthenticationStateProvider.GetType().Name" </h3>
-    <h5>AuthenticationType: @User?.Identity.AuthenticationType</h5>
+    <h5>AuthenticationType: @User?.Identity?.AuthenticationType</h5>
     <hr />
     <p>@_authMessage</p>
 
@@ -24,22 +24,22 @@
 </div>
 
 @code {
-    [Inject] NavigationManager Navigation { get; set; }
-    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-    [Inject] IAccessTokenProvider TokenProvider { get; set; }
-    [Inject] IHttpClientFactory ClientFactory { get; set; }
+    [Inject] NavigationManager Navigation { get; set; } = default!;
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    [Inject] IAccessTokenProvider TokenProvider { get; set; } = default!;
+    [Inject] IHttpClientFactory ClientFactory { get; set; } = default!;
 
-    private ClaimsPrincipal User;
-    private string _authMessage;
+    private ClaimsPrincipal? User;
+    private string _authMessage = string.Empty;
     private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
-    private AccessToken accessToken;
+    private AccessToken? accessToken;
 
     protected override async Task OnInitializedAsync()
     {
         User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
         try
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated ?? false)
             {
                 _authMessage = $"{User.Identity.Name} is authenticated. ({User.Identity.GetType()})";
                 _claims = User.Claims;                      

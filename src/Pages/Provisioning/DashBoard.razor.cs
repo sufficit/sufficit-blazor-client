@@ -64,7 +64,7 @@ namespace Sufficit.Blazor.Client.Pages.Provisioning
         }
 
         CancellationTokenSource? TokenSource;
-        protected async Task<TableData<Sufficit.Telephony.Device>> GetData(TableState _)
+        protected async Task<TableData<Sufficit.Telephony.Device>> GetData(TableState _, CancellationToken cancellationToken)
         {            
             if (TokenSource != null)
                 TokenSource.Cancel(false);

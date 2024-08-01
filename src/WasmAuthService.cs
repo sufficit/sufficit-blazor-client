@@ -2,7 +2,6 @@
 using Sufficit.Blazor.Client.Services;
 using Sufficit.Identity;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client

@@ -27,7 +27,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 
         protected TableData<PeerInfoMonitor>? LastData;
 
-        protected Task<TableData<PeerInfoMonitor>> GetData(TableState state)
+        protected Task<TableData<PeerInfoMonitor>> GetData(TableState state, CancellationToken cancellationToken)
         {
             IEnumerable<PeerInfoMonitor> items = EPService.Peers.ToList();
 

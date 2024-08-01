@@ -21,11 +21,20 @@ namespace Sufficit.Blazor.Client.Components
 
         protected string GetInitials()
         {
+            if (string.IsNullOrWhiteSpace(Title))
+                return string.Empty;
+
             string result = string.Empty;
             foreach (string s in Title.Split(" "))
                 if (s.Length > 3)
                     result += s[0];
             return result;
+        }
+
+        private async Task ExpandedToggleAsync()
+        {
+            Expanded = !Expanded;
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

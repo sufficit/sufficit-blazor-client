@@ -25,7 +25,7 @@
     <ErrorContent>
         <MudPaper>
             <MudText Class="pa-5">Aconteceu um imprevisto que não fomos capazes de prever com antecedência ao ocorrido de forma espontânea e sem que tivessemos controle de sua imprevisibilidade.</MudText>
-            <MudDivider Class="ma-3"></MudDivider>
+            <MudDivider Class="my-3"></MudDivider>
             @if (context is AggregateException aggregate && aggregate.InnerException != null)
             {
                 context = aggregate.InnerException;
@@ -34,16 +34,54 @@
             @if(context is HttpRequestException exception)
             {
                 <MudAlert Icon="@Icons.Material.Filled.Error">
-                    <MudText Typo="Typo.subtitle1">@context.GetType()</MudText>
-                    <MudText Typo="Typo.subtitle2">@exception.StatusCode</MudText>
+                    <MudText Typo="Typo.subtitle1">HttpRequestException: @context.GetType()</MudText>
+                    @if (@exception.StatusCode != null) {
+                        <MudText Typo="Typo.subtitle2">Status Code: @exception.StatusCode</MudText>
+                    }
                     <MudText Typo="Typo.caption">@exception.InnerException?.Message</MudText>
                 </MudAlert>
-                <MudDivider Class="ma-3"></MudDivider>
+                <MudDivider Class="my-3"></MudDivider>
             }
-            <MudAlert Icon="@Icons.Material.Filled.Error">
-                <MudText Typo="Typo.subtitle1">@context.GetType()</MudText>
-                <MudText Typo="Typo.subtitle2">@context.Message</MudText>
-                <MudText Typo="Typo.caption">@context.StackTrace</MudText>
+
+            <MudAlert Icon="@Icons.Material.Filled.Error" Square=true>
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText>@context.GetType()</MudText>
+                    </MudCardHeader>
+                    @if (!string.IsNullOrWhiteSpace(context.Message))
+                    {
+                        <MudCardContent>
+                            <MudText Typo="Typo.subtitle2">@context.Message</MudText>
+                        </MudCardContent>
+                    }
+                </MudCard>
+                <MudCard Class="mt-3">
+                    <MudCardContent>
+                        @if (!string.IsNullOrWhiteSpace(context.Source))
+                        {
+                            <MudText Typo="Typo.subtitle2">Source: <MudText Typo="Typo.caption">@context.Source</MudText></MudText>
+                        }
+                        @if (context.TargetSite != null)
+                        {
+                            <MudText Typo="Typo.subtitle2">Target: <MudText Typo="Typo.caption">@context.TargetSite</MudText></MudText>
+                        }
+                    </MudCardContent>
+                </MudCard>
+                @if (@context.StackTrace != null) {
+                    <MudCard Class="mt-3">
+                        <MudCardContent>
+                            <MudText Typo="Typo.caption">@context.StackTrace</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                }
+                @if (!string.IsNullOrWhiteSpace(context.HelpLink))
+                {
+                    <MudCard Class="mt-3">
+                        <MudCardContent>
+                            <MudText Typo="Typo.subtitle2">Link: <MudText Typo="Typo.caption">@context.HelpLink</MudText></MudText>
+                        </MudCardContent>
+                    </MudCard>
+                }
             </MudAlert>
         </MudPaper>
     </ErrorContent>

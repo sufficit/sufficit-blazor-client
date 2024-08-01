@@ -13,7 +13,7 @@ namespace Sufficit.Blazor.Client.Components
     {
         protected string Classname =>
         new CssBuilder("mud-nav-item")
-          .AddClass($"mud-ripple", !DisableRipple && !Disabled)
+          .AddClass($"mud-ripple", !Ripple && !Disabled)
           .AddClass(Class)
           .Build();
 
@@ -89,9 +89,9 @@ namespace Sufficit.Blazor.Client.Components
             return Task.CompletedTask;
         }
 
-        protected Dictionary<string, object>? Attributes
+        protected Dictionary<string, object?>? Attributes
         {
-            get => Disabled ? null : new Dictionary<string, object>()
+            get => Disabled ? null : new Dictionary<string, object?>()
             {
                 { "href", Href },
                 { "target", Target },

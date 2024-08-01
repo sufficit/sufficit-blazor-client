@@ -77,7 +77,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             }
         }
 
-        protected async Task<TableData<User>> GetData(TableState _)
+        protected async Task<TableData<User>> GetData(TableState _, CancellationToken cancellationToken)
         {
             // only filter if text is set
             if (!string.IsNullOrWhiteSpace(Filter))
@@ -136,7 +136,7 @@ namespace Sufficit.Blazor.Client.Shared.Tables
             var dialogReferense = DialogService.Show<ConfirmDialog>("Redefinir senha", parameters, options);
 
             var result = await dialogReferense.Result;
-            if (!result.Canceled)
+            if (result != null && !result.Canceled)
             {
                 try
                 {
