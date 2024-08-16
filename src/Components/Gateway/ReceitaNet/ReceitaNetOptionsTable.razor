@@ -1,6 +1,6 @@
-﻿@using Sufficit.Gateway.PhoneVox;
+﻿@using Sufficit.Gateway.ReceitaNet;
 <MudTable @ref="Table"
-          T="PhoneVoxOptions"
+          T="RNOptions"
           LoadingProgressColor="Color.Info"
           ServerData="TableServerData"
           Breakpoint="Breakpoint.Sm"
@@ -20,11 +20,11 @@
     <RowTemplate>
         <MudTd DataLabel="Ações">
             <MudTooltip Text="Editar opções">
-                <MudLink Href="@Pages.Gateway.PhoneVox.GetLink(context.Id)" Underline="Underline.None" Class="mx-1">
+                <MudLink Href="@Pages.Gateway.ReceitaNet.GetLink(context.Id)" Underline="Underline.None" Class="mx-1">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Filled" Size="Size.Small"></MudIconButton>
                 </MudLink>
             </MudTooltip>
         </MudTd>
-        <MudTd DataLabel="Title">@context.Server.Title</MudTd>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
     </RowTemplate>
 </MudTable>

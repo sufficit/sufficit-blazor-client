@@ -15,11 +15,24 @@
         }
         else if (GatewayId.HasValue)
         {
-            <PhoneVoxOptionsControl GatewayId="GatewayId"></PhoneVoxOptionsControl>
+            <PhoneVoxOptionsControl GatewayId="GatewayId.Value"></PhoneVoxOptionsControl>
         } 
         else
         {
-            <PhoneVoxOptionsTable></PhoneVoxOptionsTable>
+            <MudCard Class="pa-5">
+                <MudCardContent>
+                    <PhoneVoxOptionsTable @ref="Table"></PhoneVoxOptionsTable>
+                </MudCardContent>
+                <MudCardActions Class="justify-end">
+                <MudTooltip Text="Atualizar">
+                    <MudIconButton Icon="@Icons.Material.Filled.Refresh" Class="mx-5" Variant="Variant.Outlined" OnClick="async () => await Table.DataBind()"></MudIconButton>
+                </MudTooltip>
+
+                <MudLink Href="@GetLink(Guid.NewGuid())">
+                    <MudButton Variant="Variant.Filled" Color="Color.Surface">Adicionar | Novo</MudButton>
+                </MudLink>
+            </MudCardActions>
+            </MudCard>
         }
     </MudItem>
 </MudGrid>

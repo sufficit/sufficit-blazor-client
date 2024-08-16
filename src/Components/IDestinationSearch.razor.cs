@@ -36,12 +36,13 @@ namespace Sufficit.Blazor.Client.Components
         [Parameter]
         public EventCallback<IDestination?> ValueChanged { get; set; }
 
+        [Parameter]
+        public EventCallback<string?> AsteriskChanged { get; set; }
+
         protected override void OnParametersSet()
         {
-            if (!string.IsNullOrWhiteSpace(Asterisk))
-            {
-                UpdateInformation(Asterisk);
-            }
+            if (Asterisk != null)            
+                UpdateInformation(Asterisk);            
         }
 
         protected string? GetLabel() => Label ?? "Destino";
@@ -68,34 +69,53 @@ namespace Sufficit.Blazor.Client.Components
             return await APIClient.Telephony.Destination.Search(parameters, cancellationToken);
         }
 
-        protected async Task DestinationValueChanged(IDestination destination)
+        protected async Task OnValueChanged(IDestination destination)
         {
             if (Value != destination)
             {
                 Value = destination;
 
-                if(ValueChanged.HasDelegate)
+                if (ValueChanged.HasDelegate)
                     await ValueChanged.InvokeAsync(Value);
+
+                await OnAsteriskChanged(Value.Asterisk);
+            }
+        }
+
+        protected async Task OnAsteriskChanged(string? asterisk)
+        {
+            if (Asterisk != asterisk)
+            {
+                Asterisk = asterisk;
+
+                if (AsteriskChanged.HasDelegate)
+                    await AsteriskChanged.InvokeAsync(Asterisk);
             }
         }
 
         protected async void UpdateInformation(string asterisk)
         {
-            if (!string.IsNullOrWhiteSpace(asterisk) && asterisk != Value?.Asterisk)
+            if (string.IsNullOrWhiteSpace(asterisk)) // clearing
+            {
+                Value = null; 
+                await InvokeAsync(StateHasChanged);
+            } 
+            else if (asterisk != Value?.Asterisk) // updating
             {
                 var value = await APIClient.Telephony.Destination.FromAsterisk(asterisk, default);
-                if(value == null) 
-                {
-                    value = new Destination() {
+                if (value == null) 
+                {                    
+                    value = new Destination()
+                    {
                         Asterisk = asterisk,
                         Title = asterisk,
                         TypeName = "Unknown",
-                    }; 
+                    };
                 }
-                Value = value;
 
+                Value = value;
                 await InvokeAsync(StateHasChanged);
-            }
+            } 
         }
     }
 }

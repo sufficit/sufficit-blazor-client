@@ -130,6 +130,18 @@
             </MudNavGroupEnchanted>
         </Authorized>
     </AuthorizeView>
+
+    <AuthorizeView Context="Gateway">
+        <Authorized>
+            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
+            <MudNavGroupEnchanted Title="Gateways" Icon="@Pages.Gateway.DashBoard.Icon" SubTitle="Integrações">
+                <AuthorizeView>
+                    <MudNavLinkEnchanted Icon="@Pages.Gateway.DashBoard.Icon" Href="@Pages.Gateway.ReceitaNet.RouteParameter" Title="ReceitaNet"></MudNavLinkEnchanted>
+                    <MudNavLinkEnchanted Icon="@Pages.Gateway.DashBoard.Icon" Href="@Pages.Gateway.PhoneVox.RouteParameter" Title="PhoneVox"></MudNavLinkEnchanted>
+                </AuthorizeView>
+            </MudNavGroupEnchanted>
+        </Authorized>
+    </AuthorizeView>
 </MudNavMenu>
 
 <MudDivider Class="my-2" DividerType="DividerType.Middle" />

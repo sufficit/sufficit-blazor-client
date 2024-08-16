@@ -14,9 +14,9 @@
                     InputStyle="opacity:0"
                     OnFilesChanged="OnInputFileChanged"
                     Disabled="!CanUpdate">
-                    <ButtonTemplate>
+                    <ActivatorContent>
                         <ContactAvatar @ref="AvatarReference" ReferenceId="@ContactId" Cache="false" MaxDiameter="230" Elevation="10" />
-                    </ButtonTemplate>
+                    </ActivatorContent>
                 </MudFileUpload>
                 <MudForm Style="width: 100%" Disabled="!CanUpdate">
                     <MudStack Spacing="3">

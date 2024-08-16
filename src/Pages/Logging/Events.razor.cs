@@ -13,7 +13,7 @@ namespace Sufficit.Blazor.Client.Pages.Logging
     [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Events : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/logging/events";
+        public const string RouteParameter = "/pages/logging/events";
 
         public const string? Icon = MudBlazor.Icons.Material.Filled.Event;
 

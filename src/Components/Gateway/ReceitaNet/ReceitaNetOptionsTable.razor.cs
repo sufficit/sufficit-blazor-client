@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Sufficit.Client;
-using Sufficit.Gateway.PhoneVox;
+using Sufficit.Gateway.ReceitaNet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sufficit.Blazor.Client.Components.Gateway.PhoneVox
+namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
 {
-    public partial class PhoneVoxOptionsTable : ComponentBase, IDisposable
+    public partial class ReceitaNetOptionsTable : ComponentBase, IDisposable
     {
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
@@ -24,7 +24,7 @@ namespace Sufficit.Blazor.Client.Components.Gateway.PhoneVox
         [Parameter]
         public EventCallback OnChanged { get; set; }
                 
-        protected MudTable<PhoneVoxOptions> Table { get; set; } = default!;
+        protected MudTable<RNOptions> Table { get; set; } = default!;
 
         private CancellationTokenSource? TokenSource;
 
@@ -52,13 +52,13 @@ namespace Sufficit.Blazor.Client.Components.Gateway.PhoneVox
                 await Table.ReloadServerData();
         }
 
-        protected TableData<PhoneVoxOptions>? LastData;
+        protected TableData<RNOptions>? LastData;
 
-        protected async Task<TableData<PhoneVoxOptions>> TableServerData (TableState state, CancellationToken cancellationToken)
+        protected async Task<TableData<RNOptions>> TableServerData (TableState state, CancellationToken cancellationToken)
         {            
-            LastData ??= new TableData<PhoneVoxOptions>()
+            LastData ??= new TableData<RNOptions>()
             {
-                Items = Array.Empty<PhoneVoxOptions>()
+                Items = Array.Empty<RNOptions>()
             };
 
             if (!ContextView.ContextId.HasValue)
@@ -71,7 +71,7 @@ namespace Sufficit.Blazor.Client.Components.Gateway.PhoneVox
             var ts = TokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, tss.Token);
             try
             {          
-                var result = await APIClient.Gateway.PhoneVox.GetByContextId(ContextView.ContextId.Value, cancellationToken);
+                var result = await APIClient.Gateway.ReceitaNet.GetByContextId(ContextView.ContextId.Value, cancellationToken);
                 LastData.Items = result;
             }
             catch (OperationCanceledException) { }

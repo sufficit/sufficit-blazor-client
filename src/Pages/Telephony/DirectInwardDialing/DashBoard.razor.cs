@@ -20,7 +20,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
     [Authorize(Roles = "telephony")]
     public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "pages/telephony/did/dashboard";
+        public const string RouteParameter = "/pages/telephony/did/dashboard";
 
         public const string? Icon = Icons.Material.Filled.TripOrigin;
 
@@ -72,7 +72,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             await base.OnParametersSetAsync();
 
-            _ = await ContextView.Default<Sufficit.Telephony.TelephonyAdminDirective>();            
+            await ContextView.Default<Sufficit.Telephony.TelephonyAdminDirective>();            
             Parameters ??= new DIDSearchParameters();
             Parameters.ContextId = ContextView.ContextId;            
         }

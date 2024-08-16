@@ -5,10 +5,12 @@ namespace Sufficit.Blazor.Client
 {
     public static class IDestinationExtensions
     {
-        public static string GetIcon(this IDestination destination)
+        public static string GetIcon(this IDestination? destination)
         {
-            return destination.TypeName.Trim().ToLowerInvariant() switch
+            return destination?.TypeName?.Trim().ToLowerInvariant() switch
             {
+                "callqueue" => Icons.Material.Filled.ReduceCapacity,
+                "anuncio" or "announcement" => Icons.Material.Filled.Campaign,
                 "mailbox" or "freepbxmailbox" => Icons.Material.Filled.Voicemail,
                 "enddestination" or "freepbxenddestination" => Icons.Material.Filled.CallEnd,
                 "directextensiondialing" or "diddirect" => Icons.Material.Filled.Fax,

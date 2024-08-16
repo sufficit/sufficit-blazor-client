@@ -17,7 +17,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
     [Authorize(Roles = "telephony")]
     public partial class DashBoard : TelephonyBasePageComponent
     {
-        public const string RouteParameter = "pages/telephony/endpoint/dashboard";
+        public const string RouteParameter = "/pages/telephony/endpoint/dashboard";
 
         public const string? Icon = Icons.Material.Filled.Extension;
 
@@ -132,7 +132,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
         {
             if (!firstRender) return;
 
-            _ = await ContextView.Default();
+            await ContextView.Default();
 
             // if change, get items again
             ContextView.OnChanged += ContextViewChanged;

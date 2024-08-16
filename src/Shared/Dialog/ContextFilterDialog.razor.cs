@@ -37,6 +37,9 @@ namespace Sufficit.Blazor.Client.Shared
                 if (!focused)
                 {
                     await Task.Delay(200);
+
+                    // make sure the UI has re-rendered and the html is re-built
+                    await InvokeAsync(StateHasChanged);
                     await er.FocusAsync();
                 }
             }

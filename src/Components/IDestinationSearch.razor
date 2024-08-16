@@ -1,11 +1,12 @@
 ﻿<MudAutocomplete 
     T="Sufficit.Telephony.IDestination"
+    MinCharacters="3"
     Label="@GetLabel()"
     Value="@Value"
     Variant="Variant.Outlined"
     Margin="Margin.Dense"
     SearchFunc="Search"
-    ValueChanged="DestinationValueChanged"
+    ValueChanged="OnValueChanged"
     AdornmentIcon="@GetAdornmentIcon()"
     IconSize="Size.Small"
     CoerceText="false"
