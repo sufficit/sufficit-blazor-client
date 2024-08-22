@@ -33,15 +33,7 @@ namespace Sufficit.Blazor.Client.Shared
 
             { // somehow input.AutoFocus is not working, so its a trick
                 var er = TextField.InputReference.ElementReference;
-                var focused = await BCRuntime.IsFocused(er);
-                if (!focused)
-                {
-                    await Task.Delay(200);
-
-                    // make sure the UI has re-rendered and the html is re-built
-                    await InvokeAsync(StateHasChanged);
-                    await er.FocusAsync();
-                }
+                await BCRuntime.Focus(er);
             }
         }
 
