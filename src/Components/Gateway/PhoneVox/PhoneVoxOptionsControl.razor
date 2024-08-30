@@ -112,7 +112,9 @@
         <MudCard Square="true" Elevation="4">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Ocorrência</MudText>
+                    <MudText Typo="Typo.h6">
+                        @GetTitleForOccurrence(Options.System)
+                    </MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudCardContent>
@@ -147,48 +149,53 @@
                 </MudGrid>
             </MudCardContent>
         </MudCard>
+        @if (IsVisibleOS(Options.System))
+        {
+            <MudCard Square="true" Elevation="4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Ordem de serviço</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid Spacing="3">
+                        @if (Options.IdOS != null)
+                        {
+                            <MudItem xs="12" md="6" lg="2">
+                                <MudNumericField T="uint?" @bind-Value="Options.IdOS.Other"
+                                Label="Outros"
+                                Variant="Variant.Text"
+                                Adornment="Adornment.Start"></MudNumericField>
+                            </MudItem>
+                            <MudItem xs="12" md="6" lg="2">
+                                <MudNumericField T="uint?" @bind-Value="Options.IdOS.Comercial"
+                                Label="Comercial"
+                                Variant="Variant.Text"
+                                Adornment="Adornment.Start"></MudNumericField>
+                            </MudItem>
+                            <MudItem xs="12" md="6" lg="2">
+                                <MudNumericField T="uint?" @bind-Value="Options.IdOS.Finance"
+                                Label="Financeiro"
+                                Variant="Variant.Text"
+                                Adornment="Adornment.Start"></MudNumericField>
+                            </MudItem>
+                            <MudItem xs="12" md="6" lg="2">
+                                <MudNumericField T="uint?" @bind-Value="Options.IdOS.Support"
+                                Label="Suporte"
+                                Variant="Variant.Text"
+                                Adornment="Adornment.Start"></MudNumericField>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        }
         <MudCard Square="true" Elevation="4">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Ordem de serviço</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent>
-                <MudGrid Spacing="3">
-                    @if (Options.IdOS != null)
-                    {
-                        <MudItem xs="12" md="6" lg="2">
-                            <MudNumericField T="uint?" @bind-Value="Options.IdOS.Other"
-                                             Label="Outros"
-                                             Variant="Variant.Text"
-                                             Adornment="Adornment.Start"></MudNumericField>
-                        </MudItem>
-                        <MudItem xs="12" md="6" lg="2">
-                            <MudNumericField T="uint?" @bind-Value="Options.IdOS.Comercial"
-                                             Label="Comercial"
-                                             Variant="Variant.Text"
-                                             Adornment="Adornment.Start"></MudNumericField>
-                        </MudItem>
-                        <MudItem xs="12" md="6" lg="2">
-                            <MudNumericField T="uint?" @bind-Value="Options.IdOS.Finance"
-                                             Label="Financeiro"
-                                             Variant="Variant.Text"
-                                             Adornment="Adornment.Start"></MudNumericField>
-                        </MudItem>
-                        <MudItem xs="12" md="6" lg="2">
-                            <MudNumericField T="uint?" @bind-Value="Options.IdOS.Support"
-                                             Label="Suporte"
-                                             Variant="Variant.Text"
-                                             Adornment="Adornment.Start"></MudNumericField>
-                        </MudItem>
-                    }
-                </MudGrid>
-            </MudCardContent>
-        </MudCard>
-        <MudCard Square="true" Elevation="4">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Seção</MudText>
+                    <MudText Typo="Typo.h6">
+                        @GetTitleForSection(@Options.System)
+                    </MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudCardContent>

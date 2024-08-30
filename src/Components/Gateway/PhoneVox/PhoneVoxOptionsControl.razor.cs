@@ -46,6 +46,35 @@ namespace Sufficit.Blazor.Client.Components.Gateway.PhoneVox
 
         protected PhoneVoxOptions Options { get; set; } = default!;
 
+
+        protected static bool IsVisibleOS(string system)
+        {
+            return system switch
+            {
+                PhoneVoxOptions.SYSTEMIXC => false,
+                _ => true
+            };
+        }
+
+        protected static string GetTitleForOccurrence(string system)
+        {
+            return system switch
+            {
+                PhoneVoxOptions.SYSTEMIXC => "Assuntos",
+                _ => "Ocorrência"
+            };
+        }
+
+        protected static string GetTitleForSection(string system)
+        {
+            return system switch
+            {
+                PhoneVoxOptions.SYSTEMSGP => "Setores",
+                PhoneVoxOptions.SYSTEMIXC => "Departamentos",
+                _ => "Seção"
+            };
+        }
+
         #region Destinations
 
         protected PhoneVoxDestination Other { get; set; }
