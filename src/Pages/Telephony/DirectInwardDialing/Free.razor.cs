@@ -4,6 +4,7 @@ using Sufficit.Blazor.Client.Shared.Tables;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.EndPoints;
+using Sufficit.Telephony;
 using Sufficit.Telephony.DIDs;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,18 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
-    [Authorize(Roles = "telephony")]
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
     public partial class Free : TelephonyBasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/telephony/did/free";
+        #region INTERFACE IPAGE
 
-        protected override string Title => "DID Disponíveis";
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/did/free";
 
+        public const string Title = "DID Disponíveis";
         protected override string Description => "Rotas de entrada";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

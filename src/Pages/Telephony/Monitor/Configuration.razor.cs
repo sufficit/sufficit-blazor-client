@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using MudBlazor;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
+using Sufficit.Telephony;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Linq;
@@ -12,18 +14,21 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "telephony")]
-    public partial class Configuration : MonitorTelephonyBasePageComponent, IDisposable
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
+    public partial class Configuration : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "pages/telephony/monitor/configuration";
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/monitor/configuration";
 
         public const string? Icon = Icons.Material.Filled.Settings;
 
+        public const string Title = "Configurações";
         protected override string? Area => "Telefonia";
-
-        protected override string Title => "Configurações";
-
         protected override string Description => "Opções do painel de eventos";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

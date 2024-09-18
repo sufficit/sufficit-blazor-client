@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Sufficit.Blazor.Components;
+using Sufficit.Identity;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
@@ -9,12 +11,17 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
-    public partial class Channels : MonitorTelephonyBasePageComponent, IDisposable
+    [Authorize(Roles = ManagerRole.NormalizedName)]
+    public partial class Channels : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
-        protected override string Title => "Canais";
+        #region INTERFACE IPAGE
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/monitor/channels";
 
+        public const string Title = "Canais";
         protected override string Description => "Filtro de canais ativos";
+
+        #endregion
 
         [Inject]
         EventsPanelService Service { get; set; } = default!;

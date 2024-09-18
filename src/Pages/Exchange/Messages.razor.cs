@@ -15,15 +15,17 @@ namespace Sufficit.Blazor.Client.Pages.Exchange
     [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
     public partial class Messages : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/exchange/messages";
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/exchange/messages";
 
         public const string? Icon = MudBlazor.Icons.Material.Filled.Event;
-
-        protected override string Title => "Mensagens";
-
+        public const string Title = "Mensagens";
         protected override string Description => "Registro de mensagens";
-
         protected override string? Area => "Exchange";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

@@ -1,5 +1,5 @@
-﻿@page "/pages/telephony/monitor/channels"
-@attribute [Authorize(Roles = "administrator")]
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
 @inherits MonitorTelephonyBasePageComponent 
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.Extensions.Options

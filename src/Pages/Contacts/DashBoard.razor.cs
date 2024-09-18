@@ -12,15 +12,18 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
-    public partial class DashBoard : BasePageComponent
+    public partial class DashBoard : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/contacts/dashboard";
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/contacts/dashboard";
 
         protected override string? Area => "Contatos";
-
-        protected override string Title => "DashBoard";
-
+        public const string Title = "DashBoard";
         protected override string Description => "Contacts Manager";
+
+        #endregion
 
         public uint PageSize { get; set; } = 25;
 

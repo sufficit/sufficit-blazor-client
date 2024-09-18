@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
+using Sufficit.Identity;
 using Sufficit.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,20 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Logging
 {
-    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
+    [Authorize(Roles = ManagerRole.NormalizedName)]
     public partial class Events : BasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/pages/logging/events";
 
         public const string? Icon = MudBlazor.Icons.Material.Filled.Event;
-
-        protected override string Title => "Eventos";
-
+        public const string Title = "Eventos";
         protected override string Description => "Registro de eventos";
-
         protected override string? Area => "Logging";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

@@ -15,17 +15,18 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Notification
 {
-    public partial class ByEvent : BasePageComponent
+    public partial class ByEvent : BasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
 
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "pages/notification/byevent";
 
         public const string? Icon = Icons.Material.Filled.Event;
-
-        protected override string Title => "Por Evento";
-
+        public const string Title = "Por Evento";
         protected override string Description => "Assinantes por evento";
 
+        #endregion
 
         [Inject]
         private IContextView ContextView { get; set; } = default!;

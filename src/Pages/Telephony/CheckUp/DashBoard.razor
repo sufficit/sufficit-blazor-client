@@ -1,4 +1,5 @@
-﻿@page "/pages/telephony/checkup"
+﻿@attribute [Route(RouteParameter)]
+@attribute [Authorize]
 @inherits TelephonyBasePageComponent 
 
 <MudLink Href="/pages/telephony/checkup/outboundroutes">Conferência nas rotas de saídas</MudLink>

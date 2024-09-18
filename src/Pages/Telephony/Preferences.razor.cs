@@ -11,16 +11,18 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony
 {
     [Authorize]
-    public partial class Preferences : TelephonyBasePageComponent, IPage, IDisposable
+    public partial class Preferences : TelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "pages/telephony/preferences";
+        #region INTERFACE IPAGE
 
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/preferences";
 
         public const string? Icon = Icons.Material.Filled.SettingsSuggest;
-
-        protected override string Title => "Preferências";
-
+        public const string Title = "Preferências";
         protected override string Description => "Facilidades para o sistema de telefonia";
+
+        #endregion
 
         [Inject]
         protected IContextView ContextView { get; set; } = default!;

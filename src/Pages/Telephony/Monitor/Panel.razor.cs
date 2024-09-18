@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Telephony.EventsPanel;
 using System;
@@ -13,13 +14,18 @@ using System.Threading.Tasks;
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
     [Authorize(Roles = "telephony")]
-    public partial class Panel : MonitorTelephonyBasePageComponent, IDisposable
+    public partial class Panel : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "pages/telephony/monitor/panel";
+        #region INTERFACE IPAGE
 
-        protected override string Title => "Painel";
+        static string IPage.RouteParameter => RouteParameter;
 
+        public const string RouteParameter = "/pages/telephony/monitor/panel";
+
+        public const string Title = "Painel";
         protected override string Description => "Cartões de Recursos";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

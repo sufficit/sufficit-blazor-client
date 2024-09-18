@@ -11,17 +11,22 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Sufficit.Blazor.Client.Shared;
+using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 {
-    [Authorize(Roles = "telephony")]
-    public partial class Object : TelephonyBasePageComponent, IDisposable
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
+    public partial class Object : TelephonyBasePageComponent, IDisposable, IPage
     {
-        public const string RouteParameter = "pages/telephony/ivr";
+        #region INTERFACE IPAGE
 
-        protected override string Title => "IVR";
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/ivr";
 
+        public const string Title = "IVR";
         protected override string Description => "Opções do painel de eventos";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

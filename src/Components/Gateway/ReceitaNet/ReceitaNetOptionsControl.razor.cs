@@ -16,6 +16,8 @@ namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
     [Authorize(Roles = "telephony")]
     public partial class ReceitaNetOptionsControl : ComponentBase, IDisposable
     {
+        public const string Description = "Gateway | ReceitaNet (Software para Provedores)";
+
         [Inject]
         private IDialogService DialogService { get; set; } = default!;
 
@@ -42,7 +44,7 @@ namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
         private void OnContextViewChanged(Guid? _)
             => Cancel();
 
-        protected RNOptions Options { get; set; } = default!;
+        public RNOptions Options { get; set; } = default!;
 
         #region Destinations
 
@@ -76,6 +78,31 @@ namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
 
             Options.Title = "default";
         }
+
+        #region TOKENS
+
+        protected string CurrentToken { get; set; } = default!;
+
+        protected void OnTokenAdded (MouseEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(CurrentToken))
+            {
+                var tokens = Options.Tokens.ToHashSet();
+                tokens.Add(CurrentToken);
+                Options.Tokens = tokens.ToArray();
+
+                CurrentToken = default!;
+            }            
+        }
+
+        protected void OnTokenRemoved(string token)
+        {
+            var tokens = Options.Tokens.ToHashSet();
+            if (tokens.Remove(token))
+                Options.Tokens = tokens.ToArray();            
+        }
+
+        #endregion
 
         protected override async Task OnParametersSetAsync()
         {
@@ -116,11 +143,11 @@ namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
 
                     var destinations = (await APIClient.Gateway.ReceitaNet.GetDestinations(GatewayId, default))?.ToList();
                     
-                    Fail = destinations?.FirstOrDefault(s => s.Title == RNDestination.FAIL) ?? new RNDestination() { Title = RNDestination.FAIL };
-                    Hangup = destinations?.FirstOrDefault(s => s.Title == RNDestination.HANGUP) ?? new RNDestination() { Title = RNDestination.HANGUP };
-                    Solicited = destinations?.FirstOrDefault(s => s.Title == RNDestination.SOLICITED) ?? new RNDestination() { Title = RNDestination.SOLICITED };
-                    Connected = destinations?.FirstOrDefault(s => s.Title == RNDestination.CONNECTED) ?? new RNDestination() { Title = RNDestination.CONNECTED };
-                    Unknown = destinations?.FirstOrDefault(s => s.Title == RNDestination.UNKNOWN) ?? new RNDestination() { Title = RNDestination.UNKNOWN };
+                    Fail = destinations?.FirstOrDefault(s => s.Title == RNDestination.FAIL) ?? new RNDestination() { ID = GatewayId, Title = RNDestination.FAIL };
+                    Hangup = destinations?.FirstOrDefault(s => s.Title == RNDestination.HANGUP) ?? new RNDestination() { ID = GatewayId, Title = RNDestination.HANGUP };
+                    Solicited = destinations?.FirstOrDefault(s => s.Title == RNDestination.SOLICITED) ?? new RNDestination() { ID = GatewayId, Title = RNDestination.SOLICITED };
+                    Connected = destinations?.FirstOrDefault(s => s.Title == RNDestination.CONNECTED) ?? new RNDestination() { ID = GatewayId, Title = RNDestination.CONNECTED };
+                    Unknown = destinations?.FirstOrDefault(s => s.Title == RNDestination.UNKNOWN) ?? new RNDestination() { ID = GatewayId, Title = RNDestination.UNKNOWN };
                 } 
                 else
                 {
@@ -203,9 +230,11 @@ namespace Sufficit.Blazor.Client.Components.Gateway.ReceitaNet
             }
             catch (Exception ex)
             {
-                var parameters = new DialogParameters();
-                parameters.Add("Ex", ex);
-                parameters.Add("Content", "Falha ao remover.");
+                var parameters = new DialogParameters
+                {
+                    { "Ex", ex },
+                    { "Content", "Falha ao remover." }
+                };
                 DialogService.Show<StatusDialog>("Falha !", parameters);
             }
         }

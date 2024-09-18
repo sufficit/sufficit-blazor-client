@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Sufficit.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Sufficit.Identity;
+using Microsoft.AspNetCore.Components.Web;
+using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Shared.Layout
 {
@@ -19,6 +21,23 @@ namespace Sufficit.Blazor.Client.Shared.Layout
         protected void ToggleDrawer()
         {
             SideBarExtended = !SideBarExtended;
+        }
+
+        [CascadingParameter(Name = "PageType")]
+        public Type? PageType { get; set; }
+
+        protected string GetPageTitle()
+        {
+            string title = "Sufficit";
+            if (PageType == null)
+                title += " - Não encontrado";
+            else // if (PageType.IsAssignableTo(typeof(IPage))) 
+            {
+                var page = PageType.GetField(nameof(IPage.Title))?.GetValue(null)?.ToString();
+                if (!string.IsNullOrWhiteSpace(page))
+                    title += $" - {page}";
+            }
+            return title;
         }
 
 

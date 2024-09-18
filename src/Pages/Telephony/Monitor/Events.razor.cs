@@ -1,23 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Sufficit.Blazor.Components;
+using Sufficit.Identity;
 using Sufficit.Telephony.EventsPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    [Authorize(Roles = "administrator,manager")]
-    public partial class Events : MonitorTelephonyBasePageComponent, IDisposable
+    [Authorize(Roles = $"{AdministratorRole.NormalizedName},{ManagerRole.NormalizedName}")]
+    public partial class Events : MonitorTelephonyBasePageComponent, IDisposable, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/pages/telephony/monitor/events";
 
-        protected override string Title => "Eventos";
-
+        public const string Title = "Eventos";
         protected override string Description => "Filtro de eventos";
+
+        #endregion
 
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;

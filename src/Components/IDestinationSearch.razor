@@ -12,8 +12,11 @@
     CoerceText="false"
     ResetValueOnEmptyText="true"
     Converter="@IDestinationConverter.Instance"
-    HelperText="@GetHelperText()"
-    data-asterisk="@GetAsterisk()">
+    HelperText="@GetHelperText()" 
+    FullWidth="true"
+    ShrinkLabel="true"
+    Typo="Typo.body2"
+    @attributes="Attributes">
     <NoItemsTemplate>
         <MudText Align="Align.Center" Class="px-4 py-1">
             Nenhum item encontrado 

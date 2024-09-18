@@ -21,13 +21,16 @@ namespace Sufficit.Blazor.Client.Pages.Telephony
     [Authorize]
     public partial class WebPhone : TelephonyBasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/telephony/webphone";
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/webphone";
 
         public const string? Icon = Icons.Material.Filled.Dialpad;
-
-        protected override string Title => "Telefone Web";
-
+        public const string Title = "Telefone Web";
         protected override string Description => "Aplicativo de telefone virtual";
+
+        #endregion
 
         [Inject]
         public JsSIPService JsSIPService { get; set; } = default!;

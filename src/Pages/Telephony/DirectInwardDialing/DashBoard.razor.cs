@@ -7,26 +7,29 @@ using Sufficit.Blazor.Client.Shared.Tables;
 using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Identity;
+using Sufficit.Telephony;
 using Sufficit.Telephony.DIDs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static MudBlazor.CategoryTypes;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
-    [Authorize(Roles = "telephony")]
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
     public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/pages/telephony/did/dashboard";
 
         public const string? Icon = Icons.Material.Filled.TripOrigin;
-
-        protected override string Title => "Direct Inward Dialing";
-
+        public const string Title = "Direct Inward Dialing";
         protected override string Description => "Rotas de entrada";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

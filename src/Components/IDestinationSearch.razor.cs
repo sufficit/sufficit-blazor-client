@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sufficit.Blazor.Client.Components
 {
@@ -39,10 +40,15 @@ namespace Sufficit.Blazor.Client.Components
         [Parameter]
         public EventCallback<string?> AsteriskChanged { get; set; }
 
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object?> Attributes { get; set; } = [];
+
         protected override void OnParametersSet()
         {
             if (Asterisk != null)            
-                UpdateInformation(Asterisk);            
+                UpdateInformation(Asterisk);
+
+            Attributes["data-asterisk"] = GetAsterisk();
         }
 
         protected string? GetLabel() => Label ?? "Destino";
@@ -78,7 +84,7 @@ namespace Sufficit.Blazor.Client.Components
                 if (ValueChanged.HasDelegate)
                     await ValueChanged.InvokeAsync(Value);
 
-                await OnAsteriskChanged(Value.Asterisk);
+                await OnAsteriskChanged(Value?.Asterisk);
             }
         }
 

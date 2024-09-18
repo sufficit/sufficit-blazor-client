@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Sufficit.Blazor.Components;
 using Sufficit.CheckUp;
 using Sufficit.Client;
+using Sufficit.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,19 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
 {
-    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
-    public partial class OutBoundRoutes : TelephonyBasePageComponent
+    [Authorize(Roles = ManagerRole.NormalizedName)]
+    public partial class OutBoundRoutes : TelephonyBasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/telephony/checkup/outboundroutes";
+
+        public const string Title = "Rotas de saída";
+        protected override string Description => "Confere se as rotas de saída estão devidamente configuradas";
+
+        #endregion
+    
         [Inject]
         IWebSocketService WSClient { get; set; } = default!;
 
@@ -29,10 +41,6 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.CheckUp
         */
 
         protected bool ClientSearchVisible { get; set; }
-
-        protected override string Title => "Rotas de saída";
-
-        protected override string Description => "Confere se as rotas de saída estão devidamente configuradas";
 
         protected override Task OnInitializedAsync()
         {

@@ -18,13 +18,17 @@ using Sufficit.Provisioning;
 
 namespace Sufficit.Blazor.Client.Pages.Provisioning
 {
-    public partial class Device : BasePageComponent
+    public partial class Device : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/provisioning/device";
+        #region INTERFACE IPAGE
 
-        protected override string Title => "Dispositivo";
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "/pages/provisioning/device";
 
+        public const string Title = "Dispositivo";
         protected override string Description => "Informações sobre um dispositivo a ser provisionado";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

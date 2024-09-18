@@ -11,17 +11,22 @@ using Sufficit.Blazor.Client.Shared.Tables;
 using MudBlazor;
 using Sufficit.Blazor.Client.Shared;
 using Sufficit.Blazor.Components;
+using Sufficit.Identity;
 
 namespace Sufficit.Blazor.Client.Pages.Identity
 {
-    [Authorize(Roles = Sufficit.Identity.ManagerRole.NormalizedName)]
-    public partial class Policies : BasePageComponent
+    [Authorize(Roles = ManagerRole.NormalizedName)]
+    public partial class Policies : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/identity/policies";
+        #region INTERFACE IPAGE
 
-        protected override string Title => "Políticas de usuário";
+        static string IPage.RouteParameter => RouteParameter;    
+        public const string RouteParameter = "/pages/identity/policies";
 
+        public const string Title = "Políticas de usuário";
         protected override string Description => "Diretivas de acesso";
+
+        #endregion
 
         [Inject]
         protected BlazorIdentityService BIService { get; set; } = default!;

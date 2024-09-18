@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using Sufficit.Blazor.Client.Components.Gateway.PhoneVox;
 using Sufficit.Blazor.Components;
-using Sufficit.Client;
-using Sufficit.Gateway.PhoneVox;
-using Sufficit.Gateway.ReceitaNet;
 using Sufficit.Telephony;
 using System;
 using System.Collections.Generic;
@@ -15,16 +11,20 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Gateway
 {
-    [Authorize(Roles = "telephony")]
-    public partial class PhoneVox : BasePageComponent
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
+    public partial class PhoneVox : BasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
+
         public const string RouteParameter = "/pages/gateway/phonevox";
 
+        public const string Title = "PhoneVox";
         protected override string? Area => "Gateway";
-
-        protected override string Title => "PhoneVox";
-
         protected override string Description => "Gateway de integração com a PhoneVox";
+
+        #endregion
 
         [Inject]
         private IContextView ContextView { get; set; } = default!;

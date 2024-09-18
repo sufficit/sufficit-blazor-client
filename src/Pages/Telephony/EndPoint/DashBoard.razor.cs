@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using MudBlazor;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Contacts;
 using Sufficit.Telephony;
@@ -14,16 +15,19 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.EndPoint
 {
-    [Authorize(Roles = "telephony")]
-    public partial class DashBoard : TelephonyBasePageComponent
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
+    public partial class DashBoard : TelephonyBasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/pages/telephony/endpoint/dashboard";
 
         public const string? Icon = Icons.Material.Filled.Extension;
-
-        protected override string Title => "Extensões";
-
+        public const string Title = "Extensões";
         protected override string Description => "Ramais | Dispositivos | EndPoints";
+
+        #endregion
 
         public uint PageSize { get; set; } = 25;
 

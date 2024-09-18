@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using MudBlazor;
+using Sufficit.Blazor.Components;
 using Sufficit.Client;
 using Sufficit.Telephony;
 using System;
@@ -12,17 +13,19 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.IVR
 {
-    [Authorize(Roles = "telephony")]
-    public partial class DashBoard : TelephonyBasePageComponent, IDisposable
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
+    public partial class DashBoard : TelephonyBasePageComponent, IDisposable, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;    
         public const string RouteParameter = "/pages/telephony/ivr/dashboard";
 
         public const string? Icon = Icons.Material.Filled.List;
-
-        protected override string Title => "IVR";
-
+        public const string Title = "IVR";
         protected override string Description => "Opções do painel de eventos";
 
+        #endregion
         [Inject]
         private APIClientService APIClient { get; set; } = default!;
 

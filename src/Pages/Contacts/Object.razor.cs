@@ -21,13 +21,17 @@ using Sufficit.Identity;
 
 namespace Sufficit.Blazor.Client.Pages.Contacts
 {
-    public partial class Object : BasePageComponent
+    public partial class Object : BasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "pages/contacts/contact";
 
-        protected override string Title => "Contato";
-
+        public const string Title = "Contato";
         protected override string Description => "Atributos do contato";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

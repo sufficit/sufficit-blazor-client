@@ -13,15 +13,18 @@ using System.Threading.Tasks;
 
 namespace Sufficit.Blazor.Client.Pages.Provisioning
 {
-    public partial class DashBoard : BasePageComponent
+    public partial class DashBoard : BasePageComponent, IPage
     {
-        public const string RouteParameter = "pages/provisioning/dashboard";
+        #region INTERFACE IPAGE
 
+        static string IPage.RouteParameter => RouteParameter;
+        public const string RouteParameter = "pages/provisioning/dashboard";
         protected override string? Area => "Provisionamento";
 
-        protected override string Title => "DashBoard";
-
+        public const string Title = "DashBoard";
         protected override string Description => "Provisioning Manager";
+
+        #endregion
 
         [Parameter, SupplyParameterFromQuery(Name = "filter")]
         [EditorRequired]

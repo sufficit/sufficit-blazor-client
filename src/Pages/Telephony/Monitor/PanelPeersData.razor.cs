@@ -10,7 +10,7 @@ using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
 {
-    public partial class PanelPeersData : BasePageComponent
+    public partial class PanelPeersData : ComponentBase, IDisposable
     {
         [Inject]
         private EventsPanelService EPService { get; set; } = default!;
@@ -97,12 +97,9 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.Monitor
             await InvokeAsync(StateHasChanged);
         }
 
-        public override void Dispose(bool disposing)
+        public void Dispose()
         {
             EPService.Peers.OnChanged -= OnPeersChanged;
-
-            // following to base dispose
-            base.Dispose(disposing);
         }
 
         public bool OnSearch(PeerInfoMonitor element)

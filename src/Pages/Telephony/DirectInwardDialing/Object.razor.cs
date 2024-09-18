@@ -18,12 +18,17 @@ using Sufficit.Blazor.Components;
 
 namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
 {
-    [Authorize(Roles = "telephony")]
+    [Authorize(Roles = TelephonyRole.NormalizedName)]
     public partial class Object : TelephonyBasePageComponent, IDisposable, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/pages/telephony/did";
 
-        protected override string Title => "DID | Entrada";
+        public const string Title = "DID | Entrada";
+
+        #endregion
 
         [Inject]
         private APIClientService APIClient { get; set; } = default!;

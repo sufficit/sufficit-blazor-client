@@ -6,7 +6,14 @@ namespace Sufficit.Blazor.Client.Pages
 {
     public partial class Index : BasePageComponent, IPage
     {
+        #region INTERFACE IPAGE
+
+        static string IPage.RouteParameter => RouteParameter;
         public const string RouteParameter = "/";
+
+        public const string Title = "";
+
+        #endregion
 
         protected string Presentation { get; set; } = default!;
 
@@ -16,7 +23,7 @@ namespace Sufficit.Blazor.Client.Pages
         protected override void OnBreadCrumbLoad()
         {
             BreadCrumbService
-                    .Set(new HomeBreadCrumb());
+                .Set(new HomeBreadCrumb());
         }
 
         protected override void OnInitialized()
