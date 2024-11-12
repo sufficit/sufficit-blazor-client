@@ -1,5 +1,5 @@
 ﻿@namespace MudBlazor
-@inherits MudButton
+@inherits MudIconButton
 @using MudBlazor.Extensions
 
 <MudElement @bind-Ref="@_elementReference"
@@ -11,30 +11,25 @@
             type="@ButtonType.ToDescriptionString()"
             href="@Href"
             target="@Target"
-            rel="@(Target=="_blank"?"noopener":null)"
-            disabled="@disabled">
-    <MudOverlay Visible="IsLoading" LightBackground="true" Absolute="true" Class="pt-2">
-        <MudProgressCircular Size="Size.Small" Color="@IconColor" Indeterminate="true" />
+            rel="@GetRel()"
+            disabled="@disabled"
+            ClickPropagation="@GetClickPropagation()">
+    <MudOverlay Visible="IsLoading" LightBackground="true" Absolute="true" Style="display: block">
+        <MudProgressCircular Size="Size.Small" Color="@Color" Indeterminate="true" />
     </MudOverlay>
-    <span class="mud-button-label">
-        @if (!string.IsNullOrWhiteSpace(@StartIcon))
-        {
-            <span class="@StartIconClass">
-                <MudIcon Icon="@StartIcon" Size="@Size" Color="@IconColor" />  
-            </span>
-        }        
-        @ChildContent
-        @if (!string.IsNullOrWhiteSpace(@EndIcon))
-        {
-            <span class="@EndIconClass">
-                <MudIcon Icon="@EndIcon" Size="@Size" Color="@IconColor" />
-            </span>
-        }
-    </span>
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <span class="mud-icon-button-label">
+            <MudIcon Disabled="@Disabled" Icon="@Icon" Size="@Size" />
+        </span>
+    }
+    else
+    {
+        <MudText Typo="Typo.body2" Color="Color.Inherit">@ChildContent</MudText>
+    }
 </MudElement>
 
-
-@code {
+@code{
     protected bool disabled => GetDisabledState() || IsLoading;
 
     protected bool IsLoading;

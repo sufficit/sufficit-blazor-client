@@ -67,7 +67,8 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                     Item.Id = parameters.ContextId;
 
                     dialogParameters.Add("Content", "Está salvo com sucesso.");
-                    await DialogService.ShowAsync<StatusDialog>("Sucesso !", dialogParameters);
+                    var dreference = await DialogService.ShowAsync<StatusDialog>("Sucesso !", dialogParameters);
+                    await dreference.Result;
 
                     Navigation.NavigateTo<DashBoard>();
                 }
@@ -77,6 +78,8 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                     dialogParameters.Add("Content", "Falha ao salvar.");
                     DialogService.Show<StatusDialog>("Falha !", dialogParameters);
                 }
+
+                await InvokeAsync(StateHasChanged);
             }
         }
 
@@ -113,8 +116,8 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                         Item.Id = parameters.ContextId;
 
                         dialogParameters.Add("Content", "Está salvo com sucesso.");
-                        await DialogService.ShowAsync<StatusDialog>("Sucesso !", dialogParameters);
-
+                        var dreference = await DialogService.ShowAsync<StatusDialog>("Sucesso !", dialogParameters);
+                        await dreference.Result;
                         Navigation.NavigateTo<DashBoard>();
                     }
                     catch (Exception ex)
@@ -123,6 +126,8 @@ namespace Sufficit.Blazor.Client.Shared.Forms
                         dialogParameters.Add("Content", "Falha ao salvar.");
                         DialogService.Show<StatusDialog>("Falha !", dialogParameters);
                     }
+
+                    await InvokeAsync(StateHasChanged);
                 }      
             }
         }

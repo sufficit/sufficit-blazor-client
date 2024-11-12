@@ -90,46 +90,7 @@
         </Authorized>
     </AuthorizeView>
 
-    <AuthorizeView Context="Telephony">
-        <Authorized>
-            <MudDivider Class="my-2" DividerType="DividerType.Middle" />
-            <MudNavGroupEnchanted Title="Telefonia" Icon="@Icons.Material.Filled.Tty" SubTitle="Ramais, chamadas e etc.">
-                <MudNavLinkEnchanted Href="@Pages.Telephony.WebPhone.RouteParameter" Title="Telefone Web" Icon="@Pages.Telephony.WebPhone.Icon"></MudNavLinkEnchanted>
-                <AuthorizeView Roles="telephony">
-                    <MudNavLinkEnchanted Href="@Pages.Telephony.EndPoint.DashBoard.RouteParameter" Title="Extensões" Icon="@Pages.Telephony.EndPoint.DashBoard.Icon"></MudNavLinkEnchanted>
-                    <MudNavLinkEnchanted Href="pages/telephony/calls" Title="Chamadas" Icon="@Icons.Material.Filled.RecordVoiceOver"></MudNavLinkEnchanted>
-                </AuthorizeView>
-                <AuthorizeView Roles="@Sufficit.Identity.ManagerRole.NormalizedName">
-                    <MudNavLinkEnchanted 
-                        Href="@Pages.Telephony.Preferences.RouteParameter"
-                        Icon="@Pages.Telephony.Preferences.Icon"
-                        Title="Preferências"></MudNavLinkEnchanted>
-                    <MudNavLinkEnchanted Href="pages/telephony/checkup" Title="CheckUp"></MudNavLinkEnchanted>
-                </AuthorizeView>
-                <MudNavLink Icon="@Pages.Telephony.IVR.DashBoard.Icon" Href="@Pages.Telephony.IVR.DashBoard.RouteParameter">IVR | Menus</MudNavLink>
-                @if (User.IsInRole<Sufficit.Telephony.TelephonyAdminRole>())
-                {
-                    <MudNavLink Icon="@Pages.Telephony.DirectInwardDialing.DashBoard.Icon" Href="@Pages.Telephony.DirectInwardDialing.DashBoard.RouteParameter">DID | Entradas</MudNavLink>
-                }
-                <AuthorizeView Roles="telephony" Context="TelephonyMonitor">
-                    <Authorized>
-                        <MudDivider Class="my-2" DividerType="DividerType.Middle" />
-                        <MudNavGroupEnchanted Title="Monitoramento" Icon="@Icons.Material.Filled.Api" SubTitle="Informações em tempo real">
-                            <MudNavLink Icon="@Pages.Telephony.Monitor.Configuration.Icon" Href="@Pages.Telephony.Monitor.Configuration.RouteParameter">Configuração</MudNavLink>
-                            <MudNavLinkEnchanted Title="Painel" Icon="@Icons.Material.Filled.SmartButton" Href="pages/telephony/monitor/panel"></MudNavLinkEnchanted>
-
-                            <AuthorizeView Roles="@Sufficit.Identity.ManagerRole.NormalizedName">
-                                <MudNavLinkEnchanted Title="Pares" Href="@Pages.Telephony.Monitor.Peers.RouteParameter" Icon="@Pages.Telephony.Monitor.Peers.Icon"></MudNavLinkEnchanted>
-                                <MudNavLinkEnchanted Title="Filas de Espera" Href="pages/telephony/monitor/calls"></MudNavLinkEnchanted>
-                                <MudNavLinkEnchanted Title="Canais" Href="pages/telephony/monitor/channels"></MudNavLinkEnchanted>
-                                <MudNavLinkEnchanted Title="Eventos" Href="pages/telephony/monitor/events"></MudNavLinkEnchanted>
-                            </AuthorizeView>
-                        </MudNavGroupEnchanted>
-                    </Authorized>
-                </AuthorizeView>
-            </MudNavGroupEnchanted>
-        </Authorized>
-    </AuthorizeView>
+    <Sufficit.Blazor.Client.Pages.Telephony.SideBarSnippet />
 
     <AuthorizeView Context="Gateway">
         <Authorized>

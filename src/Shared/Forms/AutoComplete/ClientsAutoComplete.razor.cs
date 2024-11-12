@@ -18,14 +18,13 @@ namespace Sufficit.Blazor.Client.Shared.Forms.AutoComplete
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                if (TokenSource != null)
-                    TokenSource.Cancel(false);
+                TokenSource?.Cancel(false);
 
                 TokenSource = new CancellationTokenSource((int)TimeOut);
                 return await APIClient.Sales.GetClients(filter, 5, TokenSource.Token);
             }
 
-            return Array.Empty<IIdTitlePair>();
+            return [];
         }
     }
 }

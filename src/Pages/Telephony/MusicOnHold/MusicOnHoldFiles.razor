@@ -1,0 +1,301 @@
+﻿@using Sufficit.Telephony
+@using Sufficit.Storage
+@using System.Threading
+@using System.IO
+
+<MudCard Class="my-3 pa-3">
+    <MudCardContent>
+        @if (Items.Count() == 0)
+        {
+            @if (DataBinding)
+            {
+                <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="100px">
+                </MudSkeleton>
+            } else
+            {
+                <MudAlert Severity="MudBlazor.Severity.Info">Vazio ! Sem arquivos de áudio por enquanto, faça o upload usando o formulário a seguir.</MudAlert>
+            }
+        } else {
+            <MudTable Items="Items" Loading="DataBinding" Breakpoint="Breakpoint.Sm" Hover Dense>
+                <ToolBarContent>
+                    <MudText Typo="Typo.caption">Total de itens: @Items.Count()</MudText>
+                    @if (Timestamp.HasValue)
+                    {
+                        <MudSpacer></MudSpacer>
+                        <MudHidden Invert="true" Breakpoint="Breakpoint.MdAndUp">
+                            <MudTooltip Text="Última atualização">
+                                <MudText Typo="Typo.caption" Align="Align.Right">@Timestamp</MudText>
+                            </MudTooltip>
+                        </MudHidden>
+                    }
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh Style="width: 250px">Titulo</MudTh>
+                    <MudTh Style="width: 250px">Total Bytes</MudTh>
+                    <MudTh><MudText Align="Align.End" Typo="Typo.body2">Atualização</MudText></MudTh>
+                    <MudTh Style="width: 130px"></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Titulo">@context.Title</MudTd>
+                    <MudTd DataLabel="Bytes">@(context.Length) bytes</MudTd>
+                    <MudTd DataLabel="Timestamp" HideSmall=true><MudText Align="Align.End" Typo="Typo.body2">@context.Timestamp</MudText></MudTd>
+
+                    <MudTd DataLabel="Ação" Class="d-flex justify-end">
+                        <MudIconButtonEnchanted Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Size="Size.Small" Class="ma-2" Color="Color.Error"
+                            OnClick="() => OnDeleteClick(context)">
+                        </MudIconButtonEnchanted>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>            
+        }
+    </MudCardContent>
+    <MudCardActions Class="justify-end">
+        <MudStack Style="width: 100%">
+            <MudFileUpload T="IReadOnlyList<IBrowserFile>"
+                           @ref="@_fileUpload" 
+                           Accept="@string.Join(',', AcceptExtensions)"
+                           OnFilesChanged="OnInputFileChanged"
+                           AppendMultipleFiles
+                           Hidden="@false"
+                           InputClass="absolute mud-width-full mud-height-full overflow-hidden z-10"
+                           InputStyle="opacity:0"
+                           tabindex="-1"
+                           @ondrop="@ClearDragClass"
+                           @ondragenter="@SetDragClass"
+                           @ondragleave="@ClearDragClass"
+                           @ondragend="@ClearDragClass">
+                <ActivatorContent>
+                    <MudPaper Height="300px"
+                              Outlined="true"
+                              Class="@_dragClass">
+                        <MudText Typo="Typo.h6">
+                            Arraste e solte os arquivos aqui (@_fileUpload?.Accept)
+                        </MudText>
+                        <MudDivider Class="ma-3"></MudDivider>
+                        <MudList T="UploadStorageObject">
+                            @foreach (var file in _files)
+                            {
+                                <MudListItem T="string" 
+                                    SecondaryText="@file.Exception?.Message"                    
+                                    Text="@file.FullPath"
+                                    Icon="@GetIconForFileUpload(file)" />
+                            }
+                        </MudList>
+                    </MudPaper>
+                </ActivatorContent>
+            </MudFileUpload>
+            <MudButtonEnchanted Color="Color.Surface"
+                                OnClick="@OpenFilePickerAsync"
+                                StartIcon="@Icons.Material.Filled.Search"
+                                Variant="Variant.Outlined">
+                Escolher arquivos
+            </MudButtonEnchanted>
+            <MudToolBar Gutters="@false" Class="relative d-flex justify-end gap-4">
+                <MudButton 
+                    Color="Color.Warning"
+                    Href="@CancelHRef"
+                    StartIcon="@Icons.Material.Filled.Backspace"
+                    Variant="Variant.Outlined">
+                    Cancelar
+                </MudButton>
+                <MudSpacer></MudSpacer>
+                <MudButtonEnchanted Color="Color.Primary"
+                    Disabled="@(!_files.Any())"
+                    OnClick="@Upload"
+                    StartIcon="@Icons.Material.Filled.UploadFile"
+                    Variant="Variant.Filled">
+                    Enviar
+                </MudButtonEnchanted>
+                <MudButtonEnchanted Color="Color.Warning"
+                    Disabled="@(!_files.Any())"
+                    OnClick="@(() => ClearAsync(true))"
+                    StartIcon="@Icons.Material.Filled.Clear"
+                    Variant="Variant.Filled">
+                    Limpar
+                </MudButtonEnchanted>
+            </MudToolBar>
+        </MudStack>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    #nullable enable
+
+    [Inject]
+    protected APIClientService APIClient { get; set; } = default!;
+
+    [Inject]
+    protected ISnackbar Snackbar { get; set; } = default!;
+
+    [Parameter]
+    [EditorRequired]
+    public Guid ClassId { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<UploadStorageObject>> OnFilesUploaded { get; set; }
+
+    // max individual upload file size 10mb
+    public const int MAXALLOWEDSIZE = 10485760;
+
+    // accepted mime types for upload files, necessary for android !
+    public static string[] AcceptMIMEs = { "audio/wave", "audio/vnd.wav", "audio/x-wav" };
+
+    // accepted extensions for upload files
+    public static string[] AcceptExtensions = { ".wav", ".mp3" };
+
+    // where to navigate on cancel button clicked
+    private string CancelHRef => DashBoard.GetLink(null);
+
+    protected IEnumerable<Sufficit.Telephony.MusicOnHoldStorageObject> Items { get; set; } = [];
+
+
+    protected string GetIconForFileUpload(UploadStorageObject file)
+    {
+        if (file.Success)
+            return Icons.Material.Filled.Check;
+
+        if (file.Exception != null)
+            return Icons.Material.Filled.Error;
+
+        return Icons.Material.Filled.Pending;
+    }
+
+    protected bool DataBinding { get; set; }
+    protected DateTime? Timestamp { get; set; }
+
+    protected async Task DataBind()
+    {
+        DataBinding = true;
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            Items = await APIClient.Telephony.MusicOnHold.Files(ClassId, CancellationToken.None);
+            Timestamp = DateTime.Now;
+        } 
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, MudBlazor.Severity.Error);
+        }
+
+        DataBinding = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnParametersSetAsync()
+        => DataBind();
+
+
+    private const string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
+    private string _dragClass = DefaultDragClass;
+    private readonly List<UploadStorageObject> _files = new();
+    private MudFileUpload<IReadOnlyList<IBrowserFile>>? _fileUpload;
+
+    private async Task ClearAsync(bool forced = true)
+    {
+        await (_fileUpload?.ClearAsync() ?? Task.CompletedTask);
+
+        if (forced) _files.Clear();
+        else
+        {
+            var removed = _files.RemoveAll(s => s.Success);
+            if (removed > 0)        
+                await InvokeAsync(StateHasChanged);     
+        }
+
+        ClearDragClass();
+    }
+
+    private Task OpenFilePickerAsync()
+        => _fileUpload?.OpenFilePickerAsync() ?? Task.CompletedTask;
+
+    private async Task OnInputFileChanged(InputFileChangeEventArgs e)
+    {
+        ClearDragClass();
+        var files = e.GetMultipleFiles();
+        foreach (var file in files)
+        {
+            if (!IsValid(file.ContentType, file.Name))
+                continue;
+
+            if (_files.Exists(s => s.FullPath == file.Name))
+                continue;
+
+            using MemoryStream ms = new();
+            using var stream = file.OpenReadStream(MAXALLOWEDSIZE);
+            await stream.CopyToAsync(ms);
+
+            var storageObject = new UploadStorageObject()
+            {
+                Bytes = ms.ToArray(),
+                FullPath = file.Name,
+                Length = Convert.ToUInt64(file.Size),
+                MIME = file.ContentType,
+                Update = file.LastModified.DateTime
+            };
+
+            _files.Add(storageObject);
+        }
+    }
+
+
+    public bool IsValid(string contenttype, string name)
+    {
+        if (!string.IsNullOrWhiteSpace(contenttype) && AcceptMIMEs.Contains(contenttype))
+            return true;
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            foreach (var ext in AcceptExtensions)
+                if (name.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase)) return true;
+        } 
+
+        return false;
+    }
+
+
+    private async Task Upload()
+    {
+        // no file
+        if (_files.Count == 0)        
+            return;        
+
+        foreach (var file in _files)
+        {
+            try
+            {
+                await APIClient.Telephony.MusicOnHold.Upload(ClassId, file.Bytes, file.FullPath, CancellationToken.None);
+                file.Success = true; 
+                file.Exception = null;
+            } 
+            catch (Exception ex)
+            {
+                file.Exception = ex;    
+            }
+
+            Snackbar.Add("Áudio enviado com sucesso.");
+            await InvokeAsync(StateHasChanged);
+        }
+
+        var uploaded = _files.Where(s => s.Success);
+        if (uploaded.Any()) // invoking events
+            await OnFilesUploaded.InvokeAsync(uploaded);
+
+        await ClearAsync(false);
+        await DataBind();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnDeleteClick(MusicOnHoldStorageObject moh)
+    {
+        await APIClient.Telephony.MusicOnHold.Delete(ClassId, moh.Title, CancellationToken.None);
+        Items = Items.Where(s => s != moh);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void SetDragClass()
+        => _dragClass = $"{DefaultDragClass} mud-border-primary";
+
+    private void ClearDragClass()
+        => _dragClass = DefaultDragClass;
+}

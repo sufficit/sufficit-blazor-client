@@ -41,16 +41,20 @@ namespace Sufficit.Blazor.Client.Pages.Logging
         [Parameter]
         public Guid? EventContextId { get; set; }
 
-        public static string GetLink(Guid? contextid, string? reference, string? @class)
+        public static string GetLink (Guid? contextid, string? reference, string? @class)
+            => RouteParameter + GetQuery(contextid, reference, @class);
+
+        public static string GetQuery (Guid? contextid, string? reference, string? @class)
         {
-            var link = RouteParameter + "?";
+            var query = "?";
             if (contextid.HasValue)
-                link += $"{nameof(EventContextId)}={contextid}&";
+                query += $"{nameof(EventContextId)}={contextid}&";
             if (!string.IsNullOrWhiteSpace(reference))
-                link += $"{nameof(Reference)}={reference}&";
+                query += $"{nameof(Reference)}={reference}&";
             if (!string.IsNullOrWhiteSpace(@class))
-                link += $"{nameof(ClassName)}={@class}&";
-            return link.TrimEnd('&');
+                query += $"{nameof(ClassName)}={@class}&";
+
+            return query.TrimEnd('&');
         }
 
         protected IEnumerable<JsonLog>? Items { get; set; }

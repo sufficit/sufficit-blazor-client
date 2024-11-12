@@ -338,7 +338,7 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         {
             if (Item != null)
             {
-                var query = $"classname={nameof(DirectInwardDialing)}&event.contextid={Item.Id}";
+                var query = Logging.Events.GetQuery(Item.Id, null, nameof(DirectInwardDialing));
                 NavigationManager.NavigateTo<Logging.Events>(false, query);
             }
         }
@@ -370,10 +370,12 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
         }
 
 
-        void IDisposable.Dispose()
-        {
-            GC.SuppressFinalize(this);
-            ContextView.OnChanged -= ContextViewChanged;
+        public override void Dispose(bool disposing)
+        {   
+            if (disposing)
+            {
+                ContextView.OnChanged -= ContextViewChanged;
+            }
         }
     }
 }

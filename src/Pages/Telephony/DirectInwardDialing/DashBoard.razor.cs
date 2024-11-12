@@ -106,10 +106,13 @@ namespace Sufficit.Blazor.Client.Pages.Telephony.DirectInwardDialing
             Dialog.Show<ContextFilterDialog>();
         }
 
-        void IDisposable.Dispose()
+        public override void Dispose(bool disposing)
         {
-            ContextView.OnChanged -= ContextViewChanged;
-            Navigation.LocationChanged -= OnLocationChanged;
+            if (disposing)
+            {
+                ContextView.OnChanged -= ContextViewChanged;
+                Navigation.LocationChanged -= OnLocationChanged;
+            }
         }
     }
 }

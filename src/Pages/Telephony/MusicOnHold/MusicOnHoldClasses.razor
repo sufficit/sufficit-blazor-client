@@ -1,0 +1,196 @@
+﻿@using Sufficit.Storage
+@using Sufficit.Telephony
+@using System.Threading
+
+<MudCard Class="my-3 pa-3">
+    <MudCardContent>
+        @if (Items.Count() == 0)
+        {
+            @if (DataBinding)
+            {
+                <MudSkeleton SkeletonType="SkeletonType.Rectangle" Class="pa-4" Height="250px">
+                </MudSkeleton>
+            }
+            else
+            {
+                <MudAlert Severity="MudBlazor.Severity.Info">Vazio ! Este cliente ainda não possui nenhuma classe personalizada de música de espera.</MudAlert>
+            }
+        } else {
+            <MudTable Items="Items.OrderBy(s => s.Title)" Breakpoint="Breakpoint.Sm" Hover Dense>
+                <ToolBarContent>
+                    <MudText Typo="Typo.caption">Total de classes: @Items.Count()</MudText>
+                    @if (Timestamp.HasValue)
+                    {
+                        <MudSpacer></MudSpacer>
+                        <MudHidden Invert="true" Breakpoint="Breakpoint.MdAndUp">
+                            <MudTooltip Text="Última atualização">
+                                <MudText Typo="Typo.caption" Align="Align.Right">@Timestamp</MudText>
+                            </MudTooltip>
+                        </MudHidden>
+                    }
+                </ToolBarContent>
+                
+                <HeaderContent>
+                    <MudTh Style="width: 130px"></MudTh>
+                    <MudTh>Titulo</MudTh>
+                    <MudTh Style="width: 200px"><MudText Align="Align.Center" Typo="Typo.body2">Atualização</MudText></MudTh>
+                    <MudTh Style="width: 65px"></MudTh>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd DataLabel="Ação">
+                        <MudLink Href="@GetLinkForObject(context.Id)" Underline="Underline.None">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined" Size="Size.Small" Class="ma-2"></MudIconButton>
+                        </MudLink>
+                    </MudTd>
+                    <MudTd DataLabel="Titulo">@(context.Title ?? "-----------")</MudTd>
+                    <MudTd DataLabel="Timestamp" HideSmall=true><MudText Align="Align.Center" Typo="Typo.body2">@context.Timestamp</MudText></MudTd>
+                    <MudTd>
+                        <MudIconButtonEnchanted 
+                            Icon="@Icons.Material.Filled.Delete" 
+                            OnClick="@(() => OnRemoveClick(context.Id))"
+                            Size="Size.Small"
+                            Color="Color.Error"
+                        ></MudIconButtonEnchanted>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+    </MudCardContent>
+    <MudCardActions Class="justify-end">
+        <MudItem xs="12" sm="8" md="4">
+            <MudTextField T="string" AutoGrow="true"  
+                Label="Título"
+                @bind-Value="Title"
+                HelperText="(Opcional) ex: Promoções"
+                AdornmentIcon="@Icons.Material.Filled.Add"
+                Adornment="Adornment.End"
+                Disabled="Adding"
+                InputType="InputType.Text"
+                InputMode="InputMode.text"
+                Immediate="true" 
+                OnAdornmentClick="OnAddClick">
+            </MudTextField>
+        </MudItem>
+    </MudCardActions>
+</MudCard>
+
+@if (Items.Count() == 0 && ContextId.HasValue)
+{
+    <MusicOnHoldFiles ClassId="@ContextId.Value" OnFilesUploaded="@OnFilesUploaded"></MusicOnHoldFiles>
+}
+
+@code {
+
+    [Inject]
+    protected APIClientService APIClient { get; set; } = default!;
+
+    [Inject]
+    protected NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    private IDialogService Dialog { get; set; } = default!;
+
+    [Inject]
+    protected ISnackbar Snackbar { get; set; } = default!;
+
+    [Parameter]
+    public Guid? ContextId { get; set; }
+
+    public IEnumerable<Sufficit.Telephony.MusicOnHoldClass> Items { get; set; } = [];
+
+    private string? Title { get; set; }
+
+    private bool Adding { get; set; }
+
+    protected async Task OnAddClick()
+    {
+        if (string.IsNullOrWhiteSpace(Title))
+            return;
+
+        if (ContextId.GetValueOrDefault() == Guid.Empty)
+            return;
+
+        Adding = true;
+        await InvokeAsync(StateHasChanged);
+
+        var info = new MusicOnHoldInfo()
+        {
+            ContextId = ContextId.GetValueOrDefault(),
+            Title = Title                 
+        };
+
+        await APIClient.Telephony.MusicOnHold.AddOrUpdate(info, CancellationToken.None);
+        if (info.Id != Guid.Empty)
+        {
+            var query = DashBoard.GetQuery(info.Id);
+            Navigation.NavigateTo<DashBoard>(false, query);
+        }
+        else await DataBind();
+
+        Adding = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnRemoveClick(Guid id)
+    {
+        var parameters = new DialogParameters()
+        {
+            { "Question", "Tem certeza ?" },
+            { "Observation", "Essa ação irá remover também todos os arquivos de áudio correspondentes." }
+        };
+        var dialog = await Dialog.ShowAsync<ConfirmDialog>("Remover música de espera", parameters);
+        var result = await dialog.Result;
+        if (result?.Data is Boolean ok && ok)
+        {
+            await APIClient.Telephony.MusicOnHold.Remove(id, CancellationToken.None);
+            await DataBind();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public static string GetLinkForObject(Guid classid)
+        => DashBoard.GetLink(classid);
+
+
+    protected bool DataBinding { get; set; }
+    protected DateTime? Timestamp { get; set; }
+
+    protected async Task DataBind()
+    {
+        DataBinding = true;
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            var parameters = new MusicOnHoldSearchParameters()
+                {
+                    ContextId = ContextId
+                };
+            Items = await APIClient.Telephony.MusicOnHold.Search(parameters, CancellationToken.None); 
+            Timestamp = DateTime.Now;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, MudBlazor.Severity.Error);
+        }
+
+        DataBinding = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnParametersSetAsync()
+        => DataBind();
+
+
+    public async Task OnFilesUploaded(IEnumerable<UploadStorageObject> files)
+    {
+        var info = new MusicOnHoldInfo()
+        {
+            ContextId = ContextId.GetValueOrDefault(),
+        };
+
+        await APIClient.Telephony.MusicOnHold.AddOrUpdate(info, CancellationToken.None);
+        await DataBind();
+    }
+}
