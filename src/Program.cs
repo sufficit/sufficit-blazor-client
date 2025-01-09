@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
@@ -12,11 +11,7 @@ namespace Sufficit.Blazor.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-
-            // Para finalizar vamos construir o aplicativo para o usuário final
-            builder.RootComponents.Add<Main>("#app");
-            builder.RootComponents.Add<HeadOutlet>("head::after");
-
+            
             #region CONFIGURATIONS
 
             var http = new HttpClient()
@@ -58,7 +53,9 @@ namespace Sufficit.Blazor.Client
             }
 
             #endregion
-            await new Startup(builder).Build().RunAsync();
+            
+            var app = new Startup(builder).Build();
+            await app.RunAsync();
         }        
     }
 }
