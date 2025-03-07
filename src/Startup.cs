@@ -41,6 +41,9 @@ namespace Sufficit.Blazor.Client
             services.AddCascadingAuthenticationState();
             services.AddAuthenticationStateDeserialization();
 
+            services.AddScoped<ClientAuthService>();
+            services.AddScoped<IAuthService, ClientAuthService>(provider => provider.GetRequiredService<ClientAuthService>());
+
             services.ConfigureCommonServices(_builder.Configuration);
 
             // Add device-specific services used by the BlazorHybrid.Shared project

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+﻿using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
@@ -11,7 +12,7 @@ namespace Sufficit.Blazor.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            
+
             #region CONFIGURATIONS
 
             var http = new HttpClient()
@@ -20,7 +21,7 @@ namespace Sufficit.Blazor.Client
             };
 
             #region INCLUDING A SEPARATED FILE FOR EVENTS PANEL
-
+            
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, "appsettings.EventsPanel.json");                
                 using var response = await http.SendAsync(request);
@@ -56,6 +57,6 @@ namespace Sufficit.Blazor.Client
             
             var app = new Startup(builder).Build();
             await app.RunAsync();
-        }        
+        }
     }
 }
